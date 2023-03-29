@@ -38,8 +38,8 @@ export const GraficosPrueba = () => {
                                 data={data}
                                 cx={160}
                                 cy={120}
-                                innerRadius={60}
-                                outerRadius={80}
+                                innerRadius={40}
+                                outerRadius={60}
                                 fill="#8884d8"
                                 paddingAngle={5}
                                 dataKey="value"
@@ -70,8 +70,8 @@ export const GraficosPrueba = () => {
                                 cy={120}
                                 startAngle={360}
                                 endAngle={0}
-                                innerRadius={60}
-                                outerRadius={80}
+                                innerRadius={40}
+                                outerRadius={60}
                                 fill="#8884d8"
                                 paddingAngle={5}
                                 dataKey="value"
@@ -100,8 +100,8 @@ export const GraficosPrueba = () => {
                                 data={data2}
                                 cx={160}
                                 cy={120}
-                                innerRadius={60}
-                                outerRadius={80}
+                                innerRadius={40}
+                                outerRadius={60}
                                 fill="#8884d8"
                                 paddingAngle={5}
                                 dataKey="value"

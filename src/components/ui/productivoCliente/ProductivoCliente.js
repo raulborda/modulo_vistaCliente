@@ -66,9 +66,10 @@ const ProductivoCliente = () => {
             </TabPane>
           ))}
         </Tabs>
-        <Card>
+        {/* <Card> */}
+        
           {handleStage()}
-        </Card>
+        {/* </Card> */}
       </div>
     </>
   )
