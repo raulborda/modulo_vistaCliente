@@ -17,7 +17,7 @@ const TareasCliente = () => {
             src={`${URL}/duoc/modulos/tareas/?idCliente=${idCli}`}
             width={"100%"}
             // height={"770"}
-            height={"700"}
+            height={"500"}
             style={{ border: "none" }}
             title="Tarea Cliente"
           ></iframe>
