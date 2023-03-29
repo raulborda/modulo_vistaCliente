@@ -122,7 +122,8 @@ const TabsCliente = () => {
                         >
                             ACONCAGUA S.R.L
                         </h1>
-                        <EyeOutlined onClick={() => showModal} style={{marginLeft:"10px", marginTop:"3px", fontSize:"15px", color:'#00b33c'}}/>
+                        <Button onClick={() => showModal()} style={{marginLeft:"2px", marginTop:"-3.5px", color:'#00b33c', border: 'none', backgroundColor:"transparent", boxShadow:"none"}}><EyeOutlined /></Button>
+                        {/* <EyeOutlined onClick={() => showModal()} style={{marginLeft:"10px", marginTop:"3px", fontSize:"15px", color:'#00b33c'}}/> */}
 
                     </div>
                     <div className='divTags'>
