@@ -8,13 +8,13 @@ const TareasCliente = () => {
   const URL = `${PROTOCOL}//${HOSTNAME}:${PORT}`;
 
   //const idCli = localStorage.getItem("cliente");
-  const idCli = 2049;
+  const idCli = "2049";
 
   return (
     <>
       <iframe
             loading="lazy"
-            src={`${URL}/duoc/modulos/tareas/?idCliente=${idCli}`}
+            src={`${URL}/duoc/modulo_tarea_iframe/?idCliente=${idCli}`}
             width={"100%"}
             // height={"770"}
             height={"500"}
