@@ -14,7 +14,7 @@ const TareasCliente = () => {
     <>
       <iframe
             loading="lazy"
-            src={`${URL}/duoc/modulo_tarea_iframe/?idCliente=${idCli}`}
+            src={`${URL}/duoc/server/tareas_dashboard/tareasCliente/?idCliente=${idCli}`}
             width={"100%"}
             // height={"770"}
             height={"500"}
