@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, Select, Space, Tabs, Tag } from 'antd';
+import { Button, Card, Modal, Select, Space, Tabs, Tag } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useContext, useState } from 'react'
 import { GlobalContext } from '../../context/GlobalContext';
@@ -13,6 +13,19 @@ import { EyeOutlined } from '@ant-design/icons';
 
 
 const TabsCliente = () => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+
 
     const {
         appStage, setAppStage,
@@ -91,6 +104,10 @@ const TabsCliente = () => {
         console.log(`selected ${value}`);
     };
 
+    const infoCliente = () =>{
+
+    }
+
 
     return (
         <>
@@ -105,7 +122,7 @@ const TabsCliente = () => {
                         >
                             ACONCAGUA S.R.L
                         </h1>
-                        <EyeOutlined style={{marginLeft:"10px", marginTop:"3px", fontSize:"15px", color:'#00b33c'}}/>
+                        <EyeOutlined onClick={() => showModal} style={{marginLeft:"10px", marginTop:"3px", fontSize:"15px", color:'#00b33c'}}/>
 
                     </div>
                     <div className='divTags'>
@@ -169,6 +186,11 @@ const TabsCliente = () => {
                     {handleStage()}
                 </div>
             </div>
+            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+            </Modal>
         </>
     )
 }
