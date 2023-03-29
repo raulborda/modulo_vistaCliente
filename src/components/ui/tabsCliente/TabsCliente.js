@@ -149,7 +149,9 @@ const TabsCliente = () => {
                         ))}
                     </Tabs>
                 </div>
-                {handleStage()}
+                <div style={{marginTop:"1px"}}>
+                    {handleStage()}
+                </div>
             </div>
         </>
     )
