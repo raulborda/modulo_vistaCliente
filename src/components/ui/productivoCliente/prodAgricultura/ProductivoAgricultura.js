@@ -111,7 +111,7 @@ export const ProductivoAgricultura = () => {
                         </Card>
                     </div>
                 </div>
-                <Card style={{ width: '100%' }}>
+                <Card style={{ width: '50%' }}>
                     <div className='divContainerGraficos'>
                         <GraficosProdAgricultura />
                     </div>
