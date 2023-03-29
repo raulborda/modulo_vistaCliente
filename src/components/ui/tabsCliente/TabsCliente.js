@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Card, Select, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useContext, useState } from 'react'
@@ -97,17 +98,26 @@ const TabsCliente = () => {
                 className="divContainer"
             // style={{marginBottom: '-100px' }}
             >
-                <div className='divCliente'>
-                    <h1
-                        style={{ fontSize: '16px', fontWeight: '700', fontFamily: 'Open Sans, sans-serif', marginBottom:'10px' }}
-                    >
-                        ACONCAGUA S.R.L
-                    </h1>
-                    <EyeOutlined style={{marginLeft:"10px", marginTop:"3px", fontSize:"15px", color:'#00b33c'}}/>
+                <div className='divCliente_content'>
+                    <div className='divCliente_info'>
+                        <h1
+                            style={{ fontSize: '16px', fontWeight: '700', fontFamily: 'Open Sans, sans-serif', marginBottom: '10px' }}
+                        >
+                            ACONCAGUA S.R.L
+                        </h1>
+                        <EyeOutlined style={{ marginLeft: "10px", marginTop: "3px", fontSize: "15px", color: '#00b33c' }} />
+
+                    </div>
+                    <div className='divTags'>
+                        <a href='#' className='tags'>IMPORTANTE</a>
+                        <a href='#' className='tags'>FEEDLOT</a>
+                        <a href='#' className='tags'>NUEVO</a>
+                        <a href='#' className='tags'>ZONA NORTE</a>
+                    </div>
                 </div>
                 <div className="divContainer-Select-Tabs">
                     {/* <Space wrap> */}
-                    <div style={{paddingRight: '1px'}}>
+                    <div style={{ paddingRight: '1px' }}>
                         <Select
                             defaultValue="2324"
                             style={{
@@ -136,6 +146,7 @@ const TabsCliente = () => {
                         />
                     </div>
                     <Tabs
+                        hideAdd
                         className="tabs-custom"
                         items={items}
                         onChange={handleTabClick}
@@ -149,7 +160,7 @@ const TabsCliente = () => {
                         ))}
                     </Tabs>
                 </div>
-                <div style={{marginTop:"1px"}}>
+                <div style={{ marginTop: "1px" }}>
                     {handleStage()}
                 </div>
             </div>

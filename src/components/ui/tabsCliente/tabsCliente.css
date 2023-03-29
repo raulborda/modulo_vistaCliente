@@ -89,11 +89,33 @@ html {
 
 /* Fin Select */
 
-.divCliente{
-   display: flex;
-   flex-direction: row;
-   margin-top: 10px;
+.divCliente_content{
    margin-bottom: 5px;
    margin-left: 5px;
-   /* border-bottom: 1px solid #e8e8e8; */
+   border-bottom: 1px solid #e8e8e8;
+}
+.divCliente_info{
+   display: flex;
+   flex-direction: row;
+}
+
+.divTags{
+   margin-top: -3px;
+   display: flex;
+   flex-direction: row;
+   margin-bottom: 5px;
+}
+
+.tags{
+   text-decoration: none;
+   margin-right: 3px;
+   color: #FFFF;
+   background-color: #425F9C;
+   border: 1px solid #425F9C;
+   border-radius: 4px;
+   padding-top: 1px;
+   padding-left: 2px;
+   padding-right: 2px;
+   font-size: 12px;
+   font-weight: bold;
 }
