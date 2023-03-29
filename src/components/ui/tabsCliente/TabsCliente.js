@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, Select, Tabs } from 'antd';
+import { Button, Card, Select, Space, Tabs, Tag } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useContext, useState } from 'react'
 import { GlobalContext } from '../../context/GlobalContext';
@@ -109,10 +109,16 @@ const TabsCliente = () => {
 
                     </div>
                     <div className='divTags'>
-                        <a href='#' className='tags'>IMPORTANTE</a>
+                        {/* <a href='#' className='tags'>IMPORTANTE</a>
                         <a href='#' className='tags'>FEEDLOT</a>
                         <a href='#' className='tags'>NUEVO</a>
-                        <a href='#' className='tags'>ZONA NORTE</a>
+                        <a href='#' className='tags'>ZONA NORTE</a> */}
+                         <Space size={[0, 8]} wrap>
+                            <Tag color="#f50">IMPORTANTE</Tag>
+                            <Tag color="#2db7f5">FEEDLOT</Tag>
+                            <Tag color="#87d068">NUEVO</Tag>
+                            <Tag color="#108ee9">ZONA NORTE</Tag>
+                        </Space>
                     </div>
                 </div>
                 <div className="divContainer-Select-Tabs">
