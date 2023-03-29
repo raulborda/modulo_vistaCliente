@@ -187,10 +187,12 @@ const TabsCliente = () => {
                     {handleStage()}
                 </div>
             </div>
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{width:"900px"}}>
+                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
+                    <div style={{border:"1px solid grey", widht:"300px", height:"100px"}}>INFO CLIENTE</div>
+                    <div style={{border:"1px solid grey", widht:"300px", height:"100px"}}>INFO DOMICILIO</div>
+                    <div style={{border:"1px solid grey", widht:"300px", height:"100px"}}>INFO CONTACTO</div>
+                </div>
             </Modal>
         </>
     )
