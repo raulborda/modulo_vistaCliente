@@ -13,8 +13,8 @@
     width: 100%;
 
     /* border: 1px solid blue; */
-    padding: 5px;
-    background-color: #e8e8e8;
+    /* padding: 5px; */
+    /* background-color: #e8e8e8; */
 }
 
 .divProdAgriculturaDatos {
@@ -23,7 +23,7 @@
     width: 30%;
     /* height: 100%; */
     /* border: 1px solid red; */
-    padding-right: 5px;
+    /* padding-right: 5px; */
     /* background-color: #e8e8e8; */
 }
 
@@ -50,3 +50,13 @@
     margin-right: -80px !important;
 } */
 
+.ant-tabs .ant-tabs-tab-btn:focus:not(:focus-visible), .ant-tabs .ant-tabs-tab-remove:focus:not(:focus-visible), .ant-tabs .ant-tabs-tab-btn:active, .ant-tabs .ant-tabs-tab-remove:active {
+    color: #00b33c;
+}
+
+
+
+.cardAgricultura{
+    border: 2px solid #e8e8e8;
+    border-radius: 0px;
+}
