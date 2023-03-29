@@ -20,11 +20,11 @@ function App() {
         appStage, setAppStage,
       }}
     >
-      <ConfigProvider locale={esES}>
-        <ApolloProvider client={client}>
+      <ApolloProvider client={client}>
+        {/* <ConfigProvider locale={esES}> */}
             <TabsCliente />
-        </ApolloProvider>
-      </ConfigProvider>
+        {/* </ConfigProvider> */}
+      </ApolloProvider>
     </GlobalContext.Provider>
   );
 }
