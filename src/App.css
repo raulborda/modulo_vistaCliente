@@ -40,3 +40,7 @@
 .tabs-custom .ant-tabs-tab-active {
   background-color: #ffff !important;
 }
+
+.ant-tabs .ant-tabs-tab-btn:focus:not(:focus-visible), .ant-tabs .ant-tabs-tab-remove:focus:not(:focus-visible), .ant-tabs .ant-tabs-tab-btn:active, .ant-tabs .ant-tabs-tab-remove:active {
+  color: #00b33c;
+}
