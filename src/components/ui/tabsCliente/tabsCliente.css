@@ -17,9 +17,15 @@ html {
    /* height: 300px !important;  */
 }
 
+.divContainer-Select-Tabs {
+   display: flex;
+   flex-direction: row;
+   /* width: 100%; */
+}
+
 /*En general*/
 .tabs-custom .ant-tabs-tab {
-   padding: 10px 10px;
+   padding: 4px 10px;
    font-size: 15px;
    /* border-top: 1px solid rgba(5,5,5,.06); */
 }
@@ -37,8 +43,8 @@ html {
 
 /*Color de letra sleccionado*/
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-   /* color: #333333; */
-   color: #00b33c;
+   color: #333333;
+   /* color: #00b33c; */
    text-shadow: 0 0 0.25px currentcolor;
 }
 
@@ -55,3 +61,31 @@ html {
    /*Por si quiero sacarlo*/
    /* color: #333333 !important; */
 }
+
+
+
+
+
+/* Inicio Select */
+.ant-select-open .ant-select-selector {
+   border-color: #00b33c !important;
+ }
+ .ant-select-focused .ant-select-selector {
+   border-color: #00b33c !important;
+ }
+ .ant-select-selection-placeholder{
+   border-color: #00b33c !important;
+ }
+ .ant-select .selectCosecha .ant-select-single .ant-select-show-arrow {
+   border-color: #00b33c !important;
+ }
+ 
+ .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
+   border-color: #00b33c !important;
+ }
+ .ant-select-focused .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+   border-color: #00b33c !important;
+ }
+
+/* Fin Select */
+

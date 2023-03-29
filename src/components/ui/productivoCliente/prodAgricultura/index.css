@@ -1,0 +1,52 @@
+.divContainerAgricultura {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* border: 1px solid green; */
+    /* margin-top: 10px; */
+    /* height: 300px !important;  */
+}
+
+.divProdAgricultura {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    /* border: 1px solid blue; */
+    padding: 5px;
+    background-color: #e8e8e8;
+}
+
+.divProdAgriculturaDatos {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    /* height: 100%; */
+    /* border: 1px solid red; */
+    padding-right: 5px;
+    /* background-color: #e8e8e8; */
+}
+
+.divContainerGraficos {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* height: 500px; */
+}
+
+.btnVerLotes {
+    font-size: 18px !important;
+    color: #00b33c;
+    margin-left: 15px
+}
+
+.btnVerGraficos {
+    font-size: 18px !important;
+    color: #00b33c;
+    margin-left: 15px
+}
+
+/* .legendAnillo {
+    margin-right: -80px !important;
+} */
+

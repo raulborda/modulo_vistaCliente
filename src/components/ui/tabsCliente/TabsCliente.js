@@ -1,4 +1,4 @@
-import { Card, Tabs } from 'antd';
+import { Card, Select, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useContext, useState } from 'react'
 import { GlobalContext } from '../../context/GlobalContext';
@@ -85,25 +85,61 @@ const TabsCliente = () => {
         }
     };
 
+    const handleChangee = (value) => {
+        console.log(`selected ${value}`);
+    };
+
+
     return (
         <>
             <div
                 className="divContainer"
-                // style={{marginBottom: '-100px' }}
+            // style={{marginBottom: '-100px' }}
             >
-                <Tabs
-                    className="tabs-custom"
-                    items={items}
-                    onChange={handleTabClick}
-                    tabBarStyle={{ width: '100%' }}
-                // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
-                >
-                    {items.map((item) => (
-                        <TabPane key={item.key} tab={item.label}>
-                            {item.component}
-                        </TabPane>
-                    ))}
-                </Tabs>
+                <div className="divContainer-Select-Tabs">
+                    {/* <Space wrap> */}
+                    <div style={{paddingRight: '1px'}}>
+                        <Select
+                            defaultValue="2324"
+                            style={{
+                                width: 97,
+                                paddingRight: '5px'
+                            }}
+                            onChange={handleChangee}
+                            options={[
+                                {
+                                    value: '2324',
+                                    label: '2324',
+                                },
+                                {
+                                    value: '2223',
+                                    label: '2223',
+                                },
+                                {
+                                    value: '2122',
+                                    label: '2122',
+                                },
+                                {
+                                    value: '2021',
+                                    label: '2021',
+                                },
+                            ]}
+                        />
+                    </div>
+                    <Tabs
+                        className="tabs-custom"
+                        items={items}
+                        onChange={handleTabClick}
+                        tabBarStyle={{ width: '100%' }}
+                    // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
+                    >
+                        {items.map((item) => (
+                            <TabPane key={item.key} tab={item.label}>
+                                {item.component}
+                            </TabPane>
+                        ))}
+                    </Tabs>
+                </div>
                 {handleStage()}
             </div>
         </>

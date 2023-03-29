@@ -1,7 +1,8 @@
 import { Card, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useState } from 'react'
-import { ProductivoAgricultura } from './ProductivoAgricultura';
+import { ProductivoAgricultura } from './prodAgricultura/ProductivoAgricultura';
+// import { ProductivoAgricultura } from './ProductivoAgricultura';
 import { ProductivoGanaderia } from './ProductivoGanaderia';
 
 const ProductivoCliente = () => {

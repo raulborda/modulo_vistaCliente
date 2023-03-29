@@ -1,10 +1,8 @@
-.divContainerAgricultura{
+/* .divContainerAgricultura{
     display: flex;
     flex-direction: column;
     width: 100%;
     border: 1px solid green;
-    /* margin-top: 10px; */
-    /* height: 300px !important;  */
  }
 
 .divProdAgricultura {
@@ -20,3 +18,9 @@
     width: 30%;
     border: 1px solid red;
 }
+
+.divContainerGraficos {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  } */
