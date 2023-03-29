@@ -51,7 +51,7 @@ const ProductivoCliente = () => {
   return (
     <>
       <div
-        style={{marginTop: '-13px'}}
+        // style={{marginTop: '-13px'}}
       >
         <Tabs
           className="tabs-custom"
