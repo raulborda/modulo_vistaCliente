@@ -23,7 +23,7 @@ const GraficosProdAgricultura = () => {
             cosecha: '2021',
             propias: 2780,
             alquiladas: 3908,
-        },
+        }
     ];
 
     const COLORS = ["#116611", "#56b43c", "#55AA55", "#88CC88"];

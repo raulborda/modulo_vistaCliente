@@ -89,3 +89,11 @@ html {
 
 /* Fin Select */
 
+.divCliente{
+   display: flex;
+   flex-direction: row;
+   margin-top: 10px;
+   margin-bottom: 5px;
+   margin-left: 5px;
+   /* border-bottom: 1px solid #e8e8e8; */
+}
