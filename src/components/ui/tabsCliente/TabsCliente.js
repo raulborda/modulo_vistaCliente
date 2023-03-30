@@ -9,7 +9,7 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined, MailFilled, PhoneFilled } from '@ant-design/icons';
 
 
 const TabsCliente = () => {
@@ -148,25 +148,24 @@ const TabsCliente = () => {
                                 <div style={{ display: 'flex', flexDirection: 'column', height: 'auto', width: '100%', border: '1px solid black' }}>
                                     <div style={{ height: '100%', width: '100%', borderTop: '1px solid #green' }} >
                                         <p>1</p>
-                                        <div>
-
-                                        <p>02364-450909</p>
+                                        <div style={{ display: 'flex', flexDirection: 'row'}}>
+                                            <PhoneFilled />
+                                            <p>02364-450909</p>
                                         </div>
                                         <div>
-
-                                        <p>contacto@aconcagua.com.ar</p>
+                                            <MailFilled />
+                                            <p>contacto@aconcagua.com.ar</p>
                                         </div>
-                                        <div>
                                         <p>Segmento:</p>
+                                        <div>
+                                            <p>Sector:</p>
+                                            <p>COMERCIO</p>
 
                                         </div>
-                                        <p>Sector:</p>
-                                        <p>COMERCIO</p>
-                                        <p>Tamaño:</p>
-                                        <p>PEQUEÑO</p>
-                                    </div>
-                                    <div style={{ height: '100%', width: '100%', border: '1px solid blue' }}>
-                                        <p>CONTACTOS</p>
+                                        <div>
+                                            <p>Tamaño:</p>
+                                            <p>PEQUEÑO</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div style={{ height: 'auto', width: '100%', border: '1px solid yellow' }}>

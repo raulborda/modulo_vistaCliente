@@ -39,6 +39,11 @@ const GraficosProdAgricultura = () => {
         <>
             <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <div style={{ width: '70%', marginRight: '10px' }}>
+                    <div>
+                        <h1 className='titulos'>
+                            EVOLUCIÓN PRODUCTIVA
+                        </h1>
+                    </div>
                     <ResponsiveContainer className="" width="100%" height={/*400*/ 250}>
                         <BarChart
                             // width={367}
