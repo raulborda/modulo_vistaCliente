@@ -80,7 +80,7 @@ export const ProductivoAgricultura = () => {
     return (
         <div className='divContainerAgricultura'>
             <div className='divProdAgricultura'>
-                <div className='divProdAgriculturaDatos'>
+                <div className='divProdAgriculturaDatos' style={{paddingRight: '5px'}}>
                     <div style={{height: '100%', paddingBottom: '5px', backgroundColor: '#FFFF'}}>
                         <Card style={{ height: '100%' }}>
                             <div style={{ marginLeft: '-15px', marginTop: '-15px' }}>
