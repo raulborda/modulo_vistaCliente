@@ -117,91 +117,99 @@ const TabsCliente = () => {
                 className="divContainer"
             // style={{marginBottom: '-100px' }}
             >
-                <div>
-                    <h1>
-                        ACONCAGUA S.R.L
-                    </h1>
-                    <EyeOutlined
-                        style={{
-                            marginLeft: "10px",
-                            marginTop: "3px",
-                            fontSize: "15px",
-                            color: "#00b33c",
-                        }}
-                        onClick={() => showDrawer()}
-                    />
-                    <Drawer
-                        title="ACONCAGUA S.R.L."
-                        placement={placement}
-                        closable={false}
-                        onClose={onClose}
-                        open={open}
-                    >
-                        <div
+                <div className="divCliente_content">
+                    <div className="divCliente_info">
+                        <h1
                             style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                height: "100%",
-                                width: "100%",
-                                // border: "1px solid red",
+                                fontSize: "16px",
+                                fontWeight: "700",
+                                fontFamily: "Open Sans, sans-serif",
+                                marginBottom: "10px",
                             }}
+                        >
+                            ACONCAGUA S.R.L
+                        </h1>
+                        <EyeOutlined
+                            style={{
+                                marginLeft: "10px",
+                                marginTop: "3px",
+                                fontSize: "15px",
+                                color: "#00b33c",
+                            }}
+                            onClick={() => showDrawer()}
+                        />
+                        <Drawer
+                            title="ACONCAGUA S.R.L."
+                            placement={placement}
+                            closable={false}
+                            onClose={onClose}
+                            open={open}
                         >
                             <div
                                 style={{
-                                    marginRight: "5px",
+                                    display: "flex",
+                                    flexDirection: "row",
                                     height: "100%",
-                                    width: "50%",
-                                    border: "1px solid #E8E8E8",
-                                    borderRadius: "4px",
-                                    padding: "5px",
+                                    width: "100%",
+                                    // border: "1px solid red",
                                 }}
                             >
-                                <p>1</p>
-                                <div>
-                                    <p>02364-450909</p>
-                                </div>
-                                <div>
-                                    <p>contacto@aconcagua.com.ar</p>
-                                </div>
-                                <div>
-                                    <p>Segmento:</p>
-                                </div>
-                                <p>Sector:</p>
-                                <p>COMERCIO</p>
-                                <p>Tamaño:</p>
-                                <p>PEQUEÑO</p>
-                            </div>
-
-                            <div
-                                style={{
-                                    height: "auto",
-                                    width: "50%",
-                                    border: "1px solid #E8E8E8",
-                                    borderRadius: "4px",
-                                }}
-                            >
-                                <Tabs
-                                    className="tabs-custom"
-                                    items={itemsDomicilio}
-                                // onChange={handleTabClick}
-                                // tabBarStyle={{ width: '100%' }}
-                                // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
+                                <div
+                                    style={{
+                                        marginRight: "5px",
+                                        height: "100%",
+                                        width: "50%",
+                                        border: "1px solid #E8E8E8",
+                                        borderRadius: "4px",
+                                        padding: "5px",
+                                    }}
                                 >
-                                    {items.map((item) => (
-                                        <TabPane key={item.key} tab={item.label}>
-                                            {item.component}
-                                        </TabPane>
-                                    ))}
-                                </Tabs>
+                                    <p>1</p>
+                                    <div>
+                                        <p>02364-450909</p>
+                                    </div>
+                                    <div>
+                                        <p>contacto@aconcagua.com.ar</p>
+                                    </div>
+                                    <div>
+                                        <p>Segmento:</p>
+                                    </div>
+                                    <p>Sector:</p>
+                                    <p>COMERCIO</p>
+                                    <p>Tamaño:</p>
+                                    <p>PEQUEÑO</p>
+                                </div>
+
+                                <div
+                                    style={{
+                                        height: "auto",
+                                        width: "50%",
+                                        border: "1px solid #E8E8E8",
+                                        borderRadius: "4px",
+                                    }}
+                                >
+                                    <Tabs
+                                        className="tabs-custom"
+                                        items={itemsDomicilio}
+                                    // onChange={handleTabClick}
+                                    // tabBarStyle={{ width: '100%' }}
+                                    // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
+                                    >
+                                        {items.map((item) => (
+                                            <TabPane key={item.key} tab={item.label}>
+                                                {item.component}
+                                            </TabPane>
+                                        ))}
+                                    </Tabs>
+                                </div>
                             </div>
-                        </div>
-                    </Drawer>
-                    {/* </div> */}
+                        </Drawer>
+                    </div>
                     <div className="divTags">
                         {/* <a href='#' className='tags'>IMPORTANTE</a>
-                        <a href='#' className='tags'>FEEDLOT</a>
-                        <a href='#' className='tags'>NUEVO</a>
-                        <a href='#' className='tags'>ZONA NORTE</a> */}
+                            <a href='#' className='tags'>FEEDLOT</a>
+                            <a href='#' className='tags'>NUEVO</a>
+                            <a href='#' className='tags'>ZONA NORTE</a> */}
                         <Space size={[0, 8]} wrap>
                             <Tag color="#f50">IMPORTANTE</Tag>
                             <Tag color="#2db7f5">FEEDLOT</Tag>
@@ -255,7 +263,7 @@ const TabsCliente = () => {
                     </Tabs>
                 </div>
                 <div style={{ marginTop: "1px" }}>{handleStage()}</div>
-            </div >
+            </div>
         </>
     );
 };
@@ -329,27 +337,27 @@ export default TabsCliente;
 {
     /* </div> */
 }
-// <div
-//   style={{
-//     height: "auto",
-//     width: "50%",
-//     border: "1px solid #E8E8E8",
-//     borderRadius:"4px",
-//   }}
-// >
-//   <Tabs
-//     className="tabs-custom"
-//     items={itemsDomicilio}
-//     // onChange={handleTabClick}
-//     // tabBarStyle={{ width: '100%' }}
-//     // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
-//   >
-//       {items.map((item) => (
-//         <TabPane key={item.key} tab={item.label}>
-//           {item.component}
-//         </TabPane>
-//       ))}
-//     </Tabs>
-//   </div>
-// </div>
-// </Modal>
+      // <div
+      //   style={{
+      //     height: "auto",
+      //     width: "50%",
+      //     border: "1px solid #E8E8E8",
+      //     borderRadius:"4px",
+      //   }}
+      // >
+      //   <Tabs
+      //     className="tabs-custom"
+      //     items={itemsDomicilio}
+      //     // onChange={handleTabClick}
+      //     // tabBarStyle={{ width: '100%' }}
+      //     // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
+      //   >
+      //       {items.map((item) => (
+      //         <TabPane key={item.key} tab={item.label}>
+      //           {item.component}
+      //         </TabPane>
+      //       ))}
+      //     </Tabs>
+      //   </div>
+      // </div>
+      // </Modal>
