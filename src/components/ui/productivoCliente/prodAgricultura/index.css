@@ -21,7 +21,7 @@
 .divProdAgriculturaDatos {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
     /* height: 100%; */
     /* border: 1px solid red; */
     /* padding-right: 5px; */
@@ -51,17 +51,24 @@
     margin-right: -80px !important;
 } */
 
-.ant-tabs .ant-tabs-tab-btn:focus:not(:focus-visible), .ant-tabs .ant-tabs-tab-remove:focus:not(:focus-visible), .ant-tabs .ant-tabs-tab-btn:active, .ant-tabs .ant-tabs-tab-remove:active {
+.ant-tabs .ant-tabs-tab-btn:focus:not(:focus-visible),
+.ant-tabs .ant-tabs-tab-remove:focus:not(:focus-visible),
+.ant-tabs .ant-tabs-tab-btn:active,
+.ant-tabs .ant-tabs-tab-remove:active {
     color: #00b33c;
 }
 
 
-.titulos{
+.titulos {
     font-family: 'Open Sans', sans-serif;
     font-size: 13px;
     color: #605d5f !important;
- }
+}
 
- .cardAgricultura {
-    height: '100%' !important;
- }
+.cardAgricultura {
+    height: 100% !important;
+}
+
+.ant-statistic-title {
+    font-size: 20px !important;
+}
