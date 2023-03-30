@@ -92,15 +92,15 @@ const GraficosProdAgricultura = () => {
                             <Legend
                                 className="legendAnillo"
                                 iconType="circle"
-                                layout="vertical"
-                                align="right"
-                                verticalAlign="middle"
+                                layout="horizontal"
+                                align="center"
+                                verticalAlign="bottom"
                             />
                             <Pie
                                 className="pie"
                                 data={dataAnillo}
-                                cx={100}
-                                cy={120}
+                                cx={120}
+                                cy={110}
                                 innerRadius={40}
                                 outerRadius={60}
                                 fill="#8884d8"
