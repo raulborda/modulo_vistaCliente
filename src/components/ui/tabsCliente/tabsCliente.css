@@ -8,6 +8,11 @@ html {
    height: 100%;
 }
 
+.ant-tabs-tab .ant-tabs-tab-active{
+   color: #00b33c !important;
+}
+
+
 .divContainer {
    display: flex;
    flex-direction: column;
