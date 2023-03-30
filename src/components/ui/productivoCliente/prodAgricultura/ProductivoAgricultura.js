@@ -80,34 +80,17 @@ export const ProductivoAgricultura = () => {
     return (
         <div className='divContainerAgricultura'>
             <div className='divProdAgricultura'>
-                <div className='divProdAgriculturaDatos' style={{paddingRight: '5px'}}>
-                    <div style={{height: '100%', paddingBottom: '5px', backgroundColor: '#FFFF'}}>
+                <div className='divProdAgriculturaDatos' style={{ paddingRight: '5px' }}>
+                    <div style={{ height: '100%', paddingBottom: '5px', backgroundColor: '#FFFF' }}>
                         <Card style={{ height: '100%' }}>
-                            <div style={{ marginLeft: '-15px', marginTop: '-15px' }}>
-                                {/* <h1
-                                    style={{ fontSize: '16px', fontWeight: '700', fontFamily: 'Open Sans, sans-serif' }}
-                                >
-                                    ACONCAGUA S.R.L
-                                </h1> */}
-                                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                    <p style={{ fontWeight: '700' }}>Total Has.: </p>
-                                    <p style={{ marginLeft: '10px' }}>11150has.</p>
-                                    <Popover placement="rightTop" title={text} content={content} trigger="click">
-                                        <BarsOutlined className='btnVerLotes' title='Lotes' />
-                                    </Popover>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                    <p style={{ fontWeight: '700' }} >Año Anterior: </p>
-                                    <p style={{ marginLeft: '10px' }}>900has. (90% <CaretUpOutlined style={{ color: '#00b33c' }} />)</p>
-                                </div>
-                            </div>
                         </Card>
                     </div>
-                    <div style={{height: '100%'}}>
-                        <Card className='cardAgricultura' style={{ height: '100%'}}>
-                            <div style={{ marginLeft: '-15px', marginTop: '-15px' }}>
-                                <p style={{ fontWeight: '700' }} >Insumos:</p>
-                            </div>
+                    <div style={{ height: '100%', paddingBottom: '5px', backgroundColor: '#FFFF'  }}>
+                        <Card className='cardAgricultura' style={{ height: '100%' }}>
+                        </Card>
+                    </div>
+                    <div style={{ height: '100%' }}>
+                        <Card className='cardAgricultura' style={{ height: '100%' }}>
                         </Card>
                     </div>
                 </div>
@@ -117,7 +100,7 @@ export const ProductivoAgricultura = () => {
                     </div>
                 </Card>
             </div>
-            <div style={{paddingLeft: '5px', paddingRight: '5px', paddingBottom: '5px', backgroundColor: '#FFFF'}}>
+            <div style={{ paddingLeft: '5px', paddingRight: '5px', paddingBottom: '5px', backgroundColor: '#FFFF' }}>
                 <Card>
                     <GraficosPrueba />
                 </Card>
