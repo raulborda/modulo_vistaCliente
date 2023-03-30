@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, Modal, Select, Space, Tabs, Tag } from "antd";
+import { Button, Card, Drawer, Modal, Select, Space, Tabs, Tag } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -86,15 +86,16 @@ const TabsCliente = () => {
     console.log(`selected ${value}`);
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState("top");
+  const showDrawer = () => {
+    setOpen(true);
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const onClose = () => {
+    setOpen(false);
   };
-  const handleCancel = () => {
-    setIsModalOpen(false);
+  const onChange = (e) => {
+    setPlacement(e);
   };
 
   const itemsDomicilio = [
@@ -135,16 +136,14 @@ const TabsCliente = () => {
                 fontSize: "15px",
                 color: "#00b33c",
               }}
-              onClick={showModal}
+              onClick={() => showDrawer()}
             />
-            <Modal
-              title="INFORMACIÓN CLIENTE"
-              open={isModalOpen}
-              onOk={handleOk}
-              onCancel={handleCancel}
-              width={1000}
-              height={800}
-              footer={null}
+            <Drawer
+              title="ACONCAGUA S.R.L."
+              placement={placement}
+              closable={false}
+              onClose={onClose}
+              open={open}
             >
               <div
                 style={{
@@ -155,51 +154,38 @@ const TabsCliente = () => {
                   // border: "1px solid red",
                 }}
               >
-                {/* <div
+                <div
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "auto",
-                    width: "100%",
+                    marginRight: "5px",
+                    height: "100%",
+                    width: "50%",
                     border: "1px solid #E8E8E8",
-                    borderRadius:"4px",
+                    borderRadius: "4px",
+                    padding: "5px",
                   }}
-                > */}
-                  <div
-                    style={{
-                      marginRight:"5px",
-                      height: "100%",
-                      width: "50%",
-                      border: "1px solid #E8E8E8",
-                      borderRadius:"4px",
-                      padding:"5px"
-                    }}
-                  >
-                    <p>1</p>
-                    <div>
-                      <p>02364-450909</p>
-                    </div>
-                    <div>
-                      <p>contacto@aconcagua.com.ar</p>
-                    </div>
-                    <div>
-                      <p>Segmento:</p>
-                    </div>
-                    <p>Sector:</p>
-                    <p>COMERCIO</p>
-                    <p>Tamaño:</p>
-                    <p>PEQUEÑO</p>
+                >
+                  <p>1</p>
+                  <div>
+                    <p>02364-450909</p>
                   </div>
-                  {/* <div style={{ height: '100%', width: '100%', border: '1px solid blue' }}>
-                                        <p>CONTACTOS</p>
-                                    </div> */}
-                {/* </div> */}
+                  <div>
+                    <p>contacto@aconcagua.com.ar</p>
+                  </div>
+                  <div>
+                    <p>Segmento:</p>
+                  </div>
+                  <p>Sector:</p>
+                  <p>COMERCIO</p>
+                  <p>Tamaño:</p>
+                  <p>PEQUEÑO</p>
+                </div>
+
                 <div
                   style={{
                     height: "auto",
                     width: "50%",
                     border: "1px solid #E8E8E8",
-                    borderRadius:"4px",
+                    borderRadius: "4px",
                   }}
                 >
                   <Tabs
@@ -217,7 +203,7 @@ const TabsCliente = () => {
                   </Tabs>
                 </div>
               </div>
-            </Modal>
+            </Drawer>
           </div>
           <div className="divTags">
             {/* <a href='#' className='tags'>IMPORTANTE</a>
@@ -283,3 +269,95 @@ const TabsCliente = () => {
 };
 
 export default TabsCliente;
+
+{
+  /* <Modal
+title="INFORMACIÓN"
+open={isModalOpen}
+onOk={handleOk}
+onCancel={handleCancel}
+width={1000}
+height={800}
+footer={null}
+> */
+}
+{
+  /* <div
+  style={{
+    display: "flex",
+    flexDirection: "row",
+    height: "100%",
+    width: "100%",
+    // border: "1px solid red",
+  }}
+> */
+}
+{
+  /* <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      height: "auto",
+      width: "100%",
+      border: "1px solid #E8E8E8",
+      borderRadius:"4px",
+    }}
+  > */
+}
+// <div
+//   style={{
+//     marginRight:"5px",
+//     height: "100%",
+//     width: "50%",
+//     border: "1px solid #E8E8E8",
+//     borderRadius:"4px",
+//     padding:"5px"
+//   }}
+// >
+//   <p>1</p>
+//   <div>
+//     <p>02364-450909</p>
+//   </div>
+//   <div>
+//     <p>contacto@aconcagua.com.ar</p>
+//   </div>
+//   <div>
+//     <p>Segmento:</p>
+//   </div>
+//   <p>Sector:</p>
+//   <p>COMERCIO</p>
+//   <p>Tamaño:</p>
+//   <p>PEQUEÑO</p>
+// </div>
+{
+  /* <div style={{ height: '100%', width: '100%', border: '1px solid blue' }}>
+                          <p>CONTACTOS</p>
+                      </div> */
+}
+{
+  /* </div> */
+}
+// <div
+//   style={{
+//     height: "auto",
+//     width: "50%",
+//     border: "1px solid #E8E8E8",
+//     borderRadius:"4px",
+//   }}
+// >
+//   <Tabs
+//     className="tabs-custom"
+//     items={itemsDomicilio}
+//     // onChange={handleTabClick}
+//     // tabBarStyle={{ width: '100%' }}
+//     // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
+//   >
+//       {items.map((item) => (
+//         <TabPane key={item.key} tab={item.label}>
+//           {item.component}
+//         </TabPane>
+//       ))}
+//     </Tabs>
+//   </div>
+// </div>
+// </Modal>
