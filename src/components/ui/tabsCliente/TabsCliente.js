@@ -239,19 +239,59 @@ const TabsCliente = () => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  height: "100%",
+                  height: "250px",
                   width: "100%",
+                  marginTop: "-5px",
                   // border: "1px solid red",
                 }}
               >
                 <div
                   style={{
-                    marginRight: "5px",
                     height: "auto",
-                    width: "50%",
+                    width: "30%",
                     border: "1px solid #E8E8E8",
                     borderRadius: "4px",
                     padding: "5px",
+                    marginBottom:"5px",
+                    marginRigth:"5px"
+                  }}
+                >
+                  <div style={{display:"inline"}}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Rol:</h4><p>NEXO</p></div>   
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Telefono:</h4><p> (02364-450909)</p></div>    
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Movil:</h4><p>02364-450909</p></div> 
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>         
+
+                </div>
+                <div
+                  style={{
+                    marginRight: "5px",
+                    height: "auto",
+                    width: "30%",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "4px",
+                    padding: "5px",
+                    marginBottom:"5px",
+                    marginRigt:"5px"
+                  }}
+                >
+                  <div style={{display:"inline"}}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Rol:</h4><p>NEXO</p></div>   
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Telefono:</h4><p> (02364-450909)</p></div>    
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Movil:</h4><p>02364-450909</p></div> 
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>         
+
+                </div>
+                <div
+                  style={{
+                    marginRight: "5px",
+                    height: "auto",
+                    width: "30%",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "4px",
+                    padding: "5px",
+                    marginBottom:"5px",
+                    marginRigt:"5px"
                   }}
                 >
                   <div style={{display:"inline"}}><h4>GABRIELA CHIURA</h4></div>
