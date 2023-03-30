@@ -9,7 +9,7 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined } from "@ant-design/icons";
+import { EyeOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const TabsCliente = () => {
   const { appStage, setAppStage } = useContext(GlobalContext);
@@ -86,6 +86,7 @@ const TabsCliente = () => {
     console.log(`selected ${value}`);
   };
 
+  //! DRAWER INFORMCACION
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("top");
   const showDrawer = () => {
@@ -111,6 +112,20 @@ const TabsCliente = () => {
     },
   ];
 
+
+  //! DRAWER CONTACTOS
+  const [openC, setOpenC] = useState(false);
+  const [placementC, setPlacementC] = useState("top");
+  const showDrawerC = () => {
+    setOpenC(true);
+  };
+  const onCloseC = () => {
+    setOpenC(false);
+  };
+  const onChangeC = (e) => {
+    setPlacementC(e);
+  };  
+
   return (
     <>
       <div
@@ -131,7 +146,7 @@ const TabsCliente = () => {
             </h1>
             <EyeOutlined
               style={{
-                marginLeft: "10px",
+                marginLeft: "11px",
                 marginTop: "3px",
                 fontSize: "15px",
                 color: "#00b33c",
@@ -201,6 +216,50 @@ const TabsCliente = () => {
                       </TabPane>
                     ))}
                   </Tabs>
+                </div>
+              </div>
+            </Drawer>
+            <UserOutlined
+              style={{
+                marginLeft: "10px",
+                marginTop: "2.9px",
+                fontSize: "13px",
+                color: "#00b33c",
+              }}
+              onClick={() => showDrawerC()}
+            />
+            <Drawer
+              title="ACONCAGUA S.R.L."
+              placement={placementC}
+              closable={false}
+              onClose={onCloseC}
+              open={openC}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                  width: "100%",
+                  // border: "1px solid red",
+                }}
+              >
+                <div
+                  style={{
+                    marginRight: "5px",
+                    height: "auto",
+                    width: "50%",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "4px",
+                    padding: "5px",
+                  }}
+                >
+                  <div style={{display:"inline"}}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Rol:</h4><p>NEXO</p></div>   
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Telefono:</h4><p> (02364-450909)</p></div>    
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Movil:</h4><p>02364-450909</p></div> 
+                  <div style={{display: "flex",flexDirection: "row"}}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>         
+
                 </div>
               </div>
             </Drawer>
