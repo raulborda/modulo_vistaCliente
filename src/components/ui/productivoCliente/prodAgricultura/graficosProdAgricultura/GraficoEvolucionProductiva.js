@@ -1,7 +1,7 @@
 import React from 'react'
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
-const GraficosProdAgricultura = () => {
+const GraficoEvolucionProductiva = () => {
 
     const data = [
         {
@@ -35,16 +35,17 @@ const GraficosProdAgricultura = () => {
         { name: 'Mixto', value: 200 },
     ];
 
+
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <div style={{ width: '70%', marginRight: '10px' }}>
                     <div>
                         <h1 className='titulos'>
                             EVOLUCIÓN PRODUCTIVA
                         </h1>
                     </div>
-                    <ResponsiveContainer className="" width="100%" height={/*400*/ 250}>
+                    <ResponsiveContainer className="" width="99%" height={/*400*/ 250}>
                         <BarChart
                             // width={367}
                             height={250}
@@ -71,7 +72,7 @@ const GraficosProdAgricultura = () => {
                                 name="Propias"
                                 stackId="a"
                                 barSize={50}
-                                fill="#a9ff96"
+                                fill="#B10C5B"
                                 key={"propias"}
                                 isAnimationActive={true}
                             />
@@ -80,7 +81,7 @@ const GraficosProdAgricultura = () => {
                                 name="Alquiladas"
                                 stackId="a"
                                 barSize={50}
-                                fill="#434348"
+                                fill="#282828"
                                 key={"alquiladas"}
                                 isAnimationActive={true}
                             />
@@ -88,10 +89,9 @@ const GraficosProdAgricultura = () => {
                     </ResponsiveContainer>
                 </div>
 
-                <div style={{ width: '30%', marginRight: '10px' }}>
-                    <ResponsiveContainer className="" width="100%" height={/*400*/ 250}>
+                {/* <div style={{ width: '30%', marginRight: '10px' }}>
+                    <ResponsiveContainer className="" width="100%" height={250}>
                         <PieChart
-                            // width={400}
                             height={250}
                         >
                             <Legend
@@ -123,10 +123,10 @@ const GraficosProdAgricultura = () => {
                             <Tooltip />
                         </PieChart>
                     </ResponsiveContainer>
-                </div>
-            </div>
+                </div> */}
+            </div >
         </>
     )
 }
 
-export default GraficosProdAgricultura;
+export default GraficoEvolucionProductiva;

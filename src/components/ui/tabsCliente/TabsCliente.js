@@ -99,18 +99,7 @@ const TabsCliente = () => {
     setPlacement(e);
   };
 
-    const itemsDomicilio = [
-        {
-            key: "0",
-            label: "Domicilio 1",
-            // component: <ProductivoCliente />,
-        },
-        {
-            key: "1",
-            label: "Domicilio 2",
-            // component: <NegociosCliente />,
-        },
-    ];
+
 
 
   //! DRAWER CONTACTOS

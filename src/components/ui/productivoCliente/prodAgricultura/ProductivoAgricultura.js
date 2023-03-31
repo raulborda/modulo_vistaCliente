@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { BarChartOutlined, BarsOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { Card, Popover, Table } from 'antd'
-import GraficosProdAgricultura from './GraficosProdAgricultura'
+import GraficosProdAgricultura from './graficosProdAgricultura/GraficosProdAgricultura'
 import './index.css';
 import { GraficosPrueba } from './GraficosPrueba';
 import CardInsumos from './CardInsumos';

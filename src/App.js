@@ -10,14 +10,16 @@ import TabsCliente from './components/ui/tabsCliente/TabsCliente';
 function App() {
 
   const [appStage, setAppStage] = useState(0);
+  const [cardSelected, setCardSelected ] = useState(0);
+  // const [tipoGrafico, settipoGrafico] = useState();
 
   return (
-    // <>
-    //   <p>HOLA</p>
-    // </>
+
     <GlobalContext.Provider 
       value={{
         appStage, setAppStage,
+        cardSelected, setCardSelected,
+        // tipoGrafico, settipoGrafico,
       }}
     >
       <ApolloProvider client={client}>

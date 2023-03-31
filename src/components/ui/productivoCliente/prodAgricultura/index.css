@@ -61,14 +61,33 @@
 
 .titulos {
     font-family: 'Open Sans', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     color: #605d5f !important;
 }
 
 .cardAgricultura {
     height: 100% !important;
+    width: 100% !important;
+    /* margin: -10px !important; */
+    padding: 0px !important;
+}
+
+.ant-card-body {
+    padding: 10px !important;
 }
 
 .ant-statistic-title {
     font-size: 20px !important;
+}
+
+
+
+
+.btnEnvironmentOutlined {
+    font-size: 25px !important;
+    color: #56D75B;
+    background-color: transparent;
+    /* margin-top: 35px; */
+    /* border-radius: 15px; */
+
 }
