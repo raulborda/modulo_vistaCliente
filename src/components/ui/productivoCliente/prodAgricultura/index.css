@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    user-select: none;
     /* border: 1px solid green; */
     /* margin-top: 10px; */
     /* height: 300px !important;  */

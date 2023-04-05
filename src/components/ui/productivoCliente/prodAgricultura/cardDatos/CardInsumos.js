@@ -5,6 +5,7 @@ import CountUp from 'react-countup';
 import { Bar, BarChart, CartesianGrid, LabelList, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { GlobalContext } from '../../../../context/GlobalContext';
 import CardGraficoEvolucionProductiva from './CardGraficoEvolucionProductiva';
+import './cardDatos.css';
 
 const items = [
     {
