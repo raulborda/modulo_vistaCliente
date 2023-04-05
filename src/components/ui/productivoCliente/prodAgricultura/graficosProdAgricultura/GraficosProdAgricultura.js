@@ -5,7 +5,7 @@ import { GlobalContext } from '../../../../context/GlobalContext';
 import { GraficoAcopioTT } from './GraficoAcopioTT';
 import GraficoEvolucionProductiva from './GraficoEvolucionProductiva';
 import { GraficoInsumos } from './GraficoInsumos';
-import './index.css';
+import './graficos.css';
 
 const GraficosProdAgricultura = () => {
 

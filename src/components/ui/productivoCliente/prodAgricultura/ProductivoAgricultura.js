@@ -5,7 +5,7 @@ import { Card, Popover, Table } from 'antd'
 import GraficosProdAgricultura from './graficosProdAgricultura/GraficosProdAgricultura'
 import './index.css';
 import { GraficosPrueba } from './GraficosPrueba';
-import CardInsumos from './CardInsumos';
+import CardInsumos from './cardDatos/CardInsumos.js';
 
 export const ProductivoAgricultura = () => {
 

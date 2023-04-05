@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { GlobalContext } from '../../../../context/GlobalContext';
 
 const GraficoEvolucionProductiva = () => {
+
+    const {
+        cardSelected,
+        setCardSelected,
+        idCliente,
+        setIdCliente,
+
+        infoEvo,
+        setInfoEvo,
+        update,
+        dataForChart,
+        setDataForChart,
+    } = useContext(GlobalContext);
 
     const data = [
         {
@@ -36,6 +50,76 @@ const GraficoEvolucionProductiva = () => {
     ];
 
 
+    /*-----------------------------------*/
+    const [isValorPropias, setIsValorPropias] = useState(true);
+    const [isValorAlquiladas, setIsValorAlquiladas] = useState(true);
+    /*-----------------------------------*/
+
+    const handleLegendClick = (x) => {
+        console.log(x);
+        console.log("click");
+        if (x.value === "Propias") {
+            console.log("seleccionaste propias");
+            setIsValorPropias(!isValorPropias);
+        }
+
+        if (x.value === "Alquiladas") {
+            console.log("seleccionaste alquiladas");
+            setIsValorAlquiladas(!isValorAlquiladas);
+        }
+    };
+    /*-----------------------------------*/
+
+
+
+    const getIntroOfPage = (valor0, valor1) => {
+        if (valor0 === "" || valor0 === "undefined" || valor0 === null || valor0 === 0) {
+            valor0 = 0;
+        }
+        if (valor1 === "" || valor1 === "undefined" || valor1 === null || valor1 === 0) {
+            valor1 = 0;
+        }
+        var suma = Math.trunc(valor0) + Math.trunc(valor1);
+        return suma;
+    };
+
+    const CustomTooltip = ({ active, payload, label }) => {
+        //PAARA VER AMBAS BARRAS
+        if (active && payload && payload.length && isValorPropias === true && isValorAlquiladas === true) {
+            return (
+                <div className="custom-tooltip" style={{ border: "3px solid grey", backgroundColor: "#FFFF", padding: "10px", borderRadius: "4px" }}>
+                    <p className="label" style={{ color: "grey", fontWeight: "500" }}>{`Cosecha: ${label}`}</p>
+                    <p className="propias" style={{ color: "#B10C5B", fontWeight: "500" }}>{`Propias: ${Math.trunc(payload[0].value)}`}</p>
+                    <p className="alquiladas" style={{ color: "#282828", fontWeight: "500" }}>{`Alquiladas: ${Math.trunc(payload[1].value)}`}</p>
+                    <p className="total" style={{ color: "grey", fontWeight: "500" }}>{"Total: " + getIntroOfPage(payload[0].value, payload[1].value)}</p>
+                </div>
+            );
+        }
+        //PARA VER SOLO ALQUILADAS
+        if (active && payload && payload.length && isValorAlquiladas === true && isValorPropias === false) {
+            return (
+                <div className="custom-tooltip" style={{ border: "3px solid grey", backgroundColor: "#FFFF", padding: "10px", borderRadius: "4px" }}>
+                    <p className="label" style={{ color: "grey", fontWeight: "500" }}>{`Cosecha: ${label}`}</p>
+                    <p className="alquiladas" style={{ color: "#282828", fontWeight: "500" }}>{`Alquiladas: ${Math.trunc(payload[0].value)}`}</p>
+                </div>
+            );
+        }
+        //PARA VER SOLO PROPIAS
+        if (active && payload && payload.length && isValorPropias === true && isValorAlquiladas === false) {
+            return (
+                <div className="custom-tooltip" style={{ border: "3px solid grey", backgroundColor: "#FFFF", padding: "10px", borderRadius: "4px" }}>
+                    <p className="label" style={{ color: "grey", fontWeight: "500" }}>{`Cosecha: ${label}`}</p>
+                    <p className="propias" style={{ color: "#B10C5B", fontWeight: "500" }}>{`Propias: ${Math.trunc(payload[0].value)}`}</p>
+                </div>
+            );
+        }
+
+        return null;
+    };
+
+    /*--------------------------- */
+
+
     return (
         <>
             <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
@@ -49,7 +133,7 @@ const GraficoEvolucionProductiva = () => {
                         <BarChart
                             // width={367}
                             height={250}
-                            data={data}
+                            data={dataForChart}
                             margin={{
                                 top: 20,
                                 right: 0,
@@ -62,11 +146,15 @@ const GraficoEvolucionProductiva = () => {
                             <YAxis
                                 label={{ value: "Has.", angle: -90, position: "insideLeft" }}
                             />
-                            <Tooltip />
+                            <Tooltip
+                                content={CustomTooltip}
+                            />
                             <Legend
                                 iconType="circle"
+                                onClick={(x) => handleLegendClick(x)}
                                 wrapperStyle={{ fontWeight: "bold", color: "#000000" }}
                             />
+                            {isValorPropias ? (
                             <Bar
                                 dataKey="propias"
                                 name="Propias"
@@ -76,6 +164,18 @@ const GraficoEvolucionProductiva = () => {
                                 key={"propias"}
                                 isAnimationActive={true}
                             />
+                            ) : (
+                                <Bar
+                                  dataKey={0}
+                                  name="Propias"
+                                  stackId="a"
+                                  barSize={50}
+                                  fill="#d8d8d8"
+                                  key={"propias"}
+                                  isAnimationActive={true}
+                                />
+                              )}
+                              {isValorAlquiladas ? (
                             <Bar
                                 dataKey="alquiladas"
                                 name="Alquiladas"
@@ -85,6 +185,17 @@ const GraficoEvolucionProductiva = () => {
                                 key={"alquiladas"}
                                 isAnimationActive={true}
                             />
+                            ) : (
+                                <Bar
+                                  dataKey={0}
+                                  name="Alquiladas"
+                                  stackId="a"
+                                  barSize={50}
+                                  fill="#d8d8d8"
+                                  key={"alquiladas"}
+                                  isAnimationActive={true}
+                                />
+                              )}
                         </BarChart>
                     </ResponsiveContainer>
                 </div>

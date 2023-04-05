@@ -1,0 +1,74 @@
+.titulos {
+   font-family: 'Open Sans', sans-serif;
+   font-size: 13px;
+   color: #605d5f !important;
+}
+
+.cardAgricultura {
+   height: 100% !important;
+}
+
+.ant-statistic-title {
+   font-size: 20px !important;
+}
+
+.SpinLoading {
+   padding: 50px;
+   background: rgba(255, 255, 255, 0.05);
+   border-radius: 4px;
+}
+
+.ant-spin-text {
+   color: #00b33c;
+   /* color: #554c4c;  */
+}
+
+.ant-spin-dot-item {
+   background-color: #00b33c !important;
+}
+
+
+
+
+
+/*INICIO - TABS*/
+/*En general*/
+.tabs-custom .ant-tabs-tab {
+   padding: 4px 10px;
+   font-size: 15px;
+   /* border-top: 1px solid rgba(5,5,5,.06); */
+}
+
+/*Barrita de abajo*/
+.tabs-custom .ant-tabs-ink-bar {
+   background-color: #00b33c;
+}
+
+/*Color del fondo seleccionado*/
+/* .tabs-custom .ant-tabs-tab-active { */
+/* background-color: #f5f5f5; */
+/* color: #00b33c; */
+/* } */
+
+/*Color de letra sleccionado*/
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+   color: #333333;
+   /* color: #00b33c; */
+   text-shadow: 0 0 0.25px currentcolor;
+}
+
+/*Separacion entre cada items*/
+.ant-tabs .ant-tabs-tab+.ant-tabs-tab {
+   margin: 0 0 0 1px;
+}
+
+/*Color del hover cuando paso el mouse por arriba de otros items*/
+.ant-tabs .ant-tabs-tab:hover {
+   color: #00b33c !important;
+
+
+   /*Por si quiero sacarlo*/
+   /* color: #333333 !important; */
+}
+
+/*FIN - TABS*/

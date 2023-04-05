@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Card, Drawer, Modal, Select, Space, Tabs, Tag } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import "./tabsCliente.css";
 import ProductivoCliente from "../productivoCliente/ProductivoCliente";
@@ -12,79 +12,92 @@ import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
 import { EyeOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const TabsCliente = () => {
-    const { appStage, setAppStage } = useContext(GlobalContext);
+  const URL = process.env.REACT_APP_URL;
 
-    const items = [
-        {
-            key: "0",
-            label: "Productivo",
-            component: <ProductivoCliente />,
-        },
-        {
-            key: "1",
-            label: "Negocios",
-            component: <NegociosCliente />,
-        },
-        {
-            key: "2",
-            label: "Tareas",
-            component: <TareasCliente />,
-        },
-        {
-            key: "3",
-            label: "Notas",
-            component: <NotasCliente />,
-        },
-        {
-            key: "4",
-            label: "Finanzas",
-            component: <FinanzasCliente />,
-        },
-    ];
+  const {
+    appStage,
+    setAppStage,
+    idCliente,
+    setIdCliente,
 
-    const handleStage = () => {
-        switch (appStage) {
-            case 0:
-                return <ProductivoCliente />;
-            case 1:
-                return <NegociosCliente />;
-            case 2:
-                return <TareasCliente />;
-            case 3:
-                return <NotasCliente />;
-            case 4:
-                return <FinanzasCliente />;
-            default:
-                return <ProductivoCliente />;
-        }
-    };
+    infoCosechas,
+    setCosechas,
 
-    const handleTabClick = (key) => {
-        switch (key) {
-            case "0":
-                setAppStage(0);
-                break;
-            case "1":
-                setAppStage(1);
-                break;
-            case "2":
-                setAppStage(2);
-                break;
-            case "3":
-                setAppStage(3);
-                break;
-            case "4":
-                setAppStage(4);
-                break;
-            default:
-                setAppStage(0);
-                break;
-        }
-    };
+    listCosechas, setListCosechas,
+    cosechaA, setCosechaA,
+  } = useContext(GlobalContext);
 
-    const handleChangee = (value) => {
-        console.log(`selected ${value}`);
-    };
+  const items = [
+    {
+      key: "0",
+      label: "Productivo",
+      component: <ProductivoCliente />,
+    },
+    {
+      key: "1",
+      label: "Negocios",
+      component: <NegociosCliente />,
+    },
+    {
+      key: "2",
+      label: "Tareas",
+      component: <TareasCliente />,
+    },
+    {
+      key: "3",
+      label: "Notas",
+      component: <NotasCliente />,
+    },
+    {
+      key: "4",
+      label: "Finanzas",
+      component: <FinanzasCliente />,
+    },
+  ];
+
+  const handleStage = () => {
+    switch (appStage) {
+      case 0:
+        return <ProductivoCliente />;
+      case 1:
+        return <NegociosCliente />;
+      case 2:
+        return <TareasCliente />;
+      case 3:
+        return <NotasCliente />;
+      case 4:
+        return <FinanzasCliente />;
+      default:
+        return <ProductivoCliente />;
+    }
+  };
+
+  const handleTabClick = (key) => {
+    switch (key) {
+      case "0":
+        setAppStage(0);
+        break;
+      case "1":
+        setAppStage(1);
+        break;
+      case "2":
+        setAppStage(2);
+        break;
+      case "3":
+        setAppStage(3);
+        break;
+      case "4":
+        setAppStage(4);
+        break;
+      default:
+        setAppStage(0);
+        break;
+    }
+  };
+
+  const handleChangee = (value) => {
+    console.log(`selected ${value}`);
+  };
 
   //! DRAWER INFORMCACION
   const [open, setOpen] = useState(false);
@@ -100,8 +113,6 @@ const TabsCliente = () => {
   };
 
 
-
-
   //! DRAWER CONTACTOS
   const [openC, setOpenC] = useState(false);
   const [placementC, setPlacementC] = useState("top");
@@ -113,13 +124,54 @@ const TabsCliente = () => {
   };
   const onChangeC = (e) => {
     setPlacementC(e);
-  };  
+  };
+
+
+  setIdCliente('2049'); // PARA PROBAR
+  /*-------- INICIO - CONSULTAS PARA TRAER LOS DATOS---------*/
+  //* FUNCION QUE TRAE LOS DATOS DE COSECHA ACTIVA Y LAS QUE SE PUEDEN VISUALIZAR DEL CLIENTE
+  function cosechas(idCliente) {
+    const data = new FormData();
+    data.append("idC", idCliente);
+    // fetch("../com_traerCosechas.php", {
+    fetch(`${URL}/com_traerCosechas.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        const objetoData = JSON.parse(data);
+        console.log('objetoData: ', objetoData)
+        setCosechas(objetoData);
+        setCosechaA(objetoData[0].acos_desc)
+        setListCosechas(objetoData);
+
+      });
+    });
+  }
+
+  useEffect(() => {
+    if (idCliente) {
+      cosechas(idCliente);
+      // cosechas('2049');
+
+    }
+  }, [idCliente/*, cosecha, update, selectedValue, cosechaActiva*/]);
+
+  /*-------- FIN - CONSULTAS PARA TRAER LOS DATOS---------*/
+  // console.log('idCliente: ', idCliente);
+
+
+
+
+
+
 
   return (
     <>
       <div
         className="divContainer"
-        // style={{marginBottom: '-100px' }}
+      // style={{marginBottom: '-100px' }}
       >
         <div className="divCliente_content">
           <div className="divCliente_info">
@@ -183,50 +235,6 @@ const TabsCliente = () => {
                   <p>Tamaño:</p>
                   <p>PEQUEÑO</p>
                 </div>
-                <div className="divContainer-Select-Tabs">
-                    {/* <Space wrap> */}
-                    <div style={{ paddingRight: "1px" }}>
-                        <Select
-                            defaultValue="2324"
-                            style={{
-                                width: 97,
-                                paddingRight: "5px",
-                            }}
-                            onChange={handleChangee}
-                            options={[
-                                {
-                                    value: "2324",
-                                    label: "2324",
-                                },
-                                {
-                                    value: "2223",
-                                    label: "2223",
-                                },
-                                {
-                                    value: "2122",
-                                    label: "2122",
-                                },
-                                {
-                                    value: "2021",
-                                    label: "2021",
-                                },
-                            ]}
-                        />
-                    </div>
-                    <Tabs
-                        className="tabs-custom"
-                        items={items}
-                        onChange={handleTabClick}
-                    // tabBarStyle={{ width: '100%' }}
-                    // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
-                    >
-                        {items.map((item) => (
-                            <TabPane key={item.key} tab={item.label}>
-                                {item.component}
-                            </TabPane>
-                        ))}
-                    </Tabs>
-                </div>
               </div>
             </Drawer>
             <UserOutlined
@@ -262,15 +270,15 @@ const TabsCliente = () => {
                     border: "1px solid #E8E8E8",
                     borderRadius: "4px",
                     padding: "5px",
-                    marginBottom:"5px",
-                    marginRigth:"5px"
+                    marginBottom: "5px",
+                    marginRigth: "5px"
                   }}
                 >
-                  <div style={{display:"inline"}}><h4>GABRIELA CHIURA</h4></div>
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Rol:</h4><p>NEXO</p></div>   
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Telefono:</h4><p> (02364-450909)</p></div>    
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Movil:</h4><p>02364-450909</p></div> 
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>         
+                  <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Rol:</h4><p>NEXO</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Telefono:</h4><p> (02364-450909)</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Movil:</h4><p>02364-450909</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>
 
                 </div>
                 <div
@@ -281,15 +289,15 @@ const TabsCliente = () => {
                     border: "1px solid #E8E8E8",
                     borderRadius: "4px",
                     padding: "5px",
-                    marginBottom:"5px",
-                    marginRigt:"5px"
+                    marginBottom: "5px",
+                    marginRigt: "5px"
                   }}
                 >
-                  <div style={{display:"inline"}}><h4>GABRIELA CHIURA</h4></div>
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Rol:</h4><p>NEXO</p></div>   
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Telefono:</h4><p> (02364-450909)</p></div>    
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Movil:</h4><p>02364-450909</p></div> 
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>         
+                  <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Rol:</h4><p>NEXO</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Telefono:</h4><p> (02364-450909)</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Movil:</h4><p>02364-450909</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>
 
                 </div>
                 <div
@@ -300,15 +308,15 @@ const TabsCliente = () => {
                     border: "1px solid #E8E8E8",
                     borderRadius: "4px",
                     padding: "5px",
-                    marginBottom:"5px",
-                    marginRigt:"5px"
+                    marginBottom: "5px",
+                    marginRigt: "5px"
                   }}
                 >
-                  <div style={{display:"inline"}}><h4>GABRIELA CHIURA</h4></div>
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Rol:</h4><p>NEXO</p></div>   
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Telefono:</h4><p> (02364-450909)</p></div>    
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Movil:</h4><p>02364-450909</p></div> 
-                  <div style={{display: "flex",flexDirection: "row"}}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>         
+                  <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Rol:</h4><p>NEXO</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Telefono:</h4><p> (02364-450909)</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Movil:</h4><p>02364-450909</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>
 
                 </div>
               </div>
@@ -337,32 +345,20 @@ const TabsCliente = () => {
                 paddingRight: "5px",
               }}
               onChange={handleChangee}
-              options={[
-                {
-                  value: "2324",
-                  label: "2324",
-                },
-                {
-                  value: "2223",
-                  label: "2223",
-                },
-                {
-                  value: "2122",
-                  label: "2122",
-                },
-                {
-                  value: "2021",
-                  label: "2021",
-                },
-              ]}
-            />
+            >
+              {listCosechas.length > 0 && listCosechas.map((cosecha) => {
+                return (
+                  <Select.Option key={cosecha.acos_desc} value={cosecha.acos_desc}>{cosecha.acos_desc}</Select.Option>
+                )
+              })}
+            </Select>
           </div>
           <Tabs
             className="tabs-custom"
             items={items}
             onChange={handleTabClick}
-            // tabBarStyle={{ width: '100%' }}
-            // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
+          // tabBarStyle={{ width: '100%' }}
+          // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
           >
             {items.map((item) => (
               <TabPane key={item.key} tab={item.label}>
