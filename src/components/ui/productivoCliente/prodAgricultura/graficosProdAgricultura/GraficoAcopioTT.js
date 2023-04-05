@@ -41,27 +41,27 @@ export const GraficoAcopioTT = () => {
     const items = [
         {
             key: '1',
-            label: `TOTAL`,
+            label: `Total`,
             children: `Total 1`,
         },
         {
             key: '2',
-            label: `SOJA`,
+            label: `Soja`,
             children: `Soja 2`,
         },
         {
             key: '3',
-            label: `TRIGO`,
+            label: `Trigo`,
             children: `Trigo 3`,
         },
         {
             key: '4',
-            label: `MAIZ`,
+            label: `Maíz`,
             children: `Maiz 4`,
         },
         {
             key: '5',
-            label: `OTROS GRANOS`,
+            label: `Otros Granos`,
             children: `Otros granos 5`,
         },
     ];
