@@ -12,6 +12,7 @@ import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
 import { EyeOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const TabsCliente = () => {
+
   const URL = process.env.REACT_APP_URL;
 
   const {
@@ -19,13 +20,44 @@ const TabsCliente = () => {
     setAppStage,
     idCliente,
     setIdCliente,
+    selectedAcosDesc,
+    setSelectedAcosDesc,
+    cosechaAnterior,
+    setCosechaAnterior,
 
     infoCosechas,
     setCosechas,
 
     listCosechas, setListCosechas,
     cosechaA, setCosechaA,
+
   } = useContext(GlobalContext);
+
+  // const [selectedAcosDesc, setSelectedAcosDesc] = useState('2324');
+  // const [cosechaAnterior, setCosechaAnterior] = useState('2223');
+
+
+
+  const handleSelectChange = (value) => {
+    setSelectedAcosDesc(value);
+
+    //! INICIO EVOLUCION PRODUCTIVA
+    // Obtener índice del valor seleccionado
+    const selectedIndex = listCosechas.findIndex((cosecha) => cosecha.acos_desc === value);
+
+    // Obtener índice del valor seleccionado que le sigue. Es para el año anterior
+    if (selectedIndex >= 0) {
+      const previousValue = listCosechas[selectedIndex + 1]?.acos_desc || 0;
+      setCosechaAnterior(previousValue);
+    }
+    //! FIN EVOLUCION PRODUCTIVA
+  };
+
+  useEffect(() => {
+    handleSelectChange(selectedAcosDesc);
+  }, [])
+
+
 
   const items = [
     {
@@ -95,9 +127,9 @@ const TabsCliente = () => {
     }
   };
 
-  const handleChangee = (value) => {
-    console.log(`selected ${value}`);
-  };
+  // const handleChangee = (value) => {
+  //   console.log(`selected ${value}`);
+  // };
 
   //! DRAWER INFORMCACION
   const [open, setOpen] = useState(false);
@@ -128,44 +160,51 @@ const TabsCliente = () => {
 
 
   setIdCliente('2049'); // PARA PROBAR
-  /*-------- INICIO - CONSULTAS PARA TRAER LOS DATOS---------*/
-  //* FUNCION QUE TRAE LOS DATOS DE COSECHA ACTIVA Y LAS QUE SE PUEDEN VISUALIZAR DEL CLIENTE
-  function cosechas(idCliente) {
-    const data = new FormData();
-    data.append("idC", idCliente);
-    // fetch("../com_traerCosechas.php", {
-    fetch(`${URL}/com_traerCosechas.php`, {
-      method: "POST",
-      body: data,
-    }).then(function (response) {
-      response.text().then((resp) => {
-        const data = resp;
-        const objetoData = JSON.parse(data);
-        console.log('objetoData: ', objetoData)
-        setCosechas(objetoData);
-        setCosechaA(objetoData[0].acos_desc)
-        setListCosechas(objetoData);
+  // /*-------- INICIO - CONSULTAS PARA TRAER LOS DATOS---------*/
+  // //* FUNCION QUE TRAE LOS DATOS DE COSECHA ACTIVA Y LAS QUE SE PUEDEN VISUALIZAR DEL CLIENTE
+  // function cosechas(idCliente) {
+  //   const data = new FormData();
+  //   data.append("idC", idCliente);
+  //   // fetch("../com_traerCosechas.php", {
+  //   fetch(`${URL}/com_traerCosechas.php`, {
+  //     method: "POST",
+  //     body: data,
+  //   }).then(function (response) {
+  //     response.text().then((resp) => {
+  //       const data = resp;
+  //       const objetoData = JSON.parse(data);
+  //       console.log('objetoData: ', objetoData)
+  //       setCosechas(objetoData);
+  //       setCosechaA(objetoData[0].acos_desc)
+  //       setListCosechas(objetoData);
+  //     });
+  //   });
 
-      });
-    });
-  }
+  // }
 
-  useEffect(() => {
-    if (idCliente) {
-      cosechas(idCliente);
-      // cosechas('2049');
 
-    }
-  }, [idCliente/*, cosecha, update, selectedValue, cosechaActiva*/]);
+  // useEffect(() => {
+  //   cosechas('2049')
+  // }, [])
 
-  /*-------- FIN - CONSULTAS PARA TRAER LOS DATOS---------*/
+
+
+
+  // useEffect(() => {
+  //   if (idCliente) {
+  //     cosechas(idCliente);
+  //     setSelectedAcosDesc(listCosechas.length > 0 ? listCosechas[0]?.acos_desc : null);
+  //     setCosechaAnterior(listCosechas.length > 0 ? listCosechas[1]?.acos_desc : null);
+  //   }
+  // }, [idCliente/*, cosecha, update, selectedValue, cosechaActiva*/]);
+
+  // /*-------- FIN - CONSULTAS PARA TRAER LOS DATOS---------*/
   // console.log('idCliente: ', idCliente);
 
+  // console.log('selectedAcosDesc: ', selectedAcosDesc);
+  // console.log('listCosechas3: ', listCosechas);
 
-
-
-
-
+  // console.log('listCosechas: ', listCosechas);
 
   return (
     <>
@@ -339,12 +378,14 @@ const TabsCliente = () => {
           {/* <Space wrap> */}
           <div style={{ paddingRight: "1px" }}>
             <Select
-              defaultValue="2324"
+              // defaultValue={listCosechas.length > 0 && listCosechas[0]?.acos_desc}
+              defaultValue={selectedAcosDesc && selectedAcosDesc}
+              // objetoData.length > 0 ? objetoData[0]?.acos_desc : null
               style={{
                 width: 97,
                 paddingRight: "5px",
               }}
-              onChange={handleChangee}
+              onChange={handleSelectChange}
             >
               {listCosechas.length > 0 && listCosechas.map((cosecha) => {
                 return (

@@ -1,8 +1,8 @@
-import { ArrowUpOutlined, CaretUpFilled, EnvironmentOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Row, Statistic } from 'antd';
+import { CaretDownOutlined, CaretUpFilled, EnvironmentOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Spin, Statistic } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import CountUp from 'react-countup';
-import { Bar, BarChart, CartesianGrid, LabelList, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, ResponsiveContainer } from 'recharts';
 import { GlobalContext } from '../../../../context/GlobalContext';
 import CardGraficoEvolucionProductiva from './CardGraficoEvolucionProductiva';
 import './cardDatos.css';
@@ -46,6 +46,10 @@ const CardInsumos = () => {
         setCardSelected,
         idCliente,
         setIdCliente,
+        selectedAcosDesc,
+        setSelectedAcosDesc,
+        cosechaAnterior,
+        setCosechaAnterior,
 
         infoEvo,
         setInfoEvo,
@@ -92,6 +96,13 @@ const CardInsumos = () => {
     const [cardStyle2, setCardStyle2] = useState({});
     const [cardStyle3, setCardStyle3] = useState({});
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+    const [totalHas, setTotalHas] = useState(0);
+    const [totalHasAA, setTotalHasAA] = useState(0);
+    const [insumoTotal, setInsumoTotal] = useState(0);
+    const [insumoTotalAA, setInsumoTotalAA] = useState(0);
+    const [acopioTotal, setAcopioTotal] = useState(0);
+    const [acopioTotalAA, setAcopioTotalAA] = useState(0);
+
 
     // const [labelListTotalHas, setLabelListTotalHas] = useState(false);
     const [labelListInsumos, setLabelListInsumos] = useState(false);
@@ -232,8 +243,8 @@ const CardInsumos = () => {
     // });
     /*-----------------*/
 
-    //!  /*---------INICIO - EVOLUCION PRODUCTIVA---------*/    
-    //*Llama y trae los datos de la consulta php
+    // //!  /*---------INICIO - EVOLUCION PRODUCTIVA---------*/    
+    // //*Llama y trae los datos de la consulta php
 
     function InfoGrafEvol(idCliente) {
         const data = new FormData();
@@ -276,7 +287,7 @@ const CardInsumos = () => {
         }
     }, [infoEvo]);
 
-    //!  /*---------FIN - EVOLUCION PRODUCTIVA---------*/
+    // //!  /*---------FIN - EVOLUCION PRODUCTIVA---------*/
 
 
     //!  /*---------INICIO - INSUNMOS---------*/
@@ -296,6 +307,8 @@ const CardInsumos = () => {
                 const data = resp.substring(resp.indexOf('['));
                 var objetoData = JSON.parse(data);
                 setInfoInsumoTotal(objetoData);
+                console.log('infoInsumoTotal: ', infoInsumoTotal);
+                console.log('objetoData - infoInsumoTotal: ', objetoData);
             });
         });
     }
@@ -466,6 +479,7 @@ const CardInsumos = () => {
                 const data = resp.substring(resp.indexOf('['));
                 var objetoData = JSON.parse(data);
                 setInfoTotal(objetoData);
+                console.log('InfoTotal: ', infoTotal)
             });
         });
     }
@@ -490,6 +504,7 @@ const CardInsumos = () => {
                     };
                 })
             );
+            console.log('setIsDataTotal: ', isDataTotal)
         }
     }, [infoTotal]);
     /*------------------Fin DataTotal----------------------*/
@@ -669,6 +684,146 @@ const CardInsumos = () => {
     //!  /*---------FIN - ACOPIO---------*/
 
 
+
+    // function calculateTotal() {
+    //     const filteredInfoEvo = infoEvo.find((item) => item.acos_desc === selectedAcosDesc);
+    //     const total = filteredInfoEvo ? (parseInt(filteredInfoEvo.ahxs_propias) + parseInt(filteredInfoEvo.ahxs_alquiladas)) : 0;
+
+    //     const selectCosechaAnterior = infoEvo.find((item) => item.acos_desc === cosechaAnterior);
+    //     const totalCosechaAnterior = selectCosechaAnterior ? (parseInt(selectCosechaAnterior.ahxs_propias) + parseInt(selectCosechaAnterior.ahxs_alquiladas)) : 0;
+
+    //     setTotalHasAA(totalCosechaAnterior);
+    //     setTotalHas(total);
+
+    //     return total;
+    // }
+
+
+
+    const [average, setAverage] = useState();
+    const [averageInsumos, setAverageInsumos] = useState();
+    const [averageAcopio, setAverageAcopio] = useState();
+    const [porcentajeColor, setPorcentajeColor] = useState('');
+    const [porcentajeColorInsumo, setPorcentajeColorInsumo] = useState('');
+    const [porcentajeColorAcopio, setPorcentajeColorAcopio] = useState('');
+
+
+
+    function calculateTotal() {
+
+        //! INICIO - EVOLUCION PRODUCTIVA
+        const filteredInfoEvo = infoEvo.find((item) => item.acos_desc === selectedAcosDesc);
+        const total = filteredInfoEvo ? (parseInt(filteredInfoEvo.ahxs_propias) + parseInt(filteredInfoEvo.ahxs_alquiladas)) : 0;
+
+        const selectCosechaAnterior = infoEvo.find((item) => item.acos_desc === cosechaAnterior);
+        const totalCosechaAnterior = selectCosechaAnterior ? (parseInt(selectCosechaAnterior.ahxs_propias) + parseInt(selectCosechaAnterior.ahxs_alquiladas)) : 0;
+
+        setTotalHasAA(totalCosechaAnterior);
+        setTotalHas(total);
+        //! FIN - EVOLUCION PRODUCTIVA
+
+        //! INICIO - INSUMOS
+        const filteredInfoInsumoTotal = isDataInsumoTotal.find((item) => item.cosecha === selectedAcosDesc);
+        const totalInsumos = filteredInfoInsumoTotal ? parseInt(filteredInfoInsumoTotal.Compra) : 0;
+
+        const selectCosechaAnteriorInsumoTotal = isDataInsumoTotal.find((item) => item.cosecha === cosechaAnterior);
+        const totalCosechaAnteriorInsumoTotal = selectCosechaAnteriorInsumoTotal ? parseInt(selectCosechaAnteriorInsumoTotal.Compra) : 0;
+
+        setInsumoTotal(totalInsumos);
+        setInsumoTotalAA(totalCosechaAnteriorInsumoTotal);
+        //! FIN - INSUMOS
+
+        //! INICIO - ACOPIO TT
+        const filteredInfoAcopioTotal = isDataTotal.find((item) => item.cosecha === selectedAcosDesc);
+        const totalAcopio = filteredInfoAcopioTotal ? parseInt(filteredInfoAcopioTotal.Entregadas) : 0;
+
+        const selectCosechaAnteriorAcopioTotal = isDataTotal.find((item) => item.cosecha === cosechaAnterior);
+        const totalCosechaAnteriorAcopioTotal = selectCosechaAnteriorAcopioTotal ? parseInt(selectCosechaAnteriorAcopioTotal.Entregadas) : 0;
+
+        setAcopioTotal(totalAcopio);
+        setAcopioTotalAA(totalCosechaAnteriorAcopioTotal);
+
+        //! FIN - ACOPIO TT
+        // return total;
+    }
+
+
+    useEffect(() => {
+
+        //! INICIO - EVOLUCION PRODUCTIVA
+        var porcentaje = 0;
+        if (totalHasAA === 0 && totalHas === 0) {
+            porcentaje = 0
+        } else if (totalHasAA === 0)
+            porcentaje = 100
+        else {
+            porcentaje = ((totalHas - totalHasAA) / totalHasAA) * 100;
+
+        }
+
+        setAverage(porcentaje);
+        if (porcentaje >= 0) {
+            setPorcentajeColor('#0CB112');
+        } else {
+            setPorcentajeColor('#FA0D0D');
+        }
+        //! FIN - EVOLUCION PRODUCTIVA
+
+        //! INICIO - INSUMOS
+        var porcentajeInsumos = 0;
+        if (insumoTotalAA === 0 && insumoTotal === 0) {
+            porcentajeInsumos = 0
+        } else if (insumoTotalAA === 0)
+            porcentajeInsumos = 100
+        else {
+            porcentajeInsumos = ((insumoTotal - insumoTotalAA) / insumoTotalAA) * 100;
+
+        }
+
+        setAverageInsumos(porcentajeInsumos);
+        if (porcentajeInsumos >= 0) {
+            setPorcentajeColorInsumo('#0CB112');
+        } else {
+            setPorcentajeColorInsumo('#FA0D0D');
+        }
+
+        //! FIN - INSUMOS
+
+        //! INICIO - ACOPIO TT
+
+        var porcentajeAcopio = 0;
+        if (acopioTotalAA === 0 && acopioTotal === 0) {
+            porcentajeAcopio = 0
+        } else if (acopioTotalAA === 0)
+            porcentajeAcopio = 100
+        else {
+            porcentajeAcopio = ((acopioTotal - acopioTotalAA) / acopioTotalAA) * 100;
+
+        }
+
+        setAverageAcopio(porcentajeAcopio);
+        if (porcentajeAcopio >= 0) {
+            setPorcentajeColorAcopio('#0CB112');
+        } else {
+            setPorcentajeColorAcopio('#FA0D0D');
+        }
+        //! FIN - ACOPIO TT
+    }, [totalHas, totalHasAA, insumoTotal, insumoTotalAA, acopioTotal, acopioTotalAA]);
+
+    // useEffect(() => {
+    //     InfoGrafEvol('2049');
+    // }, [])
+
+    useEffect(() => {
+        calculateTotal();
+    }, [infoEvo, selectedAcosDesc, cosechaAnterior])
+
+    // useEffect(() => {
+    //     calculateTotal();
+    // }, [selectedAcosDesc])
+
+
+
     return (
         <>
             <div style={{ height: '100%', paddingBottom: '5px', backgroundColor: '#FFFF' }}>
@@ -681,7 +836,7 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 <Statistic
                                     title="Total Has."
-                                    value={21910}
+                                    value={totalHas ? totalHas : 0}
                                     valueStyle={{
                                         fontSize: '40px',
                                         fontWeight: 'bold',
@@ -692,10 +847,10 @@ const CardInsumos = () => {
                                 />
                                 <Statistic
                                     // title="."
-                                    value={11.28}
+                                    value={average ? Math.abs(average) : 0}
                                     precision={2}
                                     valueStyle={{
-                                        color: '#0CB112',
+                                        color: porcentajeColor,
                                         marginTop: '30px',
                                         marginLeft: '20px',
                                         fontWeight: 'bold',
@@ -703,14 +858,13 @@ const CardInsumos = () => {
                                     }}
                                     // prefix={ <ArrowUpOutlined />}
                                     prefix="("
-                                    suffix={(
-                                        <span>%) <CaretUpFilled /></span>
-                                    )}
+                                    suffix={average >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
+
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>90</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
                         <Col span={6}>
@@ -733,7 +887,7 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 <Statistic
                                     title="Insumos U$S"
-                                    value={345020}
+                                    value={insumoTotal ? insumoTotal : 0}
                                     // precision={2}
                                     valueStyle={{
                                         fontSize: '40px',
@@ -746,10 +900,10 @@ const CardInsumos = () => {
                                 />
                                 <Statistic
                                     // title="."
-                                    value={10}
+                                    value={averageInsumos ? Math.abs(averageInsumos) : 0}
                                     precision={2}
                                     valueStyle={{
-                                        color: '#0CB112',
+                                        color: porcentajeColorInsumo,
                                         marginTop: '30px',
                                         marginLeft: '20px',
                                         fontWeight: 'bold',
@@ -758,14 +912,12 @@ const CardInsumos = () => {
                                     }}
                                     // prefix={ <ArrowUpOutlined />}
                                     prefix="("
-                                    suffix={(
-                                        <span>%) <CaretUpFilled /></span>
-                                    )}
+                                    suffix={averageInsumos >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>310.000</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
                         <Col span={6}>
@@ -826,7 +978,7 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 <Statistic
                                     title="Acopio TT"
-                                    value={95130}
+                                    value={acopioTotal ? acopioTotal : 0}
                                     // precision={2}
                                     valueStyle={{
                                         fontSize: '40px',
@@ -838,24 +990,22 @@ const CardInsumos = () => {
                                 />
                                 <Statistic
                                     // title="."
-                                    value={23}
+                                    value={averageAcopio ? Math.abs(averageAcopio) : 0}
                                     precision={2}
                                     valueStyle={{
-                                        color: '#0CB112',
+                                        color: porcentajeColorAcopio,
                                         marginTop: '30px',
                                         fontWeight: 'bold',
                                         marginLeft: '20px',
                                         width: '100%',
                                     }}
                                     prefix="("
-                                    suffix={(
-                                        <span>%) <CaretUpFilled /></span>
-                                    )}
+                                    suffix={averageAcopio >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>310.000</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
                         <Col span={6}>

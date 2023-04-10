@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { BarChartOutlined, BarsOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { Card, Popover, Table } from 'antd'
@@ -6,10 +6,62 @@ import GraficosProdAgricultura from './graficosProdAgricultura/GraficosProdAgric
 import './index.css';
 import { GraficosPrueba } from './GraficosPrueba';
 import CardInsumos from './cardDatos/CardInsumos.js';
+import { GlobalContext } from '../../../context/GlobalContext';
 
 export const ProductivoAgricultura = () => {
 
+    const URL = process.env.REACT_APP_URL;
 
+    const {
+        cardSelected,
+        setCardSelected,
+        idCliente,
+        setIdCliente,
+        selectedAcosDesc,
+        setSelectedAcosDesc,
+        cosechaAnterior,
+        setCosechaAnterior,
+
+        infoEvo,
+        setInfoEvo,
+        update,
+        dataForChart,
+        setDataForChart,
+
+        //Insumos
+        infoInsumoTotal,
+        setInfoInsumoTotal,
+        infoInsumoAgroquimicos,
+        setInfoInsumoAgroquimicos,
+        infoInsumoSemillas,
+        setInfoInsumoSemillas,
+        infoInsumoFertilizantes,
+        setInfoInsumoFertilizantes,
+        isDataInsumoTotal, setIsDataInsumoTotal,
+        isDataInsumoAgroquimicos, setIsDataInsumoAgroquimicos,
+        isDataInsumoSemillas, setIsDataInsumoSemillas,
+        isDataInsumoFertilizantes, setIsDataInsumoFertilizantes,
+
+        //ACOPIO
+        infoTotal,
+        setInfoTotal,
+        infoSoja,
+        setInfoSoja,
+        infoTrigo,
+        setInfoTrigo,
+        infoMaiz,
+        setInfoMaiz,
+        infoOtrosGranos,
+        setInfoOtrosGranos,
+        isDataTotal, setIsDataTotal,
+        isDataSoja, setIsDataSoja,
+        isDataTrigo, setIsDataTrigo,
+        isDataMaiz, setIsDataMaiz,
+        isDataOtrosGranos, setIsDataOtrosGranos,
+
+
+
+    } = useContext(GlobalContext);
 
     return (
         <div className='divContainerAgricultura'>

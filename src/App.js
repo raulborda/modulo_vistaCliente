@@ -6,15 +6,20 @@ import './App.css';
 import { useState } from 'react';
 import { GlobalContext } from './components/context/GlobalContext';
 import TabsCliente from './components/ui/tabsCliente/TabsCliente';
+import { ViewGeneral } from './components/ui/ViewGeneral';
 
 function App() {
 
   const [appStage, setAppStage] = useState(0);
   const [cardSelected, setCardSelected] = useState(0);
+  const [selectedAcosDesc, setSelectedAcosDesc] = useState('');
+  const [cosechaAnterior, setCosechaAnterior] = useState('');
+
   const [infoCosechas, setCosechas] = useState([]);
 
+
   const [listCosechas, setListCosechas] = useState([])
-  const [cosechaA, setCosechaA] = useState('')
+  const [cosechaA, setCosechaA] = useState([])
 
   //* Id de cliente que se obtine desde local storage
   // const idC = localStorage.getItem("cliente");
@@ -24,7 +29,7 @@ function App() {
 
   //Evolucion Productiva:
   const [update, setUpdate] = useState(false);
-  const [infoEvo, setInfoEvo] = useState({});
+  const [infoEvo, setInfoEvo] = useState([]);
   const [dataForChart, setDataForChart] = useState([]);
 
   //GraficoCerealEntregado
@@ -35,7 +40,7 @@ function App() {
   const [infoOtrosGranos, setInfoOtrosGranos] = useState({});
 
   //AnalisisInsumosComprados
-  const [infoInsumoTotal, setInfoInsumoTotal] = useState({});
+  const [infoInsumoTotal, setInfoInsumoTotal] = useState([]);
   const [infoInsumoAgroquimicos, setInfoInsumoAgroquimicos] = useState({});
   const [infoInsumoSemillas, setInfoInsumoSemillas] = useState({});
   const [infoInsumoFertilizantes, setInfoInsumoFertilizantes] = useState({});
@@ -55,6 +60,8 @@ function App() {
       value={{
         appStage, setAppStage,
         cardSelected, setCardSelected,
+        selectedAcosDesc, setSelectedAcosDesc,
+        cosechaAnterior, setCosechaAnterior,
         idCliente, setIdCliente,
         infoCosechas, setCosechas,
 
@@ -89,9 +96,11 @@ function App() {
         isDataInsumoFertilizantes, setIsDataInsumoFertilizantes,
       }}
     >
+
       <ApolloProvider client={client}>
         {/* <ConfigProvider locale={esES}> */}
-        <TabsCliente />
+        {/* <TabsCliente /> */}
+        <ViewGeneral/>
         {/* </ConfigProvider> */}
       </ApolloProvider>
     </GlobalContext.Provider>
