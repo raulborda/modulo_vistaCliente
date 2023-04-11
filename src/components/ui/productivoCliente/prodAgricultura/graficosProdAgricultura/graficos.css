@@ -69,3 +69,23 @@
 }
 
 /*FIN - TABS*/
+
+.iconTableOutlined {
+   font-size: 20px !important;
+   color: #56D75B;
+   background-color: transparent;
+   margin-left: 8px;
+   margin-top: 2px;
+}
+
+/* .ant-table {
+   height: 315px !important; 
+} */
+
+.ant-table-cell{
+   padding: 15px !important;
+ }
+ 
+ .ant-form-item {
+   margin-bottom: 0px !important;
+ }

@@ -21,6 +21,11 @@ function App() {
   const [listCosechas, setListCosechas] = useState([])
   const [cosechaA, setCosechaA] = useState([])
 
+  const [iconTable, setIconTable] = useState(false)
+  const [infoRubros, setInfoRubros]=useState({});
+  const [infoCap, setInfoCap]=useState({});
+  const [infoEdit, setInfoEdit]=useState({});
+
   //* Id de cliente que se obtine desde local storage
   // const idC = localStorage.getItem("cliente");
   const idC = localStorage.getItem("2049");
@@ -71,6 +76,11 @@ function App() {
         infoEvo, setInfoEvo,
         update, setUpdate,
         dataForChart, setDataForChart,
+
+        iconTable, setIconTable,
+        infoRubros, setInfoRubros,
+        infoCap, setInfoCap,
+        infoEdit, setInfoEdit,
 
 
         //GraficoCerealEntregado

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { GlobalContext } from '../../../../context/GlobalContext';
+import { PieChartOutlined, TableOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 const GraficoEvolucionProductiva = () => {
 
@@ -15,6 +17,9 @@ const GraficoEvolucionProductiva = () => {
         update,
         dataForChart,
         setDataForChart,
+
+        iconTable,
+        setIconTable,
     } = useContext(GlobalContext);
 
     const data = [
@@ -40,7 +45,7 @@ const GraficoEvolucionProductiva = () => {
         }
     ];
 
-    const COLORS = ["#116611", "#56b43c", "#55AA55", "#88CC88"];
+    const COLORS = ["#7B241C", "#CB4335", "#F1948A", "#FADBD8"];
 
     const dataAnillo = [
         { name: 'Agricultura', value: 400 },
@@ -118,16 +123,28 @@ const GraficoEvolucionProductiva = () => {
     };
 
     /*--------------------------- */
-
+    const verGrafico = () => {
+        // if (iconTable === false) {
+        setCardSelected(1)
+        setIconTable(!iconTable);
+        // } else {
+        //     setCardSelected(1)
+        //     setIconTable(!iconTable);
+        // }
+    }
 
     return (
         <>
             <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <div style={{ width: '70%', marginRight: '10px' }}>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <h1 className='titulos'>
                             EVOLUCIÓN PRODUCTIVA
                         </h1>
+                        {/* <TableOutlined title='Tabla' className='iconTableOutlined' onClick={{}} /> */}
+                        {
+                            !iconTable && <TableOutlined title='Tabla' className='iconTableOutlined' onClick={() => { verGrafico(); }} />
+                        }
                     </div>
                     <ResponsiveContainer className="" width="99%" height={/*400*/ 250}>
                         <BarChart
@@ -155,52 +172,52 @@ const GraficoEvolucionProductiva = () => {
                                 wrapperStyle={{ fontWeight: "bold", color: "#000000" }}
                             />
                             {isValorPropias ? (
-                            <Bar
-                                dataKey="propias"
-                                name="Propias"
-                                stackId="a"
-                                barSize={50}
-                                fill="#B10C5B"
-                                key={"propias"}
-                                isAnimationActive={true}
-                            />
+                                <Bar
+                                    dataKey="propias"
+                                    name="Propias"
+                                    stackId="a"
+                                    barSize={50}
+                                    fill="#B10C5B"
+                                    key={"propias"}
+                                    isAnimationActive={true}
+                                />
                             ) : (
                                 <Bar
-                                  dataKey={0}
-                                  name="Propias"
-                                  stackId="a"
-                                  barSize={50}
-                                  fill="#d8d8d8"
-                                  key={"propias"}
-                                  isAnimationActive={true}
+                                    dataKey={0}
+                                    name="Propias"
+                                    stackId="a"
+                                    barSize={50}
+                                    fill="#d8d8d8"
+                                    key={"propias"}
+                                    isAnimationActive={true}
                                 />
-                              )}
-                              {isValorAlquiladas ? (
-                            <Bar
-                                dataKey="alquiladas"
-                                name="Alquiladas"
-                                stackId="a"
-                                barSize={50}
-                                fill="#282828"
-                                key={"alquiladas"}
-                                isAnimationActive={true}
-                            />
+                            )}
+                            {isValorAlquiladas ? (
+                                <Bar
+                                    dataKey="alquiladas"
+                                    name="Alquiladas"
+                                    stackId="a"
+                                    barSize={50}
+                                    fill="#282828"
+                                    key={"alquiladas"}
+                                    isAnimationActive={true}
+                                />
                             ) : (
                                 <Bar
-                                  dataKey={0}
-                                  name="Alquiladas"
-                                  stackId="a"
-                                  barSize={50}
-                                  fill="#d8d8d8"
-                                  key={"alquiladas"}
-                                  isAnimationActive={true}
+                                    dataKey={0}
+                                    name="Alquiladas"
+                                    stackId="a"
+                                    barSize={50}
+                                    fill="#d8d8d8"
+                                    key={"alquiladas"}
+                                    isAnimationActive={true}
                                 />
-                              )}
+                            )}
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
 
-                {/* <div style={{ width: '30%', marginRight: '10px' }}>
+                <div style={{ width: '30%', marginRight: '10px' }}>
                     <ResponsiveContainer className="" width="100%" height={250}>
                         <PieChart
                             height={250}
@@ -234,7 +251,7 @@ const GraficoEvolucionProductiva = () => {
                             <Tooltip />
                         </PieChart>
                     </ResponsiveContainer>
-                </div> */}
+                </div>
             </div >
         </>
     )

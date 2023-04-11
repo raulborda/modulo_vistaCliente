@@ -28,6 +28,8 @@ const CardInsumos = () => {
         dataForChart,
         setDataForChart,
 
+        setIconTable,
+
         //Insumos
         infoInsumoTotal,
         setInfoInsumoTotal,
@@ -73,17 +75,14 @@ const CardInsumos = () => {
         height: '100%'
     });
     const [cardStyle2, setCardStyle2] = useState({
-        borderRight: '2px dashed #56D75B', 
-        borderTopRightRadius: '0%', 
-        borderBottomRightRadius: '0%', 
-        borderTopRightRadius: '0%', 
-        borderBottomRightRadius: '0%', 
+        borderRight: '2px dashed #56D75B',
+        borderTopRightRadius: '0%',
         height: '100%'
     });
     const [cardStyle3, setCardStyle3] = useState({
-        borderRight: '2px dashed #56D75B', 
-        borderTopRightRadius: '0%', 
-        borderBottomRightRadius: '0%', 
+        borderRight: '2px dashed #56D75B',
+        borderTopRightRadius: '0%',
+        borderBottomRightRadius: '0%',
         height: '100%'
     });
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
@@ -139,6 +138,7 @@ const CardInsumos = () => {
                 setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardSelected(2);
+                setIconTable(false);
                 break;
             case 2:
                 setCardStyle3({
@@ -153,6 +153,7 @@ const CardInsumos = () => {
                 setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardSelected(3);
+                setIconTable(false);
                 break;
             default:
                 break;
@@ -797,40 +798,42 @@ const CardInsumos = () => {
                         </Col>
                         <Col span={6}>
                             <Row style={{ width: '100%' }}>
-                                <Statistic
-                                    title="Propias: "
-                                    value={valorPropias ? valorPropias : 0}
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        marginTop: '23px'
-                                    }}
-                                    valueStyle={{
-                                        fontSize: '18px',
-                                        fontWeight: 'bold',
-                                        marginLeft: '5px',
-                                        marginTop: '2px'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic"
-                                    layout="horizontal"
-                                />
-                                <Statistic
-                                    title="Alquiladas:"
-                                    value={valorAlquiladas ? valorAlquiladas : 0}
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                    }}
-                                    valueStyle={{
-                                        fontSize: '18px',
-                                        fontWeight: 'bold',
-                                        marginLeft: '5px',
-                                        marginTop: '2px'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic"
-                                />
+                                <div style={{display: 'flex', flexDirection: 'column'}}>
+                                    <Statistic
+                                        title="Propias: "
+                                        value={valorPropias ? valorPropias : 0}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            marginTop: '23px'
+                                        }}
+                                        valueStyle={{
+                                            fontSize: '18px',
+                                            fontWeight: 'bold',
+                                            marginLeft: '5px',
+                                            marginTop: '2px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic"
+                                        layout="horizontal"
+                                    />
+                                    <Statistic
+                                        title="Alquiladas:"
+                                        value={valorAlquiladas ? valorAlquiladas : 0}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                        }}
+                                        valueStyle={{
+                                            fontSize: '18px',
+                                            fontWeight: 'bold',
+                                            marginLeft: '5px',
+                                            marginTop: '2px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic"
+                                    />
+                                </div>
                             </Row>
                         </Col>
                         <Col span={6}>
