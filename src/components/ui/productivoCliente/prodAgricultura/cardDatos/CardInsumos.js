@@ -121,7 +121,7 @@ const CardInsumos = () => {
                     borderBottomRightRadius: '0%',
                     height: '100%'
                 });
-                setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
+                setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardSelected(0);
                 break;
