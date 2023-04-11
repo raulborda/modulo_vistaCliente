@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../../../../context/GlobalContext';
-import { Bar, BarChart, LabelList, ResponsiveContainer } from 'recharts';
+import { Bar, BarChart, CartesianGrid, LabelList, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const CardGraficoEvolucionProductiva = () => {
 
@@ -31,10 +31,20 @@ const CardGraficoEvolucionProductiva = () => {
     // //!  /*---------FIN - EVOLUCION PRODUCTIVA---------*/
     // const [labelListTotalHas, setLabelListTotalHas] = useState(false);
     // console.log(labelListTotalHas);
+
+
+
+    const data = [
+        {
+            name: 'Page A',
+            uv: 75,
+            pv: 50,
+        },
+    ];
     return (
         <>
-            <div style={{ marginTop: '-10px' }}>
-                <ResponsiveContainer width="100%" height={100}>
+            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-10px' }}>
+                <ResponsiveContainer width="100%" height={100} layout="vertical">
                     <BarChart
                         height={100}
                         data={dataForChart.slice(-4)}
@@ -44,12 +54,9 @@ const CardGraficoEvolucionProductiva = () => {
                             left: 0,
                             bottom: 5,
                         }}
-                        // isAnimationActive={false}
                         onMouseOver={() => setLabelListTotalHas(true)}
                         onMouseOut={() => setLabelListTotalHas(false)}
-                    // onClick={() => setLabelListTotalHas(true)}
                     >
-                        {/* <Tooltip /> */}
                         <Bar
                             dataKey="propias"
                             name="Propias"
@@ -58,7 +65,6 @@ const CardGraficoEvolucionProductiva = () => {
                             fill="#B10C5B"
                             key={"propias"}
                             isAnimationActive={true}
-                        // label={labelListTotalHas ? (props) => props.value : null}
                         />
                         <Bar
                             dataKey="alquiladas"
