@@ -210,7 +210,7 @@ const GraficosProdAgricultura = () => {
     const handleStage = () => {
         switch (cardSelected) {
             case 0:
-                return <GraficoEvolucionProductiva />;
+                return <GraficoEvolucionProductiva porcentajes={capacidad} />;
             case 1:
                 return (
                     <Table
@@ -225,7 +225,7 @@ const GraficosProdAgricultura = () => {
                 return <GraficoAcopioTT />;
             default:
                 return (
-                    <GraficoEvolucionProductiva />
+                    <GraficoEvolucionProductiva porcentajes={capacidad} />
                     // <Table
                     //     columns={columns}
                     //     dataSource={dataTable} //Original

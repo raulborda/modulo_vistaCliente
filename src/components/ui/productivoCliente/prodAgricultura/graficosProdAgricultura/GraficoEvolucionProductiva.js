@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { GlobalContext } from '../../../../context/GlobalContext';
 import { PieChartOutlined, TableOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Empty } from 'antd';
 
-const GraficoEvolucionProductiva = () => {
+const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
     const {
         cardSelected,
@@ -122,6 +122,47 @@ const GraficoEvolucionProductiva = () => {
         return null;
     };
 
+
+
+  if (!porcentajes || !Array.isArray(porcentajes) || porcentajes.length === 0) {
+    return (
+      <Empty
+        style={{ marginTop: "20%" }}
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+      />
+    );
+  }
+
+  //console.log(porcentajes[0].porcentaje);
+
+  const dataAnillaco = [
+    {
+      name: "Agricultura",
+      value: parseInt(porcentajes[0].porcentaje),
+      namet: "Total",
+      has: porcentajes[0].total,
+    },
+    {
+      name: "Ganaderia",
+      value: parseInt(porcentajes[1].porcentaje),
+      namet: "Total",
+      has: porcentajes[1].total,
+    },
+    {
+      name: "Tambo",
+      value: parseInt(porcentajes[2].porcentaje),
+      namet: "Total",
+      has: porcentajes[2].total,
+    },
+    {
+      name: "Mixto",
+      value: parseInt(porcentajes[3].porcentaje),
+      namet: "Total",
+      has: porcentajes[3].total,
+    },
+  ];
+
+
     /*--------------------------- */
     const verGrafico = () => {
         // if (iconTable === false) {
@@ -132,6 +173,21 @@ const GraficoEvolucionProductiva = () => {
         //     setIconTable(!iconTable);
         // }
     }
+
+    const formatter = (value, name, props) => {
+        return (
+          <div>
+            <p
+              className="label"
+              style={{ color: "grey", fontWeight: "500" }}
+            >{`${props.payload.namet}: ${props.payload.has} has.`}</p>
+            <p
+              className="label"
+              style={{ color: "grey", fontWeight: "500" }}
+            >{`Porcentaje: ${value}%`}</p>
+          </div>
+        );
+      };
 
     return (
         <>
@@ -231,7 +287,7 @@ const GraficoEvolucionProductiva = () => {
                             />
                             <Pie
                                 className="pie"
-                                data={dataAnillo}
+                                data={dataAnillaco}
                                 cx={120}
                                 cy={110}
                                 innerRadius={40}
@@ -248,7 +304,7 @@ const GraficoEvolucionProductiva = () => {
                                     />
                                 ))}
                             </Pie>
-                            <Tooltip />
+                            <Tooltip formatter={formatter} />
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
