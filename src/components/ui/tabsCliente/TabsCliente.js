@@ -9,7 +9,7 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
+import { EyeOutlined, MailFilled, PhoneFilled, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const TabsCliente = () => {
 
@@ -220,6 +220,7 @@ const TabsCliente = () => {
                 fontWeight: "700",
                 fontFamily: "Open Sans, sans-serif",
                 marginBottom: "10px",
+                color: '#444'
               }}
             >
               ACONCAGUA S.R.L
@@ -259,20 +260,26 @@ const TabsCliente = () => {
                     padding: "5px",
                   }}
                 >
-                  <p>1</p>
-                  <div>
-                    <p>02364-450909</p>
+                  <p style={{ paddingBottom: '5px' }}>1</p>
+                  <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '5px' }}>
+                    <PhoneFilled style={{ marginRight: '4px', fontSize: '12px', color: '#444' }} />
+                    <p style={{ fontSize: '12px' }}>02364-450909</p>
                   </div>
-                  <div>
-                    <p>contacto@aconcagua.com.ar</p>
+                  <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '5px' }}>
+                    <MailFilled style={{ marginRight: '4px', fontSize: '12px', color: '#444' }} />
+                    <p style={{ color: '#444' }}>contacto@aconcagua.com.ar</p>
                   </div>
-                  <div>
-                    <p>Segmento:</p>
+                  <div style={{ paddingBottom: '5px' }}>
+                    <p style={{ fontSize: '13px', fontWeight: 'bold', color: '#444' }}>Segmento:</p>
                   </div>
-                  <p>Sector:</p>
-                  <p>COMERCIO</p>
-                  <p>Tamaño:</p>
-                  <p>PEQUEÑO</p>
+                  <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '5px' }}>
+                    <p style={{ fontSize: '13px', fontWeight: 'bold', color: '#444' }}>Sector:</p>
+                    <p style={{ color: '#444' }}>COMERCIO</p>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '5px' }}>
+                    <p style={{ fontSize: '13px', fontWeight: 'bold', color: '#444' }}>Tamaño:</p>
+                    <p style={{ color: '#444' }}>PEQUEÑO</p>
+                  </div>
                 </div>
               </div>
             </Drawer>
