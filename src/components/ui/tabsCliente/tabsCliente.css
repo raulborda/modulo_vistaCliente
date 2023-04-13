@@ -125,3 +125,11 @@ html {
    font-size: 12px;
    font-weight: bold;
 }
+
+
+.contact-card {
+   height: auto;
+   width: 100%;
+   border: 1px solid #e8e8e8;
+}
+ 

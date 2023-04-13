@@ -33,11 +33,6 @@ const TabsCliente = () => {
 
   } = useContext(GlobalContext);
 
-  // const [selectedAcosDesc, setSelectedAcosDesc] = useState('2324');
-  // const [cosechaAnterior, setCosechaAnterior] = useState('2223');
-
-
-
   const handleSelectChange = (value) => {
     setSelectedAcosDesc(value);
 
@@ -127,10 +122,6 @@ const TabsCliente = () => {
     }
   };
 
-  // const handleChangee = (value) => {
-  //   console.log(`selected ${value}`);
-  // };
-
   //! DRAWER INFORMCACION
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("top");
@@ -160,51 +151,6 @@ const TabsCliente = () => {
 
 
   setIdCliente('2049'); // PARA PROBAR
-  // /*-------- INICIO - CONSULTAS PARA TRAER LOS DATOS---------*/
-  // //* FUNCION QUE TRAE LOS DATOS DE COSECHA ACTIVA Y LAS QUE SE PUEDEN VISUALIZAR DEL CLIENTE
-  // function cosechas(idCliente) {
-  //   const data = new FormData();
-  //   data.append("idC", idCliente);
-  //   // fetch("../com_traerCosechas.php", {
-  //   fetch(`${URL}/com_traerCosechas.php`, {
-  //     method: "POST",
-  //     body: data,
-  //   }).then(function (response) {
-  //     response.text().then((resp) => {
-  //       const data = resp;
-  //       const objetoData = JSON.parse(data);
-  //       console.log('objetoData: ', objetoData)
-  //       setCosechas(objetoData);
-  //       setCosechaA(objetoData[0].acos_desc)
-  //       setListCosechas(objetoData);
-  //     });
-  //   });
-
-  // }
-
-
-  // useEffect(() => {
-  //   cosechas('2049')
-  // }, [])
-
-
-
-
-  // useEffect(() => {
-  //   if (idCliente) {
-  //     cosechas(idCliente);
-  //     setSelectedAcosDesc(listCosechas.length > 0 ? listCosechas[0]?.acos_desc : null);
-  //     setCosechaAnterior(listCosechas.length > 0 ? listCosechas[1]?.acos_desc : null);
-  //   }
-  // }, [idCliente/*, cosecha, update, selectedValue, cosechaActiva*/]);
-
-  // /*-------- FIN - CONSULTAS PARA TRAER LOS DATOS---------*/
-  // console.log('idCliente: ', idCliente);
-
-  // console.log('selectedAcosDesc: ', selectedAcosDesc);
-  // console.log('listCosechas3: ', listCosechas);
-
-  // console.log('listCosechas: ', listCosechas);
 
   return (
     <>
@@ -247,6 +193,7 @@ const TabsCliente = () => {
                   flexDirection: "row",
                   height: "100%",
                   width: "100%",
+                  userSelect: 'none',
                   // border: "1px solid red",
                 }}
               >
@@ -299,7 +246,7 @@ const TabsCliente = () => {
               onClose={onCloseC}
               open={openC}
             >
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -319,24 +266,25 @@ const TabsCliente = () => {
                     marginBottom: "5px",
                     marginRigth: "5px"
                   }}
-                >
-                  <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
-                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Rol:</h4><p>NEXO</p></div>
-                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Telefono:</h4><p> (02364-450909)</p></div>
-                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Movil:</h4><p>02364-450909</p></div>
-                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>
-
-                </div>
+                > */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  // justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  userSelect: 'none',
+                }}
+              >
                 <div
                   style={{
-                    marginRight: "5px",
-                    height: "auto",
                     width: "30%",
+                    flexBasis: "30%",
                     border: "1px solid #E8E8E8",
                     borderRadius: "4px",
                     padding: "5px",
                     marginBottom: "5px",
-                    marginRigt: "5px"
+                    marginRight: "5px",
                   }}
                 >
                   <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
@@ -348,14 +296,67 @@ const TabsCliente = () => {
                 </div>
                 <div
                   style={{
-                    marginRight: "5px",
-                    height: "auto",
                     width: "30%",
+                    flexBasis: "30%",
                     border: "1px solid #E8E8E8",
                     borderRadius: "4px",
                     padding: "5px",
                     marginBottom: "5px",
-                    marginRigt: "5px"
+                    marginRight: "5px",
+                  }}
+                >
+                  <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Rol:</h4><p>NEXO</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Telefono:</h4><p> (02364-450909)</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Movil:</h4><p>02364-450909</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>
+
+                </div>
+                <div
+                  style={{
+                    width: "30%",
+                    flexBasis: "30%",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "4px",
+                    padding: "5px",
+                    marginBottom: "5px",
+                    marginRight: "5px",
+                  }}
+                >
+                  <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Rol:</h4><p>NEXO</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Telefono:</h4><p> (02364-450909)</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Movil:</h4><p>02364-450909</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>
+
+                </div>
+                <div
+                  style={{
+                    width: "30%",
+                    flexBasis: "30%",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "4px",
+                    padding: "5px",
+                    marginBottom: "5px",
+                    marginRight: "5px",
+                  }}
+                >
+                  <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Rol:</h4><p>NEXO</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Telefono:</h4><p> (02364-450909)</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Movil:</h4><p>02364-450909</p></div>
+                  <div style={{ display: "flex", flexDirection: "row" }}><h4>Email:</h4><p>pruebaT@gmail.com</p></div>
+
+                </div>
+                <div
+                  style={{
+                    width: "30%",
+                    flexBasis: "30%",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "4px",
+                    padding: "5px",
+                    marginBottom: "5px",
+                    marginRight: "5px",
                   }}
                 >
                   <div style={{ display: "inline" }}><h4>GABRIELA CHIURA</h4></div>
@@ -385,9 +386,7 @@ const TabsCliente = () => {
           {/* <Space wrap> */}
           <div style={{ paddingRight: "1px" }}>
             <Select
-              // defaultValue={listCosechas.length > 0 && listCosechas[0]?.acos_desc}
               defaultValue={selectedAcosDesc && selectedAcosDesc}
-              // objetoData.length > 0 ? objetoData[0]?.acos_desc : null
               style={{
                 width: 97,
                 paddingRight: "5px",
@@ -405,8 +404,6 @@ const TabsCliente = () => {
             className="tabs-custom"
             items={items}
             onChange={handleTabClick}
-          // tabBarStyle={{ width: '100%' }}
-          // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
           >
             {items.map((item) => (
               <TabPane key={item.key} tab={item.label}>
