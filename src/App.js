@@ -7,8 +7,13 @@ import { useState } from 'react';
 import { GlobalContext } from './components/context/GlobalContext';
 import TabsCliente from './components/ui/tabsCliente/TabsCliente';
 import { ViewGeneral } from './components/ui/ViewGeneral';
+// import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
 function App() {
+
+  // mapboxgl.accessToken = 'pk.eyJ1IjoianVsaXBlcmVsZGEiLCJhIjoiY2xnZ2lqZTR0MDVxMDNjbzY3ZmkyeTg4ZSJ9.tuTXT_-exIErerEPFT9o3g';
+  // mapboxgl.accessToken = 'pk.eyJ1IjoianVsaXBlcmVsZGEiLCJhIjoiY2xnZ2lqZTR0MDVxMDNjbzY3ZmkyeTg4ZSJ9.tuTXT_-exIErerEPFT9o3g';
+  
 
   const [appStage, setAppStage] = useState(0);
   const [cardSelected, setCardSelected] = useState(0);

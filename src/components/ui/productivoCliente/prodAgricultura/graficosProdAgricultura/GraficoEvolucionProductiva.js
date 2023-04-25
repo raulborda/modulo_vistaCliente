@@ -189,10 +189,12 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
         );
       };
 
+      
+
     return (
         <>
-            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-                <div style={{ width: '70%', marginRight: '10px' }}>
+            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', height:'100%' }}>
+                <div style={{ width: '70%', marginRight: '10px', height:'100%' }}>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <h1 className='titulos'>
                             EVOLUCIÓN PRODUCTIVA

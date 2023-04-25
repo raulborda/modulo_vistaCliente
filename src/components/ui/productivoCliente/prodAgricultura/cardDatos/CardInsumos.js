@@ -7,6 +7,17 @@ import { GlobalContext } from '../../../../context/GlobalContext';
 import CardGraficoEvolucionProductiva from './CardGraficoEvolucionProductiva';
 import './cardDatos.css';
 
+import ReactMapboxGl, { Marker, LngLatBounds } from 'react-mapbox-gl';
+import * as MapboxGl from 'react-mapbox-gl';
+import mapboxgl from 'mapbox-gl';
+// import MapboxGeocoder from 'mapbox-gl-geocoder';
+import MapboxGeocoder from 'mapbox-gl-geocoder';
+
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+
+
+// console.log(MapboxGl); // Verifica que LngLatBounds está incluido en las exportaciones
 const CardInsumos = () => {
 
     const URL = process.env.REACT_APP_URL;
@@ -72,7 +83,8 @@ const CardInsumos = () => {
         borderRight: '0px dashed #FFFF',
         borderTopRightRadius: '0%',
         borderBottomRightRadius: '0%',
-        height: '100%'
+        height: '100%',
+        paddingLeft: '25px' 
     });
     const [cardStyle2, setCardStyle2] = useState({
         borderRight: '2px dashed #56D75B',
@@ -755,9 +767,56 @@ const CardInsumos = () => {
         calculateTotal();
     }, [infoEvo, selectedAcosDesc, cosechaAnterior])
 
+    const Map = ReactMapboxGl({
+        accessToken:
+            'pk.eyJ1IjoianVsaXBlcmVsZGEiLCJhIjoiY2xnZ2lqZTR0MDVxMDNjbzY3ZmkyeTg4ZSJ9.tuTXT_-exIErerEPFT9o3g',
+    });
+
+    const [lng, setLng] = useState(-70.9);
+    const [lat, setLat] = useState(42.35);
+    const [zoom, setZoom] = useState(11);
+    const coordinates = [
+        [-63.09649944, -37.72419139],
+        [-63.0899334, -37.71892979],
+        [-63.08439732, -37.72320699],
+        [-63.09087753, -37.72863799],
+        [-63.09649944, -37.72419139],
+        [-63.09649944, -37.72419139],
+        [-63.09649944, -37.72419139],
+        [-63.09649944, -37.72419139],
+        [-63.09649944, -37.72419139],
+        [-63.09649944, -37.72419139],
+    ];
+
+    const geojson = {
+        type: 'FeatureCollection',
+        features: [
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [coordinates],
+                },
+            },
+        ],
+    };
+
+    useEffect(() => {
+        if (coordinates.length > 0) {
+            const bounds = coordinates.reduce(
+                (bounds, coord) => bounds.extend(coord),
+                new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+            );
+            setLng(bounds.getCenter().lng);
+            setLat(bounds.getCenter().lat);
+        }
+    }, [coordinates]);
+
+
+
     return (
         <>
-            <div style={{ height: '100%', width: '100%', paddingBottom: '5px', backgroundColor: '#FFFF' }}>
+            <div style={{ height: '100%', width: '100%', paddingBottom: '5px', backgroundColor: '#FFFF'}}>
                 <Card className='cardAgricultura'
                     style={cardStyle1} onClick={() => handleClick(0)}
                 >
@@ -767,6 +826,7 @@ const CardInsumos = () => {
                                 <Statistic
                                     title="Total Has."
                                     value={totalHas ? totalHas : 0}
+                                    // value={3500000}
                                     // value={999999}
                                     valueStyle={{
                                         fontSize: '40px',
@@ -778,11 +838,12 @@ const CardInsumos = () => {
                                 />
                                 <Statistic
                                     value={average ? Math.abs(average) : 0}
+                                    // value={100}
                                     precision={2}
                                     valueStyle={{
                                         color: porcentajeColor,
                                         marginTop: '30px',
-                                        marginLeft: '20px',
+                                        marginLeft: '5px',
                                         fontWeight: 'bold',
                                         width: '100%',
                                     }}
@@ -791,27 +852,28 @@ const CardInsumos = () => {
 
                                 />
                             </Row>
-                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
+                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-10px' }}>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
-                        <Col span={6}>
+                        <Col span={5}>
                             <Row style={{ width: '100%' }}>
-                                <div style={{display: 'flex', flexDirection: 'column'}}>
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     <Statistic
                                         title="Propias: "
                                         value={valorPropias ? valorPropias : 0}
                                         style={{
                                             display: 'flex',
-                                            flexDirection: 'row',
-                                            marginTop: '23px'
+                                            flexDirection: 'column',
+                                            marginTop: '0px',
+                                            // fontSize:'15px'
                                         }}
                                         valueStyle={{
                                             fontSize: '18px',
                                             fontWeight: 'bold',
                                             marginLeft: '5px',
-                                            marginTop: '2px'
+                                            marginTop: '-10px'
                                         }}
                                         formatter={formatter}
                                         className="statistic"
@@ -822,13 +884,13 @@ const CardInsumos = () => {
                                         value={valorAlquiladas ? valorAlquiladas : 0}
                                         style={{
                                             display: 'flex',
-                                            flexDirection: 'row',
+                                            flexDirection: 'column',
                                         }}
                                         valueStyle={{
                                             fontSize: '18px',
                                             fontWeight: 'bold',
                                             marginLeft: '5px',
-                                            marginTop: '2px'
+                                            marginTop: '-10px'
                                         }}
                                         formatter={formatter}
                                         className="statistic"
@@ -836,14 +898,36 @@ const CardInsumos = () => {
                                 </div>
                             </Row>
                         </Col>
-                        <Col span={6}>
-                            <CardGraficoEvolucionProductiva />
+                        {/* <Col span={6}> */}
+                        <Col span={8}>
+                            <Map
+                                style="mapbox://styles/mapbox/satellite-streets-v12"
+                                containerStyle={{
+                                    height: '100%',
+                                    width: '100%',
+                                    borderRadius: '6px',
+                                }}
+                                center={[lng, lat]}
+                                zoom={[zoom]}
+                            >
+                                <MapboxGl.GeoJSONLayer
+                                    data={geojson}
+                                    fillLayout={{ visibility: 'visible' }}
+                                    fillPaint={{
+                                        'fill-color': 'yellow',
+                                        'fill-opacity': 0.4,
+                                    }}
+                                />
+                                {coordinates.map((coordinate, index) => (
+                                    <Marker key={index} coordinates={coordinate} anchor="bottom" />
+                                ))}
+                            </Map>
                         </Col>
-                        <Col span={1} >
+                        {/* <Col span={1} >
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '35px', marginLeft: '-10px' }}>
                                 <EnvironmentOutlined title='Lotes' className='btnEnvironmentOutlined' />
                             </div>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Card>
             </div>
@@ -880,13 +964,13 @@ const CardInsumos = () => {
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
                         <Col span={6}>
                             <div style={{ marginTop: '-10px' }}>
-                                <ResponsiveContainer width="100%" height={100}>
+                                {/* <ResponsiveContainer width="100%" height={100}>
                                     <BarChart
                                         height={100}
                                         data={data}
@@ -917,7 +1001,7 @@ const CardInsumos = () => {
                                         >
                                         </Bar>
                                     </BarChart>
-                                </ResponsiveContainer>
+                                </ResponsiveContainer> */}
                             </div>
                         </Col>
                     </Row>
@@ -956,13 +1040,13 @@ const CardInsumos = () => {
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
                         <Col span={6}>
                             <div style={{ marginTop: '-10px' }}>
-                                <ResponsiveContainer width="100%" height={100}>
+                                {/* <ResponsiveContainer width="100%" height={100}>
                                     <BarChart
                                         height={100}
                                         data={data}
@@ -993,7 +1077,7 @@ const CardInsumos = () => {
                                         >
                                         </Bar>
                                     </BarChart>
-                                </ResponsiveContainer>
+                                </ResponsiveContainer> */}
                             </div>
                         </Col>
                     </Row>
