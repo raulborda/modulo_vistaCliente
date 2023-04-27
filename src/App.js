@@ -64,6 +64,9 @@ function App() {
   const [isDataMaiz, setIsDataMaiz] = useState([]);
   const [isDataOtrosGranos, setIsDataOtrosGranos] = useState([]);
 
+  //Ver lotes
+  const[visible, setVisible] = useState(false);
+
   return (
 
     <GlobalContext.Provider
@@ -109,6 +112,9 @@ function App() {
         isDataInsumoAgroquimicos, setIsDataInsumoAgroquimicos,
         isDataInsumoSemillas, setIsDataInsumoSemillas,
         isDataInsumoFertilizantes, setIsDataInsumoFertilizantes,
+
+        //Ver lotes
+        visible, setVisible,
       }}
     >
 

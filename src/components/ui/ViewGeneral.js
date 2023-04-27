@@ -53,7 +53,7 @@ export const ViewGeneral = () => {
         const data = new FormData();
         data.append("idC", idCliente);
         // fetch("../com_traerCosechas.php", {
-        fetch(`${URL}/com_traerCosechas.php`, {
+        fetch(`${URL}com_traerCosechas.php`, {
           method: "POST",
           body: data,
         }).then(function (response) {
