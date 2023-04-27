@@ -192,7 +192,7 @@ export const GraficoAcopioTT = () => {
 
                     {
                         isLoading > 0 ? <Spin className='prueba' tip="Loading" size="large" style={{ borderColor: 'red' }} > <div className="SpinLoading" /> </Spin> :
-                            <ResponsiveContainer width="100%" height={/*400*/ 250}>
+                            <ResponsiveContainer width="100%" height={/*400*/ 230}>
                                 <ComposedChart
                                     // width={367}
                                     height={250}

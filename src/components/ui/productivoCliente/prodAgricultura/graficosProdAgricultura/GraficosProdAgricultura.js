@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { GlobalContext } from '../../../../context/GlobalContext';
@@ -197,8 +197,8 @@ const GraficosProdAgricultura = () => {
             },
         ];
 
-        console.log('capacidad: ', capacidad);
-        console.log('result: ', result);
+        // console.log('capacidad: ', capacidad);
+        // console.log('result: ', result);
         return result;
     };
 
@@ -256,7 +256,7 @@ const GraficosProdAgricultura = () => {
                 const data = resp;
                 const objetoData = JSON.parse(data);
                 setInfoRubros(objetoData);
-                console.log('objetoData - setInfoRubros : ', objetoData)
+                // console.log('objetoData - setInfoRubros : ', objetoData)
             });
         });
     }
@@ -275,7 +275,7 @@ const GraficosProdAgricultura = () => {
                 response.text().then((resp) => {
                     const data = resp;
                     const objetoData = JSON.parse(data);
-                    console.log('objetoData - setInfoCap : ', objetoData)
+                    // console.log('objetoData - setInfoCap : ', objetoData)
                     setInfoCap(objetoData);
                 });
             });
@@ -295,9 +295,17 @@ const GraficosProdAgricultura = () => {
                     (
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <h1 className='titulos'>
-                                EVOLUCIÓN PRODUCTIVA
+                                CAPACIDAD PRODUCTIVA
                             </h1>
-                            <PieChartOutlined title='Gráfico' className='iconTableOutlined' onClick={() => { verGrafico(); }} />
+                            {/* <PieChartOutlined title='Gráfico' className='iconTableOutlined' onClick={() => { verGrafico(); }} /> */}
+                            <Button
+                                icon={<PieChartOutlined />}
+                                type="primary"
+                                style={{ marginLeft: '10px', marginTop: '-5px', backgroundColor: '#00B33C' }}
+                                onClick={() => { verGrafico(); }}
+                            >
+                                Ver Gráfico
+                            </Button>
                         </div>
                     )
                 }

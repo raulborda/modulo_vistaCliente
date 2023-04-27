@@ -124,43 +124,43 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
 
 
-  if (!porcentajes || !Array.isArray(porcentajes) || porcentajes.length === 0) {
-    return (
-      <Empty
-        style={{ marginTop: "20%" }}
-        image={Empty.PRESENTED_IMAGE_SIMPLE}
-      />
-    );
-  }
+    if (!porcentajes || !Array.isArray(porcentajes) || porcentajes.length === 0) {
+        return (
+            <Empty
+                style={{ marginTop: "20%" }}
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+            />
+        );
+    }
 
-  //console.log(porcentajes[0].porcentaje);
+    //console.log(porcentajes[0].porcentaje);
 
-  const dataAnillaco = [
-    {
-      name: "Agricultura",
-      value: parseInt(porcentajes[0].porcentaje),
-      namet: "Total",
-      has: porcentajes[0].total,
-    },
-    {
-      name: "Ganaderia",
-      value: parseInt(porcentajes[1].porcentaje),
-      namet: "Total",
-      has: porcentajes[1].total,
-    },
-    {
-      name: "Tambo",
-      value: parseInt(porcentajes[2].porcentaje),
-      namet: "Total",
-      has: porcentajes[2].total,
-    },
-    {
-      name: "Mixto",
-      value: parseInt(porcentajes[3].porcentaje),
-      namet: "Total",
-      has: porcentajes[3].total,
-    },
-  ];
+    const dataAnillaco = [
+        {
+            name: "Agricultura",
+            value: parseInt(porcentajes[0].porcentaje),
+            namet: "Total",
+            has: porcentajes[0].total,
+        },
+        {
+            name: "Ganaderia",
+            value: parseInt(porcentajes[1].porcentaje),
+            namet: "Total",
+            has: porcentajes[1].total,
+        },
+        {
+            name: "Tambo",
+            value: parseInt(porcentajes[2].porcentaje),
+            namet: "Total",
+            has: porcentajes[2].total,
+        },
+        {
+            name: "Mixto",
+            value: parseInt(porcentajes[3].porcentaje),
+            namet: "Total",
+            has: porcentajes[3].total,
+        },
+    ];
 
 
     /*--------------------------- */
@@ -176,33 +176,43 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
     const formatter = (value, name, props) => {
         return (
-          <div>
-            <p
-              className="label"
-              style={{ color: "grey", fontWeight: "500" }}
-            >{`${props.payload.namet}: ${props.payload.has} has.`}</p>
-            <p
-              className="label"
-              style={{ color: "grey", fontWeight: "500" }}
-            >{`Porcentaje: ${value}%`}</p>
-          </div>
+            <div>
+                <p
+                    className="label"
+                    style={{ color: "grey", fontWeight: "500" }}
+                >{`${props.payload.namet}: ${props.payload.has} has.`}</p>
+                <p
+                    className="label"
+                    style={{ color: "grey", fontWeight: "500" }}
+                >{`Porcentaje: ${value}%`}</p>
+            </div>
         );
-      };
+    };
 
-      
+
 
     return (
         <>
-            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', height:'100%' }}>
-                <div style={{ width: '70%', marginRight: '10px', height:'100%' }}>
+            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
+                <div style={{ width: '70%', marginRight: '10px', height: '100%' }}>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <h1 className='titulos'>
                             EVOLUCIÓN PRODUCTIVA
                         </h1>
-                        {/* <TableOutlined title='Tabla' className='iconTableOutlined' onClick={{}} /> */}
                         {
-                            !iconTable && <TableOutlined title='Tabla' className='iconTableOutlined' onClick={() => { verGrafico(); }} />
+                            !iconTable &&
+                            <Button
+                                icon={<TableOutlined />}
+                                type="primary"
+                                style={{ marginLeft: '10px', marginTop: '-5px', backgroundColor: '#00B33C' }}
+                                onClick={() => { verGrafico(); }}
+                            >
+                                Ver Tabla
+                            </Button>
                         }
+                        {/* {
+                            !iconTable && <TableOutlined title='Tabla' className='iconTableOutlined' onClick={() => { verGrafico(); }} />
+                        } */}
                     </div>
                     <ResponsiveContainer className="" width="99%" height={/*400*/ 250}>
                         <BarChart

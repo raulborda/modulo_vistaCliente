@@ -178,7 +178,7 @@ export const GraficoInsumos = () => {
 
                     {
                         isLoading > 0 ? <Spin className='prueba' tip="Loading" size="large" style={{ borderColor: 'red' }} > <div className="SpinLoading" /> </Spin> :
-                            <ResponsiveContainer className="" width="99%" height={/*400*/ 250}>
+                            <ResponsiveContainer className="" width="99%" height={/*400*/ 230}>
                                 <ComposedChart
                                     // width={367}
                                     height={250}

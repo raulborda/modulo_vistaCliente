@@ -77,24 +77,26 @@ const CardInsumos = () => {
     } = useContext(GlobalContext);
 
     const [cardStyle1, setCardStyle1] = useState({
-        borderLeft: '2px dashed #56D75B',
-        borderTop: '2px dashed #56D75B',
-        borderBottom: '2px dashed #56D75B',
-        borderRight: '0px dashed #FFFF',
-        borderTopRightRadius: '0%',
-        borderBottomRightRadius: '0%',
+        // borderLeft: '2px dashed #56D75B',
+        // borderTop: '2px dashed #56D75B',
+        // borderBottom: '2px dashed #56D75B',
+        // borderRight: '0px dashed #FFFF',
+        // borderTopRightRadius: '0%',
+        // borderBottomRightRadius: '0%',
+        border: '2px dashed #56D75B',
         height: '100%',
-        paddingLeft: '25px' 
     });
     const [cardStyle2, setCardStyle2] = useState({
-        borderRight: '2px dashed #56D75B',
-        borderTopRightRadius: '0%',
+        // borderRight: '2px dashed #56D75B',
+        // borderTopRightRadius: '0%',
+        // border: '2px dashed #56D75B',
         height: '100%'
     });
     const [cardStyle3, setCardStyle3] = useState({
-        borderRight: '2px dashed #56D75B',
-        borderTopRightRadius: '0%',
-        borderBottomRightRadius: '0%',
+        // borderRight: '2px dashed #56D75B',
+        // borderTopRightRadius: '0%',
+        // borderBottomRightRadius: '0%',
+        // border: '2px dashed #56D75B',
         height: '100%'
     });
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
@@ -125,45 +127,54 @@ const CardInsumos = () => {
         switch (index) {
             case 0:
                 setCardStyle1({
-                    borderLeft: '2px dashed #56D75B',
-                    borderTop: '2px dashed #56D75B',
-                    borderBottom: '2px dashed #56D75B',
-                    borderRight: '0px dashed #FFFF',
-                    borderTopRightRadius: '0%',
-                    borderBottomRightRadius: '0%',
-                    height: '100%'
+                    // borderLeft: '2px dashed #56D75B',
+                    // borderTop: '2px dashed #56D75B',
+                    // borderBottom: '2px dashed #56D75B',
+                    // borderRight: '0px dashed #FFFF',
+                    // borderTopRightRadius: '0%',
+                    // borderBottomRightRadius: '0%',
+                    border: '2px dashed #56D75B',
+                    height: '100%',
                 });
-                setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
-                setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
+                setCardStyle2({})
+                setCardStyle3({})
                 setCardSelected(0);
+                // setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
+                // setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 break;
             case 1:
                 setCardStyle2({
-                    borderLeft: '2px dashed #56D75B',
-                    borderTop: '2px dashed #56D75B',
-                    borderBottom: '2px dashed #56D75B',
-                    borderRight: '0px dashed #FFFF',
-                    borderTopRightRadius: '0%',
-                    borderBottomRightRadius: '0%',
+                    // borderLeft: '2px dashed #56D75B',
+                    // borderTop: '2px dashed #56D75B',
+                    // borderBottom: '2px dashed #56D75B',
+                    // borderRight: '0px dashed #FFFF',
+                    // borderTopRightRadius: '0%',
+                    // borderBottomRightRadius: '0%',
+                    border: '2px dashed #56D75B',
                     height: '100%'
                 });
-                setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
-                setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
+                setCardStyle1({})
+                setCardStyle3({})
+                // setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
+                // setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardSelected(2);
                 setIconTable(false);
                 break;
             case 2:
                 setCardStyle3({
-                    borderLeft: '2px dashed #56D75B',
-                    borderTop: '2px dashed #56D75B',
-                    borderBottom: '2px dashed #56D75B',
-                    borderRight: '0px dashed #FFFF',
-                    borderTopRightRadius: '0%',
-                    borderBottomRightRadius: '0%',
+                    // borderLeft: '2px dashed #56D75B',
+                    // borderTop: '2px dashed #56D75B',
+                    // borderBottom: '2px dashed #56D75B',
+                    // borderRight: '0px dashed #FFFF',
+                    // borderTopRightRadius: '0%',
+                    // borderBottomRightRadius: '0%',
+                    border: '2px dashed #56D75B',
                     height: '100%'
                 });
-                setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
-                setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
+                setCardStyle1({})
+                setCardStyle2({})
+                // setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
+                // setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardSelected(3);
                 setIconTable(false);
                 break;
@@ -175,13 +186,16 @@ const CardInsumos = () => {
         if (selectedCardIndex !== null && selectedCardIndex !== index) {
             switch (selectedCardIndex) {
                 case 0:
-                    setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
+                    // setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
+                    setCardStyle1({});
                     break;
                 case 1:
-                    setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
+                    // setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
+                    setCardStyle2({});
                     break;
                 case 2:
-                    setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
+                    // setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
+                    setCardStyle3({});
                     break;
                 default:
                     break;
@@ -767,6 +781,9 @@ const CardInsumos = () => {
         calculateTotal();
     }, [infoEvo, selectedAcosDesc, cosechaAnterior])
 
+
+    //! INICIO - MAPBOX
+
     const Map = ReactMapboxGl({
         accessToken:
             'pk.eyJ1IjoianVsaXBlcmVsZGEiLCJhIjoiY2xnZ2lqZTR0MDVxMDNjbzY3ZmkyeTg4ZSJ9.tuTXT_-exIErerEPFT9o3g',
@@ -776,16 +793,27 @@ const CardInsumos = () => {
     const [lat, setLat] = useState(42.35);
     const [zoom, setZoom] = useState(11);
     const coordinates = [
-        [-63.09649944, -37.72419139],
-        [-63.0899334, -37.71892979],
-        [-63.08439732, -37.72320699],
-        [-63.09087753, -37.72863799],
-        [-63.09649944, -37.72419139],
-        [-63.09649944, -37.72419139],
-        [-63.09649944, -37.72419139],
-        [-63.09649944, -37.72419139],
-        [-63.09649944, -37.72419139],
-        [-63.09649944, -37.72419139],
+        // [-63.09649944, -37.72419139],
+        // [-63.0899334, -37.71892979],
+        // [-63.08439732, -37.72320699],
+        // [-63.09087753, -37.72863799],
+        // [-63.09649944, -37.72419139],
+        // [-63.09649944, -37.72419139],
+        // [-63.09649944, -37.72419139],
+        // [-63.09649944, -37.72419139],
+        // [-63.09649944, -37.72419139],
+        // [-63.09649944, -37.72419139],
+
+        // // Agregar coordenadas cercanas
+        // [-63.092242, -37.723432],
+        // [-63.091149, -37.725251],
+        // [-63.097209, -37.726975]
+
+        [-63.11548948287964,-37.75500450168077],
+        [-63.11291992664337,-37.7570996754639],
+        [-63.117597699165344,-37.76074700242975],
+        [-63.12021017074585,-37.75868586068395],
+        [-63.11548948287964,-37.75500450168077]
     ];
 
     const geojson = {
@@ -810,18 +838,22 @@ const CardInsumos = () => {
             setLng(bounds.getCenter().lng);
             setLat(bounds.getCenter().lat);
         }
+        console.log('coordinates: ', coordinates)
     }, [coordinates]);
 
 
 
+    //! FIN - MAPBOX
+
+
     return (
         <>
-            <div style={{ height: '100%', width: '100%', paddingBottom: '5px', backgroundColor: '#FFFF'}}>
+            <div style={{ height: '100%', width: '100%', paddingBottom: '5px', backgroundColor: '#FFFF' }}>
                 <Card className='cardAgricultura'
                     style={cardStyle1} onClick={() => handleClick(0)}
                 >
                     <Row gutter={16} >
-                        <Col span={11}>
+                        <Col span={8}>
                             <Row style={{ width: '100%' }}>
                                 <Statistic
                                     title="Total Has."
@@ -829,9 +861,10 @@ const CardInsumos = () => {
                                     // value={3500000}
                                     // value={999999}
                                     valueStyle={{
-                                        fontSize: '40px',
+                                        fontSize: '35px',
                                         fontWeight: 'bold',
-                                        marginTop: '-20px'
+                                        marginTop: '-20px',
+                                        textAlign: 'right'
                                     }}
                                     formatter={formatter}
                                     className="statistic"
@@ -857,49 +890,71 @@ const CardInsumos = () => {
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
-                        <Col span={5}>
+                        <Col span={4}>
+                            {/* <Row style={{ width: '100%' }}> */}
                             <Row style={{ width: '100%' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Statistic
-                                        title="Propias: "
-                                        value={valorPropias ? valorPropias : 0}
-                                        style={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            marginTop: '0px',
-                                            // fontSize:'15px'
-                                        }}
-                                        valueStyle={{
-                                            fontSize: '18px',
-                                            fontWeight: 'bold',
-                                            marginLeft: '5px',
-                                            marginTop: '-10px'
-                                        }}
-                                        formatter={formatter}
-                                        className="statistic"
-                                        layout="horizontal"
-                                    />
-                                    <Statistic
-                                        title="Alquiladas:"
-                                        value={valorAlquiladas ? valorAlquiladas : 0}
-                                        style={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                        }}
-                                        valueStyle={{
-                                            fontSize: '18px',
-                                            fontWeight: 'bold',
-                                            marginLeft: '5px',
-                                            marginTop: '-10px'
-                                        }}
-                                        formatter={formatter}
-                                        className="statistic"
-                                    />
-                                </div>
+                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
+                                <Statistic
+                                    title="Propias: "
+                                    value={valorPropias ? valorPropias : 0}
+                                    // value={350000}
+                                    // style={{
+                                    //     display: 'flex',
+                                    //     flexDirection: 'column',
+                                    //     marginTop: '0px',
+                                    //     // fontSize:'15px'
+                                    // }}
+                                    // valueStyle={{
+                                    //     fontSize: '18px',
+                                    //     fontWeight: 'bold',
+                                    //     marginLeft: '5px',
+                                    //     marginTop: '-10px'
+                                    // }}
+                                    valueStyle={{
+                                        fontSize: '35px',
+                                        fontWeight: 'bold',
+                                        marginTop: '-20px',
+                                        textAlign: 'right'
+                                    }}
+                                    formatter={formatter}
+                                    className="statistic"
+                                    layout="horizontal"
+                                />
+                                {/* </div> */}
+                            </Row>
+                        </Col>
+                        <Col span={5}>
+                            {/* <Row style={{ width: '100%' }}> */}
+                            <Row style={{ width: '100%' }}>
+                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
+                                <Statistic
+                                    title="Alquiladas:"
+                                    value={valorAlquiladas ? valorAlquiladas : 0}
+                                    // value={350000}
+                                    // style={{
+                                    //     display: 'flex',
+                                    //     flexDirection: 'column',
+                                    // }}
+                                    // valueStyle={{
+                                    //     fontSize: '18px',
+                                    //     fontWeight: 'bold',
+                                    //     marginLeft: '5px',
+                                    //     marginTop: '-10px'
+                                    // }}
+                                    valueStyle={{
+                                        fontSize: '35px',
+                                        fontWeight: 'bold',
+                                        marginTop: '-20px',
+                                        textAlign: 'right'
+                                    }}
+                                    formatter={formatter}
+                                    className="statistic"
+                                />
+                                {/* </div> */}
                             </Row>
                         </Col>
                         {/* <Col span={6}> */}
-                        <Col span={8}>
+                        <Col span={7}>
                             <Map
                                 style="mapbox://styles/mapbox/satellite-streets-v12"
                                 containerStyle={{
@@ -939,12 +994,13 @@ const CardInsumos = () => {
                         <Col span={16}>
                             <Row style={{ width: '100%' }}>
                                 <Statistic
-                                    title="Insumos U$S"
+                                    title="Insumos"
                                     value={insumoTotal ? insumoTotal : 0}
                                     valueStyle={{
-                                        fontSize: '40px',
+                                        fontSize: '35px',
                                         fontWeight: 'bold',
-                                        marginTop: '-20px'
+                                        marginTop: '-20px',
+                                        // textAlign: 'right'
                                     }}
                                     formatter={formatter}
                                     className="statistic"
@@ -1018,9 +1074,10 @@ const CardInsumos = () => {
                                     title="Acopio TT"
                                     value={acopioTotal ? acopioTotal : 0}
                                     valueStyle={{
-                                        fontSize: '40px',
+                                        fontSize: '35px',
                                         fontWeight: 'bold',
-                                        marginTop: '-20px'
+                                        marginTop: '-20px',
+                                        // textAlign: 'center'
                                     }}
                                     formatter={formatter}
                                     className="statistic"
