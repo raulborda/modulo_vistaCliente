@@ -1,5 +1,5 @@
 import { CaretDownOutlined, CaretUpFilled, CheckCircleOutlined, DotChartOutlined, EnvironmentOutlined, SmileFilled, SmileOutlined } from '@ant-design/icons';
-import { Card, Col, Row, Spin, Statistic } from 'antd';
+import { Button, Card, Col, Row, Spin, Statistic } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { Bar, BarChart, ResponsiveContainer } from 'recharts';
@@ -72,6 +72,9 @@ const CardInsumos = () => {
         isDataMaiz, setIsDataMaiz,
         isDataOtrosGranos, setIsDataOtrosGranos,
 
+        //Ver lotes 
+        visible, setVisible,
+
 
 
     } = useContext(GlobalContext);
@@ -120,6 +123,7 @@ const CardInsumos = () => {
     // const [labelListTotalHas, setLabelListTotalHas] = useState(false);
     const [labelListInsumos, setLabelListInsumos] = useState(false);
     const [labelListAcopio, setLabelListAcopio] = useState(false);
+
 
     // setCardStyle1({ border: '2px dashed #56D75B', height: '100%' });
     const handleClick = (index) => {
@@ -972,11 +976,23 @@ const CardInsumos = () => {
                                         'fill-color': 'yellow',
                                         'fill-opacity': 0.4,
                                     }}
+                                    center={[lng, lat]}
+                                    zoom={[zoom]}
                                 />
-                                {coordinates.map((coordinate, index) => (
-                                    <Marker key={index} coordinates={coordinate} anchor="bottom" />
-                                ))}
-                            </Map>
+                                    <MapboxGl.GeoJSONLayer
+                                        data={geojson}
+                                        fillLayout={{ visibility: 'visible' }}
+                                        fillPaint={{
+                                            'fill-color': 'yellow',
+                                            'fill-opacity': 0.4,
+                                        }}
+                                    />
+                                    {coordinates.map((coordinate, index) => (
+                                        <Marker key={index} coordinates={coordinate} anchor="bottom" />
+                                    ))}
+                                    <Button style={{padding:"1px",}} onClick={() =>  setVisible(!visible)}>Ver Lotes</Button>
+                                </Map>
+
                         </Col>
                         {/* <Col span={1} >
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '35px', marginLeft: '-10px' }}>
@@ -1113,33 +1129,131 @@ const CardInsumos = () => {
                                             left: 0,
                                             bottom: 5,
                                         }}
-                                    >
-                                        <Bar
-                                            dataKey="propias"
-                                            name="Propias"
-                                            stackId="a"
-                                            barSize={25}
-                                            fill="#0B780F"
-                                            key={"propias"}
-                                            isAnimationActive={true}
-                                        />
-                                        <Bar
-                                            dataKey="alquiladas"
-                                            name="Alquiladas"
-                                            stackId="a"
-                                            barSize={25}
-                                            fill="#A2E270"
-                                            key={"alquiladas"}
-                                            isAnimationActive={true}
+                                        prefix="("
+                                        suffix={averageInsumos >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
+                                    />
+                                </Row>
+                                <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
+                                    <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                    <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
+                                </div>
+                            </Col>
+                            <Col span={6}>
+                                <div style={{ marginTop: '-10px' }}>
+                                    {/* <ResponsiveContainer width="100%" height={100}>
+                                        <BarChart
+                                            height={100}
+                                            data={data}
+                                            margin={{
+                                                top: 20,
+                                                right: 0,
+                                                left: 0,
+                                                bottom: 5,
+                                            }}
                                         >
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer> */}
-                            </div>
-                        </Col>
-                    </Row>
-                </Card>
-            </div>
+                                            <Bar
+                                                dataKey="propias"
+                                                name="Propias"
+                                                stackId="a"
+                                                barSize={25}
+                                                fill="#70DBE2"
+                                                key={"propias"}
+                                                isAnimationActive={true}
+                                            />
+                                            <Bar
+                                                dataKey="alquiladas"
+                                                name="Alquiladas"
+                                                stackId="a"
+                                                barSize={25}
+                                                fill="#3359A3"
+                                                key={"alquiladas"}
+                                                isAnimationActive={true}
+                                            >
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer> */}
+                                </div>
+                            </Col>
+                        </Row>
+                    </Card>
+                </div>
+                <div style={{ height: '100%', width: '100%' }}>
+                    <Card className='cardAgricultura'
+                        style={cardStyle3} onClick={() => handleClick(2)}
+                    >
+                        <Row gutter={16} >
+                            <Col span={16}>
+                                <Row style={{ width: '100%' }}>
+                                    <Statistic
+                                        title="Acopio TT"
+                                        value={acopioTotal ? acopioTotal : 0}
+                                        valueStyle={{
+                                            fontSize: '40px',
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic"
+                                    />
+                                    <Statistic
+                                        value={averageAcopio ? Math.abs(averageAcopio) : 0}
+                                        precision={2}
+                                        valueStyle={{
+                                            color: porcentajeColorAcopio,
+                                            marginTop: '30px',
+                                            fontWeight: 'bold',
+                                            marginLeft: '20px',
+                                            width: '100%',
+                                        }}
+                                        prefix="("
+                                        suffix={averageAcopio >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
+                                    />
+                                </Row>
+                                <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
+                                    <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                    <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
+                                </div>
+                            </Col>
+                            <Col span={6}>
+                                <div style={{ marginTop: '-10px' }}>
+                                    {/* <ResponsiveContainer width="100%" height={100}>
+                                        <BarChart
+                                            height={100}
+                                            data={data}
+                                            margin={{
+                                                top: 20,
+                                                right: 0,
+                                                left: 0,
+                                                bottom: 5,
+                                            }}
+                                        >
+                                            <Bar
+                                                dataKey="propias"
+                                                name="Propias"
+                                                stackId="a"
+                                                barSize={25}
+                                                fill="#0B780F"
+                                                key={"propias"}
+                                                isAnimationActive={true}
+                                            />
+                                            <Bar
+                                                dataKey="alquiladas"
+                                                name="Alquiladas"
+                                                stackId="a"
+                                                barSize={25}
+                                                fill="#A2E270"
+                                                key={"alquiladas"}
+                                                isAnimationActive={true}
+                                            >
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer> */}
+                                </div>
+                            </Col>
+                        </Row>
+                    </Card>
+                </div>
+            
         </>
     )
 }
