@@ -23,6 +23,8 @@ const MapasLotes = () => {
     // const [puntoCentral, setPuntoCentral] = useState([-63.11598948287964, -37.75785508979258]);
     const mapContainer = useRef(null);
 
+    var probando = [];
+    var probando2 = [];
     useEffect(() => {
         mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -32,7 +34,8 @@ const MapasLotes = () => {
                 style: "mapbox://styles/mapbox/satellite-streets-v11",
                 // center: puntoCentral,
                 center: [-63.155242483321686, -37.713092566214875],
-                zoom: 12,
+                // center: [minLong, maxLat],
+                zoom: 1,
             });
 
             map.on("load", () => {
@@ -107,36 +110,54 @@ const MapasLotes = () => {
             //!
 
 
-            //* centrado de viewport con turf
-            const geojsonBounds = turf.bbox({
-                type: "FeatureCollection",
-                features: [
-                    {
-                        type: "Feature",
-                        properties: {},
-                        geometry: {
-                            type: "Point",
-                            // coordinates: puntoCentral,
-                            coordinates: [-63.155242483321686, -37.713092566214875],
+
+
+            var random = 0;
+            var loteL=[];
+            var lotesT = [];
+            for (let i = 0; i < geoJSON.length; i++) {
+                //const zone = dataGeoJSON[i];
+                var item = 0;
+                for (let j = 0; j < geoJSON[i].length; j++) {
+                    random = random + 1;
+                    item = j + random;
+
+                    loteL = geoJSON[i][j];
+                    //console.log('loteAAAA: ', loteL)
+                }
+                lotesT.push(loteL);
+            }
+            console.log("Todos los lotes: ", lotesT);
+
+            for (let k = 0; k < loteL.length; k++) {
+                const element = loteL[k];
+                console.log("loteLK: ", element);
+                
+                //* centrado de viewport con turf
+                const geojsonBounds = turf.bbox({
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "coordinates": [
+                                    loteL[k]
+                                ],
+                                "type": "LineString"
+                            }
                         },
-                    },
-                    {
-                        type: "Feature",
-                        properties: {},
-                        geometry: {
-                            type: "Point",
-                            // coordinates: puntoCentral,
-                            coordinates: [-63.155242483321686, -37.713092566214875],
-                        },
-                    },
-                ],
-            });
-            map.fitBounds(geojsonBounds, { padding: 10, zoom: 12 });
+                    ]
+                });
+                map.fitBounds(geojsonBounds, { padding: 10, zoom: 11 });
+                console.log('geojsonBounds: ', geojsonBounds)
+            }
+            
 
             //* geometria dibujada
             map.on("draw.create", (e) => {
                 // console.log('hola: ', e);
-                console.log(e.features[0].geometry.coordinates[0]);
+                //console.log(e.features[0].geometry.coordinates[0]);
                 const coordinates = e.features[0].geometry.coordinates[0];
                 const formattedCoordinates = JSON.stringify(coordinates, (key, value) => {
                     if (typeof value === "number") {
@@ -144,11 +165,11 @@ const MapasLotes = () => {
                     }
                     return value;
                 }).replace(/"/g, '');
-                console.log('CoordenadaFOrm: ', formattedCoordinates);
+                //console.log('CoordenadaFOrm: ', formattedCoordinates);
             });
 
             map.on("dragend", (e) => {
-                console.log('chau: ', e);
+                //console.log('chau: ', e);
             });
         };
 
@@ -173,7 +194,7 @@ const MapasLotes = () => {
                 const data = resp;
                 const objetoData = JSON.parse(data);
                 // const objetoData = JSON.parse(data.replace('2049',''));
-                console.log('objetoData: ', objetoData);
+                //console.log('objetoData: ', objetoData);
                 //setDataGeoJSON(objetoData[0].lot_geojson);
                 setDataGeoJSON(objetoData);
                 // desarmarGeoJSON();
@@ -185,7 +206,7 @@ const MapasLotes = () => {
     function desarmarGeoJSON() {
         var lengthDG = dataGeoJSON.length;
         var coordLotes = [];
-        console.log(lengthDG);
+        //console.log(lengthDG);
         for (let i = 0; i < lengthDG; i++) {
             const element = dataGeoJSON[i].lot_geojson;
             const parsedData = JSON.parse(element);
@@ -194,11 +215,11 @@ const MapasLotes = () => {
                 const lon = parseFloat(pair[0]);
                 const lat = parseFloat(pair[1]);
                 coordLotes.push([lon, lat]);
-                console.log('coordLotes: ', coordLotes);
+               // console.log('coordLotes: ', coordLotes);
             }
             result.push([coordLotes]);
             coordLotes = [];
-            console.log("lotes: ", result);
+           // console.log("lotes: ", result);
         }
         setGeoJSON(result);
     }
@@ -213,46 +234,7 @@ const MapasLotes = () => {
         infoGeoJSON(2049);
     }, []);
 
-    console.log('geoJSON: ', geoJSON)
-
-
-
-    var puntosTotales = [];
-    const calculateCenter = () => {
-
-        var prueba = []
-        var centerPoint = []
-        var conjuntoCoord = []
-        if (geoJSON.length > 0) {
-
-            for (let i = 0; i < geoJSON.length; i++) {
-                const inter = geoJSON[i];
-                console.log("i:", i);
-                console.log("INTER: ", inter);
-                for (let j = 0; j < inter.length; j++) {
-                    console.log('ENTRA AL FOR J')
-                    const prueba = inter[j];
-                    conjuntoCoord.push(prueba);
-                    console.log("PRUEBA: ", prueba);
-                }
-            }
-
-            // console.log('centerPoint.geometry.coordinates: ', centerPoint.geometry.coordinates)
-            // console.log('conjuntoCoord: ', conjuntoCoord);
-            // console.log('geoJSONPUNTO CENTRAL: ', geoJSON)
-
-            // setPuntoCentral(center.geometry.coordinates);
-        } else {
-            <div>
-                <h1> no haya mapa mabel</h1>
-            </div>
-        }
-    };
-
-    useEffect(() => {
-        calculateCenter();
-    }, [geoJSON]);
-
+   // console.log('geoJSON: ', geoJSON)
 
 
     return (

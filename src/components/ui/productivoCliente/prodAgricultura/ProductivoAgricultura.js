@@ -75,18 +75,18 @@ export const ProductivoAgricultura = () => {
             <>
                 <div className='divContainerAgricultura'>
                     <div className='divProdAgricultura'>
-                        <div className='divProdAgriculturaDatos' style={{  }}>
+                        <div className='divProdAgriculturaDatos' style={{ paddingRight: '5px'  }}>
                             <CardInsumos />
                         </div>
                         <Card
                             style={{
                                 width: '50%',
-                                borderTop: '2px dashed #56D75B',
-                                borderBottom: '2px dashed #56D75B',
-                                borderRight: '2px dashed #56D75B',
-                                borderLeft: '0px dashed #FFFF',
-                                borderTopLeftRadius: '0%',
-                                borderBottomLeftRadius: '0%',
+                                // borderTop: '2px dashed #56D75B',
+                                // borderBottom: '2px dashed #56D75B',
+                                // borderRight: '2px dashed #56D75B',
+                                // borderLeft: '0px dashed #FFFF',
+                                // borderTopLeftRadius: '0%',
+                                // borderBottomLeftRadius: '0%',
                             }}>
                             <div className='divContainerGraficos'>
                                 <GraficosProdAgricultura />
