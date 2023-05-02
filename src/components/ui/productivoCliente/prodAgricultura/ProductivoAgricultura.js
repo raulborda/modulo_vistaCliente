@@ -7,6 +7,8 @@ import './index.css';
 import { GraficosPrueba } from './GraficosPrueba';
 import CardInsumos from './cardDatos/CardInsumos.js';
 import { GlobalContext } from '../../../context/GlobalContext';
+import Mapa from './MapasLotes';
+import MapasLotes from './MapasLotes';
 
 export const ProductivoAgricultura = () => {
 
@@ -108,6 +110,7 @@ export const ProductivoAgricultura = () => {
                     >
                         Volver
                     </Button>
+                    <MapasLotes/>
                 </div>
             </>
         )}
