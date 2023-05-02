@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
@@ -136,7 +137,7 @@ const MapasLotes = () => {
             //* geometria dibujada
             map.on("draw.create", (e) => {
                 // console.log('hola: ', e);
-                console.log(e.features[0].geometry.coordinates[0]);
+               // console.log(e.features[0].geometry.coordinates[0]);
                 const coordinates = e.features[0].geometry.coordinates[0];
                 const formattedCoordinates = JSON.stringify(coordinates, (key, value) => {
                     if (typeof value === "number") {
@@ -144,11 +145,11 @@ const MapasLotes = () => {
                     }
                     return value;
                 }).replace(/"/g, '');
-                console.log('CoordenadaFOrm: ', formattedCoordinates);
+                //console.log('CoordenadaFOrm: ', formattedCoordinates);
             });
 
             map.on("dragend", (e) => {
-                console.log('chau: ', e);
+                //console.log('chau: ', e);
             });
         };
 
@@ -173,7 +174,7 @@ const MapasLotes = () => {
                 const data = resp;
                 const objetoData = JSON.parse(data);
                 // const objetoData = JSON.parse(data.replace('2049',''));
-                console.log('objetoData: ', objetoData);
+                //console.log('objetoData: ', objetoData);
                 //setDataGeoJSON(objetoData[0].lot_geojson);
                 setDataGeoJSON(objetoData);
                 // desarmarGeoJSON();
@@ -185,7 +186,7 @@ const MapasLotes = () => {
     function desarmarGeoJSON() {
         var lengthDG = dataGeoJSON.length;
         var coordLotes = [];
-        console.log(lengthDG);
+        //console.log(lengthDG);
         for (let i = 0; i < lengthDG; i++) {
             const element = dataGeoJSON[i].lot_geojson;
             const parsedData = JSON.parse(element);
@@ -194,11 +195,11 @@ const MapasLotes = () => {
                 const lon = parseFloat(pair[0]);
                 const lat = parseFloat(pair[1]);
                 coordLotes.push([lon, lat]);
-                console.log('coordLotes: ', coordLotes);
+                //console.log('coordLotes: ', coordLotes);
             }
             result.push([coordLotes]);
             coordLotes = [];
-            console.log("lotes: ", result);
+            //console.log("lotes: ", result);
         }
         setGeoJSON(result);
     }
@@ -213,10 +214,13 @@ const MapasLotes = () => {
         infoGeoJSON(2049);
     }, []);
 
-    console.log('geoJSON: ', geoJSON)
+   // console.log('geoJSON: ', geoJSON)
 
 
-
+    var maxLat=[];
+    var minLong=[];
+    var totalLat=[];
+    var totalLong=[];
     var puntosTotales = [];
     const calculateCenter = () => {
 
@@ -227,13 +231,24 @@ const MapasLotes = () => {
 
             for (let i = 0; i < geoJSON.length; i++) {
                 const inter = geoJSON[i];
-                console.log("i:", i);
-                console.log("INTER: ", inter);
+               // console.log("i:", i);
+               // console.log("INTER: ", inter);
                 for (let j = 0; j < inter.length; j++) {
-                    console.log('ENTRA AL FOR J')
-                    const prueba = inter[j];
-                    conjuntoCoord.push(prueba);
-                    console.log("PRUEBA: ", prueba);
+                  console.log('ENTRA AL FOR J')
+                    const coordInter = inter[j];
+                    console.log(coordInter.length);
+                    for (let k = 0; k < coordInter.length; k++) {
+                        const elementCoord = coordInter[k];
+                        console.log("elementCoord: ", elementCoord);
+
+                            totalLat.push(elementCoord[0]);
+                            totalLong.push(elementCoord[1]);
+                            console.log("totalLat: ", totalLat);
+                            console.log("totalLong: ", totalLong);
+                        
+                    }
+                    conjuntoCoord.push(coordInter);
+                    //console.log("PRUEBA: ", coordInter);
                 }
             }
 
