@@ -32,7 +32,7 @@ const MapasLotes = () => {
                 container: mapContainer.current,
                 style: "mapbox://styles/mapbox/satellite-streets-v11",
                 // center: puntoCentral,
-                center: [-63.155242483321686, -37.713092566214875],
+                center: [-63.11291992664337,-37.76074700242975],
                 zoom: 12,
             });
 
@@ -118,7 +118,7 @@ const MapasLotes = () => {
                         geometry: {
                             type: "Point",
                             // coordinates: puntoCentral,
-                            coordinates: [-63.155242483321686, -37.713092566214875],
+                            coordinates: [-63.11291992664337,-37.76074700242975],
                         },
                     },
                     {
@@ -127,12 +127,12 @@ const MapasLotes = () => {
                         geometry: {
                             type: "Point",
                             // coordinates: puntoCentral,
-                            coordinates: [-63.155242483321686, -37.713092566214875],
+                            coordinates: [-63.11291992664337,-37.76074700242975],
                         },
                     },
                 ],
             });
-            map.fitBounds(geojsonBounds, { padding: 10, zoom: 12 });
+            map.fitBounds(geojsonBounds, { padding: 8, zoom: 12 });
 
             //* geometria dibujada
             map.on("draw.create", (e) => {
@@ -186,7 +186,7 @@ const MapasLotes = () => {
     function desarmarGeoJSON() {
         var lengthDG = dataGeoJSON.length;
         var coordLotes = [];
-        //console.log(lengthDG);
+
         for (let i = 0; i < lengthDG; i++) {
             const element = dataGeoJSON[i].lot_geojson;
             const parsedData = JSON.parse(element);
@@ -195,11 +195,11 @@ const MapasLotes = () => {
                 const lon = parseFloat(pair[0]);
                 const lat = parseFloat(pair[1]);
                 coordLotes.push([lon, lat]);
-                //console.log('coordLotes: ', coordLotes);
+
             }
             result.push([coordLotes]);
             coordLotes = [];
-            //console.log("lotes: ", result);
+
         }
         setGeoJSON(result);
     }
@@ -214,13 +214,16 @@ const MapasLotes = () => {
         infoGeoJSON(2049);
     }, []);
 
-   // console.log('geoJSON: ', geoJSON)
 
 
-    var maxLat=[];
-    var minLong=[];
+    var maxLat=0;
+    var minLat=0;
+    var maxLong=0;
+    var minLong=0;
     var totalLat=[];
     var totalLong=[];
+    var probando = []; 
+    var probando2 = []; 
     var puntosTotales = [];
     const calculateCenter = () => {
 
@@ -231,8 +234,6 @@ const MapasLotes = () => {
 
             for (let i = 0; i < geoJSON.length; i++) {
                 const inter = geoJSON[i];
-               // console.log("i:", i);
-               // console.log("INTER: ", inter);
                 for (let j = 0; j < inter.length; j++) {
                   console.log('ENTRA AL FOR J')
                     const coordInter = inter[j];
@@ -240,23 +241,29 @@ const MapasLotes = () => {
                     for (let k = 0; k < coordInter.length; k++) {
                         const elementCoord = coordInter[k];
                         console.log("elementCoord: ", elementCoord);
-
-                            totalLat.push(elementCoord[0]);
-                            totalLong.push(elementCoord[1]);
-                            console.log("totalLat: ", totalLat);
-                            console.log("totalLong: ", totalLong);
+                        totalLat.push(elementCoord[0]);
+                        totalLong.push(elementCoord[1]);
+                        console.log("totalLat: ", totalLat);
+                        console.log("totalLong: ", totalLong);
                         
                     }
                     conjuntoCoord.push(coordInter);
-                    //console.log("PRUEBA: ", coordInter);
+
                 }
+
+                maxLat = Math.max(...totalLat);
+                minLat = Math.min(...totalLat);
+                maxLong = Math.max(...totalLong);
+                minLong = Math.min(...totalLong);
+                probando = [maxLat, minLong]
+                probando2 = [minLat, maxLong]
+
+                console.log("maxLat: ", maxLat, " y minLong: ",minLong);
+                console.log("minLat: ", minLat, " y maxLong: ",maxLong);
+
+                console.log("probando: ", probando, " y probando2: ",probando2);
             }
 
-            // console.log('centerPoint.geometry.coordinates: ', centerPoint.geometry.coordinates)
-            // console.log('conjuntoCoord: ', conjuntoCoord);
-            // console.log('geoJSONPUNTO CENTRAL: ', geoJSON)
-
-            // setPuntoCentral(center.geometry.coordinates);
         } else {
             <div>
                 <h1> no haya mapa mabel</h1>
