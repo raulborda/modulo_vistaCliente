@@ -6,7 +6,7 @@ import * as turf from "@turf/turf";
 
 const styles = {
     width: "100%",
-    height: "100%",
+    height: "40%",
     position: "absolute",
 };
 
@@ -165,7 +165,7 @@ const MapasLotes = () => {
                         }
                     ]
                 });
-                map.fitBounds(geojsonBounds, { padding: 10, zoom: 11 });
+                map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
             }
             //! FIN - CENTRAR MAPBOX
 
@@ -179,6 +179,7 @@ const MapasLotes = () => {
                     }
                     return value;
                 }).replace(/"/g, '');
+                console.log('CoordenadaForm: ', formattedCoordinates);
             });
 
         };
@@ -219,11 +220,11 @@ const MapasLotes = () => {
                 const lon = parseFloat(pair[0]);
                 const lat = parseFloat(pair[1]);
                 coordLotes.push([lon, lat]);
-                console.log('coordLotes: ', coordLotes);
+                // console.log('coordLotes: ', coordLotes);
             }
             result.push([coordLotes]);
             coordLotes = [];
-            console.log("lotes: ", result);
+            // console.log("lotes: ", result);
         }
         setGeoJSON(result);
     }
