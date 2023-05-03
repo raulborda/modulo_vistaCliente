@@ -169,7 +169,7 @@ const MapasLotes = () => {
             //! FIN - CENTRAR MAPBOX
 
 
-            //* geometria dibujada
+            //* geometria dibujada para subir a data base
             map.on("draw.create", (e) => {
                 const coordinates = e.features[0].geometry.coordinates[0];
                 const formattedCoordinates = JSON.stringify(coordinates, (key, value) => {
@@ -178,6 +178,7 @@ const MapasLotes = () => {
                     }
                     return value;
                 }).replace(/"/g, '');
+                console.log("coordenadas a subir a db: ", formattedCoordinates);
             });
 
         };
@@ -221,6 +222,7 @@ const MapasLotes = () => {
             }
             result.push([coordLotes]);
             coordLotes = [];
+        
         }
         setGeoJSON(result);
     }

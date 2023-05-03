@@ -5,6 +5,8 @@ import {
   BarChartOutlined,
   BarsOutlined,
   CaretUpOutlined,
+  DeleteOutlined,
+  EditOutlined,
   TableOutlined,
 } from "@ant-design/icons";
 import { Button, Card, Popover, Table } from "antd";
@@ -115,8 +117,8 @@ export const ProductivoAgricultura = () => {
       width:200,
       render: (text, record) => (
         <>
-            <Button onClick={() => handleEdit(record.key)}>Editar</Button>
-            <Button onClick={() => handleDelete(record.key)}>Eliminar</Button>
+            <EditOutlined onClick={() => handleEdit(record.key)} style={{color:"#56D75B", marginRight:"3px"}}>Editar</EditOutlined>
+            <DeleteOutlined onClick={() => handleDelete(record.key)} style={{color:"red"}}>Eliminar </DeleteOutlined>
         </>
       ),
     },
