@@ -1,9 +1,10 @@
 import { Card, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useState } from 'react'
+import './productivoCliente.css';
 import { ProductivoAgricultura } from './prodAgricultura/ProductivoAgricultura';
 // import { ProductivoAgricultura } from './ProductivoAgricultura';
-import ProductivoGanaderia from './ProductivoGanaderia';
+import { ProductivoGanaderia } from './ProductivoGanaderia';
 
 
 const ProductivoCliente = () => {
@@ -14,12 +15,12 @@ const ProductivoCliente = () => {
     {
       key: '0',
       label: 'Agricultura',
-      component: <ProductivoAgricultura />,
+      // component: <ProductivoAgricultura />,
     },
     {
       key: '1',
       label: 'Ganadería',
-      component: <ProductivoGanaderia />,
+      // component: <ProductivoGanaderia />,
     },
   ];
 
@@ -52,7 +53,7 @@ const ProductivoCliente = () => {
   return (
     <>
       <div
-        // style={{marginTop: '-13px'}}
+      // style={{marginTop: '-13px'}}
       >
         <Tabs
           className="tabs-custom"
@@ -68,8 +69,8 @@ const ProductivoCliente = () => {
           ))}
         </Tabs>
         {/* <Card> */}
-        
-          {handleStage()}
+
+        {handleStage()}
         {/* </Card> */}
       </div>
     </>

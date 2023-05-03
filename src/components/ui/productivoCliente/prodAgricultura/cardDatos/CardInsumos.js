@@ -250,11 +250,11 @@ const CardInsumos = () => {
             response.text().then((resp) => {
                 const data = resp;
                 var objetoData = JSON.parse(data);
-                console.log('objetoData: ', objetoData);
+                // console.log('objetoData: ', objetoData);
                 setInfoEvo(objetoData);
 
             });
-            console.log('infoEvo1: ', infoEvo);
+            // console.log('infoEvo1: ', infoEvo);
         });
     }
 
@@ -275,8 +275,8 @@ const CardInsumos = () => {
                     };
                 })
             );
-            console.log('infoEvo3: ', infoEvo);
-            console.log('DataForChart: ', dataForChart);
+            // console.log('infoEvo3: ', infoEvo);
+            // console.log('DataForChart: ', dataForChart);
         }
     }, [infoEvo]);
 
@@ -300,8 +300,8 @@ const CardInsumos = () => {
                 const data = resp.substring(resp.indexOf('['));
                 var objetoData = JSON.parse(data);
                 setInfoInsumoTotal(objetoData);
-                console.log('infoInsumoTotal: ', infoInsumoTotal);
-                console.log('objetoData - infoInsumoTotal: ', objetoData);
+                // console.log('infoInsumoTotal: ', infoInsumoTotal);
+                // console.log('objetoData - infoInsumoTotal: ', objetoData);
             });
         });
     }
@@ -472,7 +472,7 @@ const CardInsumos = () => {
                 const data = resp.substring(resp.indexOf('['));
                 var objetoData = JSON.parse(data);
                 setInfoTotal(objetoData);
-                console.log('InfoTotal: ', infoTotal)
+                // console.log('InfoTotal: ', infoTotal)
             });
         });
     }
@@ -497,7 +497,7 @@ const CardInsumos = () => {
                     };
                 })
             );
-            console.log('setIsDataTotal: ', isDataTotal)
+            // console.log('setIsDataTotal: ', isDataTotal)
         }
     }, [infoTotal]);
     /*------------------Fin DataTotal----------------------*/
@@ -842,7 +842,7 @@ const CardInsumos = () => {
             setLng(bounds.getCenter().lng);
             setLat(bounds.getCenter().lat);
         }
-        console.log('coordinates: ', coordinates)
+        // console.log('coordinates: ', coordinates)
     }, [coordinates]);
 
 

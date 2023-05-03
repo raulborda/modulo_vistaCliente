@@ -48,13 +48,15 @@ const MapasLotes = () => {
                 });
                 map.addControl(draw);
 
+                map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
                 //!
                 if (geoJSON !== '') {
-
                     var random = 0;
+
                     for (let i = 0; i < geoJSON.length; i++) {
                         var item = 0;
+
                         for (let j = 0; j < geoJSON[i].length; j++) {
                             random = random + 1;
                             item = j + random;
@@ -97,14 +99,13 @@ const MapasLotes = () => {
                             });
                         }
                     }
-
                 }
             });
             //!
 
 
 
-        //! INICIO - CENTRAR MAPBOX
+            //! INICIO - CENTRAR MAPBOX
             var random = 0;
             var loteL = [];
             var lotesT = [];
@@ -218,16 +219,19 @@ const MapasLotes = () => {
                 const lon = parseFloat(pair[0]);
                 const lat = parseFloat(pair[1]);
                 coordLotes.push([lon, lat]);
+                console.log('coordLotes: ', coordLotes);
             }
             result.push([coordLotes]);
             coordLotes = [];
+            console.log("lotes: ", result);
         }
         setGeoJSON(result);
     }
-
+    
     useEffect(() => {
         if (dataGeoJSON.length > 0) {
             desarmarGeoJSON();
+            console.log('GeoJSON: ', geoJSON)
         }
     }, [dataGeoJSON]);
 

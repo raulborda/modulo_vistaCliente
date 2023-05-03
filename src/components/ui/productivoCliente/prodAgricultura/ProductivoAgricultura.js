@@ -63,58 +63,58 @@ export const ProductivoAgricultura = () => {
         isDataOtrosGranos, setIsDataOtrosGranos,
 
         //Ver lotes
-        visible, 
+        visible,
         setVisible,
 
     } = useContext(GlobalContext);
 
 
     return (
-        
+
         <>
-        {visible === false ? (
-            <>
-                <div className='divContainerAgricultura'>
-                    <div className='divProdAgricultura'>
-                        <div className='divProdAgriculturaDatos' style={{ paddingRight: '5px'  }}>
-                            <CardInsumos />
-                        </div>
-                        <Card
-                            style={{
-                                width: '50%',
-                                // borderTop: '2px dashed #56D75B',
-                                // borderBottom: '2px dashed #56D75B',
-                                // borderRight: '2px dashed #56D75B',
-                                // borderLeft: '0px dashed #FFFF',
-                                // borderTopLeftRadius: '0%',
-                                // borderBottomLeftRadius: '0%',
-                            }}>
-                            <div className='divContainerGraficos'>
-                                <GraficosProdAgricultura />
+            {visible === false ? (
+                <>
+                    <div className='divContainerAgricultura'>
+                        <div className='divProdAgricultura'>
+                            <div className='divProdAgriculturaDatos' style={{ paddingRight: '5px' }}>
+                                <CardInsumos />
                             </div>
-                        </Card>
+                            <Card
+                                style={{
+                                    width: '50%',
+                                    // borderTop: '2px dashed #56D75B',
+                                    // borderBottom: '2px dashed #56D75B',
+                                    // borderRight: '2px dashed #56D75B',
+                                    // borderLeft: '0px dashed #FFFF',
+                                    // borderTopLeftRadius: '0%',
+                                    // borderBottomLeftRadius: '0%',
+                                }}>
+                                <div className='divContainerGraficos'>
+                                    <GraficosProdAgricultura />
+                                </div>
+                            </Card>
+                        </div>
+                        <div style={{ paddingLeft: '5px', paddingRight: '5px', paddingBottom: '5px', backgroundColor: '#FFFF' }}>
+                            <Card>
+                                <GraficosPrueba />
+                            </Card>
+                        </div>
                     </div>
-                    <div style={{ paddingLeft: '5px', paddingRight: '5px', paddingBottom: '5px', backgroundColor: '#FFFF' }}>
-                        <Card>
-                            <GraficosPrueba />
-                        </Card>
+                </>
+
+            ) : (
+                <>
+                    <div>
+                        <h3>Lotes</h3>
+                        <Button
+                            onClick={() => setVisible(!visible)}
+                        >
+                            Volver
+                        </Button>
+                        <MapasLotes />
                     </div>
-                </div>
-            </>
-                        
-        ): (
-            <>
-                <div>
-                    <h3>Lotes</h3>
-                    <Button
-                        onClick={() => setVisible(!visible)}
-                    >
-                        Volver
-                    </Button>
-                    <MapasLotes/>
-                </div>
-            </>
-        )}
+                </>
+            )}
         </>
     )
 }
