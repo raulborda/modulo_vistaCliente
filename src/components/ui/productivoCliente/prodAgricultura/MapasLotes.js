@@ -6,7 +6,7 @@ import * as turf from "@turf/turf";
 
 const styles = {
     width: "100%",
-    height: "100%",
+    height: "40%",
     position: "absolute",
 };
 
@@ -164,7 +164,7 @@ const MapasLotes = () => {
                         }
                     ]
                 });
-                map.fitBounds(geojsonBounds, { padding: 10, zoom: 11 });
+                map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
             }
             //! FIN - CENTRAR MAPBOX
 
