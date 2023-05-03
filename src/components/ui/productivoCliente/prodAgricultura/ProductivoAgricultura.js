@@ -253,6 +253,7 @@ export const ProductivoAgricultura = () => {
 
             <MapasLotes />
             <Button
+              style={{marginTop:"8px"}}
               icon={<TableOutlined />}
               onClick={() => toggleTable()}
             ></Button>
@@ -260,9 +261,9 @@ export const ProductivoAgricultura = () => {
             {showTable && (
               <Card
                 style={{
-                  width: "70%",
-                  height: "40%",
-                  marginTop: "16%",
+                  width: "65%",
+                  height: "30%",
+                  marginTop: "15%",
                   marginLeft: "10px",
                   marginRight: "10px",
                 }}
