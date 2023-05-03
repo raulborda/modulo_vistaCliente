@@ -6,7 +6,7 @@ import * as turf from "@turf/turf";
 
 const styles = {
     width: "100%",
-    height: "40%",
+    height: "73%",
     position: "absolute",
 };
 

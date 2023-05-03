@@ -82,43 +82,57 @@ export const ProductivoAgricultura = () => {
     setVisible,
   } = useContext(GlobalContext);
 
+  const [showTable, setShowTable] = useState(false);
+
+  const toggleTable = () => {
+    setShowTable(!showTable);
+  };
 
   const columns = [
     {
       title: "CAMPO",
       dataIndex: "campo",
       key: "campo",
-      width:200,
-      align:"center",
+      width: 100,
+      align: "center",
     },
     {
       title: "NOMBRE",
       dataIndex: "nombre",
       key: "nombre",
-      align:"center",
+      align: "center",
+      width: 100,
     },
     {
       title: "HAS",
       dataIndex: "has",
       key: "has",
-      align:"center",
+      align: "center",
+      width: 100,
     },
     {
       title: "PUNTO CENTRAL",
       dataIndex: "puntoCentral",
       key: "puntoCentral",
-      align:"center",
+      align: "center",
+      width: 100,
     },
     {
       title: "...",
       dataIndex: "accion",
       key: "accion",
-      align:"center",
-      width:200,
+      align: "center",
+      width: 100,
       render: (text, record) => (
         <>
-            <EditOutlined onClick={() => handleEdit(record.key)} style={{color:"#56D75B", marginRight:"3px"}}>Editar</EditOutlined>
-            <DeleteOutlined onClick={() => handleDelete(record.key)} style={{color:"red"}}>Eliminar </DeleteOutlined>
+          <EditOutlined
+            onClick={() => handleEdit(record.key)}
+            style={{ color: "#56D75B", marginRight: "3px" }}
+          />
+          <DeleteOutlined
+            onClick={() => handleDelete(record.key)}
+            style={{ color: "red" }}
+          />
         </>
       ),
     },
@@ -150,30 +164,29 @@ export const ProductivoAgricultura = () => {
       accion: "",
     },
     {
-        key: "4",
-        campo: "Campo 4",
-        nombre: "Nombre 4",
-        has: 40,
-        puntoCentral: "(-34.603722, -58.381592)",
-        accion: "",
-      },
-      {
-        key: "5",
-        campo: "Campo 5",
-        nombre: "Nombre 5",
-        has: 50,
-        puntoCentral: "(-34.603722, -58.381592)",
-        accion: "",
-      },
+      key: "4",
+      campo: "Campo 4",
+      nombre: "Nombre 4",
+      has: 40,
+      puntoCentral: "(-34.603722, -58.381592)",
+      accion: "",
+    },
+    {
+      key: "5",
+      campo: "Campo 5",
+      nombre: "Nombre 5",
+      has: 50,
+      puntoCentral: "(-34.603722, -58.381592)",
+      accion: "",
+    },
   ];
-  
 
   const handleEdit = (key) => {
-    console.log("click edit")
+    console.log("click edit");
   };
-  
+
   const handleDelete = (key) => {
-    console.log("click delete")
+    console.log("click delete");
   };
 
   return (
@@ -239,7 +252,28 @@ export const ProductivoAgricultura = () => {
             </div>
 
             <MapasLotes />
-            <Table style={{marginTop:"21%"}} dataSource={data} columns={columns} pagination={{ pageSize: 3 }}/>
+            <Button
+              icon={<TableOutlined />}
+              onClick={() => toggleTable()}
+            ></Button>
+
+            {showTable && (
+              <Card
+                style={{
+                  width: "70%",
+                  height: "40%",
+                  marginTop: "16%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <Table
+                  dataSource={data}
+                  columns={columns}
+                  pagination={{ pageSize: 3 }}
+                />
+              </Card>
+            )}
           </div>
         </>
       )}
