@@ -81,6 +81,8 @@ export const ProductivoAgricultura = () => {
     //Ver lotes
     visible,
     setVisible,
+    infoLotes,
+    setInfoLotes,
   } = useContext(GlobalContext);
 
   const [showTable, setShowTable] = useState(false);
@@ -90,6 +92,9 @@ export const ProductivoAgricultura = () => {
     setShowTable(!showTable);
   };
 
+
+  console.log("infoLotes:", infoLotes);
+  console.log("cliente: ", idCliente);
 
 
   const columns = [
@@ -148,54 +153,123 @@ export const ProductivoAgricultura = () => {
       ),
     },
   ];
+  
+  const data = infoLotes.map((lote, index) => ({
+    key: index,
+    campo: lote.cam_nombre,
+    nombre: lote.alote_nombre,
+    has: lote.ahas_usuario,
+    condicion: lote.acondicion === "1" ? "PROPIO" : "ALQUILADO",
+    participacion: lote.alxsocio_porc+"%",
+  }));
 
-  const data = [
-    {
-      key: "1",
-      campo: "Campo 1",
-      nombre: "Nombre 1",
-      has: 10,
-      condicion: "PROPIO",
-      participacion: "50%",
-      accion: "",
-    },
-    {
-      key: "2",
-      campo: "Campo 2",
-      nombre: "Nombre 2",
-      has: 20,
-      condicion: "ALQUILADO",
-      participacion: "100%",
-      accion: "",
-    },
-    {
-      key: "3",
-      campo: "Campo 3",
-      nombre: "Nombre 3",
-      has: 30,
-      condicion: "PROPIO",
-      participacion: "100%",
-      accion: "",
-    },
-    {
-      key: "4",
-      campo: "Campo 4",
-      nombre: "Nombre 4",
-      has: 40,
-      condicion: "ALQUILADO",
-      participacion: "50%",
-      accion: "",
-    },
-    {
-      key: "5",
-      campo: "Campo 5",
-      nombre: "Nombre 5",
-      has: 50,
-      condicion: "PROPIO",
-      participacion: "50%",
-      accion: "",
-    },
-  ];
+
+  // const columns = [
+  //   {
+  //     title: "CAMPO",
+  //     dataIndex: "campo",
+  //     key: "campo",
+  //     width: 100,
+  //     align: "center",
+  //   },
+  //   {
+  //     title: "NOMBRE",
+  //     dataIndex: "nombre",
+  //     key: "nombre",
+  //     align: "center",
+  //     width: 100,
+  //   },
+  //   {
+  //     title: "HAS",
+  //     dataIndex: "has",
+  //     key: "has",
+  //     align: "center",
+  //     width: 60,
+  //   },
+  //   {
+  //     title: "CONDICION",
+  //     dataIndex: "condicion",
+  //     key: "condicion",
+  //     align: "center",
+  //     width: 100,
+  //   },
+  //   {
+  //     title: "PARTICIPACION",
+  //     dataIndex: "participacion",
+  //     key: "participacion",
+  //     align: "center",
+  //     width: 100,
+  //   },
+  //   {
+  //     title: "...",
+  //     dataIndex: "accion",
+  //     key: "accion",
+  //     align: "center",
+  //     width: 100,
+  //     render: (text, record) => (
+  //       <>
+  //         <EditOutlined
+  //           onClick={() => handleEdit(record.key)}
+  //           style={{ color: "#56D75B", marginRight: "3px" }}
+  //         />
+  //         <DeleteOutlined
+  //           onClick={() => handleDelete(record.key)}
+  //           style={{ color: "red" }}
+  //         />
+  //       </>
+  //     ),
+  //   },
+  // ];
+
+  
+
+  // const data = [
+  //   {
+  //     key: "1",
+  //     campo: "Campo 1",
+  //     nombre: "Nombre 1",
+  //     has: 10,
+  //     condicion: "PROPIO",
+  //     participacion: "50%",
+  //     accion: "",
+  //   },
+  //   {
+  //     key: "2",
+  //     campo: "Campo 2",
+  //     nombre: "Nombre 2",
+  //     has: 20,
+  //     condicion: "ALQUILADO",
+  //     participacion: "100%",
+  //     accion: "",
+  //   },
+  //   {
+  //     key: "3",
+  //     campo: "Campo 3",
+  //     nombre: "Nombre 3",
+  //     has: 30,
+  //     condicion: "PROPIO",
+  //     participacion: "100%",
+  //     accion: "",
+  //   },
+  //   {
+  //     key: "4",
+  //     campo: "Campo 4",
+  //     nombre: "Nombre 4",
+  //     has: 40,
+  //     condicion: "ALQUILADO",
+  //     participacion: "50%",
+  //     accion: "",
+  //   },
+  //   {
+  //     key: "5",
+  //     campo: "Campo 5",
+  //     nombre: "Nombre 5",
+  //     has: 50,
+  //     condicion: "PROPIO",
+  //     participacion: "50%",
+  //     accion: "",
+  //   },
+  // ];
 
   const handleEdit = (key) => {
     console.log("click edit: ", key);

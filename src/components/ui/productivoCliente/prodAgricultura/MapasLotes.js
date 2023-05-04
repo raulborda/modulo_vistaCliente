@@ -14,7 +14,7 @@ const styles = {
 const MapasLotes = () => {
 
     const {
-        infoLotes, 
+        infoLotes,
         setInfoLotes,
         idCliente,
         setIdCliente,
@@ -230,7 +230,7 @@ const MapasLotes = () => {
             }
             result.push([coordLotes]);
             coordLotes = [];
-        
+
         }
         setGeoJSON(result);
     }
@@ -263,8 +263,8 @@ const MapasLotes = () => {
     }
   }, [idCliente]);
 
-  console.log("infoLotes:", infoLotes);
-  console.log("cliente: ", idCliente);
+//   console.log("infoLotes:", infoLotes);
+//   console.log("cliente: ", idCliente);
 
 
     return (
