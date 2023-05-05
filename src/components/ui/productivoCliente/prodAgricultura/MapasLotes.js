@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
 import * as turf from "@turf/turf";
+import { GlobalContext } from "../../../context/GlobalContext";
 
 const styles = {
     width: "100%",
@@ -11,6 +12,13 @@ const styles = {
 };
 
 const MapasLotes = () => {
+
+    const {
+        infoLotes,
+        setInfoLotes,
+        idCliente,
+        setIdCliente,
+    } = useContext(GlobalContext);
 
     const URL = process.env.REACT_APP_URL;
 
@@ -224,7 +232,6 @@ const MapasLotes = () => {
             }
             result.push([coordLotes]);
             coordLotes = [];
-            // console.log("lotes: ", result);
         }
         setGeoJSON(result);
     }
@@ -237,9 +244,29 @@ const MapasLotes = () => {
     }, [dataGeoJSON]);
 
     useEffect(() => {
-        infoGeoJSON(2049);
+        infoGeoJSON(idCliente);
     }, []);
 
+  //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA CAPACIDAD PRODUCTIVA INICIAL
+  useEffect(() => {
+    if (idCliente) {
+      const data = new FormData();
+      data.append("idCli", idCliente);
+      fetch(`${URL}cliente_lotes.php`, {
+        method: "POST",
+        body: data,
+      }).then(function (response) {
+        response.text().then((resp) => {
+          const data = resp;
+          const objetoData = JSON.parse(data);
+          setInfoLotes(objetoData);
+        });
+      });
+    }
+  }, [idCliente]);
+
+//   console.log("infoLotes:", infoLotes);
+//   console.log("cliente: ", idCliente);
 
 
     return (

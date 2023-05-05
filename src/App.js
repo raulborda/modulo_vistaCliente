@@ -3,7 +3,7 @@ import { ConfigProvider } from 'antd';
 import { client } from "./apollo/ApolloClient";
 import esES from "antd/lib/locale/es_ES";
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GlobalContext } from './components/context/GlobalContext';
 import TabsCliente from './components/ui/tabsCliente/TabsCliente';
 import { ViewGeneral } from './components/ui/ViewGeneral';
@@ -33,8 +33,9 @@ function App() {
 
   //* Id de cliente que se obtine desde local storage
   // const idC = localStorage.getItem("cliente");
-  const idC = localStorage.getItem("2049");
-  const [idCliente, setIdCliente] = useState(idC);
+  //const idC = localStorage.getItem("cliente");
+  //const idC = 2773;
+  const [idCliente, setIdCliente] = useState(2773);
 
 
   //Evolucion Productiva:
@@ -66,6 +67,7 @@ function App() {
 
   //Ver lotes
   const[visible, setVisible] = useState(false);
+  const [infoLotes, setInfoLotes] = useState([]);
 
   return (
 
@@ -115,6 +117,7 @@ function App() {
 
         //Ver lotes
         visible, setVisible,
+        infoLotes, setInfoLotes,
       }}
     >
 
