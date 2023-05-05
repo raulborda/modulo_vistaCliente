@@ -150,7 +150,7 @@ const TabsCliente = () => {
   };
 
 
-  //setIdCliente(2773); // PARA PROBAR
+  //setIdCliente(2049); // PARA PROBAR
 
   return (
     <>

@@ -3,14 +3,11 @@
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import {
-  BarChartOutlined,
-  BarsOutlined,
-  CaretUpOutlined,
-  DeleteOutlined,
   EditOutlined,
+  PushpinOutlined,
   TableOutlined,
 } from "@ant-design/icons";
-import { Button, Card, Popover, Table } from "antd";
+import { Button, Card, Form, Input, Popover, Select, Table } from "antd";
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
 import { GraficosPrueba } from "./GraficosPrueba";
@@ -21,6 +18,8 @@ import MapasLotes from "./MapasLotes";
 
 export const ProductivoAgricultura = () => {
   const URL = process.env.REACT_APP_URL;
+  const [form] = Form.useForm();
+  const { Option } = Select;
 
   const {
     cardSelected,
@@ -86,16 +85,15 @@ export const ProductivoAgricultura = () => {
   } = useContext(GlobalContext);
 
   const [showTable, setShowTable] = useState(false);
- 
+  const [showEdit, setShowEdit] = useState(false);
+  const [dataEdit, setDataEdit] = useState(null);
 
   const toggleTable = () => {
     setShowTable(!showTable);
   };
 
-
   console.log("infoLotes:", infoLotes);
   console.log("cliente: ", idCliente);
-
 
   const columns = [
     {
@@ -141,143 +139,48 @@ export const ProductivoAgricultura = () => {
       width: 100,
       render: (text, record) => (
         <>
-          <EditOutlined
-            onClick={() => handleEdit(record.key)}
-            style={{ color: "#56D75B", marginRight: "3px" }}
+          <PushpinOutlined
+            onClick={() => handleUbic(record)}
+            style={{ color: "red", marginRight: "5px" }}
           />
-          <DeleteOutlined
-            onClick={() => handleDelete(record.key)}
-            style={{ color: "red" }}
+          <EditOutlined
+            onClick={() => handleEdit(record)}
+            style={{ color: "#56D75B" }}
           />
         </>
       ),
     },
   ];
-  
+
   const data = infoLotes.map((lote, index) => ({
-    key: index,
+    key: lote.alote_id,
     campo: lote.cam_nombre,
     nombre: lote.alote_nombre,
     has: lote.ahas_usuario,
     condicion: lote.acondicion === "1" ? "PROPIO" : "ALQUILADO",
-    participacion: lote.alxsocio_porc+"%",
+    participacion: lote.alxsocio_porc + "%",
   }));
 
-
-  // const columns = [
-  //   {
-  //     title: "CAMPO",
-  //     dataIndex: "campo",
-  //     key: "campo",
-  //     width: 100,
-  //     align: "center",
-  //   },
-  //   {
-  //     title: "NOMBRE",
-  //     dataIndex: "nombre",
-  //     key: "nombre",
-  //     align: "center",
-  //     width: 100,
-  //   },
-  //   {
-  //     title: "HAS",
-  //     dataIndex: "has",
-  //     key: "has",
-  //     align: "center",
-  //     width: 60,
-  //   },
-  //   {
-  //     title: "CONDICION",
-  //     dataIndex: "condicion",
-  //     key: "condicion",
-  //     align: "center",
-  //     width: 100,
-  //   },
-  //   {
-  //     title: "PARTICIPACION",
-  //     dataIndex: "participacion",
-  //     key: "participacion",
-  //     align: "center",
-  //     width: 100,
-  //   },
-  //   {
-  //     title: "...",
-  //     dataIndex: "accion",
-  //     key: "accion",
-  //     align: "center",
-  //     width: 100,
-  //     render: (text, record) => (
-  //       <>
-  //         <EditOutlined
-  //           onClick={() => handleEdit(record.key)}
-  //           style={{ color: "#56D75B", marginRight: "3px" }}
-  //         />
-  //         <DeleteOutlined
-  //           onClick={() => handleDelete(record.key)}
-  //           style={{ color: "red" }}
-  //         />
-  //       </>
-  //     ),
-  //   },
-  // ];
-
+  const handleEdit = (data) => {
+    setShowTable(false);
+    setShowEdit(true);    
+    setDataEdit(data);
+    console.log("click edit: ", data);
+    console.log("StateEdit: ", dataEdit);
+  };
   
 
-  // const data = [
-  //   {
-  //     key: "1",
-  //     campo: "Campo 1",
-  //     nombre: "Nombre 1",
-  //     has: 10,
-  //     condicion: "PROPIO",
-  //     participacion: "50%",
-  //     accion: "",
-  //   },
-  //   {
-  //     key: "2",
-  //     campo: "Campo 2",
-  //     nombre: "Nombre 2",
-  //     has: 20,
-  //     condicion: "ALQUILADO",
-  //     participacion: "100%",
-  //     accion: "",
-  //   },
-  //   {
-  //     key: "3",
-  //     campo: "Campo 3",
-  //     nombre: "Nombre 3",
-  //     has: 30,
-  //     condicion: "PROPIO",
-  //     participacion: "100%",
-  //     accion: "",
-  //   },
-  //   {
-  //     key: "4",
-  //     campo: "Campo 4",
-  //     nombre: "Nombre 4",
-  //     has: 40,
-  //     condicion: "ALQUILADO",
-  //     participacion: "50%",
-  //     accion: "",
-  //   },
-  //   {
-  //     key: "5",
-  //     campo: "Campo 5",
-  //     nombre: "Nombre 5",
-  //     has: 50,
-  //     condicion: "PROPIO",
-  //     participacion: "50%",
-  //     accion: "",
-  //   },
-  // ];
-
-  const handleEdit = (key) => {
-    console.log("click edit: ", key);
+  const handleUbic = (data) => {
+    console.log("click delete", data);
   };
 
-  const handleDelete = (key) => {
-    console.log("click delete");
+  const onSubmit = (values) => {
+    console.log("Formulario enviado con valores:", values);
   };
+
+  const cancelEdit = () => {
+    form.resetFields();
+  }
 
   return (
     <>
@@ -364,6 +267,56 @@ export const ProductivoAgricultura = () => {
                   columns={columns}
                   pagination={{ pageSize: 3 }}
                 />
+              </Card>
+            )}
+            {showEdit && (
+              <Card
+                style={{
+                  width: "65%",
+                  height: "30%",
+                  marginTop: "15%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <Form form={form} onFinish={onSubmit} initialValues={dataEdit}>
+                  <h3>Editar Lote</h3>
+                  <Form.Item
+                    name="nombre"
+                    label="Nombre Lote"
+                    
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    name="has"
+                    label="Has"                  
+                  >
+                    <Input type="number" />
+                  </Form.Item>
+
+                  <Form.Item name="condicion" label="Condición">
+                    <Select>
+                      <Option value="PROPIO">PROPIO</Option>
+                      <Option value="ALQUILADO">ALQUILADO</Option>
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item
+                    name="participacion"
+                    label="Participacion"                  
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Button type="primary" htmlType="submit">
+                    Guardar
+                  </Button>
+                  <Button onClick={() => (setShowEdit(false),setShowTable(true), cancelEdit())}>
+                    Cancelar
+                  </Button>
+                </Form>
               </Card>
             )}
           </div>

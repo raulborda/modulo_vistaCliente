@@ -242,7 +242,7 @@ const MapasLotes = () => {
     }, [dataGeoJSON]);
 
     useEffect(() => {
-        infoGeoJSON(2049);
+        infoGeoJSON(idCliente);
     }, []);
 
   //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA CAPACIDAD PRODUCTIVA INICIAL

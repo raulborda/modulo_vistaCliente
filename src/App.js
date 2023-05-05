@@ -35,7 +35,7 @@ function App() {
   // const idC = localStorage.getItem("cliente");
   //const idC = localStorage.getItem("cliente");
   //const idC = 2773;
-  const [idCliente, setIdCliente] = useState(2049);
+  const [idCliente, setIdCliente] = useState(2773);
 
 
   //Evolucion Productiva:
