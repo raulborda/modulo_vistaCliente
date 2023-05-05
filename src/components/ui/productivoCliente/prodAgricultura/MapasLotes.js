@@ -6,7 +6,7 @@ import * as turf from "@turf/turf";
 
 const styles = {
     width: "100%",
-    height: "40%",
+    height: "73%",
     position: "absolute",
 };
 
@@ -48,7 +48,7 @@ const MapasLotes = () => {
                 });
                 map.addControl(draw);
 
-                map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+                // map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
                 //!
                 if (geoJSON !== '') {
@@ -170,7 +170,7 @@ const MapasLotes = () => {
             //! FIN - CENTRAR MAPBOX
 
 
-            //* geometria dibujada
+            //* geometria dibujada para subir a data base
             map.on("draw.create", (e) => {
                 const coordinates = e.features[0].geometry.coordinates[0];
                 const formattedCoordinates = JSON.stringify(coordinates, (key, value) => {
@@ -179,7 +179,7 @@ const MapasLotes = () => {
                     }
                     return value;
                 }).replace(/"/g, '');
-                console.log('CoordenadaForm: ', formattedCoordinates);
+                console.log("coordenadas a subir a db: ", formattedCoordinates);
             });
 
         };
