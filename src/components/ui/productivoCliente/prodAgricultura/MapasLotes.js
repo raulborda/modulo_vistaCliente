@@ -18,6 +18,7 @@ const MapasLotes = () => {
         setInfoLotes,
         idCliente,
         setIdCliente,
+        showFormAgregar,
     } = useContext(GlobalContext);
 
     const URL = process.env.REACT_APP_URL;
@@ -43,18 +44,23 @@ const MapasLotes = () => {
             });
 
             map.on("load", () => {
+
+
                 setMap(map);
                 map.resize();
                 //* instancia herramientas
-                const draw = new MapboxDraw({
-                    displayControlsDefault: false,
-                    controls: {
-                        polygon: true,
-                        point: true,
-                        trash: true,
-                    },
-                });
-                map.addControl(draw);
+                if (showFormAgregar) {
+                    const draw = new MapboxDraw({
+                        displayControlsDefault: false,
+                        controls: {
+                            polygon: true,
+                            point: true,
+                            trash: true,
+                        },
+                    });
+                    map.addControl(draw)
+                }
+
 
                 // map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
@@ -235,7 +241,7 @@ const MapasLotes = () => {
         }
         setGeoJSON(result);
     }
-    
+
     useEffect(() => {
         if (dataGeoJSON.length > 0) {
             desarmarGeoJSON();
@@ -247,26 +253,26 @@ const MapasLotes = () => {
         infoGeoJSON(idCliente);
     }, []);
 
-  //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA CAPACIDAD PRODUCTIVA INICIAL
-  useEffect(() => {
-    if (idCliente) {
-      const data = new FormData();
-      data.append("idCli", idCliente);
-      fetch(`${URL}cliente_lotes.php`, {
-        method: "POST",
-        body: data,
-      }).then(function (response) {
-        response.text().then((resp) => {
-          const data = resp;
-          const objetoData = JSON.parse(data);
-          setInfoLotes(objetoData);
-        });
-      });
-    }
-  }, [idCliente]);
+    //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA CAPACIDAD PRODUCTIVA INICIAL
+    useEffect(() => {
+        if (idCliente) {
+            const data = new FormData();
+            data.append("idCli", idCliente);
+            fetch(`${URL}cliente_lotes.php`, {
+                method: "POST",
+                body: data,
+            }).then(function (response) {
+                response.text().then((resp) => {
+                    const data = resp;
+                    const objetoData = JSON.parse(data);
+                    setInfoLotes(objetoData);
+                });
+            });
+        }
+    }, [idCliente]);
 
-//   console.log("infoLotes:", infoLotes);
-//   console.log("cliente: ", idCliente);
+    //   console.log("infoLotes:", infoLotes);
+    //   console.log("cliente: ", idCliente);
 
 
     return (

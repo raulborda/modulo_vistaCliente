@@ -68,6 +68,7 @@ function App() {
   //Ver lotes
   const[visible, setVisible] = useState(false);
   const [infoLotes, setInfoLotes] = useState([]);
+  const [showFormAgregar, setShowFormAgregar] = useState(false);
 
   return (
 
@@ -118,6 +119,7 @@ function App() {
         //Ver lotes
         visible, setVisible,
         infoLotes, setInfoLotes,
+        showFormAgregar, setShowFormAgregar,
       }}
     >
 

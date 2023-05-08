@@ -83,10 +83,11 @@ export const ProductivoAgricultura = () => {
     setVisible,
     infoLotes,
     setInfoLotes,
+    showFormAgregar, 
+    setShowFormAgregar,
   } = useContext(GlobalContext);
 
   const [showTable, setShowTable] = useState(false);
-  const [showFormAgregar, setShowFormAgregar] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
   const [dataAdd, setDataAdd] = useState(null);
