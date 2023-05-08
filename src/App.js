@@ -36,6 +36,10 @@ function App() {
   //const idC = 2773;
   const [idCliente, setIdCliente] = useState(2773);
 
+  //* Id de usuario que se obtiene desde local storage
+  //const idUsu = localStorage.getItem("usuario");
+  const [usu, setUsu] = useState(1);
+
   //Evolucion Productiva:
   const [update, setUpdate] = useState(false);
   const [infoEvo, setInfoEvo] = useState([]);
@@ -74,6 +78,11 @@ function App() {
   return (
     <GlobalContext.Provider
       value={{
+
+        //usuario
+        usu, 
+        setUsu,
+
         appStage,
         setAppStage,
         cardSelected,

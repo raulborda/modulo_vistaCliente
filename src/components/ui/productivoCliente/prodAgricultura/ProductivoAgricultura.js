@@ -95,7 +95,12 @@ export const ProductivoAgricultura = () => {
     loteId,
     setLoteId,
     isTableUpdated, 
-    setIsTableUpdated
+    setIsTableUpdated,
+
+
+    //usuario
+    usu,
+
   } = useContext(GlobalContext);
 
   const [showTable, setShowTable] = useState(false);
@@ -216,9 +221,10 @@ export const ProductivoAgricultura = () => {
   const onSubmit = (values) => {
       // console.log("Formulario enviado con valores:", values);
     // console.log("clienteEdit", idCliente);
-    console.log("loteId", loteId);
+    //console.log("loteId", loteId);
 
     const dataE = new FormData();
+    dataE.append("usu",  usu);
     dataE.append("idC", idCliente);
     dataE.append("idLote", loteId);
     dataE.append("lote", values.nombre);
