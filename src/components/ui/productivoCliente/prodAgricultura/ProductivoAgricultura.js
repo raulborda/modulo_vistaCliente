@@ -8,7 +8,17 @@ import {
   PushpinOutlined,
   TableOutlined,
 } from "@ant-design/icons";
-import { Button, Card, Divider, Form, Input, InputNumber, Popover, Select, Table } from "antd";
+import {
+  Button,
+  Card,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  Popover,
+  Select,
+  Table,
+} from "antd";
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
 import { GraficosPrueba } from "./GraficosPrueba";
@@ -83,14 +93,16 @@ export const ProductivoAgricultura = () => {
     setVisible,
     infoLotes,
     setInfoLotes,
-    showFormAgregar, 
+    showFormAgregar,
     setShowFormAgregar,
+    valorGeoJSON, 
+    setValorGeoJSON,
   } = useContext(GlobalContext);
 
   const [showTable, setShowTable] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
-  const [dataAdd, setDataAdd] = useState(null);
+  // const [dataAdd, setDataAdd] = useState(null);
 
   const toggleTable = () => {
     setShowTable(!showTable);
@@ -171,15 +183,21 @@ export const ProductivoAgricultura = () => {
     participacion: lote.alxsocio_porc + "%",
   }));
 
+
+
+
   const handleEdit = (record) => {
     //form.resetFields();
     setShowTable(false);
     setShowEdit(true);
-    setDataEdit(record);
+    //setDataEdit(record);
+    setDataEdit({
+      ...record,
+      participacion: parseFloat(record.participacion), // Parsea el valor a un número
+    });
     console.log("click edit: ", record);
     console.log("StateEdit: ", record);
   };
-
 
   useEffect(() => {
     if (dataEdit) {
@@ -188,7 +206,7 @@ export const ProductivoAgricultura = () => {
         nombre: dataEdit.nombre,
         has: dataEdit.has,
         condicion: dataEdit.condicion,
-        participacion: dataEdit.participacion
+        participacion: dataEdit.participacion,
       });
     }
   }, [dataEdit]);
@@ -199,8 +217,30 @@ export const ProductivoAgricultura = () => {
     console.log("click delete", data);
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, idCliente) => {
     console.log("Formulario enviado con valores:", values);
+
+    const dataE = new FormData();
+    dataE.append("idC", idCliente);
+    dataE.append("lote", values.nombre);
+    dataE.append("has", values.has);
+    dataE.append("condicion", values.condicion);
+    dataE.append("participacion", values.participacion);
+
+    console.log("onSubmit", dataE);
+
+    fetch(`${URL}client_editLote.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        console.log(data);
+        // const objetoData = JSON.parse(data);
+        // console.log("Nueva capacidad: ", objetoData)
+      });
+    });
+
   };
 
   const handleChange = (value) => {
@@ -208,14 +248,38 @@ export const ProductivoAgricultura = () => {
   };
   const cancelEdit = () => {
     form.resetFields();
-  }
+  };
 
 
 
   const onSubmitAdd = (values) => {
-    setDataAdd(values)
-    console.log('dataAdd: ', dataAdd)
+    // setDataAdd(values)
+    // console.log('dataAdd: ', dataAdd)
+
+    const dataAdd = new FormData();
+    dataAdd.append("idC", idCliente);
+    dataAdd.append("lote", values.nombre);
+    dataAdd.append("has", values.has);
+    dataAdd.append("campo", values.campo);
+    dataAdd.append("cliente", values.cliente);
+    dataAdd.append("participacion", values.participacion);
+    dataAdd.append("condicion", values.condicion);
+    dataAdd.append("valorGeoJSON", JSON.stringify(valorGeoJSON));
+    
+    console.log('valorGeoJSON: ', valorGeoJSON);
+    console.log("onSubmitAdd: ", dataAdd);
+
+    fetch(`${URL}client_addLote.php`, {
+      method: "POST",
+      body: dataAdd,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        console.log('data: ', data);
+      });
+    });
   };
+
 
   return (
     <>
@@ -274,7 +338,7 @@ export const ProductivoAgricultura = () => {
               <Button
                 style={{ marginBottom: "5px" }}
                 // eslint-disable-next-line no-sequences
-                onClick={() => (setVisible(!visible), setShowTable(false))}
+                onClick={() => (setVisible(!visible), setShowTable(false), setShowEdit(false))}
               >
                 Volver
               </Button>
@@ -282,8 +346,13 @@ export const ProductivoAgricultura = () => {
 
             <MapasLotes />
 
-            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}>
-
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "10px",
+              }}
+            >
               <Button
                 style={{ marginTop: "8px" }}
                 icon={<TableOutlined />}
@@ -327,118 +396,211 @@ export const ProductivoAgricultura = () => {
                   }}
                 >
                   <Form form={form} onFinish={onSubmitAdd} >
-                    <h1 className="titulos" >NUEVO LOTE</h1>
-                    <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
-                    <Form.Item
-                      name="nombre"
-                      label="Nombre Lote"
 
-                    >
-                      <Input onChange={(e) => setDataAdd({ ...dataAdd, nombre: e.target.value })} />
-                    </Form.Item>
-                    <Form.Item
-                      name="has"
-                      label="Has"
-                    >
-                      <Input type="number" onChange={(e) => setDataAdd({ ...dataAdd, has: e.target.value })} />
-                    </Form.Item>
+                    <div>
 
-                    <Form.Item name="campo" label="Campo">
-                      <Select onChange={(value) => setDataAdd({ ...dataAdd, campo: value })} >
-                        <Option value="Don Julio">Don Julio</Option>
-                        <Option value="Las 35">Las 35</Option>
-                      </Select>
-                    </Form.Item>
+                      <h1 className="titulos" >NUEVO LOTE</h1>
+                      <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
+                      <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <Form.Item
+                          name="nombre"
+                          label="Nombre Lote"
+                        >
+                          <Input /*onChange={(e) => setDataAdd({ ...dataAdd, nombre: e.target.value })}*/ style={{ width: '200px', marginRight: '15px' }} />
+                        </Form.Item>
+
+                        <Form.Item
+                          name="has"
+                          label="Has"
+                        >
+                          <Input type="number" /*onChange={(e) => setDataAdd({ ...dataAdd, has: e.target.value })}*/ style={{ width: '200px', marginRight: '15px' }} />
+                        </Form.Item>
+
+                        <Form.Item name="campo" label="Campo">
+                          <Select /*onChange={(value) => setDataAdd({ ...dataAdd, campo: value })}*/ style={{ width: '150px' }} >
+                            <Option value="Don Julio">Don Julio</Option>
+                            <Option value="Las 35">Las 35</Option>
+                          </Select>
+                        </Form.Item>
+                      </div>
 
 
-                    <h1 className="titulos" >PARTICIPACIÓN</h1>
-                    <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
-                    <Form.Item
-                      name="participacion"
-                      label="Participacion"
-                    >
-                      <InputNumber
-                        onChange={(value) => setDataAdd({ ...dataAdd, participacion: value })}
-                        defaultValue={100}
-                        min={0}
-                        max={100}
-                        formatter={(value) => `${value}%`}
-                        parser={(value) => value.replace('%', '')}
-                      // onChange={onChange}
-                      />
-                    </Form.Item>
+                      <h1 className="titulos" >PARTICIPACIÓN</h1>
+                      <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
+                      <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '5px' }}>
 
-                    <Form.Item name="condicion" label="Condición">
-                      <Select onChange={(value) => setDataAdd({ ...dataAdd, condicion: value })}>
-                        <Option value="PROPIO">PROPIO</Option>
-                        <Option value="ALQUILADO">ALQUILADO</Option>
-                      </Select>
-                    </Form.Item>
+                        <Form.Item name="cliente" label="Cliente">
+                          <Select /*onChange={(value) => setDataAdd({ ...dataAdd, cliente: value })}*/ style={{ width: '200px', marginRight: '15px' }}>
+                            <Option value="Jorge Drexler">Jorge Drexler</Option>
+                            <Option value="Justin Bieber">Justin Bieber</Option>
+                          </Select>
+                        </Form.Item>
 
-                    <Button type="primary" htmlType="submit">
-                      Guardar
-                    </Button>
-                    <Button onClick={{}}>
-                      Cancelar
-                    </Button>
+                        <Form.Item
+                          name="participacion"
+                          label="Participacion"
+                        >
+                          <InputNumber
+                            /*onChange={(value) => setDataAdd({ ...dataAdd, participacion: value })}*/
+                            // onChange={(value) => {
+                            //   if (value === '' || null || undefined) {
+                            //     setDataAdd({ ...dataAdd, participacion: 100 });
+                            //   } else {
+                            //     setDataAdd({ ...dataAdd, participacion: value });
+                            //   }
+                            // }}
+                            defaultValue={100}
+                            min={0}
+                            max={100}
+                            formatter={(value) => `${value}%`}
+                            parser={(value) => value.replace('%', '')}
+                            style={{ width: '80px', marginRight: '15px' }}
+                          // onChange={onChange}
+                          />
+                        </Form.Item>
+
+                        <Form.Item name="condicion" label="Condición">
+                          <Select /*onChange={(value) => setDataAdd({ ...dataAdd, condicion: value })}*/ style={{ width: '200px', marginRight: '15px' }}>
+                            <Option value="1">PROPIO</Option>
+                            <Option value="2">ALQUILADO</Option>
+                          </Select>
+                        </Form.Item>
+                      </div>
+
+                      <Button type="primary" htmlType="submit">
+                        Guardar
+                      </Button>
+                      <Button
+                      // onClick={{}}
+                      >
+                        Cancelar
+                      </Button>
+                    </div>
                   </Form>
                 </Card>
               )
             }
 
-            {
-              showEdit && (
-                <Card
-                  style={{
-                    width: "65%",
-                    height: "30%",
-                    marginTop: "15%",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
+            {showEdit && (
+              <Card
+                style={{
+                  width: "65%",
+                  height: "30%",
+                  marginTop: "15%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <Form
+                  form={form}
+                  onFinish={onSubmit}
+                  initialValues={dataEdit}
+                  layout="vertical"
                 >
-                  <Form form={form} onFinish={onSubmit} initialValues={dataEdit}>
-                    <h3>Editar Lote</h3>
-                    <Form.Item
-                      name="nombre"
-                      label="Nombre Lote"
-
+                  <h1 className="titulos">EDITAR LOTE</h1>
+                  <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
                     >
-                      <Input />
-                    </Form.Item>
+                      <Form.Item
+                        name="nombre"
+                        label="Nombre Lote"
+                        style={{ fontSize: "13px", fontWeight: "bold" }}
+                      >
+                        <Input style={{ width: "150px" }} />
+                      </Form.Item>
+                    </div>
 
-                    <Form.Item
-                      name="has"
-                      label="Has"
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "50px",
+                      }}
                     >
-                      <Input type="number" />
-                    </Form.Item>
+                      <Form.Item
+                        name="has"
+                        label="Has"
+                        style={{ fontSize: "13px", fontWeight: "bold" }}
+                      >
+                        <Input type="number" style={{ width: "80px" }} />
+                      </Form.Item>
+                    </div>
 
-                    <Form.Item name="condicion" label="Condición">
-                      <Select>
-                        <Option value="PROPIO">PROPIO</Option>
-                        <Option value="ALQUILADO">ALQUILADO</Option>
-                      </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                      name="participacion"
-                      label="Participacion"
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "50px",
+                      }}
                     >
-                      <Input />
-                    </Form.Item>
+                      <Form.Item
+                        name="condicion"
+                        label="Condición"
+                        style={{
+                          fontSize: "13px",
+                          fontWeight: "bold",
+                          width: "150px",
+                        }}
+                      >
+                        <Select>
+                          <Option value="PROPIO">PROPIO</Option>
+                          <Option value="ALQUILADO">ALQUILADO</Option>
+                        </Select>
+                      </Form.Item>
+                    </div>
 
-                    <Button type="primary" htmlType="submit">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "50px",
+                      }}
+                    >
+                      <Form.Item
+                        name="participacion"
+                        label="Participacion"
+                        style={{ fontSize: "13px", fontWeight: "bold" }}
+                      >
+                        <Input style={{ width: "80px" }} addonAfter="%" />
+                      </Form.Item>
+                    </div>
+                  </div>
+
+                  <Divider style={{ marginBottom: "10px", marginTop: "10px" }} />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Button type="primary" htmlType="submit" style={{ marginLeft: "-5px", marginRight: "5px" }}>
                       Guardar
                     </Button>
-                    <Button onClick={() => (setShowEdit(false), setShowTable(true), cancelEdit())}>
+                    <Button
+
+                      onClick={() => (
+                        setShowEdit(false), setShowTable(true), cancelEdit()
+                      )}
+                    >
                       Cancelar
                     </Button>
-                  </Form>
-                </Card>
-              )
-            }
-          </div >
+                  </div>
+                </Form>
+              </Card>
+            )}
+          </div>
         </>
       )}
     </>

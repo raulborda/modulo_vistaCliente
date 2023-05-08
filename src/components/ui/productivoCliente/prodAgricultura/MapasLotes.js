@@ -19,6 +19,8 @@ const MapasLotes = () => {
         idCliente,
         setIdCliente,
         showFormAgregar,
+        valorGeoJSON, 
+        setValorGeoJSON,
     } = useContext(GlobalContext);
 
     const URL = process.env.REACT_APP_URL;
@@ -32,6 +34,8 @@ const MapasLotes = () => {
     const [puntoCentral, setPuntoCentral] = useState();
     const mapContainer = useRef(null);
 
+    const drawRef = useRef(null); // Referencia al control de dibujo
+
     useEffect(() => {
         mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -44,22 +48,19 @@ const MapasLotes = () => {
             });
 
             map.on("load", () => {
-
-
                 setMap(map);
                 map.resize();
                 //* instancia herramientas
-                if (showFormAgregar) {
-                    const draw = new MapboxDraw({
-                        displayControlsDefault: false,
-                        controls: {
-                            polygon: true,
-                            point: true,
-                            trash: true,
-                        },
-                    });
-                    map.addControl(draw)
-                }
+                const draw = new MapboxDraw({
+                    displayControlsDefault: false,
+                    controls: {
+                        polygon: true,
+                        point: true,
+                        trash: true,
+                    },
+                });
+                map.addControl(draw);
+
 
 
                 // map.addControl(new mapboxgl.NavigationControl(), 'top-left');
@@ -194,6 +195,7 @@ const MapasLotes = () => {
                     return value;
                 }).replace(/"/g, '');
                 console.log("coordenadas a subir a db: ", formattedCoordinates);
+                setValorGeoJSON(formattedCoordinates)
             });
 
         };
