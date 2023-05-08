@@ -8,7 +8,16 @@ import {
   PushpinOutlined,
   TableOutlined,
 } from "@ant-design/icons";
-import { Button, Card, Divider, Form, Input, Popover, Select, Table } from "antd";
+import {
+  Button,
+  Card,
+  Divider,
+  Form,
+  Input,
+  Popover,
+  Select,
+  Table,
+} from "antd";
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
 import { GraficosPrueba } from "./GraficosPrueba";
@@ -169,15 +178,21 @@ export const ProductivoAgricultura = () => {
     participacion: lote.alxsocio_porc + "%",
   }));
 
+
+  
+
   const handleEdit = (record) => {
     //form.resetFields();
     setShowTable(false);
     setShowEdit(true);
-    setDataEdit(record);
+    //setDataEdit(record);
+    setDataEdit({
+      ...record,
+      participacion: parseFloat(record.participacion), // Parsea el valor a un número
+    });
     console.log("click edit: ", record);
     console.log("StateEdit: ", record);
   };
-
 
   useEffect(() => {
     if (dataEdit) {
@@ -186,19 +201,39 @@ export const ProductivoAgricultura = () => {
         nombre: dataEdit.nombre,
         has: dataEdit.has,
         condicion: dataEdit.condicion,
-        participacion: dataEdit.participacion
+        participacion: dataEdit.participacion,
       });
     }
   }, [dataEdit]);
-  
-
 
   const handleUbic = (data) => {
     console.log("click delete", data);
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, idCliente) => {
     console.log("Formulario enviado con valores:", values);
+
+    const dataE = new FormData();
+    dataE.append("idC", idCliente);
+    dataE.append("lote", values.nombre);
+    dataE.append("has", values.has);
+    dataE.append("condicion", values.condicion);
+    dataE.append("participacion", values.participacion);
+
+    console.log("onSubmit", dataE);
+
+    fetch(`${URL}client_editLote.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        console.log(data);
+        // const objetoData = JSON.parse(data);
+        // console.log("Nueva capacidad: ", objetoData)
+      });
+    });
+
   };
 
   const handleChange = (value) => {
@@ -206,7 +241,7 @@ export const ProductivoAgricultura = () => {
   };
   const cancelEdit = () => {
     form.resetFields();
-  }
+  };
 
   return (
     <>
@@ -265,7 +300,7 @@ export const ProductivoAgricultura = () => {
               <Button
                 style={{ marginBottom: "5px" }}
                 // eslint-disable-next-line no-sequences
-                onClick={() => (setVisible(!visible), setShowTable(false))}
+                onClick={() => (setVisible(!visible), setShowTable(false), setShowEdit(false))}
               >
                 Volver
               </Button>
@@ -273,8 +308,13 @@ export const ProductivoAgricultura = () => {
 
             <MapasLotes />
 
-            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}>
-
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "10px",
+              }}
+            >
               <Button
                 style={{ marginTop: "8px" }}
                 icon={<TableOutlined />}
@@ -283,136 +323,231 @@ export const ProductivoAgricultura = () => {
               <Button
                 icon={<PlusOutlined />}
                 onClick={() => abrirFormAgregar()}
-                style={{ marginTop: '5px'}}
+                style={{ marginTop: "5px" }}
               />
             </div>
 
-            {
-              showTable && (
-                <Card
-                  style={{
-                    width: "65%",
-                    height: "30%",
-                    marginTop: "15%",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
-                >
-                  <Table
-                    dataSource={data}
-                    columns={columns}
-                    pagination={{ pageSize: 3 }}
-                  />
-                </Card>
-              )
-            }
-            {
-              showFormAgregar && (
-                <Card
-                  style={{
-                    width: "70%",
-                    height: "40%",
-                    marginTop: "16%",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
-                >
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>
-                      <h1 className="titulos" >NUEVO LOTE</h1>
-                      <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
-                      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
-                        <label style={{ fontSize: '13px', display: 'inline-block', marginBottom: '2px', fontWeight: 'bold' }} >Nombre Lote:</label>
-                        <Input
-                          placeholder="Ingrese nombre"
-                          style={{
-                            width: 150,
-                          }}
-                        />
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
-                        <label style={{ fontSize: '13px', display: 'inline-block', marginBottom: '2px', fontWeight: 'bold' }} >Campo:</label>
-                        <Select
-                          defaultValue="lucy"
-                          style={{
-                            width: 150,
-                          }}
-                          onChange={handleChange}
-                          options={[
-                            {
-                              value: 'jack',
-                              label: 'Jack',
-                            },
-                            {
-                              value: 'lucy',
-                              label: 'Lucy',
-                            },
-                            {
-                              value: 'Yiminghe',
-                              label: 'yiminghe',
-                            },
-                          ]}
-                        />
-                      </div>
+            {showTable && (
+              <Card
+                style={{
+                  width: "65%",
+                  height: "30%",
+                  marginTop: "15%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <Table
+                  dataSource={data}
+                  columns={columns}
+                  pagination={{ pageSize: 3 }}
+                />
+              </Card>
+            )}
+            {showFormAgregar && (
+              <Card
+                style={{
+                  width: "70%",
+                  height: "40%",
+                  marginTop: "16%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div>
+                    <h1 className="titulos">NUEVO LOTE</h1>
+                    <Divider
+                      style={{ marginBottom: "10px", marginTop: "0px" }}
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <label
+                        style={{
+                          fontSize: "13px",
+                          display: "inline-block",
+                          marginBottom: "2px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Nombre Lote:
+                      </label>
+                      <Input
+                        placeholder="Ingrese nombre"
+                        style={{
+                          width: 150,
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <label
+                        style={{
+                          fontSize: "13px",
+                          display: "inline-block",
+                          marginBottom: "2px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Campo:
+                      </label>
+                      <Select
+                        defaultValue="lucy"
+                        style={{
+                          width: 150,
+                        }}
+                        onChange={handleChange}
+                        options={[
+                          {
+                            value: "jack",
+                            label: "Jack",
+                          },
+                          {
+                            value: "lucy",
+                            label: "Lucy",
+                          },
+                          {
+                            value: "Yiminghe",
+                            label: "yiminghe",
+                          },
+                        ]}
+                      />
                     </div>
                   </div>
-                </Card>
-              )
-            }
+                </div>
+              </Card>
+            )}
 
-            {
-              showEdit && (
-                <Card
-                  style={{
-                    width: "65%",
-                    height: "30%",
-                    marginTop: "15%",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
+            {showEdit && (
+              <Card
+                style={{
+                  width: "65%",
+                  height: "30%",
+                  marginTop: "15%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <Form
+                  form={form}
+                  onFinish={onSubmit}
+                  initialValues={dataEdit}
+                  layout="vertical"
                 >
-                  <Form form={form} onFinish={onSubmit} initialValues={dataEdit}>
-                    <h3>Editar Lote</h3>
-                    <Form.Item
-                      name="nombre"
-                      label="Nombre Lote"
-
+                  <h1 className="titulos">EDITAR LOTE</h1>
+                  <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
                     >
-                      <Input />
-                    </Form.Item>
+                      <Form.Item
+                        name="nombre"
+                        label="Nombre Lote"
+                        style={{ fontSize: "13px", fontWeight: "bold" }}
+                      >
+                        <Input style={{ width: "150px" }} />
+                      </Form.Item>
+                    </div>
 
-                    <Form.Item
-                      name="has"
-                      label="Has"
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "50px",
+                      }}
                     >
-                      <Input type="number" />
-                    </Form.Item>
+                      <Form.Item
+                        name="has"
+                        label="Has"
+                        style={{ fontSize: "13px", fontWeight: "bold" }}
+                      >
+                        <Input type="number" style={{ width: "80px" }} />
+                      </Form.Item>
+                    </div>
 
-                    <Form.Item name="condicion" label="Condición">
-                      <Select>
-                        <Option value="PROPIO">PROPIO</Option>
-                        <Option value="ALQUILADO">ALQUILADO</Option>
-                      </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                      name="participacion"
-                      label="Participacion"
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "50px",
+                      }}
                     >
-                      <Input />
-                    </Form.Item>
+                      <Form.Item
+                        name="condicion"
+                        label="Condición"
+                        style={{
+                          fontSize: "13px",
+                          fontWeight: "bold",
+                          width: "150px",
+                        }}
+                      >
+                        <Select>
+                          <Option value="PROPIO">PROPIO</Option>
+                          <Option value="ALQUILADO">ALQUILADO</Option>
+                        </Select>
+                      </Form.Item>
+                    </div>
 
-                    <Button type="primary" htmlType="submit">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "50px",
+                      }}
+                    >
+                      <Form.Item
+                        name="participacion"
+                        label="Participacion"
+                        style={{ fontSize: "13px", fontWeight: "bold" }}
+                      >
+                        <Input style={{ width: "80px" }} addonAfter="%"/>
+                      </Form.Item>
+                    </div>
+                  </div>
+
+                  <Divider style={{ marginBottom: "10px", marginTop: "10px" }} />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Button type="primary" htmlType="submit"  style={{marginLeft:"-5px", marginRight:"5px"}}>
                       Guardar
                     </Button>
-                    <Button onClick={() => (setShowEdit(false), setShowTable(true), cancelEdit())}>
+                    <Button
+                      
+                      onClick={() => (
+                        setShowEdit(false), setShowTable(true), cancelEdit()
+                      )}
+                    >
                       Cancelar
                     </Button>
-                  </Form>
-                </Card>
-              )
-            }
-          </div >
+                  </div>
+                </Form>
+              </Card>
+            )}
+          </div>
         </>
       )}
     </>
