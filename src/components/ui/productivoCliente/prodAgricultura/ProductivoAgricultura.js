@@ -8,7 +8,7 @@ import {
   PushpinOutlined,
   TableOutlined,
 } from "@ant-design/icons";
-import { Button, Card, Divider, Form, Input, Popover, Select, Table } from "antd";
+import { Button, Card, Divider, Form, Input, InputNumber, Popover, Select, Table } from "antd";
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
 import { GraficosPrueba } from "./GraficosPrueba";
@@ -89,6 +89,7 @@ export const ProductivoAgricultura = () => {
   const [showFormAgregar, setShowFormAgregar] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
+  const [dataAdd, setDataAdd] = useState(null);
 
   const toggleTable = () => {
     setShowTable(!showTable);
@@ -190,7 +191,7 @@ export const ProductivoAgricultura = () => {
       });
     }
   }, [dataEdit]);
-  
+
 
 
   const handleUbic = (data) => {
@@ -207,6 +208,13 @@ export const ProductivoAgricultura = () => {
   const cancelEdit = () => {
     form.resetFields();
   }
+
+
+
+  const onSubmitAdd = (values) => {
+    setDataAdd(values)
+    console.log('dataAdd: ', dataAdd)
+  };
 
   return (
     <>
@@ -283,7 +291,7 @@ export const ProductivoAgricultura = () => {
               <Button
                 icon={<PlusOutlined />}
                 onClick={() => abrirFormAgregar()}
-                style={{ marginTop: '5px'}}
+                style={{ marginTop: '5px' }}
               />
             </div>
 
@@ -317,45 +325,62 @@ export const ProductivoAgricultura = () => {
                     marginRight: "10px",
                   }}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>
-                      <h1 className="titulos" >NUEVO LOTE</h1>
-                      <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
-                      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
-                        <label style={{ fontSize: '13px', display: 'inline-block', marginBottom: '2px', fontWeight: 'bold' }} >Nombre Lote:</label>
-                        <Input
-                          placeholder="Ingrese nombre"
-                          style={{
-                            width: 150,
-                          }}
-                        />
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
-                        <label style={{ fontSize: '13px', display: 'inline-block', marginBottom: '2px', fontWeight: 'bold' }} >Campo:</label>
-                        <Select
-                          defaultValue="lucy"
-                          style={{
-                            width: 150,
-                          }}
-                          onChange={handleChange}
-                          options={[
-                            {
-                              value: 'jack',
-                              label: 'Jack',
-                            },
-                            {
-                              value: 'lucy',
-                              label: 'Lucy',
-                            },
-                            {
-                              value: 'Yiminghe',
-                              label: 'yiminghe',
-                            },
-                          ]}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <Form form={form} onFinish={onSubmitAdd} >
+                    <h1 className="titulos" >NUEVO LOTE</h1>
+                    <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
+                    <Form.Item
+                      name="nombre"
+                      label="Nombre Lote"
+
+                    >
+                      <Input onChange={(e) => setDataAdd({ ...dataAdd, nombre: e.target.value })} />
+                    </Form.Item>
+                    <Form.Item
+                      name="has"
+                      label="Has"
+                    >
+                      <Input type="number" onChange={(e) => setDataAdd({ ...dataAdd, has: e.target.value })} />
+                    </Form.Item>
+
+                    <Form.Item name="campo" label="Campo">
+                      <Select onChange={(value) => setDataAdd({ ...dataAdd, campo: value })} >
+                        <Option value="Don Julio">Don Julio</Option>
+                        <Option value="Las 35">Las 35</Option>
+                      </Select>
+                    </Form.Item>
+
+
+                    <h1 className="titulos" >PARTICIPACIÓN</h1>
+                    <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
+                    <Form.Item
+                      name="participacion"
+                      label="Participacion"
+                    >
+                      <InputNumber
+                        onChange={(value) => setDataAdd({ ...dataAdd, participacion: value })}
+                        defaultValue={100}
+                        min={0}
+                        max={100}
+                        formatter={(value) => `${value}%`}
+                        parser={(value) => value.replace('%', '')}
+                      // onChange={onChange}
+                      />
+                    </Form.Item>
+
+                    <Form.Item name="condicion" label="Condición">
+                      <Select onChange={(value) => setDataAdd({ ...dataAdd, condicion: value })}>
+                        <Option value="PROPIO">PROPIO</Option>
+                        <Option value="ALQUILADO">ALQUILADO</Option>
+                      </Select>
+                    </Form.Item>
+
+                    <Button type="primary" htmlType="submit">
+                      Guardar
+                    </Button>
+                    <Button onClick={{}}>
+                      Cancelar
+                    </Button>
+                  </Form>
                 </Card>
               )
             }
