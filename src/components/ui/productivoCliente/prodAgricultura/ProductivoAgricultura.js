@@ -92,6 +92,10 @@ export const ProductivoAgricultura = () => {
     setVisible,
     infoLotes,
     setInfoLotes,
+    loteId,
+    setLoteId,
+    isTableUpdated, 
+    setIsTableUpdated
   } = useContext(GlobalContext);
 
   const [showTable, setShowTable] = useState(false);
@@ -110,7 +114,7 @@ export const ProductivoAgricultura = () => {
   };
 
   console.log("infoLotes:", infoLotes);
-  console.log("cliente: ", idCliente);
+  //console.log("cliente: ", idCliente);
 
   const columns = [
     {
@@ -178,9 +182,6 @@ export const ProductivoAgricultura = () => {
     participacion: lote.alxsocio_porc + "%",
   }));
 
-
-  
-
   const handleEdit = (record) => {
     //form.resetFields();
     setShowTable(false);
@@ -196,6 +197,7 @@ export const ProductivoAgricultura = () => {
 
   useEffect(() => {
     if (dataEdit) {
+      setLoteId(dataEdit.key);
       form.setFieldsValue({
         campo: dataEdit.campo,
         nombre: dataEdit.nombre,
@@ -210,31 +212,49 @@ export const ProductivoAgricultura = () => {
     console.log("click delete", data);
   };
 
-  const onSubmit = (values, idCliente) => {
-    console.log("Formulario enviado con valores:", values);
+
+  const onSubmit = (values) => {
+      // console.log("Formulario enviado con valores:", values);
+    // console.log("clienteEdit", idCliente);
+    console.log("loteId", loteId);
 
     const dataE = new FormData();
     dataE.append("idC", idCliente);
+    dataE.append("idLote", loteId);
     dataE.append("lote", values.nombre);
     dataE.append("has", values.has);
     dataE.append("condicion", values.condicion);
     dataE.append("participacion", values.participacion);
 
     console.log("onSubmit", dataE);
-
+  
     fetch(`${URL}client_editLote.php`, {
       method: "POST",
-      body: data,
+      body: dataE,
     }).then(function (response) {
       response.text().then((resp) => {
-        const data = resp;
-        console.log(data);
-        // const objetoData = JSON.parse(data);
-        // console.log("Nueva capacidad: ", objetoData)
+        const dataResp = resp;
+        console.log(dataResp);
+  
+        // Llamar a la función para almacenar los datos actualizados en localStorage
+        handleTableUpdate(values);
+  
+        // Restablecer el estado de edición o cerrar el formulario de edición
+        setShowEdit(false);
+        // Actualizar el estado para indicar que la tabla ha sido actualizada
+        setIsTableUpdated(true);
+
+        setShowTable(true);
+
       });
     });
-
   };
+  
+  const handleTableUpdate = (updatedData) => {
+    // Guardar los datos actualizados en localStorage
+    localStorage.setItem("updatedLotesData", JSON.stringify(updatedData));
+  };
+  
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -300,7 +320,9 @@ export const ProductivoAgricultura = () => {
               <Button
                 style={{ marginBottom: "5px" }}
                 // eslint-disable-next-line no-sequences
-                onClick={() => (setVisible(!visible), setShowTable(false), setShowEdit(false))}
+                onClick={() => (
+                  setVisible(!visible), setShowTable(false), setShowEdit(false)
+                )}
               >
                 Volver
               </Button>
@@ -330,9 +352,9 @@ export const ProductivoAgricultura = () => {
             {showTable && (
               <Card
                 style={{
-                  width: "65%",
+                  width: "60%",
                   height: "30%",
-                  marginTop: "15%",
+                  marginTop: "13%",
                   marginLeft: "10px",
                   marginRight: "10px",
                 }}
@@ -431,7 +453,7 @@ export const ProductivoAgricultura = () => {
             {showEdit && (
               <Card
                 style={{
-                  width: "65%",
+                  width: "45%",
                   height: "30%",
                   marginTop: "15%",
                   marginLeft: "10px",
@@ -519,12 +541,14 @@ export const ProductivoAgricultura = () => {
                         label="Participacion"
                         style={{ fontSize: "13px", fontWeight: "bold" }}
                       >
-                        <Input style={{ width: "80px" }} addonAfter="%"/>
+                        <Input style={{ width: "80px" }} addonAfter="%" />
                       </Form.Item>
                     </div>
                   </div>
 
-                  <Divider style={{ marginBottom: "10px", marginTop: "10px" }} />
+                  <Divider
+                    style={{ marginBottom: "10px", marginTop: "10px" }}
+                  />
                   <div
                     style={{
                       display: "flex",
@@ -532,11 +556,14 @@ export const ProductivoAgricultura = () => {
                       justifyContent: "flex-end",
                     }}
                   >
-                    <Button type="primary" htmlType="submit"  style={{marginLeft:"-5px", marginRight:"5px"}}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ marginLeft: "-5px", marginRight: "5px" }}
+                    >
                       Guardar
                     </Button>
                     <Button
-                      
                       onClick={() => (
                         setShowEdit(false), setShowTable(true), cancelEdit()
                       )}

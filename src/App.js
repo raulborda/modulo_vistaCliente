@@ -68,6 +68,8 @@ function App() {
   //Ver lotes
   const [visible, setVisible] = useState(false);
   const [infoLotes, setInfoLotes] = useState([]);
+  const [loteId, setLoteId] = useState(0);
+  const [isTableUpdated, setIsTableUpdated] = useState(true);
 
   return (
     <GlobalContext.Provider
@@ -151,6 +153,10 @@ function App() {
         setVisible,
         infoLotes,
         setInfoLotes,
+        loteId, 
+        setLoteId,
+        isTableUpdated, 
+        setIsTableUpdated
       }}
     >
       <ApolloProvider client={client}>
