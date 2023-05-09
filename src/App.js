@@ -74,6 +74,7 @@ function App() {
   const [infoLotes, setInfoLotes] = useState([]);
   const [loteId, setLoteId] = useState(0);
   const [isTableUpdated, setIsTableUpdated] = useState(true);
+  const [selectedLote, setSelectedLote] = useState(null);
 
   return (
     <GlobalContext.Provider
@@ -165,7 +166,9 @@ function App() {
         loteId, 
         setLoteId,
         isTableUpdated, 
-        setIsTableUpdated
+        setIsTableUpdated,
+        selectedLote, 
+        setSelectedLote,
       }}
     >
       <ApolloProvider client={client}>

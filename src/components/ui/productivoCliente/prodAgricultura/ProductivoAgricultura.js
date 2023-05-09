@@ -24,7 +24,6 @@ import "./index.css";
 import { GraficosPrueba } from "./GraficosPrueba";
 import CardInsumos from "./cardDatos/CardInsumos.js";
 import { GlobalContext } from "../../../context/GlobalContext";
-import Mapa from "./MapasLotes";
 import MapasLotes from "./MapasLotes";
 
 export const ProductivoAgricultura = () => {
@@ -97,6 +96,8 @@ export const ProductivoAgricultura = () => {
     setLoteId,
     isTableUpdated, 
     setIsTableUpdated,
+    selectedLote, 
+    setSelectedLote,
 
 
     //usuario
@@ -198,7 +199,16 @@ export const ProductivoAgricultura = () => {
       participacion: parseFloat(record.participacion), // Parsea el valor a un número
     });
     console.log("click edit: ", record);
-    console.log("StateEdit: ", record);
+    //console.log("StateEdit: ", record);
+
+    for (let i = 0; i < infoLotes.length; i++) {
+      if (record.key === infoLotes[i].alote_id){
+        //  console.log("key: ", infoLotes[i].alote_id)
+        //  console.log("lot_geoJson", infoLotes[i].lot_geojson);
+        setSelectedLote(infoLotes[i].lot_geojson);
+      }
+      
+    }
   };
 
   useEffect(() => {
@@ -248,7 +258,7 @@ export const ProductivoAgricultura = () => {
         setShowEdit(false);
         // Actualizar el estado para indicar que la tabla ha sido actualizada
         setIsTableUpdated(true);
-
+        setSelectedLote(null);
         setShowTable(true);
 
       });
@@ -263,6 +273,7 @@ export const ProductivoAgricultura = () => {
   };
   const cancelEdit = () => {
     form.resetFields();
+    setSelectedLote(null);
   };
 
   return (
@@ -568,7 +579,7 @@ export const ProductivoAgricultura = () => {
                     </Button>
                     <Button
                       onClick={() => (
-                        setShowEdit(false), setShowTable(true), cancelEdit()
+                        setShowEdit(false), setShowTable(true), cancelEdit(), setSelectedLote(null)
                       )}
                     >
                       Cancelar
