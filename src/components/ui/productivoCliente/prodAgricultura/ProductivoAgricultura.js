@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect } from "react";
@@ -121,6 +122,7 @@ export const ProductivoAgricultura = () => {
   const abrirFormAgregar = () => {
     setShowFormAgregar(!showFormAgregar);
     setShowTable(false);
+    console.log('showFormAgregar: ', showFormAgregar)
   };
 
   console.log("infoLotes:", infoLotes);
@@ -255,6 +257,8 @@ export const ProductivoAgricultura = () => {
         // Llamar a la función para almacenar los datos actualizados en localStorage
         handleTableUpdate(values);
 
+
+
         // Restablecer el estado de edición o cerrar el formulario de edición
         setShowEdit(false);
         // Actualizar el estado para indicar que la tabla ha sido actualizada
@@ -270,6 +274,9 @@ export const ProductivoAgricultura = () => {
     // Guardar los datos actualizados en localStorage
     localStorage.setItem("updatedLotesData", JSON.stringify(updatedData));
   };
+
+
+
 
 
   const handleChange = (value) => {
@@ -313,6 +320,20 @@ export const ProductivoAgricultura = () => {
       });
     });
   };
+
+  const [shouldReloadMap, setShouldReloadMap] = useState(false);
+
+  useEffect(() => {
+    if (showFormAgregar) {
+      setShouldReloadMap(true); // Indicar que se debe recargar el componente
+    }
+  }, [showFormAgregar]);
+
+  useEffect(() => {
+    if (shouldReloadMap) {
+      setShouldReloadMap(false); // Restablecer la variable de estado
+    }
+  }, [shouldReloadMap]);
 
 
   return (
@@ -380,7 +401,8 @@ export const ProductivoAgricultura = () => {
               </Button>
             </div>
 
-            <MapasLotes />
+            {/* <MapasLotes /> */}
+            <MapasLotes key={shouldReloadMap ? Date.now() : null} />
 
             <div
               style={{
@@ -401,25 +423,24 @@ export const ProductivoAgricultura = () => {
               />
             </div>
 
-            {
-              showTable && (
-                <Card
-                  style={{
-                    width: "660px",
-                    height: "30%",
-                    marginTop: "15%",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
-                >
-                  <Table
-                    dataSource={data}
-                    columns={columns}
-                    pagination={{ pageSize: 3 }}
-                  />
-                </Card>
-              )
-            }
+            {showTable && (
+              <Card
+                style={{
+                  width: "60%",
+                  height: "30%",
+                  marginTop: "13%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <Table
+                  dataSource={data}
+                  columns={columns}
+                  pagination={{ pageSize: 3 }}
+                />
+              </Card>
+            )}
+
             {
               showFormAgregar && (
                 <Card
@@ -500,7 +521,9 @@ export const ProductivoAgricultura = () => {
                         Guardar
                       </Button>
                       <Button
-                        // onClick={abrirFormAgregar()}
+                        onClick={() => (
+                          setShowFormAgregar(false)
+                        )}
                       >
                         Cancelar
                       </Button>
@@ -513,7 +536,7 @@ export const ProductivoAgricultura = () => {
             {showEdit && (
               <Card
                 style={{
-                  width: "45%",
+                  width: "660px",
                   height: "30%",
                   marginTop: "15%",
                   marginLeft: "10px",

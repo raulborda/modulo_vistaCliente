@@ -43,16 +43,18 @@ const MapasLotes = () => {
         setMap(map);
         map.resize();
         //* instancia herramientas
-        const draw = new MapboxDraw({
-          displayControlsDefault: false,
-          controls: {
-            polygon: true,
-            point: true,
-            trash: true,
-          },
-        });
-        map.addControl(draw);
-    
+        if (showFormAgregar) {
+          const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+              polygon: true,
+              point: true,
+              trash: true,
+            },
+          });
+          map.addControl(draw);
+        }
+
 
         // map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
@@ -200,6 +202,7 @@ const MapasLotes = () => {
   //const [idCliente, setIdCliente]=useState('2049');
 
   function infoGeoJSON(idCliente) {
+
     const data = new FormData();
     data.append("idC", idCliente);
     fetch(`${URL}info_geojson.php`, {
@@ -245,7 +248,7 @@ const MapasLotes = () => {
     infoGeoJSON(idCliente);
   }, []);
 
-  //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA CAPACIDAD PRODUCTIVA INICIAL
+  //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA Lotes
   useEffect(() => {
     if (isTableUpdated) {
       setIsTableUpdated(false);
