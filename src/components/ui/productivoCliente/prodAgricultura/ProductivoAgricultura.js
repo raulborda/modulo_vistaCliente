@@ -458,7 +458,7 @@ export const ProductivoAgricultura = () => {
 
                       <h1 className="titulos" >NUEVO LOTE</h1>
                       <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
-                      <div style={{ display: 'flex', flexDirection: 'row' }}>
+                      <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '15px' }}>
                         <Form.Item
                           name="nombre"
                           label="Nombre Lote"
@@ -470,7 +470,7 @@ export const ProductivoAgricultura = () => {
                           name="has"
                           label="Has"
                         >
-                          <Input type="number" /*onChange={(e) => setDataAdd({ ...dataAdd, has: e.target.value })}*/ style={{ width: '200px', marginRight: '15px' }} />
+                          <Input type="number" /*onChange={(e) => setDataAdd({ ...dataAdd, has: e.target.value })}*/ style={{ width: '150px', marginRight: '15px' }} />
                         </Form.Item>
 
                         <Form.Item name="campo" label="Campo">
