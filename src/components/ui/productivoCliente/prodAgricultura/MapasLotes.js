@@ -13,7 +13,19 @@ const styles = {
 };
 
 const MapasLotes = () => {
-  const { infoLotes, setInfoLotes, idCliente, setIdCliente, isTableUpdated, setIsTableUpdated, showFormAgregar, valorGeoJSON, setValorGeoJSON } = useContext(GlobalContext);
+  const {
+    infoLotes,
+    setInfoLotes,
+    idCliente,
+    setIdCliente,
+    isTableUpdated,
+    setIsTableUpdated,
+    showFormAgregar, 
+    valorGeoJSON, 
+    setValorGeoJSON,
+    selectedLote,
+    setSelectedLote,
+  } = useContext(GlobalContext);
 
   const URL = process.env.REACT_APP_URL;
 
@@ -202,7 +214,6 @@ const MapasLotes = () => {
   //const [idCliente, setIdCliente]=useState('2049');
 
   function infoGeoJSON(idCliente) {
-
     const data = new FormData();
     data.append("idC", idCliente);
     fetch(`${URL}info_geojson.php`, {
@@ -234,7 +245,19 @@ const MapasLotes = () => {
       result.push([coordLotes]);
       coordLotes = [];
     }
+
+    // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
+  if (selectedLote && selectedLote != null) {
+    console.log("entro al if de desarme de maps")
+    console.log(selectedLote)
+    const coordinatesString = selectedLote;
+    const coordinatesJSON = JSON.parse(coordinatesString);
+
+    setGeoJSON(coordinatesJSON ? coordinatesJSON : result);
+  } else {
     setGeoJSON(result);
+  }
+    //setGeoJSON(result);
   }
 
   useEffect(() => {
@@ -242,7 +265,7 @@ const MapasLotes = () => {
       desarmarGeoJSON();
       console.log("GeoJSON: ", geoJSON);
     }
-  }, [dataGeoJSON]);
+  }, [dataGeoJSON, selectedLote]);
 
   useEffect(() => {
     infoGeoJSON(idCliente);
@@ -273,7 +296,6 @@ const MapasLotes = () => {
       }
     }
   }, [idCliente, isTableUpdated]);
-
 
   //   console.log("infoLotes:", infoLotes);
   //   console.log("cliente: ", idCliente);
