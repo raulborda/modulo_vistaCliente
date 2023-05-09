@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect } from "react";
@@ -242,8 +243,6 @@ export const ProductivoAgricultura = () => {
         const dataResp = resp;
         console.log(dataResp);
   
-        // Llamar a la función para almacenar los datos actualizados en localStorage
-        handleTableUpdate(values);
   
         // Restablecer el estado de edición o cerrar el formulario de edición
         setShowEdit(false);
@@ -256,10 +255,7 @@ export const ProductivoAgricultura = () => {
     });
   };
   
-  const handleTableUpdate = (updatedData) => {
-    // Guardar los datos actualizados en localStorage
-    localStorage.setItem("updatedLotesData", JSON.stringify(updatedData));
-  };
+
   
 
   const handleChange = (value) => {
@@ -372,6 +368,7 @@ export const ProductivoAgricultura = () => {
                 />
               </Card>
             )}
+            
             {showFormAgregar && (
               <Card
                 style={{
@@ -459,7 +456,7 @@ export const ProductivoAgricultura = () => {
             {showEdit && (
               <Card
                 style={{
-                  width: "45%",
+                  width: "660px",
                   height: "30%",
                   marginTop: "15%",
                   marginLeft: "10px",
