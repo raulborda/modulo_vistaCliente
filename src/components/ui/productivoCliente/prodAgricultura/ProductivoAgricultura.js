@@ -95,8 +95,17 @@ export const ProductivoAgricultura = () => {
     setInfoLotes,
     showFormAgregar,
     setShowFormAgregar,
-    valorGeoJSON, 
+    valorGeoJSON,
     setValorGeoJSON,
+    loteId,
+    setLoteId,
+    isTableUpdated,
+    setIsTableUpdated,
+
+
+    //usuario
+    usu,
+
   } = useContext(GlobalContext);
 
   const [showTable, setShowTable] = useState(false);
@@ -115,7 +124,7 @@ export const ProductivoAgricultura = () => {
   };
 
   console.log("infoLotes:", infoLotes);
-  console.log("cliente: ", idCliente);
+  //console.log("cliente: ", idCliente);
 
   const columns = [
     {
@@ -201,6 +210,7 @@ export const ProductivoAgricultura = () => {
 
   useEffect(() => {
     if (dataEdit) {
+      setLoteId(dataEdit.key);
       form.setFieldsValue({
         campo: dataEdit.campo,
         nombre: dataEdit.nombre,
@@ -217,11 +227,16 @@ export const ProductivoAgricultura = () => {
     console.log("click delete", data);
   };
 
-  const onSubmit = (values, idCliente) => {
-    console.log("Formulario enviado con valores:", values);
+
+  const onSubmit = (values) => {
+    // console.log("Formulario enviado con valores:", values);
+    // console.log("clienteEdit", idCliente);
+    //console.log("loteId", loteId);
 
     const dataE = new FormData();
+    dataE.append("usu", usu);
     dataE.append("idC", idCliente);
+    dataE.append("idLote", loteId);
     dataE.append("lote", values.nombre);
     dataE.append("has", values.has);
     dataE.append("condicion", values.condicion);
@@ -231,17 +246,31 @@ export const ProductivoAgricultura = () => {
 
     fetch(`${URL}client_editLote.php`, {
       method: "POST",
-      body: data,
+      body: dataE,
     }).then(function (response) {
       response.text().then((resp) => {
-        const data = resp;
-        console.log(data);
-        // const objetoData = JSON.parse(data);
-        // console.log("Nueva capacidad: ", objetoData)
+        const dataResp = resp;
+        console.log(dataResp);
+
+        // Llamar a la función para almacenar los datos actualizados en localStorage
+        handleTableUpdate(values);
+
+        // Restablecer el estado de edición o cerrar el formulario de edición
+        setShowEdit(false);
+        // Actualizar el estado para indicar que la tabla ha sido actualizada
+        setIsTableUpdated(true);
+
+        setShowTable(true);
+
       });
     });
-
   };
+
+  const handleTableUpdate = (updatedData) => {
+    // Guardar los datos actualizados en localStorage
+    localStorage.setItem("updatedLotesData", JSON.stringify(updatedData));
+  };
+
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -250,6 +279,11 @@ export const ProductivoAgricultura = () => {
     form.resetFields();
   };
 
+
+  // const cancelAdd = () => {
+  //   // form.resetFields();
+  //   setShowFormAgregar(false);
+  // };
 
 
   const onSubmitAdd = (values) => {
@@ -265,7 +299,7 @@ export const ProductivoAgricultura = () => {
     dataAdd.append("participacion", values.participacion);
     dataAdd.append("condicion", values.condicion);
     dataAdd.append("valorGeoJSON", JSON.stringify(valorGeoJSON));
-    
+
     console.log('valorGeoJSON: ', valorGeoJSON);
     console.log("onSubmitAdd: ", dataAdd);
 
@@ -338,7 +372,9 @@ export const ProductivoAgricultura = () => {
               <Button
                 style={{ marginBottom: "5px" }}
                 // eslint-disable-next-line no-sequences
-                onClick={() => (setVisible(!visible), setShowTable(false), setShowEdit(false))}
+                onClick={() => (
+                  setVisible(!visible), setShowTable(false), setShowEdit(false)
+                )}
               >
                 Volver
               </Button>
@@ -369,7 +405,7 @@ export const ProductivoAgricultura = () => {
               showTable && (
                 <Card
                   style={{
-                    width: "65%",
+                    width: "660px",
                     height: "30%",
                     marginTop: "15%",
                     marginLeft: "10px",
@@ -388,7 +424,7 @@ export const ProductivoAgricultura = () => {
               showFormAgregar && (
                 <Card
                   style={{
-                    width: "70%",
+                    width: "800px",
                     height: "40%",
                     marginTop: "16%",
                     marginLeft: "10px",
@@ -441,21 +477,12 @@ export const ProductivoAgricultura = () => {
                           label="Participacion"
                         >
                           <InputNumber
-                            /*onChange={(value) => setDataAdd({ ...dataAdd, participacion: value })}*/
-                            // onChange={(value) => {
-                            //   if (value === '' || null || undefined) {
-                            //     setDataAdd({ ...dataAdd, participacion: 100 });
-                            //   } else {
-                            //     setDataAdd({ ...dataAdd, participacion: value });
-                            //   }
-                            // }}
                             defaultValue={100}
                             min={0}
                             max={100}
                             formatter={(value) => `${value}%`}
                             parser={(value) => value.replace('%', '')}
                             style={{ width: '80px', marginRight: '15px' }}
-                          // onChange={onChange}
                           />
                         </Form.Item>
 
@@ -467,11 +494,13 @@ export const ProductivoAgricultura = () => {
                         </Form.Item>
                       </div>
 
+                      <Divider style={{ marginBottom: '10px', marginTop: '0px' }} />
+
                       <Button type="primary" htmlType="submit">
                         Guardar
                       </Button>
                       <Button
-                      // onClick={{}}
+                        // onClick={abrirFormAgregar()}
                       >
                         Cancelar
                       </Button>
@@ -484,7 +513,7 @@ export const ProductivoAgricultura = () => {
             {showEdit && (
               <Card
                 style={{
-                  width: "65%",
+                  width: "45%",
                   height: "30%",
                   marginTop: "15%",
                   marginLeft: "10px",
@@ -577,7 +606,9 @@ export const ProductivoAgricultura = () => {
                     </div>
                   </div>
 
-                  <Divider style={{ marginBottom: "10px", marginTop: "10px" }} />
+                  <Divider
+                    style={{ marginBottom: "10px", marginTop: "10px" }}
+                  />
                   <div
                     style={{
                       display: "flex",
@@ -585,11 +616,14 @@ export const ProductivoAgricultura = () => {
                       justifyContent: "flex-end",
                     }}
                   >
-                    <Button type="primary" htmlType="submit" style={{ marginLeft: "-5px", marginRight: "5px" }}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ marginLeft: "-5px", marginRight: "5px" }}
+                    >
                       Guardar
                     </Button>
                     <Button
-
                       onClick={() => (
                         setShowEdit(false), setShowTable(true), cancelEdit()
                       )}

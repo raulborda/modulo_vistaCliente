@@ -36,6 +36,10 @@ function App() {
   //const idC = 2773;
   const [idCliente, setIdCliente] = useState(2773);
 
+  //* Id de usuario que se obtiene desde local storage
+  //const idUsu = localStorage.getItem("usuario");
+  const [usu, setUsu] = useState(1);
+
   //Evolucion Productiva:
   const [update, setUpdate] = useState(false);
   const [infoEvo, setInfoEvo] = useState([]);
@@ -70,10 +74,17 @@ function App() {
   const [infoLotes, setInfoLotes] = useState([]);
   const [showFormAgregar, setShowFormAgregar] = useState(false);
   const [valorGeoJSON, setValorGeoJSON] = useState([]);
+  const [loteId, setLoteId] = useState(0);
+  const [isTableUpdated, setIsTableUpdated] = useState(true);
 
   return (
     <GlobalContext.Provider
       value={{
+
+        //usuario
+        usu, 
+        setUsu,
+
         appStage,
         setAppStage,
         cardSelected,
@@ -159,6 +170,10 @@ function App() {
 
         valorGeoJSON, 
         setValorGeoJSON,
+        loteId, 
+        setLoteId,
+        isTableUpdated, 
+        setIsTableUpdated
       }}
     >
       <ApolloProvider client={client}>
