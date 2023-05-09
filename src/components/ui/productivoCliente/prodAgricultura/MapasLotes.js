@@ -32,7 +32,6 @@ const MapasLotes = () => {
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
   const [map, setMap] = useState(null);
-  const [puntoCentral, setPuntoCentral] = useState();
   const mapContainer = useRef(null);
 
   useEffect(() => {
@@ -200,6 +199,9 @@ const MapasLotes = () => {
     if (!map) initializeMap({ setMap, mapContainer });
   });
 
+
+
+
   // const idC = localStorage.getItem("cliente");
   //const idC = 2049;
   //const [idCliente, setIdCliente]=useState('2049');
@@ -237,26 +239,49 @@ const MapasLotes = () => {
       coordLotes = [];
     }
 
-    // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
-  if (selectedLote && selectedLote != null) {
-    console.log("entro al if de desarme de maps")
-    console.log(selectedLote)
-    const coordinatesString = selectedLote;
-    const coordinatesJSON = JSON.parse(coordinatesString);
-
-    setGeoJSON(coordinatesJSON ? coordinatesJSON : result);
-  } else {
     setGeoJSON(result);
   }
-    //setGeoJSON(result);
-  }
+
+  var coordSelect = [];
+  var coordSelectLotes = [];
+  function desarmarLoteSelect(){   
+    // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
+    if (selectedLote && selectedLote != null) {
+      console.log("entro al if de desarme de maps");
+      //console.log(selectedLote);
+      const coordinatesString = selectedLote;
+      const coordenadasJSON = JSON.parse(coordinatesString);
+
+      for (let i = 0; i < coordenadasJSON.length; i++) {
+        const par = coordenadasJSON[i];
+        const lonl = parseFloat(par[0]);
+        const latl = parseFloat(par[1]);
+        coordSelectLotes.push([lonl, latl]);
+        // console.log('coordLotes: ', coordLotes);
+      }
+
+      coordSelect.push([coordSelectLotes]);
+      coordSelectLotes = [];
+
+      setGeoJSON(coordSelect);
+    } else {
+      desarmarGeoJSON();
+    }
+  } 
+
 
   useEffect(() => {
-    if (dataGeoJSON.length > 0) {
-      desarmarGeoJSON();
-      console.log("GeoJSON: ", geoJSON);
+    if (selectedLote === null){
+      if (dataGeoJSON.length > 0) {
+        desarmarGeoJSON();
+        console.log("GeoJSON: ", geoJSON);
+      }
+    } else{
+      desarmarLoteSelect();
+      console.log("GeoJSON LoteSelect: ", geoJSON);
     }
   }, [dataGeoJSON, selectedLote]);
+     
 
   useEffect(() => {
     infoGeoJSON(idCliente);

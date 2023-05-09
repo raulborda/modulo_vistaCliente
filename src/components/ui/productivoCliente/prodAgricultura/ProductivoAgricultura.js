@@ -198,7 +198,7 @@ export const ProductivoAgricultura = () => {
       ...record,
       participacion: parseFloat(record.participacion), // Parsea el valor a un número
     });
-    console.log("click edit: ", record);
+    //console.log("click edit: ", record);
     //console.log("StateEdit: ", record);
 
     for (let i = 0; i < infoLotes.length; i++) {
