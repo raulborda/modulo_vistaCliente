@@ -20,6 +20,9 @@ const MapasLotes = () => {
     setIdCliente,
     isTableUpdated,
     setIsTableUpdated,
+    showFormAgregar, 
+    valorGeoJSON, 
+    setValorGeoJSON,
     selectedLote,
     setSelectedLote,
   } = useContext(GlobalContext);
@@ -33,6 +36,8 @@ const MapasLotes = () => {
     "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
+  const [draw, setDraw] = useState(null);
+
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -49,15 +54,18 @@ const MapasLotes = () => {
         setMap(map);
         map.resize();
         //* instancia herramientas
-        const draw = new MapboxDraw({
-          displayControlsDefault: false,
-          controls: {
-            polygon: true,
-            point: true,
-            trash: true,
-          },
-        });
-        map.addControl(draw);
+        if (showFormAgregar) {
+          const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+              polygon: true,
+              point: true,
+              trash: true,
+            },
+          });
+          map.addControl(draw);
+        }
+
 
         // map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
@@ -193,7 +201,9 @@ const MapasLotes = () => {
           }
         ).replace(/"/g, "");
         console.log("coordenadas a subir a db: ", formattedCoordinates);
+        setValorGeoJSON(formattedCoordinates);
       });
+      // console.log("ValorGeoJSON: ", valorGeoJSON);
     };
 
     if (!map) initializeMap({ setMap, mapContainer });

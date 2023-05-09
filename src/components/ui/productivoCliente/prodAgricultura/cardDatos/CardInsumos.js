@@ -682,9 +682,11 @@ const CardInsumos = () => {
 
         //! INICIO - EVOLUCION PRODUCTIVA
         const filteredInfoEvo = infoEvo.find((item) => item.acos_desc === selectedAcosDesc);
+        // console.log('filteredInfoEvo: ',filteredInfoEvo)
         const vPropias = filteredInfoEvo ? parseInt(filteredInfoEvo.ahxs_propias) : 0;
         const vAlquiladas = filteredInfoEvo ? parseInt(filteredInfoEvo.ahxs_alquiladas) : 0;
         const total = filteredInfoEvo ? (parseInt(filteredInfoEvo.ahxs_propias) + parseInt(filteredInfoEvo.ahxs_alquiladas)) : 0;
+        // console.log('totaltotal: ',total)
         // setValorAlquiladas(parseInt(filteredInfoEvo.ahxs_alquiladas));
         const selectCosechaAnterior = infoEvo.find((item) => item.acos_desc === cosechaAnterior);
         const totalCosechaAnterior = selectCosechaAnterior ? (parseInt(selectCosechaAnterior.ahxs_propias) + parseInt(selectCosechaAnterior.ahxs_alquiladas)) : 0;

@@ -72,6 +72,8 @@ function App() {
   //Ver lotes
   const [visible, setVisible] = useState(false);
   const [infoLotes, setInfoLotes] = useState([]);
+  const [showFormAgregar, setShowFormAgregar] = useState(false);
+  const [valorGeoJSON, setValorGeoJSON] = useState([]);
   const [loteId, setLoteId] = useState(0);
   const [isTableUpdated, setIsTableUpdated] = useState(true);
   const [selectedLote, setSelectedLote] = useState(null);
@@ -159,10 +161,16 @@ function App() {
         setIsDataInsumoFertilizantes,
 
         //Ver lotes
+        visible, setVisible,
+        infoLotes, setInfoLotes,
+        showFormAgregar, setShowFormAgregar,
         visible,
         setVisible,
         infoLotes,
         setInfoLotes,
+
+        valorGeoJSON, 
+        setValorGeoJSON,
         loteId, 
         setLoteId,
         isTableUpdated, 
