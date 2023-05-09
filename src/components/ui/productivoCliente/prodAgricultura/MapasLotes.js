@@ -202,7 +202,9 @@ const MapasLotes = () => {
           }
         ).replace(/"/g, "");
         console.log("coordenadas a subir a db: ", formattedCoordinates);
+        setValorGeoJSON(formattedCoordinates);
       });
+      // console.log("ValorGeoJSON: ", valorGeoJSON);
     };
 
     if (!map) initializeMap({ setMap, mapContainer });

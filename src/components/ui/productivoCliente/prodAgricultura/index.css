@@ -101,3 +101,7 @@
     /* border-radius: 15px; */
 
 }
+
+.ant-form-item-explain {
+    font-size: 10px !important; /* Ajusta el tamaño de las letras según tus preferencias */
+  }
