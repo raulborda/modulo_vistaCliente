@@ -26,6 +26,7 @@ import { GraficosPrueba } from "./GraficosPrueba";
 import CardInsumos from "./cardDatos/CardInsumos.js";
 import { GlobalContext } from "../../../context/GlobalContext";
 import MapasLotes from "./MapasLotes";
+import MapasLotesEditar from "./MapasLotesEditar";
 
 export const ProductivoAgricultura = () => {
   const URL = process.env.REACT_APP_URL;
@@ -107,6 +108,12 @@ export const ProductivoAgricultura = () => {
 
     //usuario
     usu,
+    c,
+    setC,
+    geoJSONModificado, 
+    setGeoJSONModificado,
+    marcarLote,
+    setMarcarLote,
 
   } = useContext(GlobalContext);
   const [campos, setCampos] = useState();
@@ -115,6 +122,7 @@ export const ProductivoAgricultura = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
   // const [dataAdd, setDataAdd] = useState(null);
+  
 
   const toggleTable = () => {
     setShowTable(!showTable);
@@ -202,6 +210,7 @@ export const ProductivoAgricultura = () => {
 
 
   const handleEdit = (record) => {
+    setC(true);
     //form.resetFields();
     setShowTable(false);
     setShowEdit(true);
@@ -239,7 +248,14 @@ export const ProductivoAgricultura = () => {
 
 
   const handleUbic = (data) => {
-    console.log("click delete", data);
+    console.log("click ubic", data);
+
+    for (let i = 0; i < infoLotes.length; i++) {
+      if (data.key === infoLotes[i].alote_id) {
+        setMarcarLote(infoLotes[i].lot_geojson);
+        console.log('marcarLote: ', marcarLote) // Me trae info vieja
+      }
+    }
   };
 
 
@@ -256,8 +272,9 @@ export const ProductivoAgricultura = () => {
     dataE.append("has", values.has);
     dataE.append("condicion", values.condicion);
     dataE.append("participacion", values.participacion);
+    dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
 
-    console.log("onSubmit", dataE);
+    // console.log("onSubmit", dataE);
 
     fetch(`${URL}client_editLote.php`, {
       method: "POST",
@@ -265,20 +282,16 @@ export const ProductivoAgricultura = () => {
     }).then(function (response) {
       response.text().then((resp) => {
         const dataResp = resp;
-        console.log(dataResp);
-
+        // console.log(dataResp);
         // Llamar a la función para almacenar los datos actualizados en localStorage
         handleTableUpdate(values);
-
-
-
         // Restablecer el estado de edición o cerrar el formulario de edición
         setShowEdit(false);
         // Actualizar el estado para indicar que la tabla ha sido actualizada
         setIsTableUpdated(true);
         setSelectedLote(null);
         setShowTable(true);
-
+        setC(false)
       });
     });
   };
@@ -348,7 +361,7 @@ export const ProductivoAgricultura = () => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [showFormAgregar]);
+  }, [showFormAgregar,c]);
 
   useEffect(() => {
     // if (shouldReloadMap) {
@@ -451,8 +464,9 @@ export const ProductivoAgricultura = () => {
             </div>
 
             {/* <MapasLotes /> */}
-            <MapasLotes key={shouldReloadMap ? Date.now() : null} />
-
+            {/* <MapasLotes key={shouldReloadMap ? Date.now() : null}/>  */}
+            {!c ? <MapasLotes key={shouldReloadMap ? Date.now() : null}/> : <MapasLotesEditar key={shouldReloadMap ? Date.now() : null} /> }
+            
             <div
               style={{
                 display: "flex",
@@ -589,24 +603,6 @@ export const ProductivoAgricultura = () => {
                               ))}
                           </Select>
                         </Form.Item>
-
-
-
-                        {/* 
-                        <Form.Item
-                          name="participacion"
-                          label="Participación"
-                        >
-                          <InputNumber
-                            defaultValue={100}
-                            min={0}
-                            max={100}
-                            formatter={(value) => `${value}%`}
-                            parser={(value) => value.replace('%', '')}
-                            style={{ width: '80px', marginRight: '15px' }}
-                          />
-                        </Form.Item> */}
-
                         <Form.Item
                           name="participacion"
                           label="Participación"

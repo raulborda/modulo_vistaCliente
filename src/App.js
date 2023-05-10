@@ -77,7 +77,11 @@ function App() {
   const [loteId, setLoteId] = useState(0);
   const [isTableUpdated, setIsTableUpdated] = useState(true);
   const [selectedLote, setSelectedLote] = useState(null);
+  const [marcarLote, setMarcarLote] = useState(null);
+  const [geoJSONModificado, setGeoJSONModificado] = useState([]);
 
+
+  const [c, setC] = useState(false);
   return (
     <GlobalContext.Provider
       value={{
@@ -177,6 +181,12 @@ function App() {
         setIsTableUpdated,
         selectedLote, 
         setSelectedLote,
+        c, 
+        setC,
+        geoJSONModificado, 
+        setGeoJSONModificado,
+        marcarLote,
+        setMarcarLote,
       }}
     >
       <ApolloProvider client={client}>

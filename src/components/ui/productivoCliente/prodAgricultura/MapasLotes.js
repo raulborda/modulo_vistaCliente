@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
@@ -25,6 +23,7 @@ const MapasLotes = () => {
     setValorGeoJSON,
     selectedLote,
     setSelectedLote,
+    marcarLote
   } = useContext(GlobalContext);
 
   const URL = process.env.REACT_APP_URL;
