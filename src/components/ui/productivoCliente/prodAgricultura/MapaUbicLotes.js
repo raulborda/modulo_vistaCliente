@@ -12,6 +12,7 @@ const styles = {
 };
 
 const MapaUbicLotes = () => {
+    console.log("ENTRE A MAPA UBICACION")
     const {
         infoLotes,
         setInfoLotes,
