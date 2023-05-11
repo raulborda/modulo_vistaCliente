@@ -27,6 +27,7 @@ import CardInsumos from "./cardDatos/CardInsumos.js";
 import { GlobalContext } from "../../../context/GlobalContext";
 import MapasLotes from "./MapasLotes";
 import MapasLotesEditar from "./MapasLotesEditar";
+import MapaUbicLotes from "./MapaUbicLotes";
 
 export const ProductivoAgricultura = () => {
   const URL = process.env.REACT_APP_URL;
@@ -114,6 +115,8 @@ export const ProductivoAgricultura = () => {
     setGeoJSONModificado,
     marcarLote,
     setMarcarLote,
+    showMapaUbicLote, 
+    setShowMapaUbicLote,
 
   } = useContext(GlobalContext);
   const [campos, setCampos] = useState();
@@ -122,6 +125,8 @@ export const ProductivoAgricultura = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
   // const [dataAdd, setDataAdd] = useState(null);
+
+ 
   
 
   const toggleTable = () => {
@@ -247,17 +252,25 @@ export const ProductivoAgricultura = () => {
 
 
 
-  const handleUbic = (data) => {
-    console.log("click ubic", data);
+  const handleUbic = (record) => {
+    setShowMapaUbicLote(true);
 
+    console.log("click ubic", record);
+  
     for (let i = 0; i < infoLotes.length; i++) {
-      if (data.key === infoLotes[i].alote_id) {
+      if (record.key === infoLotes[i].alote_id) {
         setMarcarLote(infoLotes[i].lot_geojson);
-        console.log('marcarLote: ', marcarLote) // Me trae info vieja
       }
     }
+
+    
+    
   };
 
+  useEffect(() => {
+    console.log('marcarLote: ', marcarLote);
+    console.log("showUbic: ", showMapaUbicLote);
+  }, [marcarLote, showMapaUbicLote]);
 
   const onSubmit = (values) => {
     // console.log("Formulario enviado con valores:", values);
@@ -302,12 +315,11 @@ export const ProductivoAgricultura = () => {
   };
 
 
-
-
-
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
+
   const cancelEdit = () => {
     form.resetFields();
     setSelectedLote(null);
@@ -361,7 +373,7 @@ export const ProductivoAgricultura = () => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [showFormAgregar,c]);
+  }, [showFormAgregar,c, showMapaUbicLote]);
 
   useEffect(() => {
     // if (shouldReloadMap) {
@@ -465,7 +477,7 @@ export const ProductivoAgricultura = () => {
 
             {/* <MapasLotes /> */}
             {/* <MapasLotes key={shouldReloadMap ? Date.now() : null}/>  */}
-            {!c ? <MapasLotes key={shouldReloadMap ? Date.now() : null}/> : <MapasLotesEditar key={shouldReloadMap ? Date.now() : null} /> }
+            {!c ? (<MapasLotes key={shouldReloadMap ? Date.now() : null}/>) : ( !showMapaUbicLote ? (<MapasLotesEditar key={shouldReloadMap ? Date.now() : null} />):(<MapaUbicLotes key={shouldReloadMap ? Date.now() : null}/>)) }
             
             <div
               style={{

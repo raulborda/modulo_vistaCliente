@@ -11,7 +11,7 @@ const styles = {
     position: "absolute",
 };
 
-const MapasLotesEditar = () => {
+const MapaUbicLotes = () => {
     const {
         infoLotes,
         setInfoLotes,
@@ -22,10 +22,10 @@ const MapasLotesEditar = () => {
         showFormAgregar,
         valorGeoJSON,
         setValorGeoJSON,
-        selectedLote,
-        setSelectedLote,
-        setC,
-        c,
+        marcarLote, 
+        setMarcarLote,
+        showMapaUbicLote, 
+        setShowMapaUbicLote,
         geoJSONModificado, 
         setGeoJSONModificado,
     } = useContext(GlobalContext);
@@ -38,9 +38,7 @@ const MapasLotesEditar = () => {
     const MAPBOX_TOKEN =
         "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
     const [map, setMap] = useState(null);
-    const [puntoCentral, setPuntoCentral] = useState();
     const mapContainer = useRef(null);
-    const [draw, setDraw] = useState(null);
 
     useEffect(() => {
         mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -71,11 +69,11 @@ const MapasLotesEditar = () => {
 
                 //*
 
-                if (selectedLote !== "" && c) {
+                if (marcarLote !== "" && showMapaUbicLote) {
 
-                    const lote = JSON.parse(selectedLote);
+                    const lote = JSON.parse(marcarLote);
                     console.log('LOTE: ', lote);
-                    map.addSource(`lotee`, {
+                    map.addSource(`loteU`, {
                         type: "geojson",
                         data: {
                             type: "FeatureCollection",
@@ -93,19 +91,19 @@ const MapasLotesEditar = () => {
                     });
                     console.log('LOTE - 1: ', lote);
                     map.addLayer({
-                        id: `lote-layerr`,
+                        id: `lote-layerU`,
                         type: "line",
-                        source: `lotee`,
+                        source: `loteU`,
                         paint: {
-                            "line-color": "rgba(255,212,2,1)",
+                            "line-color": "#65c82e",
                             "line-opacity": 0.8,
                         },
                     });
 
                     map.addLayer({
-                        id: `lote-filll`,
+                        id: `lote-fillU`,
                         type: "fill",
-                        source: `lotee`,
+                        source: `loteU`,
                         paint: {
                             "fill-color": "rgba(255,212,2,0.6)",
                         },
@@ -144,7 +142,7 @@ const MapasLotesEditar = () => {
 
             // //! INICIO - CENTRAR MAPBOX
             //* centrado de viewport con turf
-            const lote = JSON.parse(selectedLote);
+            const lote = JSON.parse(marcarLote);
             var geojsonBounds = turf.bbox({
                 type: "FeatureCollection",
                 features: [
@@ -229,11 +227,11 @@ const MapasLotesEditar = () => {
             coordLotes = [];
         }
 
-        // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
-        if (selectedLote && selectedLote != null) {
+        // Filtra el GeoJSON solo si marcarLote está definido y tiene la propiedad geojson
+        if (marcarLote && marcarLote != null) {
             console.log("entro al if de desarme de maps")
-            console.log(selectedLote)
-            const coordinatesString = selectedLote;
+            console.log(marcarLote)
+            const coordinatesString = marcarLote;
             const coordinatesJSON = JSON.parse(coordinatesString);
 
             setGeoJSON(coordinatesJSON ? coordinatesJSON : result);
@@ -248,7 +246,7 @@ const MapasLotesEditar = () => {
             desarmarGeoJSON();
             console.log("GeoJSON: ", geoJSON);
         }
-    }, [dataGeoJSON, selectedLote]);
+    }, [dataGeoJSON, marcarLote]);
 
     useEffect(() => {
         infoGeoJSON(idCliente);
@@ -290,4 +288,4 @@ const MapasLotesEditar = () => {
     );
 };
 
-export default MapasLotesEditar;
+export default MapaUbicLotes;

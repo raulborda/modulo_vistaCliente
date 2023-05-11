@@ -82,6 +82,8 @@ function App() {
 
 
   const [c, setC] = useState(false);
+  const [showMapaUbicLote, setShowMapaUbicLote] = useState(false);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -187,6 +189,8 @@ function App() {
         setGeoJSONModificado,
         marcarLote,
         setMarcarLote,
+        showMapaUbicLote, 
+        setShowMapaUbicLote,
       }}
     >
       <ApolloProvider client={client}>
