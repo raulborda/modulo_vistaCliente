@@ -82,9 +82,10 @@ function App() {
   const [campos, setCampos] = useState();
   const [clientes, setClientes] = useState();
   const [showTable, setShowTable] = useState(false);
-
-  const [c, setC] = useState(false);
   const [showMapaUbicLote, setShowMapaUbicLote] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [dataEdit, setDataEdit] = useState(null);
+  const [c, setC] = useState(false);
 
   return (
     <GlobalContext.Provider
@@ -191,6 +192,8 @@ function App() {
         setMarcarLote,
         showMapaUbicLote, 
         setShowMapaUbicLote,
+        showEdit, setShowEdit,
+        dataEdit, setDataEdit
       }}
     >
       <ApolloProvider client={client}>

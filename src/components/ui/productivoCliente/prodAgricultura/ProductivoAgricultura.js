@@ -27,11 +27,11 @@ import MapasLotes from "./MapasLotes";
 import MapasLotesEditar from "./MapasLotesEditar";
 import MapaUbicLotes from "./MapaUbicLotes";
 import AgregarLotes from "./AgregarLotes";
+import EditarLotes from "./EditarLotes";
 
 export const ProductivoAgricultura = () => {
   const URL = process.env.REACT_APP_URL;
   const [form] = Form.useForm();
-  const { Option } = Select;
 
   const {
     idCliente,
@@ -58,11 +58,11 @@ export const ProductivoAgricultura = () => {
     setShowMapaUbicLote,
     showTable, 
     setShowTable,
+    showEdit, setShowEdit,
+    dataEdit, setDataEdit,
   } = useContext(GlobalContext);
   
   
-  const [showEdit, setShowEdit] = useState(false);
-  const [dataEdit, setDataEdit] = useState(null);
   const [shouldReloadMap, setShouldReloadMap] = useState(false);
 
 
@@ -147,6 +147,7 @@ export const ProductivoAgricultura = () => {
     participacion: lote.alxsocio_porc + "%",
   }));
 
+  //Boton Editar Lote
   const handleEdit = (record) => {
     setC(true);
     //form.resetFields();
@@ -169,19 +170,7 @@ export const ProductivoAgricultura = () => {
     }
   };
 
-  useEffect(() => {
-    if (dataEdit) {
-      setLoteId(dataEdit.key);
-      form.setFieldsValue({
-        campo: dataEdit.campo,
-        nombre: dataEdit.nombre,
-        has: dataEdit.has,
-        condicion: dataEdit.condicion,
-        participacion: dataEdit.participacion,
-      });
-    }
-  }, [dataEdit]);
-
+  //Boton Ubicacion Lote
   const handleUbic = (record) => {
     setShowMapaUbicLote(true);
 
@@ -199,59 +188,15 @@ export const ProductivoAgricultura = () => {
     console.log("showUbic: ", showMapaUbicLote);
   }, [marcarLote, showMapaUbicLote]);
 
-  const onSubmit = (values) => {
-    // console.log("Formulario enviado con valores:", values);
-    // console.log("clienteEdit", idCliente);
-    //console.log("loteId", loteId);
-
-    const dataE = new FormData();
-    dataE.append("usu", usu);
-    dataE.append("idC", idCliente);
-    dataE.append("idLote", loteId);
-    dataE.append("lote", values.nombre);
-    dataE.append("has", values.has);
-    dataE.append("condicion", values.condicion);
-    dataE.append("participacion", values.participacion);
-    dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
-
-    // console.log("onSubmit", dataE);
-
-    fetch(`${URL}client_editLote.php`, {
-      method: "POST",
-      body: dataE,
-    }).then(function (response) {
-      response.text().then((resp) => {
-        const dataResp = resp;
-        // console.log(dataResp);
-        // Llamar a la función para almacenar los datos actualizados en localStorage
-        handleTableUpdate(values);
-        // Restablecer el estado de edición o cerrar el formulario de edición
-        setShowEdit(false);
-        // Actualizar el estado para indicar que la tabla ha sido actualizada
-        setIsTableUpdated(true);
-        setSelectedLote(null);
-        setShowTable(true);
-        setC(false);
-      });
-    });
-  };
-
-  const handleTableUpdate = (updatedData) => {
-    // Guardar los datos actualizados en localStorage
-    localStorage.setItem("updatedLotesData", JSON.stringify(updatedData));
-  };
+  
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
 
-  const cancelEdit = () => {
-    form.resetFields();
-    setSelectedLote(null);
-  };
 
  
-
+  //Recarga los mapas
   useEffect(() => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
@@ -374,132 +319,7 @@ export const ProductivoAgricultura = () => {
             )}
 
             {showEdit && (
-              <Card
-                style={{
-                  width: "660px",
-                  height: "30%",
-                  marginTop: "15%",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              >
-                <Form
-                  form={form}
-                  onFinish={onSubmit}
-                  initialValues={dataEdit}
-                  layout="vertical"
-                >
-                  <h1 className="titulos">EDITAR LOTE</h1>
-                  <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      marginLeft: "10px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <Form.Item
-                        name="nombre"
-                        label="Nombre Lote"
-                        style={{ fontSize: "13px", fontWeight: "bold" }}
-                      >
-                        <Input style={{ width: "150px" }} />
-                      </Form.Item>
-                    </div>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginLeft: "50px",
-                      }}
-                    >
-                      <Form.Item
-                        name="has"
-                        label="Has"
-                        style={{ fontSize: "13px", fontWeight: "bold" }}
-                      >
-                        <Input type="number" style={{ width: "80px" }} />
-                      </Form.Item>
-                    </div>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginLeft: "50px",
-                      }}
-                    >
-                      <Form.Item
-                        name="condicion"
-                        label="Condición"
-                        style={{
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                          width: "150px",
-                        }}
-                      >
-                        <Select>
-                          <Option value="PROPIO">PROPIO</Option>
-                          <Option value="ALQUILADO">ALQUILADO</Option>
-                        </Select>
-                      </Form.Item>
-                    </div>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginLeft: "50px",
-                      }}
-                    >
-                      <Form.Item
-                        name="participacion"
-                        label="Participacion"
-                        style={{ fontSize: "13px", fontWeight: "bold" }}
-                      >
-                        <Input style={{ width: "80px" }} addonAfter="%" />
-                      </Form.Item>
-                    </div>
-                  </div>
-
-                  <Divider
-                    style={{ marginBottom: "10px", marginTop: "10px" }}
-                  />
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "flex-end",
-                    }}
-                  >
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      style={{ marginLeft: "-5px", marginRight: "5px" }}
-                    >
-                      Guardar
-                    </Button>
-                    <Button
-                      onClick={() => (
-                        setShowEdit(false),
-                        setShowTable(true),
-                        cancelEdit(),
-                        setSelectedLote(null),
-                        setC(false)
-                      )}
-                    >
-                      Cancelar
-                    </Button>
-                  </div>
-                </Form>
-              </Card>
+              <EditarLotes/>
             )}
           </div>
         </>
