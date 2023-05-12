@@ -28,6 +28,7 @@ const MapasLotesEditar = () => {
         c,
         geoJSONModificado, 
         setGeoJSONModificado,
+        tipoMapa,
     } = useContext(GlobalContext);
 
     const URL = process.env.REACT_APP_URL;
@@ -71,7 +72,7 @@ const MapasLotesEditar = () => {
 
                 //*
 
-                if (selectedLote !== "" && c) {
+                if (selectedLote !== "" && tipoMapa === 1) {
 
                     const lote = JSON.parse(selectedLote);
                     console.log('LOTE: ', lote);

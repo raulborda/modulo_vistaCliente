@@ -58,6 +58,8 @@ export const ProductivoAgricultura = () => {
     setShowMapaUbicLote,
     showTable, 
     setShowTable,
+    tipoMapa,
+    setTipoMapa,
   } = useContext(GlobalContext);
   
   
@@ -148,7 +150,8 @@ export const ProductivoAgricultura = () => {
   }));
 
   const handleEdit = (record) => {
-    setC(true);
+    // setC(true);
+    setTipoMapa(1);
     //form.resetFields();
     setShowTable(false);
     setShowEdit(true);
@@ -192,6 +195,7 @@ export const ProductivoAgricultura = () => {
         setMarcarLote(infoLotes[i].lot_geojson);
       }
     }
+    setTipoMapa(2)
   };
 
   useEffect(() => {
@@ -231,7 +235,8 @@ export const ProductivoAgricultura = () => {
         setIsTableUpdated(true);
         setSelectedLote(null);
         setShowTable(true);
-        setC(false);
+        // setC(false);
+        setTipoMapa(0)
       });
     });
   };
@@ -256,13 +261,30 @@ export const ProductivoAgricultura = () => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [showFormAgregar, c, showMapaUbicLote]);
+  }, [showFormAgregar, c,tipoMapa, showMapaUbicLote]);
 
   useEffect(() => {
     // if (shouldReloadMap) {
     setShouldReloadMap(false); // Restablecer la variable de estado
     // }
   }, [shouldReloadMap]);
+
+
+
+  const handleStage = () => {
+    switch (tipoMapa) {
+      case 0:
+        return <MapasLotes />;
+      case 1:
+        return <MapasLotesEditar />;
+      case 2:
+        return <MapaUbicLotes />;
+      default:
+        return <MapasLotes />;
+    }
+  };
+
+
 
  
   return (
@@ -324,13 +346,13 @@ export const ProductivoAgricultura = () => {
               </Button>
             </div>
 
-            {/* <MapasLotes /> */}
-            {/* <MapasLotes key={shouldReloadMap ? Date.now() : null}/>  */}
-            {!c ? (
+            {/* {!c ? (
               <MapasLotes key={shouldReloadMap ? Date.now() : null} />
             ) : (
               <MapasLotesEditar key={shouldReloadMap ? Date.now() : null} />
-            )}
+            )} */}
+
+            {handleStage()}
 
             <div
               style={{
@@ -492,7 +514,8 @@ export const ProductivoAgricultura = () => {
                         setShowTable(true),
                         cancelEdit(),
                         setSelectedLote(null),
-                        setC(false)
+                        // setC(false),
+                        setTipoMapa(0)
                       )}
                     >
                       Cancelar

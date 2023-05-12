@@ -29,6 +29,7 @@ const MapaUbicLotes = () => {
         setShowMapaUbicLote,
         geoJSONModificado, 
         setGeoJSONModificado,
+        tipoMapa,
     } = useContext(GlobalContext);
 
     const URL = process.env.REACT_APP_URL;
@@ -70,7 +71,7 @@ const MapaUbicLotes = () => {
 
                 //*
 
-                if (marcarLote !== "" && showMapaUbicLote) {
+                if (marcarLote !== "" && tipoMapa === 2) {
 
                     const lote = JSON.parse(marcarLote);
                     console.log('LOTE: ', lote);
@@ -106,33 +107,9 @@ const MapaUbicLotes = () => {
                         type: "fill",
                         source: `loteU`,
                         paint: {
-                            "fill-color": "rgba(255,212,2,0.6)",
+                            "fill-color": "#65c82e",
                         },
                     });
-
-                    // Agrega el lote al control MapboxDraw
-                    const drawData = {
-                        type: "FeatureCollection",
-                        features: [
-                            {
-                                type: "Feature",
-                                properties: {},
-                                geometry: {
-                                    type: "Polygon",
-                                    coordinates: [lote],
-                                },
-                            },
-                        ],
-                    };
-                    draw.add(drawData);
-
-                    const handleDrawUpdate = (e) => {
-                        const updatedCoordinates = e.features[0].geometry.coordinates[0];
-                        console.log('Coordenadas modificadas:', updatedCoordinates);
-                        setGeoJSONModificado(updatedCoordinates);
-                    };
-
-                    map.on('draw.update', handleDrawUpdate);
                 }
                 //*
             });

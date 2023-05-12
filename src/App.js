@@ -84,6 +84,7 @@ function App() {
   const [showTable, setShowTable] = useState(false);
 
   const [c, setC] = useState(false);
+  const [tipoMapa, setTipoMapa] = useState(0);
   const [showMapaUbicLote, setShowMapaUbicLote] = useState(false);
 
   return (
@@ -191,6 +192,8 @@ function App() {
         setMarcarLote,
         showMapaUbicLote, 
         setShowMapaUbicLote,
+        tipoMapa,
+        setTipoMapa,
       }}
     >
       <ApolloProvider client={client}>
