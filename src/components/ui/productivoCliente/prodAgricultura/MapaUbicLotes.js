@@ -134,10 +134,7 @@ const MapaUbicLotes = () => {
 
                     map.on('draw.update', handleDrawUpdate);
                 }
-
                 //*
-
-
             });
             //!
 
