@@ -75,7 +75,7 @@ const MapasLotesEditar = () => {
                 if (selectedLote !== "" && tipoMapa === 1) {
 
                     const lote = JSON.parse(selectedLote);
-                    console.log('LOTE: ', lote);
+                    // console.log('LOTE: ', lote);
                     map.addSource(`lotee`, {
                         type: "geojson",
                         data: {
@@ -92,7 +92,7 @@ const MapasLotesEditar = () => {
                             ],
                         },
                     });
-                    console.log('LOTE - 1: ', lote);
+                    // console.log('LOTE - 1: ', lote);
                     map.addLayer({
                         id: `lote-layerr`,
                         type: "line",
@@ -130,7 +130,7 @@ const MapasLotesEditar = () => {
 
                     const handleDrawUpdate = (e) => {
                         const updatedCoordinates = e.features[0].geometry.coordinates[0];
-                        console.log('Coordenadas modificadas:', updatedCoordinates);
+                        //console.log('Coordenadas modificadas:', updatedCoordinates);
                         setGeoJSONModificado(updatedCoordinates);
                     };
 
@@ -232,8 +232,8 @@ const MapasLotesEditar = () => {
 
         // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
         if (selectedLote && selectedLote != null) {
-            console.log("entro al if de desarme de maps")
-            console.log(selectedLote)
+            // console.log("entro al if de desarme de maps")
+            // console.log(selectedLote)
             const coordinatesString = selectedLote;
             const coordinatesJSON = JSON.parse(coordinatesString);
 
@@ -247,7 +247,7 @@ const MapasLotesEditar = () => {
     useEffect(() => {
         if (dataGeoJSON.length > 0) {
             desarmarGeoJSON();
-            console.log("GeoJSON: ", geoJSON);
+            //console.log("GeoJSON: ", geoJSON);
         }
     }, [dataGeoJSON, selectedLote]);
 

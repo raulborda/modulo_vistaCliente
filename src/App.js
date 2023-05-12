@@ -86,6 +86,9 @@ function App() {
   const [c, setC] = useState(false);
   const [tipoMapa, setTipoMapa] = useState(0);
   const [showMapaUbicLote, setShowMapaUbicLote] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [dataEdit, setDataEdit] = useState(null);
+  // const [c, setC] = useState(false);
 
   return (
     <GlobalContext.Provider
@@ -194,6 +197,8 @@ function App() {
         setShowMapaUbicLote,
         tipoMapa,
         setTipoMapa,
+        showEdit, setShowEdit,
+        dataEdit, setDataEdit
       }}
     >
       <ApolloProvider client={client}>
