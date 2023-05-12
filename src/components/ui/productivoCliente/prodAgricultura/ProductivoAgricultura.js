@@ -830,7 +830,8 @@ export const ProductivoAgricultura = () => {
                         setShowEdit(false),
                         setShowTable(true),
                         cancelEdit(),
-                        setSelectedLote(null)
+                        setSelectedLote(null),
+                        setC(false)
                       )}
                     >
                       Cancelar
