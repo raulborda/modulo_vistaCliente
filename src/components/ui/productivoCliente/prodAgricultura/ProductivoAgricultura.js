@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   EditOutlined,
   PlusOutlined,
+  PushpinFilled,
   PushpinOutlined,
   TableOutlined,
 } from "@ant-design/icons";
@@ -49,28 +50,33 @@ export const ProductivoAgricultura = () => {
     setMarcarLote,
     showMapaUbicLote,
     setShowMapaUbicLote,
-    showTable, 
+    showTable,
     setShowTable,
     tipoMapa,
     setTipoMapa,
     showEdit, setShowEdit,
     setDataEdit,
+    ubicLote,
+    setUbicLote,
   } = useContext(GlobalContext);
-  
-  
+
+
   const [shouldReloadMap, setShouldReloadMap] = useState(false);
 
 
   const toggleTable = () => {
+    // setFilaSeleccionada(null);
     setShowTable(!showTable);
     setShowFormAgregar(false);
+    // setTipoMapa(0)
   };
 
   const abrirFormAgregar = () => {
+    setFilaSeleccionada(null);
     setShowFormAgregar(!showFormAgregar);
     setShowTable(false);
     console.log("showFormAgregar: ", showFormAgregar);
-   
+    setTipoMapa(0)
   };
 
   // console.log("infoLotes:", infoLotes);
@@ -118,12 +124,31 @@ export const ProductivoAgricultura = () => {
       key: "accion",
       align: "center",
       width: 100,
+      // render: (text, record) => (
+      //   <>
+      //     <PushpinOutlined
+      //       onClick={() => handleUbic(record)}
+      //       style={{ color: "red", marginRight: "5px" }}
+      //     />
+      //     <EditOutlined
+      //       onClick={() => handleEdit(record)}
+      //       style={{ color: "#56D75B" }}
+      //     />
+      //   </>
+      // ),
       render: (text, record) => (
         <>
-          <PushpinOutlined
-            onClick={() => handleUbic(record)}
-            style={{ color: "red", marginRight: "5px" }}
-          />
+          {record.key === filaSeleccionada ? (
+            <PushpinFilled
+              onClick={() => handleUbic(record)}
+              style={{ color: "red", marginRight: "5px" }}
+            />
+          ) : (
+            <PushpinOutlined
+              onClick={() => handleUbic(record)}
+              style={{ color: "red", marginRight: "5px" }}
+            />
+          )}
           <EditOutlined
             onClick={() => handleEdit(record)}
             style={{ color: "#56D75B" }}
@@ -145,6 +170,7 @@ export const ProductivoAgricultura = () => {
   //Boton Editar Lote
   const handleEdit = (record) => {
     // setC(true);
+    setFilaSeleccionada(null);
     setTipoMapa(1);
     //form.resetFields();
     setShowTable(false);
@@ -166,39 +192,168 @@ export const ProductivoAgricultura = () => {
     }
   };
 
-  //Boton Ubicacion Lote
+  const [filaSeleccionada, setFilaSeleccionada] = useState(null);
   const handleUbic = (record) => {
     setShowMapaUbicLote(true);
-
+    setUbicLote(!ubicLote);
     console.log("click ubic", record);
-
+    console.log('infoLotes: ', infoLotes);
+  
+    // Verificar si la clave actual es igual a la clave seleccionada actualmente
+    if (record.key === filaSeleccionada) {
+      setFilaSeleccionada(null); // Deseleccionar la fila actual
+    } else {
+      setFilaSeleccionada(record.key); // Seleccionar una nueva fila
+    }
+  
+    var numMap = 2;
+  
     for (let i = 0; i < infoLotes.length; i++) {
       if (record.key === infoLotes[i].alote_id) {
         setMarcarLote(infoLotes[i].lot_geojson);
       }
     }
-    setTipoMapa(2)
+  
+    console.log('record.key: ', record.key);
+  
+    // Verificar si la clave actual es igual a la clave seleccionada
+    if (record.key === filaSeleccionada) {
+      numMap = 0;
+    }
+  
+    setTipoMapa(numMap);
   };
+  
+  
+
+
+
+
+
+
+  // const handleUbic = (record) => {
+  //   setShowMapaUbicLote(true);
+  //   setUbicLote(!ubicLote);
+  //   console.log("click ubic", record);
+  //   console.log('infoLotes: ', infoLotes);
+
+  //   // Verificar si la clave ya está seleccionada
+  //   const index = filaSeleccionada.indexOf(record.key);
+  //   if (index > -1) {
+  //     // Si la clave está presente, removerla
+  //     const nuevaSeleccion = [...filaSeleccionada];
+  //     nuevaSeleccion.splice(index, 1);
+  //     setFilaSeleccionada(nuevaSeleccion);
+  //   } else {
+  //     // Si la clave no está presente, agregarla
+  //     setFilaSeleccionada([...filaSeleccionada, record.key]);
+  //   }
+
+  //   var numMap = 2;
+
+  //   for (let i = 0; i < infoLotes.length; i++) {
+  //     if (record.key === infoLotes[i].alote_id) {
+  //       setMarcarLote(infoLotes[i].lot_geojson);
+  //     }
+  //   }
+
+  //   console.log('record.key: ', record.key);
+
+  //   // Verificar si la clave actual está seleccionada
+  //   if (filaSeleccionada.includes(record.key)) {
+  //     numMap = 0;
+  //   }
+
+  //   setTipoMapa(numMap);
+  // };
+
+
+
+
+
+
+  //Boton Ubicacion Lote
+  // const [anteriorLote, setAnteriorLote] = useState(null);
+  // const handleUbic = (record) => {
+  //   setShowMapaUbicLote(true);
+  //   setUbicLote(!ubicLote);
+  //   console.log("click ubic", record);
+  //   console.log('infoLotes: ', infoLotes);
+
+  //   // Guardar clave de la fila anterior
+  //   setAnteriorLote(record.key);
+
+  //   var numMap = 2;
+
+  //   for (let i = 0; i < infoLotes.length; i++) {
+  //     if (record.key === infoLotes[i].alote_id) {
+  //       setMarcarLote(infoLotes[i].lot_geojson);
+  //     }
+  //   }
+
+  //   console.log('record.key: ', record.key);
+
+  //   // Comparar clave anterior con clave actual
+  //   if (record.key === anteriorLote) {
+  //     numMap = 0;
+
+  //   }
+
+  //   setTipoMapa(numMap);
+  // };
+
+
+
+  // const handleUbic = (record) => {
+  //   setShowMapaUbicLote(true);
+  //   setUbicLote(!ubicLote);
+  //   console.log("click ubic", record);
+  //   console.log('infoLotes: ', infoLotes);
+  //   var numMap = 2;
+  //   // var numMapp = 2;
+  //   var numAnteriorLote = 0;
+  //   for (let i = 0; i < infoLotes.length; i++) {
+  //     if (record.key === infoLotes[i].alote_id) {
+  //       setMarcarLote(infoLotes[i].lot_geojson);
+  //       numAnteriorLote = infoLotes[i].alote_id;
+  //       } 
+  //       // else if (record.key === numAnteriorLote) {
+  //       //   // setTipoMapa(0)
+  //       //   numMap = 0
+  //       // }
+  //     }
+  //     console.log('numAnteriorLote: ', numAnteriorLote);
+  //     console.log('record.key: ', record.key);
+  //     if (record.key === numAnteriorLote) {
+  //       numMap = 0
+  //     }
+  //     setTipoMapa(numMap)
+  //   };
+  // useEffect(() => {
+  //   setTipoMapa(2)
+  // }, [marcarLote, ubicLote])
 
   useEffect(() => {
     console.log("marcarLote: ", marcarLote);
-    console.log("showUbic: ", showMapaUbicLote);
+    console.log("showUbic: ", showMapaUbicLote)
+    console.log("ubicLote: ", ubicLote);
   }, [marcarLote, showMapaUbicLote]);
 
-  
+
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
 
 
- 
+
   //Recarga los mapas
   useEffect(() => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [showFormAgregar, c,tipoMapa, showMapaUbicLote]);
+  }, [ubicLote]);
+  // }, [showFormAgregar, tipoMapa, showMapaUbicLote]);
 
   useEffect(() => {
     // if (shouldReloadMap) {
@@ -206,6 +361,9 @@ export const ProductivoAgricultura = () => {
     // }
   }, [shouldReloadMap]);
 
+  // useEffect(() => {
+  //   setTipoMapa(2)
+  // }, [marcarLote])
 
 
   const handleStage = () => {
@@ -215,7 +373,7 @@ export const ProductivoAgricultura = () => {
       case 1:
         return <MapasLotesEditar />;
       case 2:
-        return <MapaUbicLotes />;
+        return <MapaUbicLotes key={shouldReloadMap ? Date.now() : null} />;
       default:
         return <MapasLotes />;
     }
@@ -223,7 +381,7 @@ export const ProductivoAgricultura = () => {
 
 
 
- 
+
   return (
     <>
       {visible === false ? (
@@ -329,11 +487,11 @@ export const ProductivoAgricultura = () => {
             )}
 
             {showFormAgregar && (
-             <AgregarLotes/>
+              <AgregarLotes />
             )}
 
             {showEdit && (
-              <EditarLotes/>
+              <EditarLotes />
             )}
           </div>
         </>

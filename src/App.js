@@ -88,6 +88,7 @@ function App() {
   const [showMapaUbicLote, setShowMapaUbicLote] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
+  const [ubicLote, setUbicLote] = useState(false);
   // const [c, setC] = useState(false);
 
   return (
@@ -198,7 +199,8 @@ function App() {
         tipoMapa,
         setTipoMapa,
         showEdit, setShowEdit,
-        dataEdit, setDataEdit
+        dataEdit, setDataEdit,
+        ubicLote, setUbicLote,
       }}
     >
       <ApolloProvider client={client}>

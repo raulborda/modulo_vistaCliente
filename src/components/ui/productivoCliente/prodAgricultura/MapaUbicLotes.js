@@ -30,6 +30,7 @@ const MapaUbicLotes = () => {
         geoJSONModificado, 
         setGeoJSONModificado,
         tipoMapa,
+        ubicLote, setUbicLote,
     } = useContext(GlobalContext);
 
     const URL = process.env.REACT_APP_URL;
@@ -162,7 +163,7 @@ const MapaUbicLotes = () => {
         };
 
         if (!map) initializeMap({ setMap, mapContainer });
-    });
+    },[ubicLote]);
 
 
     // const idC = localStorage.getItem("cliente");
