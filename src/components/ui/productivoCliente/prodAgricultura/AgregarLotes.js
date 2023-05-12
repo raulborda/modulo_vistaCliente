@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Divider, Form, Input, Select } from "antd";
 import { GlobalContext } from "../../../context/GlobalContext";
 
@@ -18,13 +18,14 @@ const URL = process.env.REACT_APP_URL;
     setCampos,
     clientes,
     setClientes,
-    showFormAgregar,
   } = useContext(GlobalContext);
 
-  if (showFormAgregar) {
+
+  useEffect(() => {
     traeCampos();
     traeClientes();
-  }
+  },[])
+  
 
   function traeCampos() {
     const data = new FormData();
