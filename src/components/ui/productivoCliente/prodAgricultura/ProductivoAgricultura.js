@@ -30,11 +30,9 @@ import AgregarLotes from "./AgregarLotes";
 import EditarLotes from "./EditarLotes";
 
 export const ProductivoAgricultura = () => {
-  const URL = process.env.REACT_APP_URL;
-  const [form] = Form.useForm();
+  //const URL = process.env.REACT_APP_URL;
 
   const {
-    idCliente,
 
     //Ver lotes
     visible,
@@ -42,16 +40,11 @@ export const ProductivoAgricultura = () => {
     infoLotes,
     showFormAgregar,
     setShowFormAgregar,
-    loteId,
-    setLoteId,
-    setIsTableUpdated,
     setSelectedLote,
 
     //usuario
-    usu,
     c,
     setC,
-    geoJSONModificado,
     marcarLote,
     setMarcarLote,
     showMapaUbicLote,
@@ -59,7 +52,7 @@ export const ProductivoAgricultura = () => {
     showTable, 
     setShowTable,
     showEdit, setShowEdit,
-    dataEdit, setDataEdit,
+    setDataEdit,
   } = useContext(GlobalContext);
   
   
