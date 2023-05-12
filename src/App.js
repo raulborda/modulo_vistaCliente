@@ -79,7 +79,9 @@ function App() {
   const [selectedLote, setSelectedLote] = useState(null);
   const [marcarLote, setMarcarLote] = useState(null);
   const [geoJSONModificado, setGeoJSONModificado] = useState([]);
-
+  const [campos, setCampos] = useState();
+  const [clientes, setClientes] = useState();
+  const [showTable, setShowTable] = useState(false);
 
   const [c, setC] = useState(false);
   const [showMapaUbicLote, setShowMapaUbicLote] = useState(false);
@@ -167,14 +169,12 @@ function App() {
         setIsDataInsumoFertilizantes,
 
         //Ver lotes
+        showTable, setShowTable,
         visible, setVisible,
         infoLotes, setInfoLotes,
         showFormAgregar, setShowFormAgregar,
-        visible,
-        setVisible,
-        infoLotes,
-        setInfoLotes,
-
+        campos, setCampos,
+        clientes, setClientes,
         valorGeoJSON, 
         setValorGeoJSON,
         loteId, 
