@@ -7,7 +7,7 @@ import { GlobalContext } from "../../../context/GlobalContext";
 
 const styles = {
     width: "100%",
-    height: "73%",
+    height: "79%",
     position: "absolute",
 };
 
@@ -35,13 +35,13 @@ const MapasLotesEditar = () => {
 
     const [geoJSON, setGeoJSON] = useState([]);
     const [dataGeoJSON, setDataGeoJSON] = useState([]);
+    const [map, setMap] = useState(null);
+    const [puntoCentral, setPuntoCentral] = useState();
+    const [draw, setDraw] = useState(null);
 
     const MAPBOX_TOKEN =
         "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
-    const [map, setMap] = useState(null);
-    const [puntoCentral, setPuntoCentral] = useState();
     const mapContainer = useRef(null);
-    const [draw, setDraw] = useState(null);
 
     useEffect(() => {
         mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -167,7 +167,7 @@ const MapasLotesEditar = () => {
                     },
                 ],
             });
-            map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
+            map.fitBounds(geojsonBounds, { padding: 10, zoom: 15 });
             //   }
             // //! FIN - CENTRAR MAPBOX
 

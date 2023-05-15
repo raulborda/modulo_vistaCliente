@@ -6,7 +6,7 @@ import { GlobalContext } from "../../../context/GlobalContext";
 
 const styles = {
   width: "100%",
-  height: "73%",
+  height: "78%",
   position: "absolute",
 };
 
@@ -30,12 +30,12 @@ const MapasLotes = () => {
 
   const [geoJSON, setGeoJSON] = useState([]);
   const [dataGeoJSON, setDataGeoJSON] = useState([]);
+  const [map, setMap] = useState(null);
+  const [draw, setDraw] = useState(null);
 
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
-  const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
-  const [draw, setDraw] = useState(null);
 
 
   useEffect(() => {

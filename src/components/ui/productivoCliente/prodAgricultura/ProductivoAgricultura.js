@@ -62,6 +62,7 @@ export const ProductivoAgricultura = () => {
 
 
   const [shouldReloadMap, setShouldReloadMap] = useState(false);
+  const [filaSeleccionada, setFilaSeleccionada] = useState(null);
 
 
   const toggleTable = () => {
@@ -74,6 +75,7 @@ export const ProductivoAgricultura = () => {
   const abrirFormAgregar = () => {
     setFilaSeleccionada(null);
     setShowFormAgregar(!showFormAgregar);
+    // setShowFormAgregar(true);
     setShowTable(false);
     console.log("showFormAgregar: ", showFormAgregar);
     setTipoMapa(0)
@@ -124,18 +126,6 @@ export const ProductivoAgricultura = () => {
       key: "accion",
       align: "center",
       width: 100,
-      // render: (text, record) => (
-      //   <>
-      //     <PushpinOutlined
-      //       onClick={() => handleUbic(record)}
-      //       style={{ color: "red", marginRight: "5px" }}
-      //     />
-      //     <EditOutlined
-      //       onClick={() => handleEdit(record)}
-      //       style={{ color: "#56D75B" }}
-      //     />
-      //   </>
-      // ),
       render: (text, record) => (
         <>
           {record.key === filaSeleccionada ? (
@@ -192,146 +182,38 @@ export const ProductivoAgricultura = () => {
     }
   };
 
-  const [filaSeleccionada, setFilaSeleccionada] = useState(null);
+
   const handleUbic = (record) => {
     setShowMapaUbicLote(true);
     setUbicLote(!ubicLote);
     console.log("click ubic", record);
     console.log('infoLotes: ', infoLotes);
-  
+    var numMap = 2;
     // Verificar si la clave actual es igual a la clave seleccionada actualmente
     if (record.key === filaSeleccionada) {
       setFilaSeleccionada(null); // Deseleccionar la fila actual
+      numMap = 0;
     } else {
       setFilaSeleccionada(record.key); // Seleccionar una nueva fila
     }
-  
-    var numMap = 2;
-  
+
+    // var numMap = 2;
+
     for (let i = 0; i < infoLotes.length; i++) {
       if (record.key === infoLotes[i].alote_id) {
         setMarcarLote(infoLotes[i].lot_geojson);
       }
     }
-  
+
     console.log('record.key: ', record.key);
-  
+
     // Verificar si la clave actual es igual a la clave seleccionada
     if (record.key === filaSeleccionada) {
       numMap = 0;
     }
-  
+
     setTipoMapa(numMap);
   };
-  
-  
-
-
-
-
-
-
-  // const handleUbic = (record) => {
-  //   setShowMapaUbicLote(true);
-  //   setUbicLote(!ubicLote);
-  //   console.log("click ubic", record);
-  //   console.log('infoLotes: ', infoLotes);
-
-  //   // Verificar si la clave ya está seleccionada
-  //   const index = filaSeleccionada.indexOf(record.key);
-  //   if (index > -1) {
-  //     // Si la clave está presente, removerla
-  //     const nuevaSeleccion = [...filaSeleccionada];
-  //     nuevaSeleccion.splice(index, 1);
-  //     setFilaSeleccionada(nuevaSeleccion);
-  //   } else {
-  //     // Si la clave no está presente, agregarla
-  //     setFilaSeleccionada([...filaSeleccionada, record.key]);
-  //   }
-
-  //   var numMap = 2;
-
-  //   for (let i = 0; i < infoLotes.length; i++) {
-  //     if (record.key === infoLotes[i].alote_id) {
-  //       setMarcarLote(infoLotes[i].lot_geojson);
-  //     }
-  //   }
-
-  //   console.log('record.key: ', record.key);
-
-  //   // Verificar si la clave actual está seleccionada
-  //   if (filaSeleccionada.includes(record.key)) {
-  //     numMap = 0;
-  //   }
-
-  //   setTipoMapa(numMap);
-  // };
-
-
-
-
-
-
-  //Boton Ubicacion Lote
-  // const [anteriorLote, setAnteriorLote] = useState(null);
-  // const handleUbic = (record) => {
-  //   setShowMapaUbicLote(true);
-  //   setUbicLote(!ubicLote);
-  //   console.log("click ubic", record);
-  //   console.log('infoLotes: ', infoLotes);
-
-  //   // Guardar clave de la fila anterior
-  //   setAnteriorLote(record.key);
-
-  //   var numMap = 2;
-
-  //   for (let i = 0; i < infoLotes.length; i++) {
-  //     if (record.key === infoLotes[i].alote_id) {
-  //       setMarcarLote(infoLotes[i].lot_geojson);
-  //     }
-  //   }
-
-  //   console.log('record.key: ', record.key);
-
-  //   // Comparar clave anterior con clave actual
-  //   if (record.key === anteriorLote) {
-  //     numMap = 0;
-
-  //   }
-
-  //   setTipoMapa(numMap);
-  // };
-
-
-
-  // const handleUbic = (record) => {
-  //   setShowMapaUbicLote(true);
-  //   setUbicLote(!ubicLote);
-  //   console.log("click ubic", record);
-  //   console.log('infoLotes: ', infoLotes);
-  //   var numMap = 2;
-  //   // var numMapp = 2;
-  //   var numAnteriorLote = 0;
-  //   for (let i = 0; i < infoLotes.length; i++) {
-  //     if (record.key === infoLotes[i].alote_id) {
-  //       setMarcarLote(infoLotes[i].lot_geojson);
-  //       numAnteriorLote = infoLotes[i].alote_id;
-  //       } 
-  //       // else if (record.key === numAnteriorLote) {
-  //       //   // setTipoMapa(0)
-  //       //   numMap = 0
-  //       // }
-  //     }
-  //     console.log('numAnteriorLote: ', numAnteriorLote);
-  //     console.log('record.key: ', record.key);
-  //     if (record.key === numAnteriorLote) {
-  //       numMap = 0
-  //     }
-  //     setTipoMapa(numMap)
-  //   };
-  // useEffect(() => {
-  //   setTipoMapa(2)
-  // }, [marcarLote, ubicLote])
 
   useEffect(() => {
     console.log("marcarLote: ", marcarLote);
@@ -339,20 +221,12 @@ export const ProductivoAgricultura = () => {
     console.log("ubicLote: ", ubicLote);
   }, [marcarLote, showMapaUbicLote]);
 
-
-
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
-
-
-
   //Recarga los mapas
   useEffect(() => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [ubicLote]);
+  }, [ubicLote, showFormAgregar]);
   // }, [showFormAgregar, tipoMapa, showMapaUbicLote]);
 
   useEffect(() => {
@@ -361,15 +235,10 @@ export const ProductivoAgricultura = () => {
     // }
   }, [shouldReloadMap]);
 
-  // useEffect(() => {
-  //   setTipoMapa(2)
-  // }, [marcarLote])
-
-
   const handleStage = () => {
     switch (tipoMapa) {
       case 0:
-        return <MapasLotes />;
+        return <MapasLotes key={shouldReloadMap ? Date.now() : null} />;
       case 1:
         return <MapasLotesEditar />;
       case 2:
@@ -378,9 +247,6 @@ export const ProductivoAgricultura = () => {
         return <MapasLotes />;
     }
   };
-
-
-
 
   return (
     <>
@@ -432,7 +298,6 @@ export const ProductivoAgricultura = () => {
               <h3>Lotes</h3>
               <Button
                 style={{ marginBottom: "5px" }}
-                // eslint-disable-next-line no-sequences
                 onClick={() => (
                   setVisible(!visible), setShowTable(false), setShowEdit(false)
                 )}
@@ -440,14 +305,9 @@ export const ProductivoAgricultura = () => {
                 Volver
               </Button>
             </div>
-
-            {/* {!c ? (
-              <MapasLotes key={shouldReloadMap ? Date.now() : null} />
-            ) : (
-              <MapasLotesEditar key={shouldReloadMap ? Date.now() : null} />
-            )} */}
-
-            {handleStage()}
+            <div style={{}}>
+              {handleStage()}
+            </div>
 
             <div
               style={{
@@ -469,29 +329,35 @@ export const ProductivoAgricultura = () => {
             </div>
 
             {showTable && (
-              <Card
-                style={{
-                  width: "60%",
-                  height: "30%",
-                  marginTop: "13%",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              >
-                <Table
-                  dataSource={data}
-                  columns={columns}
-                  pagination={{ pageSize: 3 }}
-                />
-              </Card>
+              <div style={{ width:'99%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+                <Card
+                  style={{
+                    width: "60%",
+                    height: "30%",
+                    marginTop: "13%",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                >
+                  <Table
+                    dataSource={data}
+                    columns={columns}
+                    pagination={{ pageSize: 3 }}
+                  />
+                </Card>
+              </div>
             )}
 
             {showFormAgregar && (
-              <AgregarLotes />
+              <div style={{ position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+                <AgregarLotes />
+              </div>
             )}
 
             {showEdit && (
-              <EditarLotes />
+              <div style={{ position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+                <EditarLotes />
+              </div>
             )}
           </div>
         </>

@@ -1,9 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, Divider, Form, Input, Select } from "antd";
+import { Button, Card, Divider, Form, Input, Select, Upload } from "antd";
 import { GlobalContext } from "../../../context/GlobalContext";
+import { InboxOutlined } from "@ant-design/icons";
+import FileReaderInput from "react-file-reader";
+import { useDropzone } from "react-dropzone";
+import { parseString } from "xml2js";
+import { Parser } from "graphql/language/parser";
+
 
 const AgregarLotes = () => {
-const URL = process.env.REACT_APP_URL;
+  const URL = process.env.REACT_APP_URL;
   const [form] = Form.useForm();
   const { Option } = Select;
   const [a, setA] = useState(false);
@@ -21,11 +27,41 @@ const URL = process.env.REACT_APP_URL;
   } = useContext(GlobalContext);
 
 
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
+    accept: ".kml",
+    multiple: false,
+    onDrop: (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const kmlData = e.target.result;
+        console.log('kmlData: ', kmlData);
+
+        parseString(kmlData, (err, result) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+
+          const coordinates = result.kml.Document[0].Placemark[0].Polygon[0].outerBoundaryIs[0].LinearRing[0].coordinates[0];
+          const coordinatesArray = coordinates.split(' ').map(coord => {
+            const [longitude, latitude] = coord.trim().split(',').map(parseFloat);
+            return [longitude, latitude];
+          });
+          console.log('Coordinates: ', coordinatesArray);
+          // Aquí puedes hacer lo que quieras con las coordenadas
+        });
+      };
+      reader.readAsText(file);
+    },
+  });
+
+
   useEffect(() => {
     traeCampos();
     traeClientes();
-  },[])
-  
+  }, [])
+
 
   function traeCampos() {
     const data = new FormData();
@@ -55,10 +91,8 @@ const URL = process.env.REACT_APP_URL;
     });
   }
 
- 
+
   const onSubmitAdd = (values) => {
-    // setDataAdd(values)
-    // console.log('dataAdd: ', dataAdd)
     if (valorGeoJSON.length === 0) {
       setA(true);
     } else {
@@ -91,6 +125,7 @@ const URL = process.env.REACT_APP_URL;
     }
   };
 
+
   return (
     <>
       <Card
@@ -113,6 +148,29 @@ const URL = process.env.REACT_APP_URL;
                 paddingBottom: "15px",
               }}
             >
+
+              <Form.Item
+                name="kmlFile"
+                label="Archivo KML"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor seleccione un archivo KML",
+                  },
+                ]}
+              >
+                <div {...getRootProps()} className="dropzone">
+                  <input {...getInputProps()} />
+                  {isDragActive ? (
+                    <p>Suelta el archivo aquí...</p>
+                  ) : (
+                    <Button icon={<InboxOutlined />}>
+                      Seleccionar archivo
+                    </Button>
+                  )}
+                </div>
+              </Form.Item>
+
               <Form.Item
                 name="nombre"
                 label="Nombre Lote"
@@ -124,7 +182,7 @@ const URL = process.env.REACT_APP_URL;
                 ]}
               >
                 <Input
-                  /*onChange={(e) => setDataAdd({ ...dataAdd, nombre: e.target.value })}*/ style={{
+                  style={{
                     width: "200px",
                     marginRight: "15px",
                   }}
@@ -143,7 +201,7 @@ const URL = process.env.REACT_APP_URL;
               >
                 <Input
                   type="number"
-                  /*onChange={(e) => setDataAdd({ ...dataAdd, has: e.target.value })}*/ style={{
+                  style={{
                     width: "150px",
                     marginRight: "15px",
                   }}
@@ -241,7 +299,7 @@ const URL = process.env.REACT_APP_URL;
                 ]}
               >
                 <Select
-                  /*onChange={(value) => setDataAdd({ ...dataAdd, condicion: value })}*/ style={{
+                  style={{
                     width: "200px",
                     marginRight: "15px",
                   }}
@@ -250,6 +308,7 @@ const URL = process.env.REACT_APP_URL;
                   <Option value="2">ALQUILADO</Option>
                 </Select>
               </Form.Item>
+
             </div>
 
             <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />

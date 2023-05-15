@@ -6,8 +6,8 @@ import * as turf from "@turf/turf";
 import { GlobalContext } from "../../../context/GlobalContext";
 
 const styles = {
-    width: "100%",
-    height: "73%",
+    width: "99%",
+    height: "78%",
     position: "absolute",
 };
 
@@ -37,10 +37,10 @@ const MapaUbicLotes = () => {
 
     const [geoJSON, setGeoJSON] = useState([]);
     const [dataGeoJSON, setDataGeoJSON] = useState([]);
+    const [map, setMap] = useState(null);
 
     const MAPBOX_TOKEN =
         "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
-    const [map, setMap] = useState(null);
     const mapContainer = useRef(null);
 
     useEffect(() => {
@@ -140,7 +140,7 @@ const MapaUbicLotes = () => {
                     },
                 ],
             });
-            map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
+            map.fitBounds(geojsonBounds, { padding: 10, zoom: 15 });
             //   }
             // //! FIN - CENTRAR MAPBOX
 

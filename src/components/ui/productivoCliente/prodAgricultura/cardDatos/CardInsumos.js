@@ -14,6 +14,7 @@ import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from 'mapbox-gl-geocoder';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import MapasLotes from '../MapasLotes';
 
 
 
@@ -994,6 +995,13 @@ const CardInsumos = () => {
                                 ))}
                                 <Button style={{ padding: "1px", margin: '4px'}} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
                             </Map>
+                            {/* <MapasLotes
+                                style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    borderRadius: '6px',
+                                }} />
+                            <Button style={{ padding: "1px", margin: '4px' }} onClick={() => setVisible(!visible)}>Ver Lotes</Button> */}
 
                         </Col>
                         {/* <Col span={1} >
