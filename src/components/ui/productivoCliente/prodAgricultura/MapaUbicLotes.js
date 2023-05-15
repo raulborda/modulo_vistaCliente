@@ -62,9 +62,9 @@ const MapaUbicLotes = () => {
                 const draw = new MapboxDraw({
                     displayControlsDefault: false,
                     controls: {
-                        polygon: true,
-                        point: true,
-                        trash: true,
+                        polygon: false,
+                        point: false,
+                        trash: false,
                     },
                 });
                 map.addControl(draw);
