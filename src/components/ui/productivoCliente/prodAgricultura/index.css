@@ -125,3 +125,16 @@
 /* .mapboxgl-map {
     height: 81% !important;
 } */
+
+.hidden-asterisk .ant-form-item-required:before {
+    content: "" !important;
+  }
+
+/* .ant-form-item .ant-form-item-label >label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+
+} */
+
+.ant-popover-content{
+    width: 150px !important;
+    user-select: none;
+}

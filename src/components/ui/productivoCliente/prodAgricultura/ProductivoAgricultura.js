@@ -16,9 +16,12 @@ import {
   Divider,
   Form,
   Input,
+  Popover,
   Select,
   Table,
 } from "antd";
+import { TbPolygon } from 'react-icons/tb';
+import { BiImport } from 'react-icons/bi';
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
 import { GraficosPrueba } from "./GraficosPrueba";
@@ -58,6 +61,9 @@ export const ProductivoAgricultura = () => {
     setDataEdit,
     ubicLote,
     setUbicLote,
+    importarArchivo, setImportarArchivo,
+    agregarLote, setAgregarLote,
+    coordenadasArchivo, setCoordenadasArchivo,
   } = useContext(GlobalContext);
 
 
@@ -75,10 +81,25 @@ export const ProductivoAgricultura = () => {
   const abrirFormAgregar = () => {
     setFilaSeleccionada(null);
     setShowFormAgregar(!showFormAgregar);
-    // setShowFormAgregar(true);
     setShowTable(false);
-    console.log("showFormAgregar: ", showFormAgregar);
-    setTipoMapa(0)
+    setTipoMapa(0);
+    setImportarArchivo(false);
+    setAgregarLote(true);
+    console.log('showFormAgregar: ', showFormAgregar);
+    console.log('AgregarLote: ', agregarLote);
+    console.log('ImportarArchivo: ', importarArchivo);
+  };
+
+  const abrirImportarArchivo = () => {
+    setFilaSeleccionada(null);
+    setShowFormAgregar(!showFormAgregar);
+    setShowTable(false);
+    setTipoMapa(0);
+    setAgregarLote(false);
+    setImportarArchivo(true);
+    console.log('showFormAgregar: ', showFormAgregar);
+    console.log('AgregarLote: ', agregarLote);
+    console.log('ImportarArchivo: ', importarArchivo);
   };
 
   // console.log("infoLotes:", infoLotes);
@@ -226,7 +247,7 @@ export const ProductivoAgricultura = () => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [ubicLote, showFormAgregar]);
+  }, [ubicLote, showFormAgregar, coordenadasArchivo]);
   // }, [showFormAgregar, tipoMapa, showMapaUbicLote]);
 
   useEffect(() => {
@@ -321,15 +342,94 @@ export const ProductivoAgricultura = () => {
                 icon={<TableOutlined />}
                 onClick={() => toggleTable()}
               ></Button>
-              <Button
-                icon={<PlusOutlined />}
-                onClick={() => abrirFormAgregar()}
-                style={{ marginTop: "5px" }}
-              />
+
+              <Popover
+                placement="right"
+                content={
+                  <>
+                    <div
+                      onClick={() => abrirFormAgregar()}
+                      style={{ display: 'inline-block' }}
+                    >
+                      <a
+                        type="primary"
+                        style={{
+                          color: 'black',
+                          textDecoration: 'none',
+                          marginRight: '5px',
+                          display: 'inline-block',
+                        }}
+                      >
+                        <div
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.color = 'green';
+                            e.currentTarget.querySelector('svg').style.fill = 'green';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.color = 'black';
+                            e.currentTarget.querySelector('svg').style.fill = 'black';
+                          }}
+                        >
+                          <TbPolygon
+                            style={{
+                              verticalAlign: 'middle',
+                              marginRight: '5px',
+                              transition: 'fill 0.3s ease',
+                            }}
+                          />
+                          Dibujar Lote
+                        </div>
+                      </a>
+                    </div>
+                    <Divider style={{ marginTop: '0px', marginBottom: '0px' }} />
+                    <div
+                      onClick={() => abrirImportarArchivo()}
+                      style={{ display: 'inline-block' }}
+                    >
+                      <a
+                        type="primary"
+                        style={{
+                          color: 'black',
+                          textDecoration: 'none',
+                          marginRight: '5px',
+                          display: 'inline-block',
+                        }}
+                      >
+                        <div
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.color = 'green';
+                            e.currentTarget.querySelector('svg').style.fill = 'green';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.color = 'black';
+                            e.currentTarget.querySelector('svg').style.fill = 'black';
+                          }}
+                        >
+                          <BiImport
+                            style={{
+                              verticalAlign: 'middle',
+                              marginRight: '5px',
+                              transition: 'fill 0.3s ease',
+                            }}
+                          />
+                          Importar archivo
+                        </div>
+                      </a>
+                    </div>
+                  </>
+                }
+                title="Opciones"
+              >
+                <Button
+                  icon={<PlusOutlined />}
+                  style={{ marginTop: "5px" }}
+                />
+              </Popover>
+
             </div>
 
             {showTable && (
-              <div style={{ width:'99%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '99%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <Card
                   style={{
                     width: "60%",

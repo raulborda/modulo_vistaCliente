@@ -90,7 +90,10 @@ function App() {
   const [dataEdit, setDataEdit] = useState(null);
   const [ubicLote, setUbicLote] = useState(false);
   // const [c, setC] = useState(false);
-
+  const [importarArchivo, setImportarArchivo] = useState(false);
+  const [agregarLote, setAgregarLote] = useState(false);
+  const [coordenadasArchivo, setCoordenadasArchivo] = useState([]);
+  
   return (
     <GlobalContext.Provider
       value={{
@@ -201,6 +204,9 @@ function App() {
         showEdit, setShowEdit,
         dataEdit, setDataEdit,
         ubicLote, setUbicLote,
+        importarArchivo, setImportarArchivo,
+        agregarLote, setAgregarLote,
+        coordenadasArchivo, setCoordenadasArchivo,
       }}
     >
       <ApolloProvider client={client}>

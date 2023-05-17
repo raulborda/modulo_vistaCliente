@@ -18,12 +18,14 @@ const MapasLotes = () => {
     setIdCliente,
     isTableUpdated,
     setIsTableUpdated,
-    showFormAgregar, 
-    valorGeoJSON, 
+    showFormAgregar,
+    valorGeoJSON,
     setValorGeoJSON,
     selectedLote,
     setSelectedLote,
-    marcarLote
+    marcarLote,
+    importarArchivo,
+    coordenadasArchivo,
   } = useContext(GlobalContext);
 
   const URL = process.env.REACT_APP_URL;
@@ -53,7 +55,7 @@ const MapasLotes = () => {
         setMap(map);
         map.resize();
         //* instancia herramientas
-        if (showFormAgregar) {
+        if (showFormAgregar && !importarArchivo) {
           const draw = new MapboxDraw({
             displayControlsDefault: false,
             controls: {
@@ -69,52 +71,97 @@ const MapasLotes = () => {
         // map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
         //!
-        if (geoJSON !== "") {
-          var random = 0;
+        // if (geoJSON !== "" && !importarArchivo) {
+        // }
+        if (importarArchivo) {
+          //* DIBUJAR LOTE IMPORTADO
+          console.log('coordenadasArchivo - MAPASLOTES: ', coordenadasArchivo)
+          const loteArchivo = [coordenadasArchivo];
+          map.addSource(`lote-${item}`, {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [
+                {
+                  type: "Feature",
+                  properties: {},
+                  geometry: {
+                    coordinates: loteArchivo,
+                    type: "Polygon",
+                  },
+                },
+              ],
+            },
+          });
 
-          for (let i = 0; i < geoJSON.length; i++) {
-            var item = 0;
+          map.addLayer({
+            id: `lote-layer-${item}`,
+            type: "line",
+            source: `lote-${item}`,
+            paint: {
+              "line-color": "rgba(255,212,2,1)",
+              "line-opacity": 0.8,
+            },
+          });
 
-            for (let j = 0; j < geoJSON[i].length; j++) {
-              random = random + 1;
-              item = j + random;
+          map.addLayer({
+            id: `lote-fill-${item}`,
+            type: "fill",
+            source: `lote-${item}`,
+            paint: {
+              "fill-color": "rgba(255,212,2,0.6)",
+            },
+          });
+        } else {
 
-              const lote = geoJSON[i][j];
-              map.addSource(`lote-${item}`, {
-                type: "geojson",
-                data: {
-                  type: "FeatureCollection",
-                  features: [
-                    {
-                      type: "Feature",
-                      properties: {},
-                      geometry: {
-                        coordinates: [lote],
-                        type: "Polygon",
+          //* DIBUJAR PARA TODOS LOS LOTES
+          if (geoJSON !== "") {
+            var random = 0;
+
+            for (let i = 0; i < geoJSON.length; i++) {
+              var item = 0;
+
+              for (let j = 0; j < geoJSON[i].length; j++) {
+                random = random + 1;
+                item = j + random;
+
+                const lote = geoJSON[i][j];
+                map.addSource(`lote-${item}`, {
+                  type: "geojson",
+                  data: {
+                    type: "FeatureCollection",
+                    features: [
+                      {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                          coordinates: [lote],
+                          type: "Polygon",
+                        },
                       },
-                    },
-                  ],
-                },
-              });
+                    ],
+                  },
+                });
 
-              map.addLayer({
-                id: `lote-layer-${item}`,
-                type: "line",
-                source: `lote-${item}`,
-                paint: {
-                  "line-color": "rgba(255,212,2,1)",
-                  "line-opacity": 0.8,
-                },
-              });
+                map.addLayer({
+                  id: `lote-layer-${item}`,
+                  type: "line",
+                  source: `lote-${item}`,
+                  paint: {
+                    "line-color": "rgba(255,212,2,1)",
+                    "line-opacity": 0.8,
+                  },
+                });
 
-              map.addLayer({
-                id: `lote-fill-${item}`,
-                type: "fill",
-                source: `lote-${item}`,
-                paint: {
-                  "fill-color": "rgba(255,212,2,0.6)",
-                },
-              });
+                map.addLayer({
+                  id: `lote-fill-${item}`,
+                  type: "fill",
+                  source: `lote-${item}`,
+                  paint: {
+                    "fill-color": "rgba(255,212,2,0.6)",
+                  },
+                });
+              }
             }
           }
         }
@@ -122,46 +169,12 @@ const MapasLotes = () => {
       //!
 
       //! INICIO - CENTRAR MAPBOX
-      var random = 0;
-      var loteL = [];
-      var lotesT = [];
-      for (let i = 0; i < geoJSON.length; i++) {
-        var item = 0;
-        for (let j = 0; j < geoJSON[i].length; j++) {
-          random = random + 1;
-          item = j + random;
-          loteL = geoJSON[i][j];
-        }
-        lotesT.push(loteL);
-      }
+      // if(geoJSON !== "" && !importarArchivo){
 
-      if (lotesT.length > 0 && lotesT[0].length > 0) {
-        var maxX = lotesT[0][0];
-        var minX = lotesT[0][0];
-        var maxY = lotesT[0][1];
-        var minY = lotesT[0][1];
-
-        for (let i = 0; i < lotesT.length; i++) {
-          const coord = lotesT[i];
-
-          if (coord[0] > maxX) {
-            maxX = coord[0];
-          } else if (coord[0] < minX) {
-            minX = coord[0];
-          }
-
-          if (coord[1] > maxY) {
-            maxY = coord[1];
-          } else if (coord[1] < minY) {
-            minY = coord[1];
-          }
-        }
-        var bounds = [
-          [maxX, maxY],
-          [minX, minY],
-        ];
-
-        //* centrado de viewport con turf
+      // }
+      if (importarArchivo && coordenadasArchivo.length > 0) {
+        //* CENTRAR PARA LOTE IMPORTADO
+        const loteArchivo = [coordenadasArchivo];
         var geojsonBounds = turf.bbox({
           type: "FeatureCollection",
           features: [
@@ -169,7 +182,7 @@ const MapasLotes = () => {
               type: "Feature",
               properties: {},
               geometry: {
-                coordinates: [bounds[0]],
+                coordinates: loteArchivo,
                 type: "Polygon",
               },
             },
@@ -177,13 +190,79 @@ const MapasLotes = () => {
               type: "Feature",
               properties: {},
               geometry: {
-                coordinates: [bounds[1]],
+                coordinates: loteArchivo,
                 type: "Polygon",
               },
             },
           ],
         });
         map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
+      } else {
+        //* CENTRAR PARA TODOS LOS LOTES
+        var random = 0;
+        var loteL = [];
+        var lotesT = [];
+        for (let i = 0; i < geoJSON.length; i++) {
+          var item = 0;
+          for (let j = 0; j < geoJSON[i].length; j++) {
+            random = random + 1;
+            item = j + random;
+            loteL = geoJSON[i][j];
+          }
+          lotesT.push(loteL);
+        }
+
+        if (lotesT.length > 0 && lotesT[0].length > 0) {
+          var maxX = lotesT[0][0];
+          var minX = lotesT[0][0];
+          var maxY = lotesT[0][1];
+          var minY = lotesT[0][1];
+
+          for (let i = 0; i < lotesT.length; i++) {
+            const coord = lotesT[i];
+
+            if (coord[0] > maxX) {
+              maxX = coord[0];
+            } else if (coord[0] < minX) {
+              minX = coord[0];
+            }
+
+            if (coord[1] > maxY) {
+              maxY = coord[1];
+            } else if (coord[1] < minY) {
+              minY = coord[1];
+            }
+          }
+          var bounds = [
+            [maxX, maxY],
+            [minX, minY],
+          ];
+
+          //* centrado de viewport con turf
+          var geojsonBounds = turf.bbox({
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: [bounds[0]],
+                  type: "Polygon",
+                },
+              },
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: [bounds[1]],
+                  type: "Polygon",
+                },
+              },
+            ],
+          });
+          map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
+        }
+
       }
       //! FIN - CENTRAR MAPBOX
 
@@ -253,7 +332,7 @@ const MapasLotes = () => {
 
   var coordSelect = [];
   var coordSelectLotes = [];
-  function desarmarLoteSelect(){   
+  function desarmarLoteSelect() {
     // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
     if (selectedLote && selectedLote != null) {
       console.log("entro al if de desarme de maps");
@@ -276,21 +355,21 @@ const MapasLotes = () => {
     } else {
       desarmarGeoJSON();
     }
-  } 
+  }
 
 
   useEffect(() => {
-    if (selectedLote === null){
+    if (selectedLote === null) {
       if (dataGeoJSON.length > 0) {
         desarmarGeoJSON();
         console.log("GeoJSON: ", geoJSON);
       }
-    } else{
+    } else {
       desarmarLoteSelect();
       console.log("GeoJSON LoteSelect: ", geoJSON);
     }
   }, [dataGeoJSON, selectedLote]);
-     
+
 
   useEffect(() => {
     infoGeoJSON(idCliente);
