@@ -75,7 +75,7 @@ const MapasLotes = () => {
         // }
         if (importarArchivo) {
           //* DIBUJAR LOTE IMPORTADO
-          console.log('coordenadasArchivo - MAPASLOTES: ', coordenadasArchivo)
+          // console.log('coordenadasArchivo - MAPASLOTES: ', coordenadasArchivo)
           const loteArchivo = [coordenadasArchivo];
           map.addSource(`lote-${item}`, {
             type: "geojson",
@@ -173,6 +173,8 @@ const MapasLotes = () => {
 
       // }
       if (importarArchivo && coordenadasArchivo.length > 0) {
+        console.log('CENTRA EN EL MOLLE')
+        console.log('CENTRA EN EL MOLLE - coordenadasArchivo: ', coordenadasArchivo)
         //* CENTRAR PARA LOTE IMPORTADO
         const loteArchivo = [coordenadasArchivo];
         var geojsonBounds = turf.bbox({
@@ -199,6 +201,8 @@ const MapasLotes = () => {
         map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
       } else {
         //* CENTRAR PARA TODOS LOS LOTES
+        console.log('CENTRA TODOS')
+        console.log('CENTRA TODOS - geoJSON: ', geoJSON)
         var random = 0;
         var loteL = [];
         var lotesT = [];
@@ -362,11 +366,11 @@ const MapasLotes = () => {
     if (selectedLote === null) {
       if (dataGeoJSON.length > 0) {
         desarmarGeoJSON();
-        console.log("GeoJSON: ", geoJSON);
+        // console.log("GeoJSON: ", geoJSON);
       }
     } else {
       desarmarLoteSelect();
-      console.log("GeoJSON LoteSelect: ", geoJSON);
+      // console.log("GeoJSON LoteSelect: ", geoJSON);
     }
   }, [dataGeoJSON, selectedLote]);
 

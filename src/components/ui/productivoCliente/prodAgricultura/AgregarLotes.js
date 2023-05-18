@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Card, Divider, Form, Input, Select, Upload } from "antd";
 import { GlobalContext } from "../../../context/GlobalContext";
 import { FileOutlined, InboxOutlined } from "@ant-design/icons";
@@ -13,10 +13,14 @@ const AgregarLotes = () => {
   const URL = process.env.REACT_APP_URL;
   const [form] = Form.useForm();
   const { Option } = Select;
-  const [a, setA] = useState(false);
+  const [controlGeoJsonMarcado, setControlGeoJsonMarcado] = useState(false);
   const [has, setHas] = useState(0);
+  const [hasDibujada, setHasDibujada] = useState(0);
   const [perimetro, setPerimetro] = useState(0);
   const [datosArchivo, setDatosArchivo] = useState({});
+  const [latitud, setLatitud] = useState(0);
+  const [longitud, setLongitud] = useState(0);
+  const formRef = useRef(null);
 
   const {
     idCliente,
@@ -29,13 +33,15 @@ const AgregarLotes = () => {
     clientes,
     setClientes,
     importarArchivo, setImportarArchivo,
-    agregarLote, setAgregarLote,
+    agregarLote,
+    setAgregarLote,
     coordenadasArchivo, setCoordenadasArchivo,
+    setTipoMapa
   } = useContext(GlobalContext);
 
   const [nombreArchivo, setNombreArchivo] = useState(false);
-  const [d, setd] = useState(false);
-  const [e, setE] = useState([]);
+  const [controlDatosArchivo, setControlDatosArchivo] = useState(false);
+  const [coordFiltradas, setCoordFiltradas] = useState([]);
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
     accept: ".kml",
@@ -45,7 +51,6 @@ const AgregarLotes = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const kmlData = e.target.result;
-        console.log('kmlData: ', kmlData);
 
         parseString(kmlData, (err, result) => {
           if (err) {
@@ -53,11 +58,12 @@ const AgregarLotes = () => {
             return;
           }
           const nameFile = result.kml.Document[0].name
-          console.log('nameFile: ', nameFile);
           setNombreArchivo(nameFile)
           const coordinates = result.kml.Document[0].Placemark[0].Polygon[0].outerBoundaryIs[0].LinearRing[0].coordinates[0];
           setDatosArchivo(result.kml.Document[0])
-          console.log('datosArchivo: ', datosArchivo);
+          setLatitud(result.kml.Document[0].Placemark[0].LookAt[0].latitude);
+          setLongitud(result.kml.Document[0].Placemark[0].LookAt[0].longitude);
+
           const coordinatesArray = coordinates.split(' ').map(coord => {
             const [longitude, latitude] = coord.trim().split(',').map(parseFloat);
             return [longitude, latitude];
@@ -68,36 +74,29 @@ const AgregarLotes = () => {
             const [longitude, latitude] = coord;
             return !isNaN(longitude) && !isNaN(latitude) && longitude !== undefined && latitude !== undefined;
           });
-          // setCoordenadasArchivo(filteredCoordinatesArray);
-          setE(filteredCoordinatesArray)
-          setd(true)
+          setCoordFiltradas(filteredCoordinatesArray)
+          setControlDatosArchivo(true)
 
-          console.log('coordinatesArray: ', coordinatesArray);
-          console.log('filteredCoordinatesArray: ', filteredCoordinatesArray);
-          console.log('coordenadasArchivo: ', coordenadasArchivo);
           // Aquí puedes hacer lo que quieras con las coordenadas
         });
       };
       reader.readAsText(file);
-      console.log('datosArchivo1: ', datosArchivo);
     },
   });
 
-  console.log('datosArchivo2: ', datosArchivo);
-  const coordenadas = [
-    [-62.90483574185703, -32.00349828755903],
-    [-62.91024179555724, -32.00344057063708],
-    [-62.91025501328677, -32.00826938515221],
-    [-62.9085600818393, -32.00844598413487],
-    [-62.9076738084166, -32.00919553280347],
-    [-62.90468033324945, -32.00703824315367],
-    [-62.90483574185703, -32.00349828755903]
-  ];
 
-
-  // var hectareas = 0;
   function calcularHectareas(coordenadas) {
     const poligono = polygon([coordenadas]);
+    const area1 = area(poligono);
+    const hectareas = area1 / 10000;
+    const hectareasRedoneada = hectareas.toFixed(2);
+    return hectareasRedoneada;
+  }
+
+  function calcularHectareasDibujadas(coordenadas) {
+    console.log('valorGeoJSON: - Cambio', valorGeoJSON);
+    const coordenadasObj = JSON.parse(coordenadas);
+    const poligono = polygon([coordenadasObj]);
     const area1 = area(poligono);
     const hectareas = area1 / 10000;
     const hectareasRedoneada = hectareas.toFixed(2);
@@ -110,24 +109,28 @@ const AgregarLotes = () => {
     const perimetroRedondeado = perimetroEnMetros.toFixed(2);
     return perimetroRedondeado;
   }
+  useEffect(() => {
+    if (valorGeoJSON.length > 0) {
+      const hectareasDibujadas = calcularHectareasDibujadas(valorGeoJSON);
+      setHasDibujada(hectareasDibujadas);
+      console.log('Se realizo la funcion: ', hasDibujada);
+
+      // Reiniciar el campo "has" del formulario
+      formRef.current?.resetFields(['has']);
+    }
+  }, [valorGeoJSON])
+
 
 
   useEffect(() => {
-    setd(false)
-    console.log('eeeeeeeeeeeee: ', e);
-    setCoordenadasArchivo(e);
-    if (e.length > 0) {
-      console.log('ENTRO IF');
-      // hectareas = calcularHectareas(e);
-      setHas(calcularHectareas(e));
-      setPerimetro(calcularPerimetro(e));
-      console.log('SALIO IF');
+    setControlDatosArchivo(false)
+    setCoordenadasArchivo(coordFiltradas);
+    if (coordFiltradas.length > 0) {
+      setHas(calcularHectareas(coordFiltradas));
+      // setHasDibujada(calcularHectareas(valorGeoJSON));
+      setPerimetro(calcularPerimetro(coordFiltradas));
     }
-    console.log('coordenadasArchivo: ', coordenadasArchivo);
-    console.log('hectáreas: ', has);
-  }, [d])
-  console.log('hectáreas: ', has);
-  console.log('coordenadasArchivo: ', coordenadasArchivo);
+  }, [controlDatosArchivo])
 
   useEffect(() => {
     traeCampos();
@@ -166,8 +169,10 @@ const AgregarLotes = () => {
 
   const onSubmitAdd = (values) => {
     if (valorGeoJSON.length === 0) {
-      setA(true);
+      setControlGeoJsonMarcado(true);
     } else {
+
+      var latLon = 0
       const dataAdd = new FormData();
       dataAdd.append("idC", idCliente);
       dataAdd.append("lote", values.nombre);
@@ -176,10 +181,10 @@ const AgregarLotes = () => {
       dataAdd.append("cliente", values.cliente);
       dataAdd.append("participacion", values.participacion);
       dataAdd.append("condicion", values.condicion);
-      dataAdd.append("valorGeoJSON", JSON.stringify(valorGeoJSON));
-
-      console.log("valorGeoJSON: ", valorGeoJSON);
-      console.log("onSubmitAdd: ", dataAdd);
+      // dataAdd.append("valorGeoJSON", JSON.stringify(valorGeoJSON));
+      dataAdd.append("valorGeoJSON", valorGeoJSON);
+      dataAdd.append("lat", latLon);
+      dataAdd.append("lon", latLon);
 
       fetch(`${URL}client_addLote.php`, {
         method: "POST",
@@ -198,39 +203,37 @@ const AgregarLotes = () => {
   };
 
   const onSubmitImportarArchivo = (values) => {
-    if (coordenadasArchivo.length === 0) {
-      setA(true);
-    } else {
-      const dataAdd = new FormData();
-      dataAdd.append("idC", idCliente);
-      dataAdd.append("lote", datosArchivo.Placemark[0].name);
-      dataAdd.append("has", has);
-      dataAdd.append("campo", values.campo);
-      dataAdd.append("cliente", values.cliente);
-      dataAdd.append("participacion", values.participacion);
-      dataAdd.append("condicion", values.condicion);
-      dataAdd.append("valorGeoJSON", JSON.stringify(coordenadasArchivo));
-      dataAdd.append("lat", datosArchivo.Placemark[0].LookAt[0].latitude);
-      dataAdd.append("lon", datosArchivo.Placemark[0].LookAt[0].longitude);
+    // if (coordenadasArchivo.length === 0) {
+    //   setControlGeoJsonMarcado(true);
+    // } else {
 
-      console.log("valorGeoJSON: ", coordenadasArchivo);
-      console.log("onSubmitImportarArchivo: ", dataAdd);
+    const dataAdd = new FormData();
+    dataAdd.append("idC", idCliente);
+    dataAdd.append("lote", datosArchivo.Placemark[0].name);
+    dataAdd.append("has", has);
+    dataAdd.append("campo", values.campo);
+    dataAdd.append("cliente", values.cliente);
+    dataAdd.append("participacion", values.participacion);
+    dataAdd.append("condicion", values.condicion);
+    dataAdd.append("valorGeoJSON", JSON.stringify(coordenadasArchivo));
+    dataAdd.append("lat", parseFloat(latitud).toFixed(2));
+    dataAdd.append("lon", parseFloat(longitud).toFixed(2));
 
-      fetch(`${URL}client_addLote.php`, {
-        method: "POST",
-        body: dataAdd,
-      }).then(function (response) {
-        response.text().then((resp) => {
-          const data = resp;
-          console.log("data: ", data);
-        });
+    fetch(`${URL}client_addLote.php`, {
+      method: "POST",
+      body: dataAdd,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        console.log("data: ", data);
       });
+    });
 
-      setShowFormAgregar(false);
-      form.resetFields();
-      setValorGeoJSON([]);
-      setImportarArchivo(false);
-    }
+    setShowFormAgregar(false);
+    form.resetFields();
+    setValorGeoJSON([]);
+    setImportarArchivo(false);
+    // }
   };
 
 
@@ -258,7 +261,6 @@ const AgregarLotes = () => {
                     paddingBottom: "15px",
                   }}
                 >
-
 
                   <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '10px' }} >
 
@@ -301,6 +303,9 @@ const AgregarLotes = () => {
                         }}
                       />
                     </Form.Item>
+                  {hasDibujada > 0 &&
+                    <label>{hasDibujada}</label>
+                  }
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'row' }} >
@@ -335,8 +340,6 @@ const AgregarLotes = () => {
                       </Select>
                     </Form.Item>
                   </div>
-
-
                 </div>
 
                 <h1 className="titulos">PARTICIPACIÓN</h1>
@@ -436,7 +439,7 @@ const AgregarLotes = () => {
                   }}
                 >
                   <div>
-                    {a ? (
+                    {controlGeoJsonMarcado ? (
                       <label style={{ color: "red" }}>
                         * Por favor marque el lote
                       </label>
@@ -451,7 +454,7 @@ const AgregarLotes = () => {
                       justifyContent: "flex-end",
                     }}
                   >
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" style={{ marginRight: '5px' }}>
                       Guardar
                     </Button>
                     <Button
@@ -628,8 +631,8 @@ const AgregarLotes = () => {
                   {datosArchivo && datosArchivo.Placemark && datosArchivo.Placemark[0] &&
                     <div style={{ display: 'flex', flexDirection: 'column', marginRight: '15px' }}>
                       <label>Nombre Lote: {datosArchivo && datosArchivo.Placemark[0].name} </label>
-                      <label>Latitud: {datosArchivo && datosArchivo.Placemark[0].LookAt[0].latitude} </label>
-                      <label>Longitud: {datosArchivo && datosArchivo.Placemark[0].LookAt[0].longitude} </label>
+                      <label>Latitud: {latitud && parseFloat(latitud).toFixed(2)} </label>
+                      <label>Longitud: {longitud && parseFloat(longitud).toFixed(2)} </label>
                       <label>Hectáreas: {has > 0 && has} Has. </label>
                       <label>Perímetro:  {perimetro > 0 && perimetro} Mts. </label>
                     </div>
@@ -646,13 +649,14 @@ const AgregarLotes = () => {
                 <Button
                   type="primary"
                   htmlType="submit"
+                  style={{ marginRight: '5px' }}
                 >
                   Guardar
                 </Button>
                 <Button
-                // onClick={() => (
-                //   setShowFormAgregar(false), form.resetFields()
-                // )}
+                  onClick={() => (
+                    setShowFormAgregar(false), form.resetFields(), setImportarArchivo(false)
+                  )}
                 >
                   Cancelar
                 </Button>

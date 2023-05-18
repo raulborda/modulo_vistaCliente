@@ -375,10 +375,10 @@ const TabsCliente = () => {
                         <a href='#' className='tags'>NUEVO</a>
                         <a href='#' className='tags'>ZONA NORTE</a> */}
             <Space size={[0, 8]} wrap>
-              <Tag color="#f50">IMPORTANTE</Tag>
-              <Tag color="#2db7f5">FEEDLOT</Tag>
-              <Tag color="#87d068">NUEVO</Tag>
-              <Tag color="#108ee9">ZONA NORTE</Tag>
+              <Tag color="orange">IMPORTANTE</Tag>
+              <Tag color="cyan">FEEDLOT</Tag>
+              <Tag color="green">NUEVO</Tag>
+              <Tag color="blue">ZONA NORTE</Tag>
             </Space>
           </div>
         </div>

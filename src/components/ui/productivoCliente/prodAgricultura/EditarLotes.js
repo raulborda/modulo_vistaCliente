@@ -70,6 +70,7 @@ const EditarLotes = () => {
         setSelectedLote(null);
         setShowTable(true);
         setC(false);
+        setTipoMapa(0)
       });
     });
   };

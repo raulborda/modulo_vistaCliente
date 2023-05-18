@@ -79,11 +79,17 @@ export const ProductivoAgricultura = () => {
   };
 
   const abrirFormAgregar = () => {
+    setImportarArchivo(false);
     setFilaSeleccionada(null);
-    setShowFormAgregar(!showFormAgregar);
+    if(importarArchivo && showFormAgregar){
+        setShowFormAgregar(true);
+    }else{
+        setShowFormAgregar(!showFormAgregar);
+    }
+    // setShowFormAgregar(!showFormAgregar);
     setShowTable(false);
     setTipoMapa(0);
-    setImportarArchivo(false);
+    
     setAgregarLote(true);
     console.log('showFormAgregar: ', showFormAgregar);
     console.log('AgregarLote: ', agregarLote);
@@ -92,7 +98,11 @@ export const ProductivoAgricultura = () => {
 
   const abrirImportarArchivo = () => {
     setFilaSeleccionada(null);
-    setShowFormAgregar(!showFormAgregar);
+    if(!importarArchivo && showFormAgregar){
+        setShowFormAgregar(true);
+    }else{
+        setShowFormAgregar(!showFormAgregar);
+    }
     setShowTable(false);
     setTipoMapa(0);
     setAgregarLote(false);
@@ -247,7 +257,7 @@ export const ProductivoAgricultura = () => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [ubicLote, showFormAgregar, coordenadasArchivo]);
+  }, [ubicLote, showFormAgregar, coordenadasArchivo, importarArchivo]);
   // }, [showFormAgregar, tipoMapa, showMapaUbicLote]);
 
   useEffect(() => {
