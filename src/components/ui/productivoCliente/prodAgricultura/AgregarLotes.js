@@ -393,8 +393,9 @@ const AgregarLotes = () => {
                       ]}
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
                       style={{ marginRight: "10px" }}
+                      initialValue={100}
                     >
-                      <Input style={{ width: "82px" }} addonAfter="%" />
+                      <Input style={{ width: "85px" }} addonAfter="%" />
                     </Form.Item>
                   </div>
 
@@ -596,8 +597,9 @@ const AgregarLotes = () => {
                       ]}
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
                       style={{ marginRight: "10px" }}
+                      initialValue={100}
                     >
-                      <Input style={{ width: "82px", marginBottom:'5px' }} addonAfter="%" />
+                      <Input style={{ width: "85px", marginBottom:'5px' }} addonAfter="%" />
                     </Form.Item>
                     <Form.Item
                       name="condicion"

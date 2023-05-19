@@ -98,7 +98,7 @@ const MapaUbicLotes = () => {
                         type: "line",
                         source: `loteU`,
                         paint: {
-                            "line-color": "#65c82e",
+                            "line-color": "#7FFF00",
                             "line-opacity": 0.8,
                         },
                     });
@@ -108,7 +108,7 @@ const MapaUbicLotes = () => {
                         type: "fill",
                         source: `loteU`,
                         paint: {
-                            "fill-color": "#65c82e",
+                            "fill-color": "#008000",
                         },
                     });
                 }

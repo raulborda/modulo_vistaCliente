@@ -81,15 +81,15 @@ export const ProductivoAgricultura = () => {
   const abrirFormAgregar = () => {
     setImportarArchivo(false);
     setFilaSeleccionada(null);
-    if(importarArchivo && showFormAgregar){
-        setShowFormAgregar(true);
-    }else{
-        setShowFormAgregar(!showFormAgregar);
+    if (importarArchivo && showFormAgregar) {
+      setShowFormAgregar(true);
+    } else {
+      setShowFormAgregar(!showFormAgregar);
     }
     // setShowFormAgregar(!showFormAgregar);
     setShowTable(false);
     setTipoMapa(0);
-    
+
     setAgregarLote(true);
     console.log('showFormAgregar: ', showFormAgregar);
     console.log('AgregarLote: ', agregarLote);
@@ -98,10 +98,10 @@ export const ProductivoAgricultura = () => {
 
   const abrirImportarArchivo = () => {
     setFilaSeleccionada(null);
-    if(!importarArchivo && showFormAgregar){
-        setShowFormAgregar(true);
-    }else{
-        setShowFormAgregar(!showFormAgregar);
+    if (!importarArchivo && showFormAgregar) {
+      setShowFormAgregar(true);
+    } else {
+      setShowFormAgregar(!showFormAgregar);
     }
     setShowTable(false);
     setTipoMapa(0);
@@ -326,7 +326,18 @@ export const ProductivoAgricultura = () => {
                 alignItems: "center",
               }}
             >
-              <h3>Lotes</h3>
+              <h1
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  fontFamily: "Open Sans, sans-serif",
+                  marginLeft: '10px',
+                  color: '#444'
+                  // marginBottom: "10px",
+                }}
+              >
+                LOTES
+              </h1>
               <Button
                 style={{ marginBottom: "5px" }}
                 onClick={() => (
@@ -440,7 +451,7 @@ export const ProductivoAgricultura = () => {
 
             {showTable && (
               // <div style={{ width: '100%', bottom: "10px", left: "10px", paddingBottom: "35px" }}>
-               <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <Card
                   style={{
                     width: "100%",

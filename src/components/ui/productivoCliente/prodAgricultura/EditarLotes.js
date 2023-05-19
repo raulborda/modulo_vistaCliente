@@ -179,7 +179,7 @@ const EditarLotes = () => {
                   label="Participacion"
                   style={{ fontSize: "13px", fontWeight: "bold" }}
                 >
-                  <Input style={{ width: "80px" }} addonAfter="%" />
+                  <Input style={{ width: "85px" }} addonAfter="%" />
                 </Form.Item>
               </div>
             </div>
