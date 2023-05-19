@@ -4,6 +4,7 @@
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import {
+  ArrowLeftOutlined,
   EditOutlined,
   PlusOutlined,
   PushpinFilled,
@@ -339,12 +340,12 @@ export const ProductivoAgricultura = () => {
                 LOTES
               </h1>
               <Button
-                style={{ marginBottom: "5px" }}
+                style={{ marginBottom: "5px", marginRight: "5px" }}
                 onClick={() => (
                   setVisible(!visible), setShowTable(false), setShowEdit(false)
                 )}
               >
-                Volver
+                <ArrowLeftOutlined /> Volver
               </Button>
             </div>
             <div style={{}}>
@@ -366,11 +367,12 @@ export const ProductivoAgricultura = () => {
 
               <Popover
                 placement="right"
+                // style={{width: '1000px'}}
                 content={
                   <>
                     <div
                       onClick={() => abrirFormAgregar()}
-                      style={{ display: 'inline-block' }}
+                      style={{ display: 'inline-block', padding: '5px' }}
                     >
                       <a
                         type="primary"
@@ -405,7 +407,7 @@ export const ProductivoAgricultura = () => {
                     <Divider style={{ marginTop: '0px', marginBottom: '0px' }} />
                     <div
                       onClick={() => abrirImportarArchivo()}
-                      style={{ display: 'inline-block' }}
+                      style={{ display: 'inline-block', padding: '5px' }}
                     >
                       <a
                         type="primary"

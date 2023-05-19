@@ -135,7 +135,7 @@
 } */
 
 .ant-popover-content{
-    width: 150px !important;
+    /* width: 150px !important; */
     user-select: none;
 }
 

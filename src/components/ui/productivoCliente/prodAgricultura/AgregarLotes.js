@@ -298,9 +298,9 @@ const AgregarLotes = () => {
                         }}
                       />
                     </Form.Item>
-                  {hasDibujada > 0 &&
-                    <label>{hasDibujada}</label>
-                  }
+                    {hasDibujada > 0 &&
+                      <label>{hasDibujada}</label>
+                    }
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'row' }} >
@@ -523,18 +523,38 @@ const AgregarLotes = () => {
                   </div>
                   <div>
                     <Form.Item
+                      name="nombre"
+                      label="Nombre Lote"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Por favor ingresa el nombre del lote",
+                        },
+                      ]}
+                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
+                    >
+                      <Input
+                        style={{
+                          width: "200px",
+                          marginRight: "15px",
+                          marginBottom: '5px'
+                        }}
+                      />
+                    </Form.Item>
+
+                    <Form.Item
                       name="campo"
                       label="Campo"
                       rules={[
                         {
                           required: true,
-                          message: "Por favor selecciona un cliente",
+                          message: "Por favor selecciona un campo",
                         },
                       ]}
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
                     >
                       <Select
-                        style={{ width: "200px", marginLeft: '36px', marginBottom:'5px' }}
+                        style={{ width: "200px", marginLeft: '36px', marginBottom: '5px' }}
                         showSearch
                         optionFilterProp="children"
                         filterOption={(input, option) =>
@@ -552,7 +572,31 @@ const AgregarLotes = () => {
                           ))}
                       </Select>
                     </Form.Item>
+
                     <Form.Item
+                      name="has"
+                      label="Hectáreas"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Por favor ingrese las hectáreas del lote",
+                        },
+                      ]}
+                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
+                      initialValue={has > 0 && has}
+                    >
+                      <Input
+                        type="number"
+                        style={{
+                          width: "82px",
+                          // marginRight: "20px",
+                          marginLeft: '15px',
+                          marginBottom: '5px'
+                        }}
+                      />
+                    </Form.Item>
+
+                    {/* <Form.Item
                       name="cliente"
                       label="Cliente"
                       rules={[
@@ -585,7 +629,8 @@ const AgregarLotes = () => {
                             </Select.Option>
                           ))}
                       </Select>
-                    </Form.Item>
+                    </Form.Item> */}
+
                     <Form.Item
                       name="participacion"
                       label="Participación"
@@ -599,7 +644,7 @@ const AgregarLotes = () => {
                       style={{ marginRight: "10px" }}
                       initialValue={100}
                     >
-                      <Input style={{ width: "85px", marginBottom:'5px' }} addonAfter="%" />
+                      <Input style={{ width: "85px", marginBottom: '5px' }} addonAfter="%" />
                     </Form.Item>
                     <Form.Item
                       name="condicion"
@@ -631,7 +676,7 @@ const AgregarLotes = () => {
                       <label>Latitud: {latitud && parseFloat(latitud).toFixed(2)} </label>
                       <label>Longitud: {longitud && parseFloat(longitud).toFixed(2)} </label>
                       <label>Hectáreas: {has > 0 && has} Has. </label>
-                      <label>Perímetro:  {perimetro > 0 && perimetro} Mts. </label>
+                      {/* <label>Perímetro:  {perimetro > 0 && perimetro} Mts. </label> */}
                     </div>
                   }
                 </div>
