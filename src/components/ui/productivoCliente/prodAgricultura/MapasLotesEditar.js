@@ -36,8 +36,6 @@ const MapasLotesEditar = () => {
     const [geoJSON, setGeoJSON] = useState([]);
     const [dataGeoJSON, setDataGeoJSON] = useState([]);
     const [map, setMap] = useState(null);
-    const [puntoCentral, setPuntoCentral] = useState();
-    const [draw, setDraw] = useState(null);
 
     const MAPBOX_TOKEN =
         "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";

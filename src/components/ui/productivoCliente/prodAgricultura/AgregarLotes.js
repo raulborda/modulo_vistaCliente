@@ -166,7 +166,6 @@ const AgregarLotes = () => {
     });
   }
 
-
   const onSubmitAdd = (values) => {
     if (valorGeoJSON.length === 0) {
       setControlGeoJsonMarcado(true);
@@ -203,9 +202,6 @@ const AgregarLotes = () => {
   };
 
   const onSubmitImportarArchivo = (values) => {
-    // if (coordenadasArchivo.length === 0) {
-    //   setControlGeoJsonMarcado(true);
-    // } else {
 
     const dataAdd = new FormData();
     dataAdd.append("idC", idCliente);
@@ -233,7 +229,6 @@ const AgregarLotes = () => {
     form.resetFields();
     setValorGeoJSON([]);
     setImportarArchivo(false);
-    // }
   };
 
 
@@ -245,9 +240,9 @@ const AgregarLotes = () => {
             style={{
               width: "800px",
               height: "40%",
-              marginTop: "16%",
               marginLeft: "10px",
-              marginRight: "10px",
+              // marginTop: "16%",
+              // marginRight: "10px",
             }}
           >
             <Form form={form} onFinish={onSubmitAdd}>
@@ -262,7 +257,7 @@ const AgregarLotes = () => {
                   }}
                 >
 
-                  <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '10px' }} >
+                  <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }} >
 
                     <Form.Item
                       name="nombre"
@@ -351,7 +346,7 @@ const AgregarLotes = () => {
                     paddingBottom: "5px",
                   }}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '10px' }} >
+                  <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }} >
 
                     <Form.Item
                       name="cliente"
@@ -476,9 +471,9 @@ const AgregarLotes = () => {
           style={{
             width: "900px",
             height: "40%",
-            marginTop: "16%",
             marginLeft: "10px",
-            marginRight: "10px",
+            // marginTop: "16%",
+            // marginRight: "10px",
           }}
         >
           <Form form={form} onFinish={onSubmitImportarArchivo}>
@@ -538,7 +533,7 @@ const AgregarLotes = () => {
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
                     >
                       <Select
-                        style={{ width: "200px", marginLeft: '36px' }}
+                        style={{ width: "200px", marginLeft: '36px', marginBottom:'5px' }}
                         showSearch
                         optionFilterProp="children"
                         filterOption={(input, option) =>
@@ -569,7 +564,7 @@ const AgregarLotes = () => {
                       style={{ marginRight: '8px' }}
                     >
                       <Select
-                        style={{ width: "200px", marginLeft: '36px', marginRight: '10px' }}
+                        style={{ width: "200px", marginLeft: '36px', marginRight: '10px', marginBottom:'5px' }}
                         showSearch
                         optionFilterProp="children"
                         filterOption={(input, option) =>
@@ -602,7 +597,7 @@ const AgregarLotes = () => {
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
                       style={{ marginRight: "10px" }}
                     >
-                      <Input style={{ width: "82px" }} addonAfter="%" />
+                      <Input style={{ width: "82px", marginBottom:'5px' }} addonAfter="%" />
                     </Form.Item>
                     <Form.Item
                       name="condicion"

@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
+import "mapbox-gl/dist/mapbox-gl.css";
 import * as turf from "@turf/turf";
 import { GlobalContext } from "../../../context/GlobalContext";
+import './index.css';
+
 
 const styles = {
   width: "100%",
@@ -12,18 +15,13 @@ const styles = {
 
 const MapasLotes = () => {
   const {
-    infoLotes,
     setInfoLotes,
     idCliente,
-    setIdCliente,
     isTableUpdated,
     setIsTableUpdated,
     showFormAgregar,
-    valorGeoJSON,
     setValorGeoJSON,
     selectedLote,
-    setSelectedLote,
-    marcarLote,
     importarArchivo,
     coordenadasArchivo,
   } = useContext(GlobalContext);
@@ -33,12 +31,10 @@ const MapasLotes = () => {
   const [geoJSON, setGeoJSON] = useState([]);
   const [dataGeoJSON, setDataGeoJSON] = useState([]);
   const [map, setMap] = useState(null);
-  const [draw, setDraw] = useState(null);
 
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
   const mapContainer = useRef(null);
-
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -63,19 +59,17 @@ const MapasLotes = () => {
               point: true,
               trash: true,
             },
+            userProperties: true,
+            
           });
           map.addControl(draw);
+          
         }
-
-
-        // map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
         //!
-        // if (geoJSON !== "" && !importarArchivo) {
-        // }
         if (importarArchivo) {
           //* DIBUJAR LOTE IMPORTADO
-          // console.log('coordenadasArchivo - MAPASLOTES: ', coordenadasArchivo)
           const loteArchivo = [coordenadasArchivo];
           map.addSource(`lote-${item}`, {
             type: "geojson",
@@ -169,9 +163,6 @@ const MapasLotes = () => {
       //!
 
       //! INICIO - CENTRAR MAPBOX
-      // if(geoJSON !== "" && !importarArchivo){
-
-      // }
       if (importarArchivo && coordenadasArchivo.length > 0) {
         console.log('CENTRA EN EL MOLLE')
         console.log('CENTRA EN EL MOLLE - coordenadasArchivo: ', coordenadasArchivo)
@@ -285,9 +276,7 @@ const MapasLotes = () => {
         console.log("coordenadas a subir a db: ", formattedCoordinates);
         setValorGeoJSON(formattedCoordinates);
       });
-      // console.log("ValorGeoJSON: ", valorGeoJSON);
     };
-
     if (!map) initializeMap({ setMap, mapContainer });
   });
 

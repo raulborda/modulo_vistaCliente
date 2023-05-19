@@ -120,7 +120,7 @@ export const ProductivoAgricultura = () => {
       title: "CAMPO",
       dataIndex: "campo",
       key: "campo",
-      width: 100,
+      width: 20,
       align: "center",
     },
     {
@@ -128,35 +128,35 @@ export const ProductivoAgricultura = () => {
       dataIndex: "nombre",
       key: "nombre",
       align: "center",
-      width: 100,
+      width: 20,
     },
     {
       title: "HAS",
       dataIndex: "has",
       key: "has",
       align: "center",
-      width: 60,
+      width: 10,
     },
     {
-      title: "CONDICION",
+      title: "CONDICIÓN",
       dataIndex: "condicion",
       key: "condicion",
       align: "center",
-      width: 100,
+      width: 20,
     },
     {
-      title: "PARTICIPACION",
+      title: "PARTICIPACIÓN",
       dataIndex: "participacion",
       key: "participacion",
       align: "center",
-      width: 100,
+      width: 20,
     },
     {
       title: "...",
       dataIndex: "accion",
       key: "accion",
       align: "center",
-      width: 100,
+      width: 10,
       render: (text, record) => (
         <>
           {record.key === filaSeleccionada ? (
@@ -439,12 +439,13 @@ export const ProductivoAgricultura = () => {
             </div>
 
             {showTable && (
-              <div style={{ width: '99%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              // <div style={{ width: '100%', bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+               <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <Card
                   style={{
-                    width: "60%",
+                    width: "100%",
                     height: "30%",
-                    marginTop: "13%",
+                    // marginTop: "13%",
                     marginLeft: "10px",
                     marginRight: "10px",
                   }}
@@ -459,13 +460,13 @@ export const ProductivoAgricultura = () => {
             )}
 
             {showFormAgregar && (
-              <div style={{ position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <AgregarLotes />
               </div>
             )}
 
             {showEdit && (
-              <div style={{ position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <EditarLotes />
               </div>
             )}

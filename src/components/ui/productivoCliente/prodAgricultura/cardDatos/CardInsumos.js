@@ -993,7 +993,7 @@ const CardInsumos = () => {
                                 {coordinates.map((coordinate, index) => (
                                     <Marker key={index} coordinates={coordinate} anchor="bottom" />
                                 ))}
-                                <Button style={{ padding: "1px", margin: '4px'}} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
+                                <Button style={{ padding: "5px", margin: '4px'}} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
                             </Map>
                             {/* <MapasLotes
                                 style={{
