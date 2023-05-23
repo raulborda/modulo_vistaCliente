@@ -19,6 +19,7 @@ import {
   Input,
   Popover,
   Select,
+  Spin,
   Table,
 } from "antd";
 import { TbPolygon } from 'react-icons/tb';
@@ -65,6 +66,8 @@ export const ProductivoAgricultura = () => {
     importarArchivo, setImportarArchivo,
     agregarLote, setAgregarLote,
     coordenadasArchivo, setCoordenadasArchivo,
+    limpiarStates, setLimpiarStates,
+    spinning, setSpinning
   } = useContext(GlobalContext);
 
 
@@ -80,6 +83,7 @@ export const ProductivoAgricultura = () => {
   };
 
   const abrirFormAgregar = () => {
+    setLimpiarStates(true);
     setImportarArchivo(false);
     setFilaSeleccionada(null);
     if (importarArchivo && showFormAgregar) {
@@ -98,6 +102,7 @@ export const ProductivoAgricultura = () => {
   };
 
   const abrirImportarArchivo = () => {
+    setLimpiarStates(true);
     setFilaSeleccionada(null);
     if (!importarArchivo && showFormAgregar) {
       setShowFormAgregar(true);
@@ -108,6 +113,7 @@ export const ProductivoAgricultura = () => {
     setTipoMapa(0);
     setAgregarLote(false);
     setImportarArchivo(true);
+
     console.log('showFormAgregar: ', showFormAgregar);
     console.log('AgregarLote: ', agregarLote);
     console.log('ImportarArchivo: ', importarArchivo);
@@ -280,6 +286,9 @@ export const ProductivoAgricultura = () => {
     }
   };
 
+  // console.log('data: ', data);
+  // console.log('columns: ', columns);
+
   return (
     <>
       {visible === false ? (
@@ -348,9 +357,19 @@ export const ProductivoAgricultura = () => {
                 <ArrowLeftOutlined /> Volver
               </Button>
             </div>
-            <div style={{}}>
-              {handleStage()}
-            </div>
+            {
+              spinning ?
+                (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Spin tip="Loading..."/>
+                </div>)
+                :
+                (<div>
+                  {handleStage()}
+                </div>)
+            }
+            {/* <div>
+              {spinning ? <Spin tip="Loading..." /> : handleStage()}
+            </div> */}
 
             <div
               style={{

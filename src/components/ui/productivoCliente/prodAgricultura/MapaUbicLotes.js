@@ -42,7 +42,7 @@ const MapaUbicLotes = () => {
     const MAPBOX_TOKEN =
         "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
     const mapContainer = useRef(null);
-
+    
     useEffect(() => {
         mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -143,7 +143,7 @@ const MapaUbicLotes = () => {
             map.fitBounds(geojsonBounds, { padding: 10, zoom: 15 });
             //   }
             // //! FIN - CENTRAR MAPBOX
-
+            
             //* geometria dibujada para subir a data base
             map.on("draw.create", (e) => {
                 const coordinates = e.features[0].geometry.coordinates[0];

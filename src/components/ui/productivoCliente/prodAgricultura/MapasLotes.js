@@ -35,7 +35,7 @@ const MapasLotes = () => {
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
   const mapContainer = useRef(null);
-
+  var dea = []
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -46,6 +46,8 @@ const MapasLotes = () => {
         center: [-63.155242483321686, -37.713092566214875],
         zoom: 1,
       });
+
+      // let draw;
 
       map.on("load", () => {
         setMap(map);
@@ -60,12 +62,15 @@ const MapasLotes = () => {
               trash: true,
             },
             userProperties: true,
-            
+
           });
           map.addControl(draw);
-          
+
         }
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+
+
 
         //!
         if (importarArchivo) {
@@ -264,6 +269,8 @@ const MapasLotes = () => {
       //* geometria dibujada para subir a data base
       map.on("draw.create", (e) => {
         const coordinates = e.features[0].geometry.coordinates[0];
+        // dea = e.features[0].geometry.coordinates[0];
+        // console.log("coordenadas dea: ", dea);
         const formattedCoordinates = JSON.stringify(
           coordinates,
           (key, value) => {
@@ -276,9 +283,30 @@ const MapasLotes = () => {
         console.log("coordenadas a subir a db: ", formattedCoordinates);
         setValorGeoJSON(formattedCoordinates);
       });
+
+
+
+      map.on("draw.update", (e) => {
+        const features = e.features;
+        const coordinates = features[0].geometry.coordinates[0];
+
+        const formattedCoordinates = JSON.stringify(coordinates, (key, value) => {
+          if (typeof value === "number") {
+            return value.toFixed(6);
+          }
+          return value;
+        }).replace(/"/g, "");
+
+        console.log("coordenadas cambiadas: ", formattedCoordinates);
+        setValorGeoJSON(formattedCoordinates);
+      });
+
+
+
     };
     if (!map) initializeMap({ setMap, mapContainer });
   });
+
 
 
 

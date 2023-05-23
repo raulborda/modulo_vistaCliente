@@ -62,7 +62,7 @@ const MapasLotesEditar = () => {
                     controls: {
                         polygon: true,
                         point: true,
-                        trash: true,
+                        trash: false,
                     },
                 });
                 map.addControl(draw);
