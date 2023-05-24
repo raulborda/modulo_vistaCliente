@@ -118,6 +118,8 @@ const CardInsumos = () => {
     const [porcentajeColorAcopio, setPorcentajeColorAcopio] = useState('');
     const [valorPropias, setValorPropias] = useState(0);
     const [valorAlquiladas, setValorAlquiladas] = useState(0);
+    const [insumoEstimado, setInsumoEstimado] = useState(0);
+    const [acopioEncuesta, setAcopioEncuesta] = useState(0);
     // setCardSelected(0);
 
 
@@ -301,8 +303,8 @@ const CardInsumos = () => {
                 const data = resp.substring(resp.indexOf('['));
                 var objetoData = JSON.parse(data);
                 setInfoInsumoTotal(objetoData);
-                // console.log('infoInsumoTotal: ', infoInsumoTotal);
-                // console.log('objetoData - infoInsumoTotal: ', objetoData);
+                console.log('infoInsumoTotal: ', infoInsumoTotal);
+                console.log('objetoData - infoInsumoTotal: ', objetoData);
             });
         });
     }
@@ -707,6 +709,10 @@ const CardInsumos = () => {
 
         setInsumoTotal(totalInsumos);
         setInsumoTotalAA(totalCosechaAnteriorInsumoTotal);
+
+        const estimadoInsumos = filteredInfoInsumoTotal ? parseInt(filteredInfoInsumoTotal.Estimado) : 0;
+
+        setInsumoEstimado(estimadoInsumos);
         //! FIN - INSUMOS
 
         //! INICIO - ACOPIO TT
@@ -715,6 +721,10 @@ const CardInsumos = () => {
 
         const selectCosechaAnteriorAcopioTotal = isDataTotal.find((item) => item.cosecha === cosechaAnterior);
         const totalCosechaAnteriorAcopioTotal = selectCosechaAnteriorAcopioTotal ? parseInt(selectCosechaAnteriorAcopioTotal.Entregadas) : 0;
+
+        const encuestaAcopio = filteredInfoAcopioTotal ? parseInt(filteredInfoAcopioTotal.Encuesta) : 0;
+        
+        setAcopioEncuesta(encuestaAcopio);
 
         setAcopioTotal(totalAcopio);
         setAcopioTotalAA(totalCosechaAnteriorAcopioTotal);
@@ -993,7 +1003,7 @@ const CardInsumos = () => {
                                 {coordinates.map((coordinate, index) => (
                                     <Marker key={index} coordinates={coordinate} anchor="bottom" />
                                 ))}
-                                <Button style={{ padding: "5px", margin: '4px'}} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
+                                <Button style={{ padding: "5px", margin: '4px' }} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
                             </Map>
                             {/* <MapasLotes
                                 style={{
@@ -1017,7 +1027,7 @@ const CardInsumos = () => {
                     style={cardStyle2} onClick={() => handleClick(1)}
                 >
                     <Row gutter={16} >
-                        <Col span={16}>
+                        <Col span={8}>
                             <Row style={{ width: '100%' }}>
                                 <Statistic
                                     title="Insumos"
@@ -1049,6 +1059,39 @@ const CardInsumos = () => {
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Campaña anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
                             </div>
+                        </Col>
+                        <Col span={4}>
+                            {/* <Row style={{ width: '100%' }}> */}
+                            <Row style={{ width: '100%' }}>
+                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
+                                <Statistic
+                                    title="Estimado: "
+                                    value={insumoEstimado ? insumoEstimado : 0}
+                                    // value={350000}
+                                    // style={{
+                                    //     display: 'flex',
+                                    //     flexDirection: 'column',
+                                    //     marginTop: '0px',
+                                    //     // fontSize:'15px'
+                                    // }}
+                                    // valueStyle={{
+                                    //     fontSize: '18px',
+                                    //     fontWeight: 'bold',
+                                    //     marginLeft: '5px',
+                                    //     marginTop: '-10px'
+                                    // }}
+                                    valueStyle={{
+                                        fontSize: '35px',
+                                        fontWeight: 'bold',
+                                        marginTop: '-20px',
+                                        textAlign: 'right'
+                                    }}
+                                    formatter={formatter}
+                                    className="statistic"
+                                    layout="horizontal"
+                                />
+                                {/* </div> */}
+                            </Row>
                         </Col>
                         <Col span={6}>
                             <div style={{ marginTop: '-10px' }}>
@@ -1094,7 +1137,7 @@ const CardInsumos = () => {
                     style={cardStyle3} onClick={() => handleClick(2)}
                 >
                     <Row gutter={16} >
-                        <Col span={16}>
+                        <Col span={8}>
                             <Row style={{ width: '100%' }}>
                                 <Statistic
                                     title="Acopio TT"
@@ -1126,6 +1169,39 @@ const CardInsumos = () => {
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Cosecha anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
                             </div>
+                        </Col>
+                        <Col span={4}>
+                            {/* <Row style={{ width: '100%' }}> */}
+                            <Row style={{ width: '100%' }}>
+                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
+                                <Statistic
+                                    title="Encuesta: "
+                                    value={acopioEncuesta ? acopioEncuesta : 0}
+                                    // value={350000}
+                                    // style={{
+                                    //     display: 'flex',
+                                    //     flexDirection: 'column',
+                                    //     marginTop: '0px',
+                                    //     // fontSize:'15px'
+                                    // }}
+                                    // valueStyle={{
+                                    //     fontSize: '18px',
+                                    //     fontWeight: 'bold',
+                                    //     marginLeft: '5px',
+                                    //     marginTop: '-10px'
+                                    // }}
+                                    valueStyle={{
+                                        fontSize: '35px',
+                                        fontWeight: 'bold',
+                                        marginTop: '-20px',
+                                        textAlign: 'right'
+                                    }}
+                                    formatter={formatter}
+                                    className="statistic"
+                                    layout="horizontal"
+                                />
+                                {/* </div> */}
+                            </Row>
                         </Col>
                         <Col span={6}>
                             <div style={{ marginTop: '-10px' }}>

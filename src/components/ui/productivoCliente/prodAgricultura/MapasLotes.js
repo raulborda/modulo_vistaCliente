@@ -43,8 +43,9 @@ const MapasLotes = () => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/satellite-streets-v11",
-        center: [-63.155242483321686, -37.713092566214875],
-        zoom: 1,
+        // center: [-63.155242483321686, -37.713092566214875],
+        center: [-63.1617707, -35.004224],
+        zoom: 5,
       });
 
       // let draw;
@@ -52,7 +53,7 @@ const MapasLotes = () => {
       map.on("load", () => {
         setMap(map);
         map.resize();
-        //* instancia herramientas
+        //* instancia herramientas35.004224
         if (showFormAgregar && !importarArchivo) {
           const draw = new MapboxDraw({
             displayControlsDefault: false,

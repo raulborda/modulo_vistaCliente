@@ -118,12 +118,12 @@ const AgregarLotes = () => {
     return hectareasRedoneada;
   }
 
-  function calcularPerimetro(coordenadas) {
-    const poligono = polygon([coordenadas]);
-    const perimetroEnMetros = length(poligono, { units: "meters" });
-    const perimetroRedondeado = perimetroEnMetros.toFixed(2);
-    return perimetroRedondeado;
-  }
+  // function calcularPerimetro(coordenadas) {
+  //   const poligono = polygon([coordenadas]);
+  //   const perimetroEnMetros = length(poligono, { units: "meters" });
+  //   const perimetroRedondeado = perimetroEnMetros.toFixed(2);
+  //   return perimetroRedondeado;
+  // }
   useEffect(() => {
     if (valorGeoJSON.length > 0) {
       const hectareasDibujadas = calcularHectareasDibujadas(valorGeoJSON);
@@ -143,7 +143,7 @@ const AgregarLotes = () => {
     if (coordFiltradas.length > 0) {
       setHas(calcularHectareas(coordFiltradas));
       // setHasDibujada(calcularHectareas(valorGeoJSON));
-      setPerimetro(calcularPerimetro(coordFiltradas));
+      // setPerimetro(calcularPerimetro(coordFiltradas));
     }
   }, [controlDatosArchivo])
 
@@ -459,7 +459,7 @@ const AgregarLotes = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Por favor selecciona un cliente",
+                          message: "Por favor selecciona un campo",
                         },
                       ]}
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
@@ -491,13 +491,38 @@ const AgregarLotes = () => {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
                     paddingBottom: "5px",
                   }}
                 >
+                  <div style={{ display: 'flex', flexDirection: 'row' }} >
+                    <Form.Item
+                      name="condicion"
+                      label="Condición"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Por favor selecciona una condición",
+                        },
+                      ]}
+                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
+                    >
+                      <Select
+                        style={{
+                          width: "200px",
+                          // marginRight: "15px",
+                          marginLeft: '17px',
+                        }}
+                      >
+                        <Option value="1">PROPIO</Option>
+                        <Option value="2">ALQUILADO</Option>
+                      </Select>
+                    </Form.Item>
+                  </div>
+
                   <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }} >
 
-                    <Form.Item
+                    {/* <Form.Item
                       name="cliente"
                       label="Cliente"
                       rules={[
@@ -530,7 +555,7 @@ const AgregarLotes = () => {
                             </Select.Option>
                           ))}
                       </Select>
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item
                       name="participacion"
                       label="Participación"
@@ -541,37 +566,14 @@ const AgregarLotes = () => {
                         },
                       ]}
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                      style={{ marginRight: "10px" }}
+                      style={{ marginRight: "10px", marginLeft: '15px' }}
                       initialValue={100}
                     >
                       <Input style={{ width: "85px" }} addonAfter="%" />
                     </Form.Item>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'row' }} >
-                    <Form.Item
-                      name="condicion"
-                      label="Condición"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Por favor selecciona una condición",
-                        },
-                      ]}
-                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                    >
-                      <Select
-                        style={{
-                          width: "200px",
-                          // marginRight: "15px",
-                          marginLeft: '17px',
-                        }}
-                      >
-                        <Option value="1">PROPIO</Option>
-                        <Option value="2">ALQUILADO</Option>
-                      </Select>
-                    </Form.Item>
-                  </div>
+
 
                 </div>
 
