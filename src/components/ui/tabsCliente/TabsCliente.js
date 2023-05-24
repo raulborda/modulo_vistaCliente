@@ -65,7 +65,7 @@ const TabsCliente = () => {
     }
   }, []);
 
-  console.log(infoCliSelect.cli_nombre);
+  console.log(infoCliSelect);
 
   const items = [
     {
