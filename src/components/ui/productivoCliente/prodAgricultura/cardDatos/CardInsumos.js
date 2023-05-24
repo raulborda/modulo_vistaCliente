@@ -893,7 +893,7 @@ const CardInsumos = () => {
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-10px' }}>
-                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Cosecha anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
@@ -1046,7 +1046,7 @@ const CardInsumos = () => {
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
-                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Campaña anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
@@ -1123,7 +1123,7 @@ const CardInsumos = () => {
                                 />
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
-                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Cosecha anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
