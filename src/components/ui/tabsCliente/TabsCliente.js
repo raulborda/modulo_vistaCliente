@@ -70,7 +70,7 @@ const TabsCliente = () => {
         });
       });
     }
-  }, []);
+  }, [idCliente]);
 
   console.log(infoCliSelect);
 
