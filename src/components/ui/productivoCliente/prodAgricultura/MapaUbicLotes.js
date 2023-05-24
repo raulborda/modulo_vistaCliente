@@ -50,8 +50,8 @@ const MapaUbicLotes = () => {
             const map = new mapboxgl.Map({
                 container: mapContainer.current,
                 style: "mapbox://styles/mapbox/satellite-streets-v11",
-                center: [-63.155242483321686, -37.713092566214875],
-                zoom: 1,
+                center: [-63.1617707, -35.004224],
+                zoom: 5,
             });
 
             map.on("load", () => {
