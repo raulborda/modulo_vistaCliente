@@ -56,6 +56,13 @@ const AgregarLotes = () => {
     onDrop: (acceptedFiles) => {
       const file = acceptedFiles[0];
       const reader = new FileReader();
+
+      if (!file.name.toLowerCase().endsWith(".kml")) {
+        console.error("Por favor, selecciona un archivo con extensión .kml");
+        message.error("Ingrese unicamente archivos .kml");
+        return;
+      }
+
       reader.onload = (e) => {
         const kmlData = e.target.result;
 
@@ -656,6 +663,8 @@ const AgregarLotes = () => {
                         )}
                       </div>
                     </Form.Item> */}
+
+
                     <p style={{ marginLeft: '-180px' }}>Archivo KML : </p>
                     <Form.Item
                       name="kmlFile"
@@ -685,9 +694,11 @@ const AgregarLotes = () => {
                         )}
                       </div>
                     </Form.Item>
+
+
                     {nombreArchivo && (
                       <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '20px' }}>
-                        <PaperClipOutlined  style={{ marginRight: '5px', color: 'green' }} />
+                        <PaperClipOutlined style={{ marginRight: '5px', color: 'green' }} />
                         <p style={{ color: 'green' }}>Nombre Archivo: {nombreArchivo}</p>
                         <CloseOutlined style={{ marginLeft: '5px' }} onClick={limpiezaStates} />
                       </div>

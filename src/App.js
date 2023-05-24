@@ -31,10 +31,11 @@ function App() {
   const [infoEdit, setInfoEdit] = useState({});
 
   //* Id de cliente que se obtine desde local storage
-  // const idC = localStorage.getItem("cliente");
-  //const idC = localStorage.getItem("cliente");
+  const idC = localStorage.getItem("cliente");
+  const [idCliente, setIdCliente] = useState(idC);
+  
   //const idC = 2773;
-  const [idCliente, setIdCliente] = useState(2049);
+  // const [idCliente, setIdCliente] = useState(2049);
 
   //* Id de usuario que se obtiene desde local storage
   //const idUsu = localStorage.getItem("usuario");

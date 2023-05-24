@@ -72,7 +72,8 @@ export const ViewGeneral = () => {
       }
     
       useEffect(() => {
-        cosechas('2049')
+        // cosechas('2049');
+        cosechas(idCliente);
         // console.log('objetoData: ', objetoData)
         
     }, [])

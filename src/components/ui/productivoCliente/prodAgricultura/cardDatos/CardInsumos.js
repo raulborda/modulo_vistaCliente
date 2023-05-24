@@ -260,8 +260,8 @@ const CardInsumos = () => {
     }
 
     useEffect(() => {
-        InfoGrafEvol('2049');
-        // InfoGrafEvol(idCliente);
+        // InfoGrafEvol('2049');
+        InfoGrafEvol(idCliente);
     }, [])
 
     useEffect(() => {
