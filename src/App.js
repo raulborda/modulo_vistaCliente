@@ -36,6 +36,9 @@ function App() {
   // const idC = 2094;
   const [idCliente, setIdCliente] = useState(idC);
 
+  const [infoCliSelect, setInfoCliSelect] = useState(null)
+
+
   //* Id de usuario que se obtiene desde local storage
   //const idUsu = localStorage.getItem("usuario");
   const [usu, setUsu] = useState(1);
@@ -113,6 +116,8 @@ function App() {
         setCosechaAnterior,
         idCliente,
         setIdCliente,
+        infoCliSelect, 
+        setInfoCliSelect,
         infoCosechas,
         setCosechas,
 

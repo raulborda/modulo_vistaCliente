@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, Drawer, Modal, Select, Space, Tabs, Tag } from "antd";
+import { Drawer, Select, Space, Tabs, Tag } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -9,7 +9,7 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined, MailFilled, PhoneFilled, UserAddOutlined, UserOutlined } from "@ant-design/icons";
+import { EyeOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
 
 const TabsCliente = () => {
 
@@ -19,17 +19,12 @@ const TabsCliente = () => {
     appStage,
     setAppStage,
     idCliente,
-    setIdCliente,
     selectedAcosDesc,
     setSelectedAcosDesc,
-    cosechaAnterior,
     setCosechaAnterior,
-
-    infoCosechas,
-    setCosechas,
-
-    listCosechas, setListCosechas,
-    cosechaA, setCosechaA,
+    listCosechas,
+    infoCliSelect, 
+    setInfoCliSelect,
 
   } = useContext(GlobalContext);
 
@@ -64,7 +59,7 @@ const TabsCliente = () => {
         response.text().then((resp) => {
           const data = resp;
           const objetoData = JSON.parse(data);
-          console.log(objetoData);
+          setInfoCliSelect(objetoData);
         });
       });
     }
@@ -185,7 +180,7 @@ const TabsCliente = () => {
                 color: '#444'
               }}
             >
-              ACONCAGUA S.R.L
+              {infoCliSelect[0].cli_nombre}
             </h1>
             <EyeOutlined
               style={{
@@ -197,7 +192,7 @@ const TabsCliente = () => {
               onClick={() => showDrawer()}
             />
             <Drawer
-              title="ACONCAGUA S.R.L."
+              title={infoCliSelect[0].cli_nombre}
               placement={placement}
               closable={false}
               onClose={onClose}
