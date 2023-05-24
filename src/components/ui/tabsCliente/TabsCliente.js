@@ -53,6 +53,22 @@ const TabsCliente = () => {
   }, [])
 
 
+  useEffect(() => {
+    if (idCliente) {
+      const data = new FormData();
+      data.append("idCli", idCliente);
+      fetch(`${URL}infoCliSelect.php`, {
+        method: "POST",
+        body: data,
+      }).then(function (response) {
+        response.text().then((resp) => {
+          const data = resp;
+          const objetoData = JSON.parse(data);
+          console.log(objetoData);
+        });
+      });
+    }
+  }, []);
 
   const items = [
     {
