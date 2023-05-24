@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { GlobalContext } from '../../context/GlobalContext';
 
 export const FinanzasCliente = () => {
   const PORT = window.location.port ? window.location.port : 80;
@@ -6,13 +7,17 @@ export const FinanzasCliente = () => {
   const HOSTNAME = window.location.hostname;
   const URL = `${PROTOCOL}//${HOSTNAME}:${PORT}`;
 
+  const {
+    idCliente,
+  } = useContext(GlobalContext);
+
   //const idCli = localStorage.getItem("cliente");
-  const idCli = 2049;
+  // const idCli = idCliente;
   return (
     <>
       <iframe
             loading="lazy"
-            src={`${URL}/duoc/modulos/finanzas_clientes/?idC=${idCli}`}
+            src={`${URL}/duoc/modulos/finanzas_clientes/?idC=${idCliente}`}
             width={"100%"}
             // height={"770"}
             height={"500"}

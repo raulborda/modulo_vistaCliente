@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
-import { Button, Card, Divider, Form, Input, Select } from "antd";
+import { Button, Card, Divider, Form, Input, Select, Spin, message } from "antd";
 
 const EditarLotes = () => {
   const URL = process.env.REACT_APP_URL;
@@ -26,7 +26,11 @@ const EditarLotes = () => {
     setTipoMapa,
     showTable,
     tipoMapa,
+    spinning, setSpinning,
   } = useContext(GlobalContext);
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (dataEdit) {
@@ -43,22 +47,59 @@ const EditarLotes = () => {
 
 
 
-  const onSubmit = (values) => {
-    const dataE = new FormData();
-    dataE.append("usu", usu);
-    dataE.append("idC", idCliente);
-    dataE.append("idLote", loteId);
-    dataE.append("lote", values.nombre);
-    dataE.append("has", values.has);
-    dataE.append("condicion", values.condicion);
-    dataE.append("participacion", values.participacion);
-    dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
+  // const onSubmit = (values) => {
+  //   const dataE = new FormData();
+  //   dataE.append("usu", usu);
+  //   dataE.append("idC", idCliente);
+  //   dataE.append("idLote", loteId);
+  //   dataE.append("lote", values.nombre);
+  //   dataE.append("has", values.has);
+  //   dataE.append("condicion", values.condicion);
+  //   dataE.append("participacion", values.participacion);
+  //   dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
 
-    fetch(`${URL}client_editLote.php`, {
-      method: "POST",
-      body: dataE,
-    }).then(function (response) {
-      response.text().then((resp) => {
+  //   fetch(`${URL}client_editLote.php`, {
+  //     method: "POST",
+  //     body: dataE,
+  //   }).then(function (response) {
+  //     response.text().then((resp) => {
+  //       const dataResp = resp;
+  //       // console.log(dataResp);
+  //       // Llamar a la función para almacenar los datos actualizados en localStorage
+  //       handleTableUpdate(values);
+  //       // Restablecer el estado de edición o cerrar el formulario de edición
+  //       setShowEdit(false);
+  //       // Actualizar el estado para indicar que la tabla ha sido actualizada
+  //       setIsTableUpdated(true);
+  //       setSelectedLote(null);
+  //       setShowTable(true);
+  //       setC(false);
+  //       setTipoMapa(0)
+  //     });
+  //   });
+  // };
+
+  const onSubmit = async (values) => {
+    setLoading(true);
+
+    try {
+      const dataE = new FormData();
+      dataE.append("usu", usu);
+      dataE.append("idC", idCliente);
+      dataE.append("idLote", loteId);
+      dataE.append("lote", values.nombre);
+      dataE.append("has", values.has);
+      dataE.append("condicion", values.condicion);
+      dataE.append("participacion", values.participacion);
+      dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
+
+      const response = await fetch(`${URL}client_editLote.php`, {
+        method: "POST",
+        body: dataE,
+      });
+
+      if (response.ok) {
+        const resp = await response.text();
         const dataResp = resp;
         // console.log(dataResp);
         // Llamar a la función para almacenar los datos actualizados en localStorage
@@ -70,9 +111,17 @@ const EditarLotes = () => {
         setSelectedLote(null);
         setShowTable(true);
         setC(false);
-        setTipoMapa(0)
-      });
-    });
+        setTipoMapa(0);
+        message.success("Lote editado exitosamente");
+      } else {
+        throw new Error("Error al editar el lote");
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+      message.error("Error al editar lote");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleTableUpdate = (updatedData) => {
@@ -87,7 +136,13 @@ const EditarLotes = () => {
 
   return (
     <>
-      { tipoMapa === 1 &&
+      {/* Renderizar el spin si loading es true */}
+      {/* {loading && <Spin />} */}
+
+      {/* Renderizar el componente de mensaje */}
+      {contextHolder}
+
+      {tipoMapa === 1 &&
 
         <Card
           style={{
@@ -98,6 +153,7 @@ const EditarLotes = () => {
             marginRight: "10px",
           }}
         >
+          {/* <Spin spinning={loading}> */}
           <Form
             form={form}
             onFinish={onSubmit}
@@ -179,7 +235,7 @@ const EditarLotes = () => {
                   label="Participacion"
                   style={{ fontSize: "13px", fontWeight: "bold" }}
                 >
-                  <Input style={{ width: "80px" }} addonAfter="%" />
+                  <Input style={{ width: "85px" }} addonAfter="%" />
                 </Form.Item>
               </div>
             </div>
@@ -213,6 +269,7 @@ const EditarLotes = () => {
               </Button>
             </div>
           </Form>
+          {/* </Spin> */}
         </Card>
       }
     </>

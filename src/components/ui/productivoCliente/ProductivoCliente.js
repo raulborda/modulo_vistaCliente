@@ -1,13 +1,20 @@
 import { Card, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './productivoCliente.css';
 import { ProductivoAgricultura } from './prodAgricultura/ProductivoAgricultura';
 // import { ProductivoAgricultura } from './ProductivoAgricultura';
 import { ProductivoGanaderia } from './ProductivoGanaderia';
+import { GlobalContext } from '../../context/GlobalContext';
 
 
 const ProductivoCliente = () => {
+  const {
+    setShowFormAgregar,
+    setShowTable,
+    setShowEdit,
+    setImportarArchivo,
+  } = useContext(GlobalContext);
 
   const [itemPesaña, setItemPesaña] = useState(0)
 
@@ -42,6 +49,14 @@ const ProductivoCliente = () => {
         break;
       case "1":
         setItemPesaña(1);
+
+        //*Estos estados son para que se muestre el componente Lotes como cuando se inicia
+        setShowFormAgregar(false);
+        setImportarArchivo(false);
+        setShowTable(false);
+        setShowEdit(false);
+        //* ----------------------
+
         break;
       default:
         setItemPesaña(0);

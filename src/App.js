@@ -93,7 +93,8 @@ function App() {
   const [importarArchivo, setImportarArchivo] = useState(false);
   const [agregarLote, setAgregarLote] = useState(false);
   const [coordenadasArchivo, setCoordenadasArchivo] = useState([]);
-  
+  const [limpiarStates, setLimpiarStates] = useState(false);
+  const [spinning, setSpinning] = useState(false);
   return (
     <GlobalContext.Provider
       value={{
@@ -207,6 +208,8 @@ function App() {
         importarArchivo, setImportarArchivo,
         agregarLote, setAgregarLote,
         coordenadasArchivo, setCoordenadasArchivo,
+        limpiarStates, setLimpiarStates,
+        spinning, setSpinning,
       }}
     >
       <ApolloProvider client={client}>

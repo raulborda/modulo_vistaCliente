@@ -4,6 +4,7 @@
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import {
+  ArrowLeftOutlined,
   EditOutlined,
   PlusOutlined,
   PushpinFilled,
@@ -18,6 +19,7 @@ import {
   Input,
   Popover,
   Select,
+  Spin,
   Table,
 } from "antd";
 import { TbPolygon } from 'react-icons/tb';
@@ -64,6 +66,8 @@ export const ProductivoAgricultura = () => {
     importarArchivo, setImportarArchivo,
     agregarLote, setAgregarLote,
     coordenadasArchivo, setCoordenadasArchivo,
+    limpiarStates, setLimpiarStates,
+    spinning, setSpinning
   } = useContext(GlobalContext);
 
 
@@ -79,17 +83,18 @@ export const ProductivoAgricultura = () => {
   };
 
   const abrirFormAgregar = () => {
+    setLimpiarStates(true);
     setImportarArchivo(false);
     setFilaSeleccionada(null);
-    if(importarArchivo && showFormAgregar){
-        setShowFormAgregar(true);
-    }else{
-        setShowFormAgregar(!showFormAgregar);
+    if (importarArchivo && showFormAgregar) {
+      setShowFormAgregar(true);
+    } else {
+      setShowFormAgregar(!showFormAgregar);
     }
     // setShowFormAgregar(!showFormAgregar);
     setShowTable(false);
     setTipoMapa(0);
-    
+
     setAgregarLote(true);
     console.log('showFormAgregar: ', showFormAgregar);
     console.log('AgregarLote: ', agregarLote);
@@ -97,16 +102,18 @@ export const ProductivoAgricultura = () => {
   };
 
   const abrirImportarArchivo = () => {
+    setLimpiarStates(true);
     setFilaSeleccionada(null);
-    if(!importarArchivo && showFormAgregar){
-        setShowFormAgregar(true);
-    }else{
-        setShowFormAgregar(!showFormAgregar);
+    if (!importarArchivo && showFormAgregar) {
+      setShowFormAgregar(true);
+    } else {
+      setShowFormAgregar(!showFormAgregar);
     }
     setShowTable(false);
     setTipoMapa(0);
     setAgregarLote(false);
     setImportarArchivo(true);
+
     console.log('showFormAgregar: ', showFormAgregar);
     console.log('AgregarLote: ', agregarLote);
     console.log('ImportarArchivo: ', importarArchivo);
@@ -120,7 +127,7 @@ export const ProductivoAgricultura = () => {
       title: "CAMPO",
       dataIndex: "campo",
       key: "campo",
-      width: 100,
+      width: 20,
       align: "center",
     },
     {
@@ -128,35 +135,35 @@ export const ProductivoAgricultura = () => {
       dataIndex: "nombre",
       key: "nombre",
       align: "center",
-      width: 100,
+      width: 20,
     },
     {
       title: "HAS",
       dataIndex: "has",
       key: "has",
       align: "center",
-      width: 60,
+      width: 10,
     },
     {
-      title: "CONDICION",
+      title: "CONDICIÓN",
       dataIndex: "condicion",
       key: "condicion",
       align: "center",
-      width: 100,
+      width: 20,
     },
     {
-      title: "PARTICIPACION",
+      title: "PARTICIPACIÓN",
       dataIndex: "participacion",
       key: "participacion",
       align: "center",
-      width: 100,
+      width: 20,
     },
     {
       title: "...",
       dataIndex: "accion",
       key: "accion",
       align: "center",
-      width: 100,
+      width: 10,
       render: (text, record) => (
         <>
           {record.key === filaSeleccionada ? (
@@ -279,6 +286,9 @@ export const ProductivoAgricultura = () => {
     }
   };
 
+  // console.log('data: ', data);
+  // console.log('columns: ', columns);
+
   return (
     <>
       {visible === false ? (
@@ -326,19 +336,40 @@ export const ProductivoAgricultura = () => {
                 alignItems: "center",
               }}
             >
-              <h3>Lotes</h3>
+              <h1
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  fontFamily: "Open Sans, sans-serif",
+                  marginLeft: '10px',
+                  color: '#444'
+                  // marginBottom: "10px",
+                }}
+              >
+                LOTES
+              </h1>
               <Button
-                style={{ marginBottom: "5px" }}
+                style={{ marginBottom: "5px", marginRight: "5px" }}
                 onClick={() => (
                   setVisible(!visible), setShowTable(false), setShowEdit(false)
                 )}
               >
-                Volver
+                <ArrowLeftOutlined /> Volver
               </Button>
             </div>
-            <div style={{}}>
-              {handleStage()}
-            </div>
+            {
+              spinning ?
+                (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Spin tip="Loading..."/>
+                </div>)
+                :
+                (<div>
+                  {handleStage()}
+                </div>)
+            }
+            {/* <div>
+              {spinning ? <Spin tip="Loading..." /> : handleStage()}
+            </div> */}
 
             <div
               style={{
@@ -355,11 +386,12 @@ export const ProductivoAgricultura = () => {
 
               <Popover
                 placement="right"
+                // style={{width: '1000px'}}
                 content={
                   <>
                     <div
                       onClick={() => abrirFormAgregar()}
-                      style={{ display: 'inline-block' }}
+                      style={{ display: 'inline-block', padding: '5px' }}
                     >
                       <a
                         type="primary"
@@ -394,7 +426,7 @@ export const ProductivoAgricultura = () => {
                     <Divider style={{ marginTop: '0px', marginBottom: '0px' }} />
                     <div
                       onClick={() => abrirImportarArchivo()}
-                      style={{ display: 'inline-block' }}
+                      style={{ display: 'inline-block', padding: '5px' }}
                     >
                       <a
                         type="primary"
@@ -439,12 +471,13 @@ export const ProductivoAgricultura = () => {
             </div>
 
             {showTable && (
-              <div style={{ width: '99%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              // <div style={{ width: '100%', bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <Card
                   style={{
-                    width: "60%",
+                    width: "100%",
                     height: "30%",
-                    marginTop: "13%",
+                    // marginTop: "13%",
                     marginLeft: "10px",
                     marginRight: "10px",
                   }}
@@ -459,13 +492,13 @@ export const ProductivoAgricultura = () => {
             )}
 
             {showFormAgregar && (
-              <div style={{ position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <AgregarLotes />
               </div>
             )}
 
             {showEdit && (
-              <div style={{ position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <EditarLotes />
               </div>
             )}
