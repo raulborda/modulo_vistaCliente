@@ -66,7 +66,7 @@ const TabsCliente = () => {
   }, []);
 
   console.log(infoCliSelect);
-  //console.log(infoCliSelect[0].cli_nombre);
+  
 
   const items = [
     {
@@ -183,7 +183,8 @@ const TabsCliente = () => {
                 color: '#444'
               }}
             >
-              A
+             {infoCliSelect.length > 0 && (
+              infoCliSelect[0].cli_nombre)}
             </h1>
             <EyeOutlined
               style={{
@@ -195,7 +196,8 @@ const TabsCliente = () => {
               onClick={() => showDrawer()}
             />
             <Drawer
-              title="A"
+              title={infoCliSelect.length > 0 && (
+                infoCliSelect[0].cli_nombre)}
               placement={placement}
               closable={false}
               onClose={onClose}
