@@ -59,8 +59,8 @@ const MapasLotes = () => {
             displayControlsDefault: false,
             controls: {
               polygon: true,
-              point: true,
-              trash: true,
+              point: false,
+              trash: false,
             },
             userProperties: true,
 

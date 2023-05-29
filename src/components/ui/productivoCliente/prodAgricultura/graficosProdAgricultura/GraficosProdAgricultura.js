@@ -76,48 +76,6 @@ const GraficosProdAgricultura = () => {
         },
     ];
 
-    const dataTable = [
-        {
-            key: '1',
-            categoria: 'AGRICULTURA',
-            propias: 1500,
-            alquiler: 2000,
-            total: 3500,
-            porcentaje: '50%'
-        },
-        {
-            key: '2',
-            categoria: 'GANADERIA',
-            propias: 1500,
-            alquiler: 2000,
-            total: 3500,
-            porcentaje: '50%'
-        },
-        {
-            key: '3',
-            categoria: 'TAMBO',
-            propias: 1500,
-            alquiler: 2000,
-            total: 3500,
-            porcentaje: '50%'
-        },
-        {
-            key: '3',
-            categoria: 'MIXTO',
-            propias: 1500,
-            alquiler: 2000,
-            total: 3500,
-            porcentaje: '50%'
-        },
-        {
-            key: '3',
-            categoria: 'TOTAL',
-            propias: 1500,
-            alquiler: 2000,
-            total: 3500,
-            porcentaje: '50%'
-        },
-    ];
 
     var result = {};
     let capacidad = [];
@@ -151,8 +109,13 @@ const GraficosProdAgricultura = () => {
                 alquiler: result.AGRICULTURA ? Math.trunc(result.AGRICULTURA.alquilado) : 0,
                 total: result.AGRICULTURA ? parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado) : 0,
                 // porcentaje: result.AGRICULTURA ? (((result.AGRICULTURA ? (parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
-                porcentaje: result.AGRICULTURA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
-
+                // porcentaje: result.AGRICULTURA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
+                porcentaje: result.AGRICULTURA ?
+                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                    (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) /
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                    0 + '%' :
+                0 + '%'
             },
             {
                 key: 2,
@@ -161,7 +124,13 @@ const GraficosProdAgricultura = () => {
                 alquiler: result.GANADERIA ? Math.trunc(result.GANADERIA.alquilado) : 0,
                 total: result.GANADERIA ? parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado) : 0,
                 // porcentaje: result.GANADERIA ? (((result.GANADERIA ? (parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
-                porcentaje: result.AGRICULTURA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
+                // porcentaje: result.GANADERIA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
+                porcentaje: result.GANADERIA ?
+                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                    (((parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado)) /
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                    0 + '%' :
+                0 + '%'
             },
             {
                 key: 3,
@@ -170,7 +139,13 @@ const GraficosProdAgricultura = () => {
                 alquiler: result.TAMBO ? Math.trunc(result.TAMBO.alquilado) : 0,
                 total: result.TAMBO ? parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado) : 0,
                 // porcentaje: result.TAMBO ? (((result.TAMBO ? (parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
-                porcentaje: result.AGRICULTURA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
+                // porcentaje: result.TAMBO ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
+                porcentaje: result.TAMBO ?
+                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                    (((parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado)) /
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                    0 + '%' :
+                0 + '%'
             },
             {
                 key: 4,
@@ -179,7 +154,13 @@ const GraficosProdAgricultura = () => {
                 alquiler: result.MIXTO ? Math.trunc(result.MIXTO.alquilado) : 0,
                 total: result.MIXTO ? parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado) : 0,
                 // porcentaje: result.MIXTO ? (((result.MIXTO ? (parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
-                porcentaje: result.AGRICULTURA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
+                // porcentaje: result.MIXTO ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
+                porcentaje: result.MIXTO ?
+                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                    (((parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado)) /
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                    0 + '%' :
+                0 + '%'
             },
             {
                 key: 5,
@@ -195,7 +176,11 @@ const GraficosProdAgricultura = () => {
                 propias: <strong>{Math.trunc(infoCap[0].ahxs_propias)}</strong>,
                 alquiler: <strong>{Math.trunc(infoCap[0].ahxs_alquiladas)}</strong>,
                 total: <strong>{parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)}</strong>,
-                porcentaje: <strong>{(parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'}</strong>
+                // porcentaje: <strong>{(parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'}</strong>
+                porcentaje: <strong>{(parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                    (((parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) /
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) * 100).toFixed(0)) :
+                    0}% </strong>,
             },
         ];
 
@@ -203,11 +188,6 @@ const GraficosProdAgricultura = () => {
         // console.log('result: ', result);
         return result;
     };
-
-
-
-
-
 
     const handleStage = () => {
         switch (cardSelected) {
@@ -228,23 +208,13 @@ const GraficosProdAgricultura = () => {
             default:
                 return (
                     <GraficoEvolucionProductiva porcentajes={capacidad} />
-                    // <Table
-                    //     columns={columns}
-                    //     dataSource={dataTable} //Original
-                    //     pagination={false}
-                    // />
                 );
         }
     };
 
     const verGrafico = () => {
-        // if (iconTable === false) {
-        //     setCardSelected(0)
-        //     setIconTable(!iconTable);
-        // } else {
         setCardSelected(0)
         setIconTable(!iconTable);
-        // }
     }
 
 
