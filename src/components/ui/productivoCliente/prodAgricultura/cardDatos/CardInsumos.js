@@ -723,7 +723,7 @@ const CardInsumos = () => {
         const totalCosechaAnteriorAcopioTotal = selectCosechaAnteriorAcopioTotal ? parseInt(selectCosechaAnteriorAcopioTotal.Entregadas) : 0;
 
         const encuestaAcopio = filteredInfoAcopioTotal ? parseInt(filteredInfoAcopioTotal.Encuesta) : 0;
-        
+
         setAcopioEncuesta(encuestaAcopio);
 
         setAcopioTotal(totalAcopio);
@@ -912,27 +912,20 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
                                 <Statistic
-                                    title="Propias: "
+                                    title="Propias"
                                     value={valorPropias ? valorPropias : 0}
-                                    // value={350000}
-                                    // style={{
-                                    //     display: 'flex',
-                                    //     flexDirection: 'column',
-                                    //     marginTop: '0px',
-                                    //     // fontSize:'15px'
-                                    // }}
-                                    // valueStyle={{
-                                    //     fontSize: '18px',
-                                    //     fontWeight: 'bold',
-                                    //     marginLeft: '5px',
-                                    //     marginTop: '-10px'
-                                    // }}
                                     valueStyle={{
-                                        fontSize: '35px',
+                                        fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
                                         textAlign: 'right'
                                     }}
+                                    // style={{
+                                    //     fontSize: '10px !important',  // Tamaño del título
+                                    //     display: 'flex',
+                                    //     flexDirection: 'column',
+                                    //     marginTop: '0px'
+                                    // }}
                                     formatter={formatter}
                                     className="statistic"
                                     layout="horizontal"
@@ -945,21 +938,10 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
                                 <Statistic
-                                    title="Alquiladas:"
+                                    title="Alquiladas"
                                     value={valorAlquiladas ? valorAlquiladas : 0}
-                                    // value={350000}
-                                    // style={{
-                                    //     display: 'flex',
-                                    //     flexDirection: 'column',
-                                    // }}
-                                    // valueStyle={{
-                                    //     fontSize: '18px',
-                                    //     fontWeight: 'bold',
-                                    //     marginLeft: '5px',
-                                    //     marginTop: '-10px'
-                                    // }}
                                     valueStyle={{
-                                        fontSize: '35px',
+                                        fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
                                         textAlign: 'right'
@@ -1005,20 +987,7 @@ const CardInsumos = () => {
                                 ))}
                                 <Button style={{ padding: "5px", margin: '4px' }} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
                             </Map>
-                            {/* <MapasLotes
-                                style={{
-                                    height: '100%',
-                                    width: '100%',
-                                    borderRadius: '6px',
-                                }} />
-                            <Button style={{ padding: "1px", margin: '4px' }} onClick={() => setVisible(!visible)}>Ver Lotes</Button> */}
-
                         </Col>
-                        {/* <Col span={1} >
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '35px', marginLeft: '-10px' }}>
-                                <EnvironmentOutlined title='Lotes' className='btnEnvironmentOutlined' />
-                            </div>
-                        </Col> */}
                     </Row>
                 </Card>
             </div>
@@ -1027,16 +996,16 @@ const CardInsumos = () => {
                     style={cardStyle2} onClick={() => handleClick(1)}
                 >
                     <Row gutter={16} >
-                        <Col span={8}>
+                        <Col span={11}>
                             <Row style={{ width: '100%' }}>
                                 <Statistic
-                                    title="Insumos"
+                                    title="Insumos U$S"
                                     value={insumoTotal ? insumoTotal : 0}
                                     valueStyle={{
                                         fontSize: '35px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
-                                        // textAlign: 'right'
+                                        textAlign: 'right'
                                     }}
                                     formatter={formatter}
                                     className="statistic"
@@ -1047,7 +1016,7 @@ const CardInsumos = () => {
                                     valueStyle={{
                                         color: porcentajeColorInsumo,
                                         marginTop: '30px',
-                                        marginLeft: '20px',
+                                        marginLeft: '5px',
                                         fontWeight: 'bold',
                                         width: '100%',
                                     }}
@@ -1065,23 +1034,10 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
                                 <Statistic
-                                    title="Estimado: "
+                                    title="Encuesta "
                                     value={insumoEstimado ? insumoEstimado : 0}
-                                    // value={350000}
-                                    // style={{
-                                    //     display: 'flex',
-                                    //     flexDirection: 'column',
-                                    //     marginTop: '0px',
-                                    //     // fontSize:'15px'
-                                    // }}
-                                    // valueStyle={{
-                                    //     fontSize: '18px',
-                                    //     fontWeight: 'bold',
-                                    //     marginLeft: '5px',
-                                    //     marginTop: '-10px'
-                                    // }}
                                     valueStyle={{
-                                        fontSize: '35px',
+                                        fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
                                         textAlign: 'right'
@@ -1093,9 +1049,9 @@ const CardInsumos = () => {
                                 {/* </div> */}
                             </Row>
                         </Col>
-                        <Col span={6}>
+                        {/* <Col span={6}>
                             <div style={{ marginTop: '-10px' }}>
-                                {/* <ResponsiveContainer width="100%" height={100}>
+                                <ResponsiveContainer width="100%" height={100}>
                                     <BarChart
                                         height={100}
                                         data={data}
@@ -1126,9 +1082,9 @@ const CardInsumos = () => {
                                         >
                                         </Bar>
                                     </BarChart>
-                                </ResponsiveContainer> */}
+                                </ResponsiveContainer>
                             </div>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Card>
             </div>
@@ -1137,16 +1093,16 @@ const CardInsumos = () => {
                     style={cardStyle3} onClick={() => handleClick(2)}
                 >
                     <Row gutter={16} >
-                        <Col span={8}>
+                        <Col span={11}>
                             <Row style={{ width: '100%' }}>
                                 <Statistic
-                                    title="Acopio TT"
+                                    title="Acopio TTTT"
                                     value={acopioTotal ? acopioTotal : 0}
                                     valueStyle={{
                                         fontSize: '35px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
-                                        // textAlign: 'center'
+                                        textAlign: 'right'
                                     }}
                                     formatter={formatter}
                                     className="statistic"
@@ -1158,7 +1114,7 @@ const CardInsumos = () => {
                                         color: porcentajeColorAcopio,
                                         marginTop: '30px',
                                         fontWeight: 'bold',
-                                        marginLeft: '20px',
+                                        marginLeft: '5px',
                                         width: '100%',
                                     }}
                                     prefix="("
@@ -1175,23 +1131,10 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
                                 <Statistic
-                                    title="Encuesta: "
+                                    title="Encuesta"
                                     value={acopioEncuesta ? acopioEncuesta : 0}
-                                    // value={350000}
-                                    // style={{
-                                    //     display: 'flex',
-                                    //     flexDirection: 'column',
-                                    //     marginTop: '0px',
-                                    //     // fontSize:'15px'
-                                    // }}
-                                    // valueStyle={{
-                                    //     fontSize: '18px',
-                                    //     fontWeight: 'bold',
-                                    //     marginLeft: '5px',
-                                    //     marginTop: '-10px'
-                                    // }}
                                     valueStyle={{
-                                        fontSize: '35px',
+                                        fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
                                         textAlign: 'right'
@@ -1203,9 +1146,9 @@ const CardInsumos = () => {
                                 {/* </div> */}
                             </Row>
                         </Col>
-                        <Col span={6}>
-                            <div style={{ marginTop: '-10px' }}>
-                                {/* <ResponsiveContainer width="100%" height={100}>
+                        {/* <Col span={6}>
+                            <div style={{ marginTop: '-10px' }}> */}
+                                {/*0 <ResponsiveContainer width="100%" height={100}>
                                     <BarChart
                                         height={100}
                                         data={data}
@@ -1258,8 +1201,8 @@ const CardInsumos = () => {
                                             </Bar>
                                         </BarChart>
                                     </ResponsiveContainer> */}
-                            </div>
-                        </Col>
+                            {/* </div>
+                        </Col> */}
                     </Row>
                 </Card>
             </div>

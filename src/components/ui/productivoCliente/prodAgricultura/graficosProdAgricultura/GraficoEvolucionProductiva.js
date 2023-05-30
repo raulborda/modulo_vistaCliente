@@ -133,8 +133,6 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
         );
     }
 
-    //console.log(porcentajes[0].porcentaje);
-
     const dataAnillaco = [
         {
             name: "Agricultura",
@@ -165,13 +163,8 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
     /*--------------------------- */
     const verGrafico = () => {
-        // if (iconTable === false) {
         setCardSelected(1)
         setIconTable(!iconTable);
-        // } else {
-        //     setCardSelected(1)
-        //     setIconTable(!iconTable);
-        // }
     }
 
     const formatter = (value, name, props) => {
@@ -210,13 +203,9 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
                                 Ver Tabla
                             </Button>
                         }
-                        {/* {
-                            !iconTable && <TableOutlined title='Tabla' className='iconTableOutlined' onClick={() => { verGrafico(); }} />
-                        } */}
                     </div>
-                    <ResponsiveContainer className="" width="99%" height={/*400*/ 250}>
+                    <ResponsiveContainer className="" width="99%" height={250}>
                         <BarChart
-                            // width={367}
                             height={250}
                             data={dataForChart}
                             margin={{

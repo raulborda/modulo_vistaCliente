@@ -45,40 +45,6 @@ const EditarLotes = () => {
     }
   }, [dataEdit]);
 
-
-
-  // const onSubmit = (values) => {
-  //   const dataE = new FormData();
-  //   dataE.append("usu", usu);
-  //   dataE.append("idC", idCliente);
-  //   dataE.append("idLote", loteId);
-  //   dataE.append("lote", values.nombre);
-  //   dataE.append("has", values.has);
-  //   dataE.append("condicion", values.condicion);
-  //   dataE.append("participacion", values.participacion);
-  //   dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
-
-  //   fetch(`${URL}client_editLote.php`, {
-  //     method: "POST",
-  //     body: dataE,
-  //   }).then(function (response) {
-  //     response.text().then((resp) => {
-  //       const dataResp = resp;
-  //       // console.log(dataResp);
-  //       // Llamar a la función para almacenar los datos actualizados en localStorage
-  //       handleTableUpdate(values);
-  //       // Restablecer el estado de edición o cerrar el formulario de edición
-  //       setShowEdit(false);
-  //       // Actualizar el estado para indicar que la tabla ha sido actualizada
-  //       setIsTableUpdated(true);
-  //       setSelectedLote(null);
-  //       setShowTable(true);
-  //       setC(false);
-  //       setTipoMapa(0)
-  //     });
-  //   });
-  // };
-
   const onSubmit = async (values) => {
     setLoading(true);
 

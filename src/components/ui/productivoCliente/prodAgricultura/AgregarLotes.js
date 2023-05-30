@@ -260,7 +260,7 @@ const AgregarLotes = () => {
         dataAdd.append("lote", values.nombre);
         dataAdd.append("has", values.has);
         dataAdd.append("campo", values.campo);
-        dataAdd.append("cliente", values.cliente);
+        dataAdd.append("cliente", idCliente);
         dataAdd.append("participacion", values.participacion);
         dataAdd.append("condicion", values.condicion);
         dataAdd.append("valorGeoJSON", valorGeoJSON);
@@ -301,7 +301,7 @@ const AgregarLotes = () => {
       dataAdd.append("lote", datosArchivo.Placemark[0].name);
       dataAdd.append("has", has);
       dataAdd.append("campo", values.campo);
-      dataAdd.append("cliente", values.cliente);
+      dataAdd.append("cliente", idCliente);
       dataAdd.append("participacion", values.participacion);
       dataAdd.append("condicion", values.condicion);
       dataAdd.append("valorGeoJSON", JSON.stringify(coordenadasArchivo));
