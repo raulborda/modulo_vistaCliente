@@ -67,6 +67,7 @@ const TabsCliente = () => {
           const objetoData = JSON.parse(data);
           setInfoCliSelect(objetoData);
           setIsLoading(false); // Establecer isLoading en false después de recibir la respuesta
+          //falta cuit, tipo de actividad
         });
       });
     }
