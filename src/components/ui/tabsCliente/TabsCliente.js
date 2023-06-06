@@ -28,19 +28,47 @@ const TabsCliente = () => {
     selectedAcosDesc,
     setSelectedAcosDesc,
     setCosechaAnterior,
+<<<<<<< HEAD
     listCosechas,
     infoCliSelect,
     setInfoCliSelect,
+=======
+
+    infoCosechas,
+    setCosechas,
+
+    listCosechas, setListCosechas,
+    cosechaA, setCosechaA,
+
+    isSelectEditDisabled,
+    cosechaSeleccionada, setCosechaSeleccionada,
+
+>>>>>>> 510fc436e94e95fab26858c31425fc72bb27f6d8
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
     setSelectedAcosDesc(value);
 
     //! INICIO EVOLUCION PRODUCTIVA
+    const selectedCosecha = listCosechas.find((cosecha) => cosecha.acos_desc === value);
+
+    if (selectedCosecha) {
+      const selectedCosechaId = selectedCosecha.acos_id;
+      setCosechaSeleccionada(selectedCosechaId);
+      console.log('acos_id seleccionado: ', selectedCosechaId);
+      // Realiza las operaciones adicionales con el acos_id seleccionado
+    }
+
+
     // Obtener índice del valor seleccionado
+<<<<<<< HEAD
     const selectedIndex = listCosechas.findIndex(
       (cosecha) => cosecha.acos_desc === value
     );
+=======
+    const selectedIndex = listCosechas.findIndex((cosecha) => cosecha.acos_desc === value);
+  
+>>>>>>> 510fc436e94e95fab26858c31425fc72bb27f6d8
 
     // Obtener índice del valor seleccionado que le sigue. Es para el año anterior
     if (selectedIndex >= 0) {
@@ -49,6 +77,7 @@ const TabsCliente = () => {
     }
     //! FIN EVOLUCION PRODUCTIVA
   };
+
 
   useEffect(() => {
     handleSelectChange(selectedAcosDesc);
@@ -72,8 +101,6 @@ const TabsCliente = () => {
       });
     }
   }, [idCliente]);
-
-  console.log(infoCliSelect);
 
   const items = [
     {
@@ -539,6 +566,7 @@ const TabsCliente = () => {
               </Space>
             </div>
           </div>
+<<<<<<< HEAD
           <div className="divContainer-Select-Tabs">
             {/* <Space wrap> */}
             <div style={{ paddingRight: "1px" }}>
@@ -567,6 +595,20 @@ const TabsCliente = () => {
               className="tabs-custom"
               items={items}
               onChange={handleTabClick}
+=======
+        </div>
+        <div className="divContainer-Select-Tabs">
+          {/* <Space wrap> */}
+          <div style={{ paddingRight: "1px" }}>
+            <Select
+              defaultValue={selectedAcosDesc && selectedAcosDesc}
+              style={{
+                width: 97,
+                paddingRight: "5px",
+              }}
+              onChange={handleSelectChange}
+              disabled={isSelectEditDisabled}
+>>>>>>> 510fc436e94e95fab26858c31425fc72bb27f6d8
             >
               {items.map((item) => (
                 <TabPane key={item.key} tab={item.label}>

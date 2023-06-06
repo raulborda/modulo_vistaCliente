@@ -89,3 +89,178 @@
  .ant-form-item {
    margin-bottom: 0px !important;
  }
+
+
+
+/*------Boton editar--------*/
+.btnEditCosecha {
+   margin-left: 10px;
+   border: none;
+   font-size: 18px !important;
+   color: #00b33c;
+   background-color: transparent;
+ }
+ .btnEditCosecha:active {
+   background: none !important;
+   border-color: #ffffff !important;
+ }
+ .btnEditCosecha:disabled {
+   background-color: #ffffff !important;
+ }
+ .ant-btn-default:not(:disabled).btnEditCosecha:hover {
+   color: #8fd14a;
+   border-color: #8fd14a;
+ }
+ /*------Fin boton editar--------*/ 
+
+
+
+/*------Boton agregar--------*/
+.btnAddCosecha {
+   margin-left: auto;
+   margin-right: -2px;
+   border: none;
+   font-size: 18px !important;
+   color: #00b33c;
+   background-color: transparent; 
+ }
+ .ant-btn-default.btnAddCosecha{
+   box-shadow: none;
+   margin-top: 2px;
+   transition: none !important;
+ }
+ .btnAddCosecha:active:hover {
+   background: none !important;
+   border-color: #ffffff !important;
+ }
+ .btnAddCosecha:disabled {
+   background-color: #ffffff !important;
+ }
+ .ant-btn .ant-btn-default .btnAddCosecha:focus{
+   border-color: none !important;
+   box-shadow: none !important;
+ }
+ .ant-btn-default:not(:disabled).btnAddCosecha:hover {
+   /* #8fd14a */
+   color: #8fd14a;
+   border-color: #8fd14a;
+   transition: none;
+ }
+ .ant-btn-default:not(:disabled).btnAddCosecha:focus {
+   color: #8fd14a;
+   border-color: #8fd14a;
+   transition: none;
+   box-shadow: none !important;
+   border: none !important;
+ }
+ .ant-btn-default:not(:disabled).btnAddCosecha:active{
+   box-shadow: none !important;
+   border: none !important;
+ }
+ .btnAddCosecha:focus:not(.focus-visible) {
+   outline: 0;
+ }
+ /*------Fin boton agregar--------*/
+
+
+
+
+ /*! INICIO - TABLA EDITAR  */
+
+ .cont {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+ }
+
+ .celdaRubro{
+   margin: 0px;
+   padding: 0px 2px 0px !important;
+   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+   text-align: start;
+   width: 200px;
+   font-size: 13px !important;
+ }
+
+ .celdaInput {
+   margin: 0px;
+   padding: 0px 2px 8px !important;
+   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+   text-align: start;
+ }
+
+ .inputTable{
+   border-width: 1px;
+   border-style: solid;
+   border-color: #d9d9d9;
+   border-radius: 6px !important;
+   height: 30px !important;
+ } 
+
+ .contBotones{
+   display:flex;
+   flex-direction: row;
+   justify-content:flex-end;
+   margin-top: 5px;
+ }
+
+ .btnAddCosechaData {
+   display: flex;
+   margin-left: auto;
+   background-color: #00b33c;
+   color: #ffffff;
+ }
+ .ant-btn-default:not(:disabled).btnAddCosechaData:hover {
+   color: #ffffff;
+   border-color: #8fd14a;
+ }
+
+
+
+ /*! FIN - TABLA EDITAR CAPACIDAD */
+
+ .divNuevaCapacidad {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .cont {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+} */
+
+.encabezadoVacio{
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  background:#fafafa ;
+  padding: 4px !important;
+  width: 200px;
+}
+
+.encabezados{
+  color: #00b33c;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  background:#fafafa ;
+  padding: 4px !important;
+}
+
+.celdaInputAlquiladas{
+  margin: 0px;
+  padding: 0px 2px 0px 10px !important;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  text-align: start;
+}
+
+.contBotonesNuevaCapacidad{
+  display:flex;
+  flex-direction: row;
+  justify-content:flex-end;
+  margin-top: 5px;
+}
+
+
+ /*! INICIO - TABLA NUEVA CAPACIDAD*/

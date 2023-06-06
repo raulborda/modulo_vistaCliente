@@ -23,6 +23,7 @@ function App() {
   const [infoCosechas, setCosechas] = useState([]);
 
   const [listCosechas, setListCosechas] = useState([]);
+  const [cosechaSeleccionada, setCosechaSeleccionada] = useState(null);
   const [cosechaA, setCosechaA] = useState([]);
 
   const [iconTable, setIconTable] = useState(false);
@@ -32,7 +33,8 @@ function App() {
 
   //* Id de cliente que se obtine desde local storage
   const idC = localStorage.getItem("cliSelect");
-  //const idC = 2049;
+  // const idC = 2049;
+  // const idC = 2083;
   const [idCliente, setIdCliente] = useState(idC);
 
   const [infoCliSelect, setInfoCliSelect] = useState(null)
@@ -46,6 +48,18 @@ function App() {
   const [update, setUpdate] = useState(false);
   const [infoEvo, setInfoEvo] = useState([]);
   const [dataForChart, setDataForChart] = useState([]);
+
+  const [dataContext, setDataContext] = useState({
+    agricultura: "",
+      agriculturaA: "",
+      ganaderia: "",
+      ganaderiaA: "",
+      tambo: "",
+      tamboA: "",
+      mixto: "",
+      mixtoA: "",
+      cosecha: ""
+  });
 
   //GraficoCerealEntregado
   const [infoTotal, setInfoTotal] = useState({});
@@ -97,6 +111,17 @@ function App() {
   const [coordenadasArchivo, setCoordenadasArchivo] = useState([]);
   const [limpiarStates, setLimpiarStates] = useState(false);
   const [spinning, setSpinning] = useState(false);
+
+  const [verCampo, setVerCampo] = useState(false);
+  const [selectedCampoGeojson, setSelectedCampoGeojson] = useState(null);
+
+
+  const [refrescarTable, setRefrescarTable] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonEditDisabled, setIsButtonEditDisabled] = useState(true);
+  const [ca, setCA] = useState(0);
+  const [isSelectEditDisabled, setIsSelectEditDisabled] = useState(false);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -214,6 +239,16 @@ function App() {
         coordenadasArchivo, setCoordenadasArchivo,
         limpiarStates, setLimpiarStates,
         spinning, setSpinning,
+        verCampo, setVerCampo,
+        selectedCampoGeojson, setSelectedCampoGeojson,
+
+        dataContext, setDataContext,
+        refrescarTable, setRefrescarTable,
+        ca, setCA,
+        isButtonEditDisabled, setIsButtonEditDisabled,
+        isSelectEditDisabled, setIsSelectEditDisabled,
+        isButtonDisabled, setIsButtonDisabled,
+        cosechaSeleccionada, setCosechaSeleccionada,
       }}
     >
       <ApolloProvider client={client}>

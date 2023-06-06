@@ -9,6 +9,7 @@ import {
   PlusOutlined,
   PushpinFilled,
   PushpinOutlined,
+  SearchOutlined,
   TableOutlined,
 } from "@ant-design/icons";
 import {
@@ -26,7 +27,7 @@ import { TbPolygon } from 'react-icons/tb';
 import { BiImport } from 'react-icons/bi';
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
-import { GraficosPrueba } from "./GraficosPrueba";
+// import { GraficosEncuestasCultivo } from "./GraficosEncuestasCultivo";
 import CardInsumos from "./cardDatos/CardInsumos.js";
 import { GlobalContext } from "../../../context/GlobalContext";
 import MapasLotes from "./MapasLotes";
@@ -34,9 +35,11 @@ import MapasLotesEditar from "./MapasLotesEditar";
 import MapaUbicLotes from "./MapaUbicLotes";
 import AgregarLotes from "./AgregarLotes";
 import EditarLotes from "./EditarLotes";
+import { tab } from "@testing-library/user-event/dist/tab";
+import { GraficosEncuestasCultivo } from "./GraficosEncuestasCultivo";
 
 export const ProductivoAgricultura = () => {
-  //const URL = process.env.REACT_APP_URL;
+  const URL = process.env.REACT_APP_URL;
 
   const {
 
@@ -67,7 +70,21 @@ export const ProductivoAgricultura = () => {
     agregarLote, setAgregarLote,
     coordenadasArchivo, setCoordenadasArchivo,
     limpiarStates, setLimpiarStates,
-    spinning, setSpinning
+    spinning, setSpinning,
+    selectedLote,
+    showSearch, setShowShearch,
+    verCampo,
+    selectedCampoGeojson,
+    setVerCampo,
+
+    setCA,
+    setEstadin,
+    estadin,
+    update,
+    idCliente,
+    setIsButtonDisabled,
+
+
   } = useContext(GlobalContext);
 
 
@@ -79,8 +96,10 @@ export const ProductivoAgricultura = () => {
     // setFilaSeleccionada(null);
     setShowTable(!showTable);
     setShowFormAgregar(false);
+    setShowEdit(!showEdit);
     // setTipoMapa(0)
   };
+
 
   const abrirFormAgregar = () => {
     setLimpiarStates(true);
@@ -214,7 +233,7 @@ export const ProductivoAgricultura = () => {
     for (let i = 0; i < infoLotes.length; i++) {
       if (record.key === infoLotes[i].alote_id) {
         //  console.log("key: ", infoLotes[i].alote_id)
-        //  console.log("lot_geoJson", infoLotes[i].lot_geojson);
+        // console.log("lot_geoJson", infoLotes[i].lot_geojson);
         setSelectedLote(infoLotes[i].lot_geojson);
       }
     }
@@ -264,7 +283,7 @@ export const ProductivoAgricultura = () => {
     // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
     // }
-  }, [ubicLote, showFormAgregar, coordenadasArchivo, importarArchivo]);
+  }, [ubicLote, showFormAgregar, coordenadasArchivo, importarArchivo, selectedLote, selectedCampoGeojson]);
   // }, [showFormAgregar, tipoMapa, showMapaUbicLote]);
 
   useEffect(() => {
@@ -278,7 +297,7 @@ export const ProductivoAgricultura = () => {
       case 0:
         return <MapasLotes key={shouldReloadMap ? Date.now() : null} />;
       case 1:
-        return <MapasLotesEditar />;
+        return <MapasLotesEditar key={shouldReloadMap ? Date.now() : null} />;
       case 2:
         return <MapaUbicLotes key={shouldReloadMap ? Date.now() : null} />;
       default:
@@ -288,6 +307,37 @@ export const ProductivoAgricultura = () => {
 
   // console.log('data: ', data);
   // console.log('columns: ', columns);
+
+
+
+  const [listCosechas, setListCosechas] = useState([])
+  const [cosechaA, setCosechaA] = useState('')
+
+  useEffect(() => {
+    const data = new FormData();
+    // data.append("idC", idCliente);
+    // fetch("../com_traerCosechas.php", {
+    fetch(`${URL}com_traerCosechas.php`, {
+      method: "POST",
+      body: data,
+    }).then(async function (response) {
+      await response.text().then((resp) => {
+        if (resp) {
+          const data = resp;
+          const objetoData = JSON.parse(data);
+          console.log('objetoData2: ', objetoData)
+          // setCosechas(objetoData);
+          setCosechaA(objetoData[0].acos_desc)
+          setCA(objetoData[0].acos_desc);
+          setListCosechas(objetoData);
+          // setEstadin(!estadin);
+        }
+      });
+    });
+    // localStorage.setItem("idCosechaSelec", cosechaA);
+
+  }, [update, idCliente])
+
 
   return (
     <>
@@ -307,7 +357,7 @@ export const ProductivoAgricultura = () => {
                 }}
               >
                 <div className="divContainerGraficos">
-                  <GraficosProdAgricultura />
+                  {listCosechas && cosechaA && <GraficosProdAgricultura listadoCosechas={listCosechas} cosechaActiva={cosechaA} />}
                 </div>
               </Card>
             </div>
@@ -320,7 +370,7 @@ export const ProductivoAgricultura = () => {
               }}
             >
               <Card>
-                <GraficosPrueba />
+                <GraficosEncuestasCultivo />
               </Card>
             </div>
           </div>
@@ -360,16 +410,13 @@ export const ProductivoAgricultura = () => {
             {
               spinning ?
                 (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Spin tip="Loading..."/>
+                  <Spin tip="Loading..." />
                 </div>)
                 :
                 (<div>
                   {handleStage()}
                 </div>)
             }
-            {/* <div>
-              {spinning ? <Spin tip="Loading..." /> : handleStage()}
-            </div> */}
 
             <div
               style={{

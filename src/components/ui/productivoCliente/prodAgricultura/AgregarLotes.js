@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Card, Divider, Form, Input, Select, Spin, Upload, message } from "antd";
 import { GlobalContext } from "../../../context/GlobalContext";
-import { CloseOutlined, FileOutlined, InboxOutlined, PaperClipOutlined } from "@ant-design/icons";
+import { CloseOutlined, FileOutlined, InboxOutlined, PaperClipOutlined, SearchOutlined } from "@ant-design/icons";
 import FileReaderInput from "react-file-reader";
 import { useDropzone } from "react-dropzone";
 import { parseString } from "xml2js";
@@ -20,6 +20,7 @@ const AgregarLotes = () => {
   const [latitud, setLatitud] = useState(0);
   const [longitud, setLongitud] = useState(0);
   const [nombreLote, setNombreLote] = useState('');
+
   const formRef = useRef(null);
 
   const {
@@ -40,6 +41,8 @@ const AgregarLotes = () => {
     setLimpiarStates, limpiarStates,
     geoJSONModificado,
     spinning, setSpinning,
+    verCampo, setVerCampo,
+    selectedCampoGeojson, setSelectedCampoGeojson,
   } = useContext(GlobalContext);
 
   const [nombreArchivo, setNombreArchivo] = useState(false);
@@ -124,6 +127,7 @@ const AgregarLotes = () => {
   //   const perimetroRedondeado = perimetroEnMetros.toFixed(2);
   //   return perimetroRedondeado;
   // }
+
   useEffect(() => {
     if (valorGeoJSON.length > 0) {
       const hectareasDibujadas = calcularHectareasDibujadas(valorGeoJSON);
@@ -261,7 +265,7 @@ const AgregarLotes = () => {
         dataAdd.append("has", values.has);
         dataAdd.append("campo", values.campo);
         dataAdd.append("cliente", idCliente);
-        dataAdd.append("participacion", values.participacion);
+        dataAdd.append("participacion", 100);
         dataAdd.append("condicion", values.condicion);
         dataAdd.append("valorGeoJSON", valorGeoJSON);
         dataAdd.append("lat", latLon);
@@ -288,6 +292,7 @@ const AgregarLotes = () => {
         message.error("Error al agregar el lote");
       } finally {
         setSpinning(false);
+        setSelectedCampoGeojson(null)
       }
     }
   };
@@ -302,7 +307,7 @@ const AgregarLotes = () => {
       dataAdd.append("has", has);
       dataAdd.append("campo", values.campo);
       dataAdd.append("cliente", idCliente);
-      dataAdd.append("participacion", values.participacion);
+      dataAdd.append("participacion", 100);
       dataAdd.append("condicion", values.condicion);
       dataAdd.append("valorGeoJSON", JSON.stringify(coordenadasArchivo));
       dataAdd.append("lat", parseFloat(latitud).toFixed(2));
@@ -373,6 +378,11 @@ const AgregarLotes = () => {
   }, [nombreLote])
 
 
+  const searchTable = () => {
+    setVerCampo(true);
+    console.log(selectedCampoGeojson);
+  }
+
 
   return (
     <>
@@ -408,8 +418,44 @@ const AgregarLotes = () => {
                   <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }} >
 
                     <Form.Item
+                      name="campo"
+                      label="Campo"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Por favor selecciona un campo",
+                        },
+                      ]}
+                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
+                    >
+                      <Select
+                        style={{ width: "200px", marginLeft: '20px' }}
+                        showSearch
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                          option.children &&
+                          option.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        }
+                        onChange={(value) => {
+                          const selectedCampo = campos.find((campo) => campo.cam_id === value);
+                          setSelectedCampoGeojson(selectedCampo?.cam_geojson || null);
+                        }}
+                      >
+                        {campos &&
+                          campos.map((campo) => (
+                            <Select.Option key={campo.cam_id} value={campo.cam_id}>
+                              {campo.cam_nombre}
+                            </Select.Option>
+                          ))}
+                      </Select>
+                    </Form.Item>
+
+                    <Form.Item
                       name="nombre"
                       label="Nombre Lote"
+                      style={{marginLeft: '15px'}}
                       rules={[
                         {
                           required: true,
@@ -426,77 +472,13 @@ const AgregarLotes = () => {
                       />
                     </Form.Item>
 
-                    <Form.Item
-                      name="has"
-                      label="Hectáreas"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Por favor ingrese las hectáreas del lote",
-                        },
-                      ]}
-                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                      initialValue={hasDibujada > 0 && hasDibujada}
-                    >
-                      <Input
-                        type="number"
-                        style={{
-                          width: "82px",
-                          // marginRight: "20px",
-                          marginLeft: '15px'
-                        }}
-                      />
-                    </Form.Item>
                     {/* {hasDibujada > 0 &&
                       <label>{hasDibujada}</label>
                     } */}
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'row' }} >
-                    <Form.Item
-                      name="campo"
-                      label="Campo"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Por favor selecciona un campo",
-                        },
-                      ]}
-                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                    >
-                      <Select
-                        style={{ width: "200px", marginLeft: '36px' }}
-                        showSearch
-                        optionFilterProp="children"
-                        filterOption={(input, option) =>
-                          option.children &&
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        {campos &&
-                          campos.map((campo) => (
-                            <Select.Option key={campo.cam_id} value={campo.cam_id}>
-                              {campo.cam_nombre}
-                            </Select.Option>
-                          ))}
-                      </Select>
-                    </Form.Item>
-                  </div>
-                </div>
-
-                <h1 className="titulos">PARTICIPACIÓN</h1>
-                <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    paddingBottom: "5px",
-                  }}
-                >
-                  <div style={{ display: 'flex', flexDirection: 'row' }} >
-                    <Form.Item
+                  <Form.Item
                       name="condicion"
                       label="Condición"
                       rules={[
@@ -511,70 +493,39 @@ const AgregarLotes = () => {
                         style={{
                           width: "200px",
                           // marginRight: "15px",
-                          marginLeft: '17px',
+                          marginLeft: '3px',
                         }}
                       >
                         <Option value="1">PROPIO</Option>
                         <Option value="2">ALQUILADO</Option>
                       </Select>
                     </Form.Item>
-                  </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }} >
 
-                    {/* <Form.Item
-                      name="cliente"
-                      label="Cliente"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Por favor selecciona un cliente",
-                        },
-                      ]}
-                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                      style={{ marginRight: '8px' }}
-                    >
-                      <Select
-                        style={{ width: "200px", marginLeft: '36px', marginRight: '10px' }}
-                        showSearch
-                        optionFilterProp="children"
-                        filterOption={(input, option) =>
-                          option.children &&
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        {clientes &&
-                          clientes.map((cliente) => (
-                            <Select.Option
-                              key={cliente.cli_id}
-                              value={cliente.cli_id}
-                            >
-                              {cliente.cli_nombre}
-                            </Select.Option>
-                          ))}
-                      </Select>
-                    </Form.Item> */}
                     <Form.Item
-                      name="participacion"
-                      label="Participación"
+                      name="has"
+                      label="Hectáreas"
+                      style={{marginLeft: '15px'}}
                       rules={[
                         {
                           required: true,
-                          message: "Por favor ingrese la participación",
+                          message: "Por favor ingrese las hectáreas del lote",
                         },
                       ]}
                       className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                      style={{ marginRight: "10px", marginLeft: '15px' }}
-                      initialValue={100}
+                      initialValue={hasDibujada > 0 && hasDibujada}
                     >
-                      <Input style={{ width: "85px" }} addonAfter="%" />
+                      <Input
+                        type="number"
+                        style={{
+                          width: "82px",
+                          // marginRight: "20px",
+                          marginLeft: '18px'
+                        }}
+                      />
                     </Form.Item>
+
                   </div>
-
-
-
                 </div>
 
                 <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />
@@ -606,7 +557,7 @@ const AgregarLotes = () => {
                     </Button>
                     <Button
                       onClick={() => (
-                        setShowFormAgregar(false), limpiezaStates()
+                        setShowFormAgregar(false), limpiezaStates(), setSelectedCampoGeojson(null)
                       )}
                     >
                       Cancelar
@@ -642,30 +593,6 @@ const AgregarLotes = () => {
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
 
                   <div style={{ display: 'flex', flexDirection: 'column', marginRight: '15px', alignItems: 'center' }}>
-                    {/* <Form.Item
-                      name="kmlFile"
-                      label="Archivo KML"
-                      rules={[
-                        {
-                          required: false,
-                          message: "Por favor seleccione un archivo KML",
-                        },
-                      ]}
-                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                      style={{ marginLeft: '15px' }}
-                    >
-                      <div {...getRootProps()} className="dropzone">
-                        <input {...getInputProps()} />
-                        {isDragActive ? (
-                          <p>Suelta el archivo aquí...</p>
-                        ) : (
-                          <Button icon={<InboxOutlined />}>
-                            Seleccionar archivo
-                          </Button>
-                        )}
-                      </div>
-                    </Form.Item> */}
-
 
                     <p style={{ marginLeft: '-180px' }}>Archivo KML : </p>
                     <Form.Item
@@ -690,7 +617,7 @@ const AgregarLotes = () => {
                           //   Seleccionar archivo
                           // </Button>
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <p style={{color: 'rgba(0, 0, 0, 0.88)', fontSize: '16px' }} >Click o arrastre un archivo aquí</p>
+                            <p style={{ color: 'rgba(0, 0, 0, 0.88)', fontSize: '16px' }} >Click o arrastre un archivo aquí</p>
                             <p>Ingrese archivos .kml</p>
                           </div>
                         )}
@@ -817,21 +744,6 @@ const AgregarLotes = () => {
                       </Select>
                     </Form.Item> */}
 
-                    <Form.Item
-                      name="participacion"
-                      label="Participación"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Por favor ingrese la participación",
-                        },
-                      ]}
-                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                      style={{ marginRight: "10px" }}
-                      initialValue={100}
-                    >
-                      <Input style={{ width: "85px", marginBottom: '5px' }} addonAfter="%" />
-                    </Form.Item>
                     <Form.Item
                       name="condicion"
                       label="Condición"
