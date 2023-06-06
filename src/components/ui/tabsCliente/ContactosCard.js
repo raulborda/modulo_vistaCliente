@@ -19,7 +19,7 @@ const ContactosCard = () => {
         {contactosCli?.map((contacto, index) => (
           <div
             style={{
-              width: "300px",
+              width: "400px",
               flexBasis: "30%",
               padding: "5px",
               marginBottom: "5px",

@@ -291,37 +291,6 @@ const TabsCliente = () => {
                   userSelect: "none",
                 }}
               >
-                {/* <div
-                      style={{
-                        width: "30%",
-                        flexBasis: "30%",
-                        border: "1px solid #E8E8E8",
-                        borderRadius: "4px",
-                        padding: "5px",
-                        marginBottom: "5px",
-                        marginRight: "5px",
-                      }}
-                    >
-                      <div style={{ display: "inline" }}>
-                        <h4>GABRIELA CHIURA</h4>
-                      </div>
-                      <div style={{ display: "flex", flexDirection: "row" }}>
-                        <h4>Rol:</h4>
-                        <p>NEXO</p>
-                      </div>
-                      <div style={{ display: "flex", flexDirection: "row" }}>
-                        <h4>Telefono:</h4>
-                        <p> (02364-450909)</p>
-                      </div>
-                      <div style={{ display: "flex", flexDirection: "row" }}>
-                        <h4>Movil:</h4>
-                        <p>02364-450909</p>
-                      </div>
-                      <div style={{ display: "flex", flexDirection: "row" }}>
-                        <h4>Email:</h4>
-                        <p>pruebaT@gmail.com</p>
-                      </div>
-                    </div> */}
                   <ContactosCard />
               </div>
             </Drawer>

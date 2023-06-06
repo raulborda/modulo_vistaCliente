@@ -39,7 +39,7 @@ function App() {
   const idC = localStorage.getItem("cliSelect");
   // const idC = 2049;
   // const idC = 2083;
-  const [idCliente, setIdCliente] = useState(2049);
+  const [idCliente, setIdCliente] = useState(2773);
 
   
 
