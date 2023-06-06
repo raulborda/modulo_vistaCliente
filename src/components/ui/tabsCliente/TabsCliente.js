@@ -15,6 +15,8 @@ const TabsCliente = () => {
 
   const URL = process.env.REACT_APP_URL;
 
+  const [isLoading,  setIsLoading] = useState(false);
+
   const {
     appStage,
     setAppStage,
@@ -24,7 +26,7 @@ const TabsCliente = () => {
     setSelectedAcosDesc,
     cosechaAnterior,
     setCosechaAnterior,
-
+    setInfoCliSelect,
     infoCosechas,
     setCosechas,
 
@@ -61,12 +63,32 @@ const TabsCliente = () => {
     }
     //! FIN EVOLUCION PRODUCTIVA
   };
+  
+  
 
 
   useEffect(() => {
     handleSelectChange(selectedAcosDesc);
   }, [])
 
+  useEffect(() => {
+    if (idCliente) {
+      const data = new FormData();
+      data.append("idCli", idCliente);
+      fetch(`${URL}infoCliSelect.php`, {
+        method: "POST",
+        body: data,
+      }).then(function (response) {
+        response.text().then((resp) => {
+          const data = resp;
+          const objetoData = JSON.parse(data);
+          setInfoCliSelect(objetoData);
+          setIsLoading(false); // Establecer isLoading en false después de recibir la respuesta
+          //falta cuit, tipo de actividad
+        });
+      });
+    }
+  }, [idCliente]);
 
   const items = [
     {
