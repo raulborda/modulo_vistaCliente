@@ -188,22 +188,6 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
         <>
             <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
                 <div style={{ width: '70%', marginRight: '10px', height: '100%' }}>
-                    {/* <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <h1 className='titulos'>
-                            EVOLUCIÓN PRODUCTIVA
-                        </h1>
-                        {
-                            !iconTable &&
-                            <Button
-                                icon={<TableOutlined />}
-                                type="primary"
-                                style={{ marginLeft: '10px', marginTop: '-5px', backgroundColor: '#00B33C' }}
-                                onClick={() => { verGrafico(); }}
-                            >
-                                Ver Tabla
-                            </Button>
-                        }
-                    </div> */}
                     <ResponsiveContainer className="" width="99%" height={250}>
                         <BarChart
                             height={250}

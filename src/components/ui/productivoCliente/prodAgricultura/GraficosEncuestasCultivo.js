@@ -55,15 +55,11 @@ const renderActiveShape = (props) => {
 export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const URL = process.env.REACT_APP_URL;
 
-
     const {
         idCliente,
         selectedAcosDesc,
-        infoCosechas,
         cosechaSeleccionada,
-        setCosechaSeleccionada,
         usu,
-        supEncuestadas,
         setSupEncuestadas,
     } = useContext(GlobalContext);
 
@@ -75,8 +71,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const [legendSupEncuestadas, setLegendSupEncuestadas] = useState({ activeIndex: 0 });
     const [legendProdEncuestadas, setLegendProdEncuestadas] = useState({ activeIndex: 0 });
     const [legendCostoEncuestadas, setLegendCostoEncuestadas] = useState({ activeIndex: 0 });
-    // const [state, setState] = useState({ activeIndex: 0 });
-    // const [state, setState] = useState({ activeIndex: 0 });
 
     const onPieEnterSupEncuestadas = (_, index) => {
         setLegendSupEncuestadas({
@@ -94,11 +88,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         });
     };
 
-
-
-    const formatter = (value) => <CountUp end={value} separator="," />;
-
-
     function traeCultivos() {
         const data = new FormData();
         fetch(`${URL}clientview_listCultivos.php`, {
@@ -107,9 +96,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         }).then(function (response) {
             response.text().then((resp) => {
                 const data = resp;
-                // console.log('data: ', data);
                 const objetoData = JSON.parse(data);
-                // console.log('objetoData: ', objetoData);
                 const cultivosConTodos = [{ acult_id: "TODOS", acult_desc: "TODOS" }, ...objetoData];
                 console.log('cultivosConTodos: ', cultivosConTodos);
                 setCultivos(cultivosConTodos);
@@ -120,47 +107,37 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     useEffect(() => {
         traeCultivos();
     }, [])
-    // var total = 0;
+
     useEffect(() => {
         const dataAdd = new FormData();
         dataAdd.append("idU", usu);
         dataAdd.append("idC", idCliente);
-        // dataAdd.append("idCos", cosechaSeleccionada);
         if (cosechaSeleccionada) {
             dataAdd.append("idCos", cosechaSeleccionada);
         } else {
             dataAdd.append("idCos", cosechaActiva);
         }
-
         if (selectedCultivo === 'TODOS') {
             dataAdd.append("idCul", '');
         } else {
             dataAdd.append("idCul", selectedCultivo);
         }
-
         fetch(`${URL}clientview_SupEncuestasCultivo.php`, {
             method: "POST",
             body: dataAdd,
         }).then(function (response) {
             response.text().then((resp) => {
                 const data = resp;
-                // console.log("data Traer datos segun filtros: ", data);
                 const objetoData = JSON.parse(data);
-                console.log("objetoData Traer datos segun filtros: ", objetoData);
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
                     return { name: item[0], value: item[1], colors: item[2] };
                 });
-
                 setCultivosSupEncuestadas(transformedData);
-                console.log("setCultivosSupEncuestadas: ", transformedData);
                 // Calcular el total de los valores
                 const total = transformedData.reduce((accumulator, currentValue) => {
                     return accumulator + currentValue.value;
                 }, 0);
-
-                console.log("Total:", total);
-
                 // Hacer algo con el total, como asignarlo a un estado
                 setSupEncuestadas(total);
 
@@ -172,36 +149,28 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         const dataAdd = new FormData();
         dataAdd.append("idU", usu);
         dataAdd.append("idC", idCliente);
-        // dataAdd.append("idCos", cosechaSeleccionada);
         if (cosechaSeleccionada) {
             dataAdd.append("idCos", cosechaSeleccionada);
         } else {
             dataAdd.append("idCos", cosechaActiva);
         }
-
         if (selectedCultivo !== 'TODOS') {
             dataAdd.append("idCul", '');
         } else {
             dataAdd.append("idCul", selectedCultivo);
         }
-
         fetch(`${URL}clientview_ProdEncuestasCultivo.php`, {
             method: "POST",
             body: dataAdd,
         }).then(function (response) {
             response.text().then((resp) => {
                 const data = resp;
-                // console.log("data Traer datos segun filtros: ", data);
                 const objetoData = JSON.parse(data);
-
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
                     return { name: item[0], value: item[1], colors: item[2] };
                 });
-
                 setCultivosProdEncuestadas(transformedData);
-                console.log("setCultivosProdEncuestadas: ", transformedData);
-
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
@@ -210,47 +179,37 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         const dataAdd = new FormData();
         dataAdd.append("idU", usu);
         dataAdd.append("idC", idCliente);
-        // dataAdd.append("idCos", cosechaSeleccionada);
         if (cosechaSeleccionada) {
             dataAdd.append("idCos", cosechaSeleccionada);
         } else {
             dataAdd.append("idCos", cosechaActiva);
         }
-
         if (selectedCultivo === 'TODOS') {
             dataAdd.append("idCul", '');
         } else {
             dataAdd.append("idCul", selectedCultivo);
         }
-
         fetch(`${URL}clientview_CostoEncuestasCultivo.php`, {
             method: "POST",
             body: dataAdd,
         }).then(function (response) {
             response.text().then((resp) => {
                 const data = resp;
-                // console.log("data Traer datos segun filtros: ", data);
                 const objetoData = JSON.parse(data);
-
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
                     return { name: item[0], value: item[1], colors: item[2] };
                 });
-
                 setCultivosCostoEncuestadas(transformedData);
-                console.log("setCultivosProdEncuestadas: ", transformedData);
-
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
-
 
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column'}}>
                 <div>
                     <Card>
-                        {/* <Card> */}
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div>
                                 <div style={{ paddingBottom: '15px' }}>
@@ -272,7 +231,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                             option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                         }
                                         onChange={(value) => setSelectedCultivo(value)}
-                                        // defaultValue={cultivos.length > 0 && cultivos[0].acult_id}
                                         defaultValue='TODOS'
                                     >
                                         {cultivos.map((cultivo) => (
@@ -285,7 +243,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                             </div>
                         </div>
                     </Card>
-                    {/* </Card> */}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -306,8 +263,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     outerRadius={80}
                                     dataKey="value"
                                     onMouseEnter={onPieEnterSupEncuestadas}
-                                // fill={(entry) => entry.payload.colors}
-                                // fill={cultivosSupEncuestadas.colors}
                                 >
                                     {cultivosSupEncuestadas.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={entry.colors} />
@@ -333,7 +288,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     cy="50%"
                                     innerRadius={60}
                                     outerRadius={80}
-                                    // fill="#8884d8"
                                     dataKey="value"
                                     onMouseEnter={onPieEnterProdEncuestadas}
                                 >
@@ -361,7 +315,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     cy="50%"
                                     innerRadius={60}
                                     outerRadius={80}
-                                    // fill="#8884d8"
                                     dataKey="value"
                                     onMouseEnter={onPieEnterCostoEncuestadas}
                                 >

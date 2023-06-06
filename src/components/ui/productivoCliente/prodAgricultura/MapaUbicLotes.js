@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
@@ -14,23 +13,16 @@ const styles = {
 const MapaUbicLotes = () => {
     console.log("ENTRE A MAPA UBICACION")
     const {
-        infoLotes,
+
         setInfoLotes,
         idCliente,
-        setIdCliente,
+ 
         isTableUpdated,
         setIsTableUpdated,
-        showFormAgregar,
-        valorGeoJSON,
         setValorGeoJSON,
         marcarLote, 
-        setMarcarLote,
-        showMapaUbicLote, 
-        setShowMapaUbicLote,
-        geoJSONModificado, 
-        setGeoJSONModificado,
         tipoMapa,
-        ubicLote, setUbicLote,
+        ubicLote,
     } = useContext(GlobalContext);
 
     const URL = process.env.REACT_APP_URL;
@@ -58,7 +50,6 @@ const MapaUbicLotes = () => {
                 setMap(map);
                 map.resize();
                 //* instancia herramientas
-                // if (showFormAgregar) {
                 const draw = new MapboxDraw({
                     displayControlsDefault: false,
                     controls: {
@@ -68,7 +59,7 @@ const MapaUbicLotes = () => {
                     },
                 });
                 map.addControl(draw);
-                // }
+
 
                 //*
 
@@ -156,19 +147,14 @@ const MapaUbicLotes = () => {
                         return value;
                     }
                 ).replace(/"/g, "");
-                console.log("coordenadas a subir a db: ", formattedCoordinates);
                 setValorGeoJSON(formattedCoordinates);
             });
-            // console.log("ValorGeoJSON: ", valorGeoJSON);
         };
 
         if (!map) initializeMap({ setMap, mapContainer });
     },[ubicLote]);
 
 
-    // const idC = localStorage.getItem("cliente");
-    //const idC = 2049;
-    //const [idCliente, setIdCliente]=useState('2049');
 
     function infoGeoJSON(idCliente) {
         const data = new FormData();
@@ -197,7 +183,6 @@ const MapaUbicLotes = () => {
                 const lon = parseFloat(pair[0]);
                 const lat = parseFloat(pair[1]);
                 coordLotes.push([lon, lat]);
-                // console.log('coordLotes: ', coordLotes);
             }
             result.push([coordLotes]);
             coordLotes = [];
@@ -205,8 +190,6 @@ const MapaUbicLotes = () => {
 
         // Filtra el GeoJSON solo si marcarLote está definido y tiene la propiedad geojson
         if (marcarLote && marcarLote != null) {
-            console.log("entro al if de desarme de maps")
-            console.log(marcarLote)
             const coordinatesString = marcarLote;
             const coordinatesJSON = JSON.parse(coordinatesString);
 
@@ -220,7 +203,6 @@ const MapaUbicLotes = () => {
     useEffect(() => {
         if (dataGeoJSON.length > 0) {
             desarmarGeoJSON();
-            console.log("GeoJSON: ", geoJSON);
         }
     }, [dataGeoJSON, marcarLote]);
 
@@ -253,9 +235,6 @@ const MapaUbicLotes = () => {
             }
         }
     }, [idCliente, isTableUpdated]);
-
-    //   console.log("infoLotes:", infoLotes);
-    //   console.log("cliente: ", idCliente);
 
     return (
         <>

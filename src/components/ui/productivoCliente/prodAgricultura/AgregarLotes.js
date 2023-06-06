@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Button, Card, Divider, Form, Input, Select, Spin, Upload, message } from "antd";
+import { Button, Card, Divider, Form, Input, Select, message } from "antd";
 import { GlobalContext } from "../../../context/GlobalContext";
-import { CloseOutlined, FileOutlined, InboxOutlined, PaperClipOutlined, SearchOutlined } from "@ant-design/icons";
-import FileReaderInput from "react-file-reader";
+import { CloseOutlined, InboxOutlined, PaperClipOutlined } from "@ant-design/icons";
 import { useDropzone } from "react-dropzone";
 import { parseString } from "xml2js";
-import { Parser } from "graphql/language/parser";
-import { area, length, polygon } from "@turf/turf";
+import { area, polygon } from "@turf/turf";
 
 const AgregarLotes = () => {
   const URL = process.env.REACT_APP_URL;
@@ -15,7 +13,6 @@ const AgregarLotes = () => {
   const [controlGeoJsonMarcado, setControlGeoJsonMarcado] = useState(false);
   const [has, setHas] = useState(0);
   const [hasDibujada, setHasDibujada] = useState(0);
-  const [perimetro, setPerimetro] = useState(0);
   const [datosArchivo, setDatosArchivo] = useState({});
   const [latitud, setLatitud] = useState(0);
   const [longitud, setLongitud] = useState(0);
@@ -25,35 +22,28 @@ const AgregarLotes = () => {
 
   const {
     idCliente,
-    //Ver lotes
     setShowFormAgregar,
     valorGeoJSON,
     setValorGeoJSON,
     campos,
     setCampos,
-    clientes,
     setClientes,
     importarArchivo, setImportarArchivo,
     agregarLote,
-    setAgregarLote,
     coordenadasArchivo, setCoordenadasArchivo,
-    setTipoMapa,
     setLimpiarStates, limpiarStates,
     geoJSONModificado,
-    spinning, setSpinning,
-    verCampo, setVerCampo,
-    selectedCampoGeojson, setSelectedCampoGeojson,
+    setSpinning,
+    setSelectedCampoGeojson,
   } = useContext(GlobalContext);
 
   const [nombreArchivo, setNombreArchivo] = useState(false);
   const [controlDatosArchivo, setControlDatosArchivo] = useState(false);
   const [coordFiltradas, setCoordFiltradas] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [spinning, setSpinning] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
 
 
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: ".kml",
     multiple: false,
     onDrop: (acceptedFiles) => {
@@ -95,7 +85,6 @@ const AgregarLotes = () => {
           setCoordFiltradas(filteredCoordinatesArray)
           setControlDatosArchivo(true)
 
-          // Aquí puedes hacer lo que quieras con las coordenadas
         });
       };
       reader.readAsText(file);
@@ -121,13 +110,6 @@ const AgregarLotes = () => {
     return hectareasRedoneada;
   }
 
-  // function calcularPerimetro(coordenadas) {
-  //   const poligono = polygon([coordenadas]);
-  //   const perimetroEnMetros = length(poligono, { units: "meters" });
-  //   const perimetroRedondeado = perimetroEnMetros.toFixed(2);
-  //   return perimetroRedondeado;
-  // }
-
   useEffect(() => {
     if (valorGeoJSON.length > 0) {
       const hectareasDibujadas = calcularHectareasDibujadas(valorGeoJSON);
@@ -146,8 +128,6 @@ const AgregarLotes = () => {
     setCoordenadasArchivo(coordFiltradas);
     if (coordFiltradas.length > 0) {
       setHas(calcularHectareas(coordFiltradas));
-      // setHasDibujada(calcularHectareas(valorGeoJSON));
-      // setPerimetro(calcularPerimetro(coordFiltradas));
     }
   }, [controlDatosArchivo])
 
@@ -184,71 +164,6 @@ const AgregarLotes = () => {
       });
     });
   }
-
-  // const onSubmitAdd = (values) => {
-  //   if (valorGeoJSON.length === 0) {
-  //     setControlGeoJsonMarcado(true);
-  //   } else {
-
-  //     var latLon = 0
-  //     const dataAdd = new FormData();
-  //     dataAdd.append("idC", idCliente);
-  //     dataAdd.append("lote", values.nombre);
-  //     dataAdd.append("has", values.has);
-  //     dataAdd.append("campo", values.campo);
-  //     dataAdd.append("cliente", values.cliente);
-  //     dataAdd.append("participacion", values.participacion);
-  //     dataAdd.append("condicion", values.condicion);
-  //     // dataAdd.append("valorGeoJSON", JSON.stringify(valorGeoJSON));
-  //     dataAdd.append("valorGeoJSON", valorGeoJSON);
-  //     dataAdd.append("lat", latLon);
-  //     dataAdd.append("lon", latLon);
-
-  //     fetch(`${URL}client_addLote.php`, {
-  //       method: "POST",
-  //       body: dataAdd,
-  //     }).then(function (response) {
-  //       response.text().then((resp) => {
-  //         const data = resp;
-  //         console.log("data: ", data);
-  //       });
-  //     });
-
-  //     setShowFormAgregar(false);
-  //     form.resetFields();
-  //     setValorGeoJSON([]);
-  //   }
-  // };
-
-  // const onSubmitImportarArchivo = (values) => {
-
-  //   const dataAdd = new FormData();
-  //   dataAdd.append("idC", idCliente);
-  //   dataAdd.append("lote", datosArchivo.Placemark[0].name);
-  //   dataAdd.append("has", has);
-  //   dataAdd.append("campo", values.campo);
-  //   dataAdd.append("cliente", values.cliente);
-  //   dataAdd.append("participacion", values.participacion);
-  //   dataAdd.append("condicion", values.condicion);
-  //   dataAdd.append("valorGeoJSON", JSON.stringify(coordenadasArchivo));
-  //   dataAdd.append("lat", parseFloat(latitud).toFixed(2));
-  //   dataAdd.append("lon", parseFloat(longitud).toFixed(2));
-
-  //   fetch(`${URL}client_addLote.php`, {
-  //     method: "POST",
-  //     body: dataAdd,
-  //   }).then(function (response) {
-  //     response.text().then((resp) => {
-  //       const data = resp;
-  //       console.log("data: ", data);
-  //     });
-  //   });
-
-  //   setShowFormAgregar(false);
-  //   form.resetFields();
-  //   setValorGeoJSON([]);
-  //   setImportarArchivo(false);
-  // };
 
 
   const onSubmitAdd = async (values) => {
@@ -377,18 +292,8 @@ const AgregarLotes = () => {
     });
   }, [nombreLote])
 
-
-  const searchTable = () => {
-    setVerCampo(true);
-    console.log(selectedCampoGeojson);
-  }
-
-
   return (
     <>
-      {/* Renderizar el spin si loading es true */}
-      {/* {spinning && <Spin />} */}
-
       {/* Renderizar el componente de mensaje */}
       {contextHolder}
 
@@ -399,8 +304,6 @@ const AgregarLotes = () => {
               width: "800px",
               height: "40%",
               marginLeft: "10px",
-              // marginTop: "16%",
-              // marginRight: "10px",
             }}
           >
             <Form form={form} onFinish={onSubmitAdd}>
@@ -414,9 +317,7 @@ const AgregarLotes = () => {
                     paddingBottom: "15px",
                   }}
                 >
-
                   <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '5px' }} >
-
                     <Form.Item
                       name="campo"
                       label="Campo"
@@ -451,7 +352,6 @@ const AgregarLotes = () => {
                           ))}
                       </Select>
                     </Form.Item>
-
                     <Form.Item
                       name="nombre"
                       label="Nombre Lote"
@@ -471,12 +371,7 @@ const AgregarLotes = () => {
                         }}
                       />
                     </Form.Item>
-
-                    {/* {hasDibujada > 0 &&
-                      <label>{hasDibujada}</label>
-                    } */}
                   </div>
-
                   <div style={{ display: 'flex', flexDirection: 'row' }} >
                   <Form.Item
                       name="condicion"
@@ -500,8 +395,6 @@ const AgregarLotes = () => {
                         <Option value="2">ALQUILADO</Option>
                       </Select>
                     </Form.Item>
-
-
                     <Form.Item
                       name="has"
                       label="Hectáreas"
@@ -519,7 +412,6 @@ const AgregarLotes = () => {
                         type="number"
                         style={{
                           width: "82px",
-                          // marginRight: "20px",
                           marginLeft: '18px'
                         }}
                       />
@@ -527,7 +419,6 @@ const AgregarLotes = () => {
 
                   </div>
                 </div>
-
                 <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />
                 <div
                   style={{
@@ -575,8 +466,6 @@ const AgregarLotes = () => {
             width: "900px",
             height: "40%",
             marginLeft: "10px",
-            // marginTop: "16%",
-            // marginRight: "10px",
           }}
         >
           <Form form={form} onFinish={onSubmitImportarArchivo}>
@@ -597,7 +486,6 @@ const AgregarLotes = () => {
                     <p style={{ marginLeft: '-180px' }}>Archivo KML : </p>
                     <Form.Item
                       name="kmlFile"
-                      // label="Archivo KML"
                       rules={[
                         {
                           required: false,
@@ -613,9 +501,6 @@ const AgregarLotes = () => {
                         {isDragActive ? (
                           <p>Suelta el archivo aquí...</p>
                         ) : (
-                          // <Button icon={<InboxOutlined />}>
-                          //   Seleccionar archivo
-                          // </Button>
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <p style={{ color: 'rgba(0, 0, 0, 0.88)', fontSize: '16px' }} >Click o arrastre un archivo aquí</p>
                             <p>Ingrese archivos .kml</p>
@@ -623,8 +508,6 @@ const AgregarLotes = () => {
                         )}
                       </div>
                     </Form.Item>
-
-
                     {nombreArchivo && (
                       <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '20px' }}>
                         <PaperClipOutlined style={{ marginRight: '5px', color: 'green' }} />
@@ -654,7 +537,6 @@ const AgregarLotes = () => {
                         }}
                       />
                     </Form.Item>
-
                     <Form.Item
                       name="campo"
                       label="Campo"
@@ -685,7 +567,6 @@ const AgregarLotes = () => {
                           ))}
                       </Select>
                     </Form.Item>
-
                     <Form.Item
                       name="has"
                       label="Hectáreas"
@@ -702,48 +583,11 @@ const AgregarLotes = () => {
                         type="number"
                         style={{
                           width: "82px",
-                          // marginRight: "20px",
                           marginLeft: '15px',
                           marginBottom: '5px'
                         }}
                       />
                     </Form.Item>
-
-                    {/* <Form.Item
-                      name="cliente"
-                      label="Cliente"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Por favor selecciona un cliente",
-                        },
-                      ]}
-                      className="hidden-asterisk" // Agregar esta línea para ocultar el asterisco
-                      style={{ marginRight: '8px' }}
-                    >
-                      <Select
-                        style={{ width: "200px", marginLeft: '36px', marginRight: '10px', marginBottom:'5px' }}
-                        showSearch
-                        optionFilterProp="children"
-                        filterOption={(input, option) =>
-                          option.children &&
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        {clientes &&
-                          clientes.map((cliente) => (
-                            <Select.Option
-                              key={cliente.cli_id}
-                              value={cliente.cli_id}
-                            >
-                              {cliente.cli_nombre}
-                            </Select.Option>
-                          ))}
-                      </Select>
-                    </Form.Item> */}
-
                     <Form.Item
                       name="condicion"
                       label="Condición"
@@ -758,7 +602,6 @@ const AgregarLotes = () => {
                       <Select
                         style={{
                           width: "200px",
-                          // marginRight: "15px",
                           marginLeft: '17px',
                         }}
                       >
@@ -770,11 +613,8 @@ const AgregarLotes = () => {
                   </div>
                   {datosArchivo && datosArchivo.Placemark && datosArchivo.Placemark[0] &&
                     <div style={{ display: 'flex', flexDirection: 'column', marginRight: '15px' }}>
-                      {/* <label>Nombre Lote: {datosArchivo && datosArchivo.Placemark[0].name} </label> */}
                       <label>Latitud: {latitud && parseFloat(latitud).toFixed(2)} </label>
                       <label>Longitud: {longitud && parseFloat(longitud).toFixed(2)} </label>
-                      {/* <label>Hectáreas: {has > 0 && has} Has. </label> */}
-                      {/* <label>Perímetro:  {perimetro > 0 && perimetro} Mts. </label> */}
                     </div>
                   }
                 </div>

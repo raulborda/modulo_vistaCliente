@@ -1,6 +1,3 @@
-/* eslint-disable no-sequences */
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import {
@@ -9,17 +6,13 @@ import {
   PlusOutlined,
   PushpinFilled,
   PushpinOutlined,
-  SearchOutlined,
   TableOutlined,
 } from "@ant-design/icons";
 import {
   Button,
   Card,
   Divider,
-  Form,
-  Input,
   Popover,
-  Select,
   Spin,
   Table,
 } from "antd";
@@ -27,7 +20,6 @@ import { TbPolygon } from 'react-icons/tb';
 import { BiImport } from 'react-icons/bi';
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
-// import { GraficosEncuestasCultivo } from "./GraficosEncuestasCultivo";
 import CardInsumos from "./cardDatos/CardInsumos.js";
 import { GlobalContext } from "../../../context/GlobalContext";
 import MapasLotes from "./MapasLotes";
@@ -35,12 +27,11 @@ import MapasLotesEditar from "./MapasLotesEditar";
 import MapaUbicLotes from "./MapaUbicLotes";
 import AgregarLotes from "./AgregarLotes";
 import EditarLotes from "./EditarLotes";
-import { tab } from "@testing-library/user-event/dist/tab";
 import { GraficosEncuestasCultivo } from "./GraficosEncuestasCultivo";
 
 export const ProductivoAgricultura = () => {
   const URL = process.env.REACT_APP_URL;
-
+  
   const {
 
     //Ver lotes

@@ -24,23 +24,19 @@ const MapasLotes = () => {
     selectedLote,
     importarArchivo,
     coordenadasArchivo,
-    verCampo,
-    setVerCampo,
     selectedCampoGeojson,
-    setSelectedCampoGeojson,
   } = useContext(GlobalContext);
 
   const URL = process.env.REACT_APP_URL;
 
   const [geoJSON, setGeoJSON] = useState([]);
-  const [campoGeoJSON, setCampoGeoJSON] = useState([]);
   const [dataGeoJSON, setDataGeoJSON] = useState([]);
   const [map, setMap] = useState(null);
 
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiZ29uemFsb2I5OCIsImEiOiJjazZtM2V2eHowbHJ2M2xwdTRjMXBncDJjIn0.C0dqUfziJu3E1o8lFxmfqQ";
   const mapContainer = useRef(null);
-  var dea = []
+
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -48,12 +44,9 @@ const MapasLotes = () => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/satellite-streets-v11",
-        // center: [-63.155242483321686, -37.713092566214875],
         center: [-63.1617707, -35.004224],
         zoom: 5,
       });
-
-      // let draw;
 
       map.on("load", () => {
         setMap(map);
@@ -68,15 +61,10 @@ const MapasLotes = () => {
               trash: false,
             },
             userProperties: true,
-
           });
           map.addControl(draw);
-
         }
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-
-
-
 
         //!
         if (importarArchivo) {
@@ -118,7 +106,6 @@ const MapasLotes = () => {
             },
           });
         } else {
-
           //* DIBUJAR PARA TODOS LOS LOTES
           if (geoJSON !== "") {
             var random = 0;
@@ -166,17 +153,12 @@ const MapasLotes = () => {
                     "fill-color": "rgba(255,212,2,0.6)",
                   },
                 });
-
-
-
               }
             }
           }
-          // if (verCampo) {
-            if (selectedCampoGeojson && selectedCampoGeojson.length > 0) {
-            // selectedCampoGeojson
+          if (selectedCampoGeojson && selectedCampoGeojson.length > 0) {
             const ubiCampo = JSON.parse(selectedCampoGeojson);
-            
+
             if (Array.isArray(ubiCampo) && ubiCampo.length > 0) {
               map.addSource("campo", {
                 type: "geojson",
@@ -194,7 +176,7 @@ const MapasLotes = () => {
                   ],
                 },
               });
-  
+
               map.addLayer({
                 id: 'campo-bro',
                 type: "line",
@@ -213,8 +195,6 @@ const MapasLotes = () => {
 
       //! INICIO - CENTRAR MAPBOX
       if (importarArchivo && coordenadasArchivo.length > 0) {
-        console.log('CENTRA EN UBI IMPORTADO')
-        console.log('CENTRA EN UBI IMPORTADO - coordenadasArchivo: ', coordenadasArchivo)
         //* CENTRAR PARA LOTE IMPORTADO
         const loteArchivo = [coordenadasArchivo];
         var geojsonBounds = turf.bbox({
@@ -239,11 +219,7 @@ const MapasLotes = () => {
           ],
         });
         map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
-      // } else if (verCampo) {
       } else if (selectedCampoGeojson && selectedCampoGeojson.length > 0) {
-        
-        console.log('CENTRA EN EL CAMPO')
-        console.log('CENTRA EN EL CAMPO - coordenadasArchivo: ', JSON.parse(selectedCampoGeojson))
         //* CENTRAR PARA LOTE IMPORTADO
         const ubiCampo = JSON.parse(selectedCampoGeojson);
 
@@ -274,8 +250,6 @@ const MapasLotes = () => {
       }
       else {
         //* CENTRAR PARA TODOS LOS LOTES
-        console.log('CENTRA TODOS')
-        console.log('CENTRA TODOS - geoJSON: ', geoJSON)
         var random = 0;
         var loteL = [];
         var lotesT = [];
@@ -346,8 +320,6 @@ const MapasLotes = () => {
       //* geometria dibujada para subir a data base
       map.on("draw.create", (e) => {
         const coordinates = e.features[0].geometry.coordinates[0];
-        // dea = e.features[0].geometry.coordinates[0];
-        // console.log("coordenadas dea: ", dea);
         const formattedCoordinates = JSON.stringify(
           coordinates,
           (key, value) => {
@@ -357,11 +329,8 @@ const MapasLotes = () => {
             return value;
           }
         ).replace(/"/g, "");
-        console.log("coordenadas a subir a db: ", formattedCoordinates);
         setValorGeoJSON(formattedCoordinates);
       });
-
-
 
       map.on("draw.update", (e) => {
         const features = e.features;
@@ -373,48 +342,11 @@ const MapasLotes = () => {
           }
           return value;
         }).replace(/"/g, "");
-
-        console.log("coordenadas cambiadas: ", formattedCoordinates);
         setValorGeoJSON(formattedCoordinates);
       });
-
-
-
     };
     if (!map) initializeMap({ setMap, mapContainer });
-    
   });
-
-
-
-
-
-  // const idC = localStorage.getItem("cliente");
-  //const idC = 2049;
-  //const [idCliente, setIdCliente]=useState('2049');
-
-  // function traeCampos() {
-  //   const data = new FormData();
-  //   fetch(`${URL}lot_listCampos.php`, {
-  //     method: "POST",
-  //     body: data,
-  //   }).then(function (response) {
-  //     response.text().then((resp) => {
-  //       const data = resp;
-  //       const objetoData = JSON.parse(data);
-  //       setCampoGeoJSON(objetoData);
-  //       console.log(objetoData);
-  //     });
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   if (verCampo){
-  //     traeCampos()
-  //   }
-  // }, [verCampo])
-
-
 
   function infoGeoJSON(idCliente) {
     const data = new FormData();
@@ -443,12 +375,10 @@ const MapasLotes = () => {
         const lon = parseFloat(pair[0]);
         const lat = parseFloat(pair[1]);
         coordLotes.push([lon, lat]);
-        // console.log('coordLotes: ', coordLotes);
       }
       result.push([coordLotes]);
       coordLotes = [];
     }
-
     setGeoJSON(result);
   }
 
@@ -457,38 +387,29 @@ const MapasLotes = () => {
   function desarmarLoteSelect() {
     // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
     if (selectedLote && selectedLote != null) {
-      console.log("entro al if de desarme de maps");
-      //console.log(selectedLote);
       const coordinatesString = selectedLote;
       const coordenadasJSON = JSON.parse(coordinatesString);
-
       for (let i = 0; i < coordenadasJSON.length; i++) {
         const par = coordenadasJSON[i];
         const lonl = parseFloat(par[0]);
         const latl = parseFloat(par[1]);
         coordSelectLotes.push([lonl, latl]);
-        // console.log('coordLotes: ', coordLotes);
       }
-
       coordSelect.push([coordSelectLotes]);
       coordSelectLotes = [];
-
       setGeoJSON(coordSelect);
     } else {
       desarmarGeoJSON();
     }
   }
 
-
   useEffect(() => {
     if (selectedLote === null) {
       if (dataGeoJSON.length > 0) {
         desarmarGeoJSON();
-        // console.log("GeoJSON: ", geoJSON);
       }
     } else {
       desarmarLoteSelect();
-      // console.log("GeoJSON LoteSelect: ", geoJSON);
     }
   }, [dataGeoJSON, selectedLote]);
 
@@ -522,9 +443,6 @@ const MapasLotes = () => {
       }
     }
   }, [idCliente, isTableUpdated]);
-
-  //   console.log("infoLotes:", infoLotes);
-  //   console.log("cliente: ", idCliente);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
-import { Button, Card, Divider, Form, Input, Select, Spin, message } from "antd";
+import { Button, Card, Divider, Form, Input, Select, message } from "antd";
 
 const EditarLotes = () => {
   const URL = process.env.REACT_APP_URL;
@@ -9,14 +9,10 @@ const EditarLotes = () => {
 
   const {
     idCliente,
-
-    //Ver lotes
     loteId,
     setLoteId,
     setIsTableUpdated,
     setSelectedLote,
-
-    //usuario
     usu,
     setC,
     geoJSONModificado,
@@ -24,9 +20,7 @@ const EditarLotes = () => {
     setShowEdit,
     dataEdit,
     setTipoMapa,
-    showTable,
     tipoMapa,
-    spinning, setSpinning,
   } = useContext(GlobalContext);
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -67,7 +61,6 @@ const EditarLotes = () => {
       if (response.ok) {
         const resp = await response.text();
         const dataResp = resp;
-        // console.log(dataResp);
         // Llamar a la función para almacenar los datos actualizados en localStorage
         handleTableUpdate(values);
         // Restablecer el estado de edición o cerrar el formulario de edición
@@ -102,14 +95,9 @@ const EditarLotes = () => {
 
   return (
     <>
-      {/* Renderizar el spin si loading es true */}
-      {/* {loading && <Spin />} */}
-
       {/* Renderizar el componente de mensaje */}
       {contextHolder}
-
       {tipoMapa === 1 &&
-
         <Card
           style={{
             width: "660px",
@@ -119,7 +107,6 @@ const EditarLotes = () => {
             marginRight: "10px",
           }}
         >
-          {/* <Spin spinning={loading}> */}
           <Form
             form={form}
             onFinish={onSubmit}
@@ -149,7 +136,6 @@ const EditarLotes = () => {
                   <Input style={{ width: "150px" }} />
                 </Form.Item>
               </div>
-
               <div
                 style={{
                   display: "flex",
@@ -165,7 +151,6 @@ const EditarLotes = () => {
                   <Input type="number" style={{ width: "80px" }} />
                 </Form.Item>
               </div>
-
               <div
                 style={{
                   display: "flex",
@@ -188,7 +173,6 @@ const EditarLotes = () => {
                   </Select>
                 </Form.Item>
               </div>
-
               <div
                 style={{
                   display: "flex",
@@ -205,7 +189,6 @@ const EditarLotes = () => {
                 </Form.Item>
               </div>
             </div>
-
             <Divider style={{ marginBottom: "10px", marginTop: "10px" }} />
             <div
               style={{
@@ -227,7 +210,6 @@ const EditarLotes = () => {
                   setShowTable(true),
                   cancelEdit(),
                   setSelectedLote(null),
-                  // setC(false),
                   setTipoMapa(0)
                 )}
               >
@@ -235,7 +217,6 @@ const EditarLotes = () => {
               </Button>
             </div>
           </Form>
-          {/* </Spin> */}
         </Card>
       }
     </>

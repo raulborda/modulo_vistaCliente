@@ -3,17 +3,11 @@ import { ConfigProvider } from "antd";
 import { client } from "./apollo/ApolloClient";
 import esES from "antd/lib/locale/es_ES";
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GlobalContext } from "./components/context/GlobalContext";
-import TabsCliente from "./components/ui/tabsCliente/TabsCliente";
 import { ViewGeneral } from "./components/ui/ViewGeneral";
-// import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
 function App() {
-
-
-  // mapboxgl.accessToken = 'pk.eyJ1IjoianVsaXBlcmVsZGEiLCJhIjoiY2xnZ2lqZTR0MDVxMDNjbzY3ZmkyeTg4ZSJ9.tuTXT_-exIErerEPFT9o3g';
-  // mapboxgl.accessToken = 'pk.eyJ1IjoianVsaXBlcmVsZGEiLCJhIjoiY2xnZ2lqZTR0MDVxMDNjbzY3ZmkyeTg4ZSJ9.tuTXT_-exIErerEPFT9o3g';
 
   const [appStage, setAppStage] = useState(0);
   const [cardSelected, setCardSelected] = useState(0);
@@ -34,18 +28,17 @@ function App() {
   const [infoCliSelect, setInfoCliSelect] = useState([])
   const [contactosCli, setContactosCli] = useState([])
 
-
+  //* Id de usuario que se obtiene desde local storage
+  const idUsu = localStorage.getItem("usuario");
+  const [usu, setUsu] = useState(idUsu);
   //* Id de cliente que se obtine desde local storage
-  // const idC = localStorage.getItem("cliSelect");
-  const idC = 2049;
+  const idC = localStorage.getItem("cliSelect");
+  // const idC = 2049;
   // const idC = 2083;
   const [idCliente, setIdCliente] = useState(idC);
 
   
 
-  //* Id de usuario que se obtiene desde local storage
-  //const idUsu = localStorage.getItem("usuario");
-  const [usu, setUsu] = useState(1);
 
   //Evolucion Productiva:
   const [update, setUpdate] = useState(false);

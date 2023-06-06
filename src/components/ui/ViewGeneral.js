@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import TabsCliente from "./tabsCliente/TabsCliente";
 import { GlobalContext } from "../context/GlobalContext";
 
@@ -16,14 +16,12 @@ export const ViewGeneral = () => {
     setCosechaSeleccionada,
   } = useContext(GlobalContext);
 
-  // const [selectedAcosDesc1, setSelectedAcosDesc1] = useState('');
 
   //! /*-------- INICIO - CONSULTAS PARA TRAER LOS DATOS---------*/
   // //* FUNCION QUE TRAE LOS DATOS DE COSECHA ACTIVA Y LAS QUE SE PUEDEN VISUALIZAR DEL CLIENTE
   function cosechas(idCliente) {
     const data = new FormData();
     data.append("idC", idCliente);
-    // fetch("../com_traerCosechas.php", {
     fetch(`${URL}com_traerCosechas.php`, {
       method: "POST",
       body: data,
@@ -34,8 +32,6 @@ export const ViewGeneral = () => {
         setCosechas(objetoData);
         setCosechaA(objetoData[0].acos_desc);
         setListCosechas(objetoData);
-        // console.log('listCosechas: ', listCosechas)
-
         setCosechaSeleccionada(objetoData.length > 0 ? objetoData[0]?.acos_id : null);
         setSelectedAcosDesc(
           objetoData.length > 0 ? objetoData[0]?.acos_desc : null
@@ -46,28 +42,21 @@ export const ViewGeneral = () => {
       });
     });
   }
-  // console.log('listCosechas1: ', listCosechas)
+
   useEffect(() => {
-    cosechas(idCliente); //! PREGUNTAR PORQUE SE LE PASA ID CLIENTE A JULI
-    // console.log('objetoData: ', objetoData)
+    cosechas(idCliente);
   }, []);
 
   useEffect(() => {
     if (idCliente) {
       cosechas(idCliente);
-      //   setSelectedAcosDescPrueba(listCosechas.length > 0 ? listCosechas[0]?.acos_desc : null);
-      //   setCosechaAnteriorPrueba(listCosechas.length > 0 ? listCosechas[1]?.acos_desc : null);
     }
-  }, [idCliente /*, cosecha, update, selectedValue, cosechaActiva*/]);
+  }, [idCliente]);
   //! /*-------- FIN - CONSULTAS PARA TRAER LOS DATOS EVOLUCION PRODUCTIVA---------*/
 
-  //   console.log('setSelectedAcosDesc - viewGeneral: ', selectedAcosDesc);
-  //   //console.log('setSelectedAcosDesc1 - viewGeneral: ', selectedAcosDesc1);
-  //   console.log('setCosechaAnterior - viewGeneral: ', cosechaAnterior);
   return (
     <>
       {selectedAcosDesc && <TabsCliente />}
-      {/* { selectedAcosDesc && selectedAcosDesc1 && cosechaAnterior && <TabsCliente selectedAcosDescP={selectedAcosDesc1} />} */}
     </>
   );
 };

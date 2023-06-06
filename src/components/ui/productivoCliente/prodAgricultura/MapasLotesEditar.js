@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
@@ -13,20 +12,12 @@ const styles = {
 
 const MapasLotesEditar = () => {
     const {
-        infoLotes,
         setInfoLotes,
         idCliente,
-        setIdCliente,
         isTableUpdated,
         setIsTableUpdated,
-        showFormAgregar,
-        valorGeoJSON,
         setValorGeoJSON,
         selectedLote,
-        setSelectedLote,
-        setC,
-        c,
-        geoJSONModificado, 
         setGeoJSONModificado,
         tipoMapa,
     } = useContext(GlobalContext);
@@ -56,7 +47,6 @@ const MapasLotesEditar = () => {
                 setMap(map);
                 map.resize();
                 //* instancia herramientas
-                // if (showFormAgregar) {
                 const draw = new MapboxDraw({
                     displayControlsDefault: false,
                     controls: {
@@ -66,14 +56,10 @@ const MapasLotesEditar = () => {
                     },
                 });
                 map.addControl(draw);
-                // }
-
                 //*
 
                 if (selectedLote !== "" && tipoMapa === 1) {
-
                     const lote = JSON.parse(selectedLote);
-                    // console.log('LOTE: ', lote);
                     map.addSource(`lotee`, {
                         type: "geojson",
                         data: {
@@ -90,7 +76,6 @@ const MapasLotesEditar = () => {
                             ],
                         },
                     });
-                    // console.log('LOTE - 1: ', lote);
                     map.addLayer({
                         id: `lote-layerr`,
                         type: "line",
@@ -100,7 +85,6 @@ const MapasLotesEditar = () => {
                             "line-opacity": 0.8,
                         },
                     });
-
                     map.addLayer({
                         id: `lote-filll`,
                         type: "fill",
@@ -109,7 +93,6 @@ const MapasLotesEditar = () => {
                             "fill-color": "rgba(255,212,2,0.6)",
                         },
                     });
-
                     // Agrega el lote al control MapboxDraw
                     const drawData = {
                         type: "FeatureCollection",
@@ -128,19 +111,14 @@ const MapasLotesEditar = () => {
 
                     const handleDrawUpdate = (e) => {
                         const updatedCoordinates = e.features[0].geometry.coordinates[0];
-                        //console.log('Coordenadas modificadas:', updatedCoordinates);
                         setGeoJSONModificado(updatedCoordinates);
                     };
 
                     map.on('draw.update', handleDrawUpdate);
                 }
-
                 //*
-
-
             });
             //!
-
             // //! INICIO - CENTRAR MAPBOX
             //* centrado de viewport con turf
             const lote = JSON.parse(selectedLote);
@@ -166,7 +144,6 @@ const MapasLotesEditar = () => {
                 ],
             });
             map.fitBounds(geojsonBounds, { padding: 10, zoom: 15 });
-            //   }
             // //! FIN - CENTRAR MAPBOX
 
             //* geometria dibujada para subir a data base
@@ -181,19 +158,11 @@ const MapasLotesEditar = () => {
                         return value;
                     }
                 ).replace(/"/g, "");
-                console.log("coordenadas a subir a db: ", formattedCoordinates);
                 setValorGeoJSON(formattedCoordinates);
             });
-            // console.log("ValorGeoJSON: ", valorGeoJSON);
         };
-
         if (!map) initializeMap({ setMap, mapContainer });
     });
-
-
-    // const idC = localStorage.getItem("cliente");
-    //const idC = 2049;
-    //const [idCliente, setIdCliente]=useState('2049');
 
     function infoGeoJSON(idCliente) {
         const data = new FormData();
@@ -222,7 +191,6 @@ const MapasLotesEditar = () => {
                 const lon = parseFloat(pair[0]);
                 const lat = parseFloat(pair[1]);
                 coordLotes.push([lon, lat]);
-                // console.log('coordLotes: ', coordLotes);
             }
             result.push([coordLotes]);
             coordLotes = [];
@@ -230,22 +198,17 @@ const MapasLotesEditar = () => {
 
         // Filtra el GeoJSON solo si selectedLote está definido y tiene la propiedad geojson
         if (selectedLote && selectedLote != null) {
-            // console.log("entro al if de desarme de maps")
-            // console.log(selectedLote)
             const coordinatesString = selectedLote;
             const coordinatesJSON = JSON.parse(coordinatesString);
-
             setGeoJSON(coordinatesJSON ? coordinatesJSON : result);
         } else {
             setGeoJSON(result);
         }
-        //setGeoJSON(result);
     }
 
     useEffect(() => {
         if (dataGeoJSON.length > 0) {
             desarmarGeoJSON();
-            //console.log("GeoJSON: ", geoJSON);
         }
     }, [dataGeoJSON, selectedLote]);
 
@@ -257,7 +220,6 @@ const MapasLotesEditar = () => {
     useEffect(() => {
         if (isTableUpdated) {
             setIsTableUpdated(false);
-
             if (idCliente) {
                 const data = new FormData();
                 data.append("idCli", idCliente);
@@ -278,9 +240,6 @@ const MapasLotesEditar = () => {
             }
         }
     }, [idCliente, isTableUpdated]);
-
-    //   console.log("infoLotes:", infoLotes);
-    //   console.log("cliente: ", idCliente);
 
     return (
         <>
