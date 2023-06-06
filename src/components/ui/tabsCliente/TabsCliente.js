@@ -32,7 +32,6 @@ const TabsCliente = () => {
   const URL = process.env.REACT_APP_URL;
   //console.log(URL);
 
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     appStage,
@@ -104,7 +103,6 @@ const TabsCliente = () => {
         //console.log(resp);
         const objetoData = JSON.parse(data);
         setInfoCliSelect(objetoData);
-        setIsLoading(false); // Establecer isLoading en false después de recibir la respuesta
       });
     });
   };
