@@ -24,11 +24,16 @@ const MapasLotes = () => {
     selectedLote,
     importarArchivo,
     coordenadasArchivo,
+    verCampo,
+    setVerCampo,
+    selectedCampoGeojson,
+    setSelectedCampoGeojson,
   } = useContext(GlobalContext);
 
   const URL = process.env.REACT_APP_URL;
 
   const [geoJSON, setGeoJSON] = useState([]);
+  const [campoGeoJSON, setCampoGeoJSON] = useState([]);
   const [dataGeoJSON, setDataGeoJSON] = useState([]);
   const [map, setMap] = useState(null);
 
@@ -161,7 +166,45 @@ const MapasLotes = () => {
                     "fill-color": "rgba(255,212,2,0.6)",
                   },
                 });
+
+
+
               }
+            }
+          }
+          // if (verCampo) {
+            if (selectedCampoGeojson && selectedCampoGeojson.length > 0) {
+            // selectedCampoGeojson
+            const ubiCampo = JSON.parse(selectedCampoGeojson);
+            
+            if (Array.isArray(ubiCampo) && ubiCampo.length > 0) {
+              map.addSource("campo", {
+                type: "geojson",
+                data: {
+                  type: "FeatureCollection",
+                  features: [
+                    {
+                      type: "Feature",
+                      properties: {},
+                      geometry: {
+                        coordinates: [ubiCampo],
+                        type: "Polygon",
+                      },
+                    },
+                  ],
+                },
+              });
+  
+              map.addLayer({
+                id: 'campo-bro',
+                type: "line",
+                source: "campo",
+                paint: {
+                  "line-color": "rgba(255, 0, 0, 1)", // Color rojo
+                  "line-width": 2, // Ancho de línea
+                  "line-dasharray": [2, 2], // Establecer la línea punteada (segmentos de 2 unidades y espacios de 2 unidades)
+                },
+              });
             }
           }
         }
@@ -170,8 +213,8 @@ const MapasLotes = () => {
 
       //! INICIO - CENTRAR MAPBOX
       if (importarArchivo && coordenadasArchivo.length > 0) {
-        console.log('CENTRA EN EL MOLLE')
-        console.log('CENTRA EN EL MOLLE - coordenadasArchivo: ', coordenadasArchivo)
+        console.log('CENTRA EN UBI IMPORTADO')
+        console.log('CENTRA EN UBI IMPORTADO - coordenadasArchivo: ', coordenadasArchivo)
         //* CENTRAR PARA LOTE IMPORTADO
         const loteArchivo = [coordenadasArchivo];
         var geojsonBounds = turf.bbox({
@@ -196,7 +239,40 @@ const MapasLotes = () => {
           ],
         });
         map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
-      } else {
+      // } else if (verCampo) {
+      } else if (selectedCampoGeojson && selectedCampoGeojson.length > 0) {
+        
+        console.log('CENTRA EN EL CAMPO')
+        console.log('CENTRA EN EL CAMPO - coordenadasArchivo: ', JSON.parse(selectedCampoGeojson))
+        //* CENTRAR PARA LOTE IMPORTADO
+        const ubiCampo = JSON.parse(selectedCampoGeojson);
+
+        if (Array.isArray(ubiCampo) && ubiCampo.length > 0) {
+          var geojsonCampo = turf.bbox({
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: [ubiCampo],
+                  type: "Polygon",
+                },
+              },
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: [ubiCampo],
+                  type: "Polygon",
+                },
+              },
+            ],
+          });
+          map.fitBounds(geojsonCampo, { padding: 10, zoom: 12 });
+        }
+      }
+      else {
         //* CENTRAR PARA TODOS LOS LOTES
         console.log('CENTRA TODOS')
         console.log('CENTRA TODOS - geoJSON: ', geoJSON)
@@ -306,6 +382,7 @@ const MapasLotes = () => {
 
     };
     if (!map) initializeMap({ setMap, mapContainer });
+    
   });
 
 
@@ -315,6 +392,29 @@ const MapasLotes = () => {
   // const idC = localStorage.getItem("cliente");
   //const idC = 2049;
   //const [idCliente, setIdCliente]=useState('2049');
+
+  // function traeCampos() {
+  //   const data = new FormData();
+  //   fetch(`${URL}lot_listCampos.php`, {
+  //     method: "POST",
+  //     body: data,
+  //   }).then(function (response) {
+  //     response.text().then((resp) => {
+  //       const data = resp;
+  //       const objetoData = JSON.parse(data);
+  //       setCampoGeoJSON(objetoData);
+  //       console.log(objetoData);
+  //     });
+  //   });
+  // }
+
+  // useEffect(() => {
+  //   if (verCampo){
+  //     traeCampos()
+  //   }
+  // }, [verCampo])
+
+
 
   function infoGeoJSON(idCliente) {
     const data = new FormData();

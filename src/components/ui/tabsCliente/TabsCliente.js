@@ -31,14 +31,28 @@ const TabsCliente = () => {
     listCosechas, setListCosechas,
     cosechaA, setCosechaA,
 
+    isSelectEditDisabled,
+    cosechaSeleccionada, setCosechaSeleccionada,
+
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
     setSelectedAcosDesc(value);
 
     //! INICIO EVOLUCION PRODUCTIVA
+    const selectedCosecha = listCosechas.find((cosecha) => cosecha.acos_desc === value);
+
+    if (selectedCosecha) {
+      const selectedCosechaId = selectedCosecha.acos_id;
+      setCosechaSeleccionada(selectedCosechaId);
+      console.log('acos_id seleccionado: ', selectedCosechaId);
+      // Realiza las operaciones adicionales con el acos_id seleccionado
+    }
+
+
     // Obtener índice del valor seleccionado
     const selectedIndex = listCosechas.findIndex((cosecha) => cosecha.acos_desc === value);
+  
 
     // Obtener índice del valor seleccionado que le sigue. Es para el año anterior
     if (selectedIndex >= 0) {
@@ -48,10 +62,10 @@ const TabsCliente = () => {
     //! FIN EVOLUCION PRODUCTIVA
   };
 
+
   useEffect(() => {
     handleSelectChange(selectedAcosDesc);
   }, [])
-
 
 
   const items = [
@@ -392,6 +406,7 @@ const TabsCliente = () => {
                 paddingRight: "5px",
               }}
               onChange={handleSelectChange}
+              disabled={isSelectEditDisabled}
             >
               {listCosechas.length > 0 && listCosechas.map((cosecha) => {
                 return (

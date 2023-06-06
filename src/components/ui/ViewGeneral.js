@@ -70,6 +70,7 @@ export const ViewGeneral = () => {
     setIsDataInsumoSemillas,
     isDataInsumoFertilizantes,
     setIsDataInsumoFertilizantes,
+    setCosechaSeleccionada,
   } = useContext(GlobalContext);
 
   // const [selectedAcosDesc1, setSelectedAcosDesc1] = useState('');
@@ -90,8 +91,9 @@ export const ViewGeneral = () => {
         setCosechas(objetoData);
         setCosechaA(objetoData[0].acos_desc);
         setListCosechas(objetoData);
+        // console.log('listCosechas: ', listCosechas)
 
-        // setSelectedAcosDesc1(objetoData.length > 0 ? objetoData[0]?.acos_desc : null);
+        setCosechaSeleccionada(objetoData.length > 0 ? objetoData[0]?.acos_id : null);
         setSelectedAcosDesc(
           objetoData.length > 0 ? objetoData[0]?.acos_desc : null
         );
@@ -101,7 +103,7 @@ export const ViewGeneral = () => {
       });
     });
   }
-
+  // console.log('listCosechas1: ', listCosechas)
   useEffect(() => {
     cosechas(idCliente); //! PREGUNTAR PORQUE SE LE PASA ID CLIENTE A JULI
     // console.log('objetoData: ', objetoData)

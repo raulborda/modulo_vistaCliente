@@ -1096,7 +1096,7 @@ const CardInsumos = () => {
                         <Col span={11}>
                             <Row style={{ width: '100%' }}>
                                 <Statistic
-                                    title="Acopio TTTT"
+                                    title="Acopio TT"
                                     value={acopioTotal ? acopioTotal : 0}
                                     valueStyle={{
                                         fontSize: '35px',

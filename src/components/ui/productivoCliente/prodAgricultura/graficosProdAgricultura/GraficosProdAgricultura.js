@@ -6,9 +6,11 @@ import { GraficoAcopioTT } from './GraficoAcopioTT';
 import GraficoEvolucionProductiva from './GraficoEvolucionProductiva';
 import { GraficoInsumos } from './GraficoInsumos';
 import './graficos.css';
-import { InfoCircleOutlined, PieChartOutlined } from '@ant-design/icons';
+import { EditOutlined, InfoCircleOutlined, PieChartOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { EditarCapacidad } from './EditarCapacidad';
+import { NuevaCapacidad } from './NuevaCapacidad';
 
-const GraficosProdAgricultura = () => {
+const GraficosProdAgricultura = ({ cosechaActiva }) => {
     const URL = process.env.REACT_APP_URL;
 
     const {
@@ -28,8 +30,20 @@ const GraficosProdAgricultura = () => {
         setSelectedAcosDesc,
         infoCosechas,
         setCosechas,
+
+
+        isButtonDisabled,
+        update,
+        setIsButtonDisabled,
+        refrescarTable,
+        setRefrescarTable,
+        setIsButtonEditDisabled,
+        isButtonEditDisabled,
+        setIsSelectEditDisabled,
+        // setAppStage,
     } = useContext(GlobalContext);
 
+    const [selectedValue, setSelectedValue] = useState(localStorage.getItem("cosechaActiva"));
 
     const columns = [
         {
@@ -111,11 +125,11 @@ const GraficosProdAgricultura = () => {
                 // porcentaje: result.AGRICULTURA ? (((result.AGRICULTURA ? (parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
                 // porcentaje: result.AGRICULTURA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
                 porcentaje: result.AGRICULTURA ?
-                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
-                    (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) /
-                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
-                    0 + '%' :
-                0 + '%'
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                        (((parseInt(result.AGRICULTURA.propio) + parseInt(result.AGRICULTURA.alquilado)) /
+                            (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                        0 + '%' :
+                    0 + '%'
             },
             {
                 key: 2,
@@ -126,11 +140,11 @@ const GraficosProdAgricultura = () => {
                 // porcentaje: result.GANADERIA ? (((result.GANADERIA ? (parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
                 // porcentaje: result.GANADERIA ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
                 porcentaje: result.GANADERIA ?
-                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
-                    (((parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado)) /
-                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
-                    0 + '%' :
-                0 + '%'
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                        (((parseInt(result.GANADERIA.propio) + parseInt(result.GANADERIA.alquilado)) /
+                            (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                        0 + '%' :
+                    0 + '%'
             },
             {
                 key: 3,
@@ -141,11 +155,11 @@ const GraficosProdAgricultura = () => {
                 // porcentaje: result.TAMBO ? (((result.TAMBO ? (parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
                 // porcentaje: result.TAMBO ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
                 porcentaje: result.TAMBO ?
-                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
-                    (((parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado)) /
-                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
-                    0 + '%' :
-                0 + '%'
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                        (((parseInt(result.TAMBO.propio) + parseInt(result.TAMBO.alquilado)) /
+                            (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                        0 + '%' :
+                    0 + '%'
             },
             {
                 key: 4,
@@ -156,11 +170,11 @@ const GraficosProdAgricultura = () => {
                 // porcentaje: result.MIXTO ? (((result.MIXTO ? (parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado)) : 0) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'
                 // porcentaje: result.MIXTO ? ((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) : 0) + '%' : 0 + '%'
                 porcentaje: result.MIXTO ?
-                (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
-                    (((parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado)) /
-                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
-                    0 + '%' :
-                0 + '%'
+                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
+                        (((parseInt(result.MIXTO.propio) + parseInt(result.MIXTO.alquilado)) /
+                            (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0))) * 100).toFixed(0) + '%' :
+                        0 + '%' :
+                    0 + '%'
             },
             {
                 key: 5,
@@ -179,7 +193,7 @@ const GraficosProdAgricultura = () => {
                 // porcentaje: <strong>{(parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'}</strong>
                 porcentaje: <strong>{(parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
                     (((parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) /
-                    (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) * 100).toFixed(0)) :
+                        (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) * 100).toFixed(0)) :
                     0}% </strong>,
             },
         ];
@@ -205,6 +219,10 @@ const GraficosProdAgricultura = () => {
                 return <GraficoInsumos />;
             case 3:
                 return <GraficoAcopioTT />;
+            case 4:
+                return <EditarCapacidad />;
+            case 5:
+                return <NuevaCapacidad />;
             default:
                 return (
                     <GraficoEvolucionProductiva porcentajes={capacidad} />
@@ -254,22 +272,97 @@ const GraficosProdAgricultura = () => {
             // cosechas(idCliente);
             rubros();
         }
-    }, [idCliente, selectedAcosDesc]);
+    }, [idCliente, selectedAcosDesc, update]);
 
     if (infoCap.length > 0) {
         generaData(infoCap);
     }
 
+
+
+
+    const editarCosecha = () => {
+        setIsButtonEditDisabled(true);
+        setIsSelectEditDisabled(true)
+        // setAppStage(1);
+        setCardSelected(4);
+
+    };
+
+    const addCosecha = () => {
+        // setAppStage(2);
+        setCardSelected(5);
+        setIsSelectEditDisabled(false);
+    };
+
+
+    //! INICIO - PROBANDO
+    useEffect(() => {
+        if (infoCap.length > 0) {
+            generaData(infoCap);
+        }
+        // generaData()
+    }, [infoCap, idCliente, update])
+
+    useEffect(() => {
+        if (infoCap.length > 0) {
+            generaData(infoCap);
+        }
+        // generaData()
+    }, [])
+
+    if (infoCap.length > 0) {
+        generaData(infoCap);
+        setIsButtonDisabled(true);
+    } else {
+        setIsButtonDisabled(false);
+    }
+
+    if (infoCap.length > 0 || selectedAcosDesc !== cosechaActiva) { //!Esto es para que solamente se pueda agregar cosecha si es la cosecha activa.
+        setIsButtonDisabled(true);
+    } else {
+        setIsButtonDisabled(false);
+    }
+
+    var titleBtnEditar = ''
+    if (selectedAcosDesc === cosechaActiva) {
+        if (infoCap.length > 0) {
+            // generaData(infoCap);
+            setIsButtonEditDisabled(false);
+            titleBtnEditar = 'Editar'
+
+        } else {
+            setIsButtonEditDisabled(true);
+        }
+    } else {
+        setIsButtonEditDisabled(true);
+        titleBtnEditar = 'Solamente se puede modificar la cosecha activa.'
+    }
+
+    if (infoCosechas.length > 0) {
+        localStorage.setItem("cosechaActiva", infoCosechas[0].acos_desc);
+        localStorage.setItem("idCosecha", infoCosechas[0].acos_id);
+    }
+
+
+    //!Este useEffect es para cuando se edita o se agrega nueva cosecha - Sirve para refrescar la table.
+    useEffect(() => {
+        if (refrescarTable) {
+            generaData(infoCap)
+            setRefrescarTable(false)
+        }
+    }, [refrescarTable, infoCap])
+    //! FIN - PROBANDO
+
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '250px' }}>
-                {cardSelected === 1 &&
-                    (
+                {cardSelected === 1 && (
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <h1 className='titulos'>
                                 CAPACIDAD PRODUCTIVA
                             </h1>
-                            {/* <PieChartOutlined title='Gráfico' className='iconTableOutlined' onClick={() => { verGrafico(); }} /> */}
                             <Button
                                 icon={<PieChartOutlined />}
                                 type="primary"
@@ -279,12 +372,35 @@ const GraficosProdAgricultura = () => {
                                 Ver Gráfico
                             </Button>
                         </div>
-                    )
-                }
+                        <div style={{ marginLeft: 'auto' }}>
+                            <Button
+                                style={{ alignItems: 'center', boxShadow: 'none !important', outline: '0', border: 'none !important', marginTop: '-8px' }}
+                                className="btnEditCosecha"
+                                icon={<EditOutlined title={titleBtnEditar} />}
+                                onClick={() => editarCosecha()}
+                                // onChange={(e) => recuperaCosecha(e)}
+
+
+                                disabled={isButtonEditDisabled}
+                            />
+                            <Button
+                                style={{ alignItems: "center", boxShadow: "none !important", outline: "0", border: "none !important", marginTop: "-8px" }}
+                                className="btnAddCosecha"
+                                icon={<PlusCircleOutlined style={{ "--antd-wave-shadow-color": "transparent !important" }} />}
+                                onClick={() => {
+                                    addCosecha();
+                                }}
+                                disabled={isButtonDisabled}
+                            // <TableOutlined />
+                            />
+                        </div>
+                    </div>
+                )}
                 {handleStage()}
             </div>
         </>
-    )
+    );
+
 }
 
 export default GraficosProdAgricultura;
