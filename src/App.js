@@ -32,7 +32,7 @@ function App() {
   const [infoEdit, setInfoEdit] = useState({});
 
   const [infoCliSelect, setInfoCliSelect] = useState([])
-
+  const [contactosCli, setContactosCli] = useState([])
 
 
   //* Id de cliente que se obtine desde local storage
@@ -145,6 +145,8 @@ function App() {
         setIdCliente,
         infoCliSelect, 
         setInfoCliSelect,
+        contactosCli, 
+        setContactosCli,
         infoCosechas,
         setCosechas,
 
