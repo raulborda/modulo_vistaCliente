@@ -247,50 +247,54 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', flexDirection: 'column'}}>
                 <div>
                     <Card>
                         {/* <Card> */}
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div>
-
-                            </div>
-                            <div>
-                                <h1 className='titulos'>
-                                    CULTIVO
-                                </h1>
-                            </div>
-                            <div>
-                                <Select
-                                    style={{ width: '200px', marginLeft: '20px' }}
-                                    showSearch
-                                    optionFilterProp="children"
-                                    filterOption={(input, option) =>
-                                        option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                    }
-                                    onChange={(value) => setSelectedCultivo(value)}
-                                    // defaultValue={cultivos.length > 0 && cultivos[0].acult_id}
-                                    defaultValue='TODOS'
-                                >
-                                    {cultivos.map((cultivo) => (
-                                        <Select.Option key={cultivo.acult_id} value={cultivo.acult_id}>
-                                            {cultivo.acult_desc}
-                                        </Select.Option>
-                                    ))}
-                                </Select>
+                                <div style={{ paddingBottom: '15px' }}>
+                                    <h1 className='titulos'>
+                                        ENCUESTA POR SIEMBRA
+                                    </h1>
+                                </div>
+                                <div style={{ marginLeft: '5px' }}>
+                                    <h1 className='titulos'>
+                                        CULTIVO
+                                    </h1>
+                                </div>
+                                <div>
+                                    <Select
+                                        style={{ width: '200px' }}
+                                        showSearch
+                                        optionFilterProp="children"
+                                        filterOption={(input, option) =>
+                                            option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                        }
+                                        onChange={(value) => setSelectedCultivo(value)}
+                                        // defaultValue={cultivos.length > 0 && cultivos[0].acult_id}
+                                        defaultValue='TODOS'
+                                    >
+                                        {cultivos.map((cultivo) => (
+                                            <Select.Option key={cultivo.acult_id} value={cultivo.acult_id}>
+                                                {cultivo.acult_desc}
+                                            </Select.Option>
+                                        ))}
+                                    </Select>
+                                </div>
                             </div>
                         </div>
                     </Card>
                     {/* </Card> */}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <div style={{ width: '33%', marginRight: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
                             <h1 className='titulos'>
-                                SUP ENCUESTADAS por CULTIVO
+                                SUPERFICIE
                             </h1>
                         </div>
-                        <ResponsiveContainer className="" width="100%" height={250}>
+                        <ResponsiveContainer className="" width="100%" height={260}>
                             <PieChart width={800} height={400} >
                                 <Pie
                                     data={cultivosSupEncuestadas}
@@ -302,8 +306,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     outerRadius={80}
                                     dataKey="value"
                                     onMouseEnter={onPieEnterSupEncuestadas}
-                                    // fill={(entry) => entry.payload.colors}
-                                    // fill={cultivosSupEncuestadas.colors}
+                                // fill={(entry) => entry.payload.colors}
+                                // fill={cultivosSupEncuestadas.colors}
                                 >
                                     {cultivosSupEncuestadas.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={entry.colors} />
@@ -313,13 +317,13 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
-                    <div style={{ width: '33%', marginRight: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
                             <h1 className='titulos'>
-                                PROD ENCUESTADAS por CULTIVO
+                                PRODUCTIVO
                             </h1>
                         </div>
-                        <ResponsiveContainer className="" width="100%" height={250}>
+                        <ResponsiveContainer className="" width="100%" height={260}>
                             <PieChart width={800} height={400} >
                                 <Pie
                                     data={cultivosProdEncuestadas}
@@ -341,13 +345,13 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
-                    <div style={{ width: '33%', marginRight: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
                             <h1 className='titulos'>
-                                COSTO ENCUESTADAS por CULTIVO
+                                COSTO
                             </h1>
                         </div>
-                        <ResponsiveContainer className="" width="100%" height={250}>
+                        <ResponsiveContainer className="" width="100%" height={260}>
                             <PieChart width={800} height={400} >
                                 <Pie
                                     data={cultivosCostoEncuestadas}

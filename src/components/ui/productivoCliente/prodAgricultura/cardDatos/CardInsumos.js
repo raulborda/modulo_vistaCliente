@@ -77,7 +77,7 @@ const CardInsumos = () => {
         visible, setVisible,
 
         supEncuestadas,
-
+        refrescarTable,
 
 
     } = useContext(GlobalContext);
@@ -244,6 +244,10 @@ const CardInsumos = () => {
         // InfoGrafEvol('2049');
         InfoGrafEvol(idCliente);
     }, [])
+    useEffect(() => {
+        // InfoGrafEvol('2049');
+        InfoGrafEvol(idCliente);
+    }, [refrescarTable])
 
     useEffect(() => {
         if (infoEvo.length > 0) {
@@ -260,7 +264,7 @@ const CardInsumos = () => {
             // console.log('infoEvo3: ', infoEvo);
             // console.log('DataForChart: ', dataForChart);
         }
-    }, [infoEvo]);
+    }, [infoEvo, refrescarTable]);
 
     //!  /*---------FIN - EVOLUCION PRODUCTIVA---------*/
 
@@ -929,7 +933,7 @@ const CardInsumos = () => {
                             <Row style={{ width: '100%' }}>
                                 <div style={{ paddingLeft: '10px' }}>
                                     <Statistic
-                                        title="Has. Encuestada"
+                                        title="Encuesta"
                                         value={supEncuestadas ? supEncuestadas : 0}
                                         valueStyle={{
                                             fontSize: '25px',
