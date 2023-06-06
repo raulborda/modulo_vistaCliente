@@ -28,47 +28,40 @@ const TabsCliente = () => {
     selectedAcosDesc,
     setSelectedAcosDesc,
     setCosechaAnterior,
-<<<<<<< HEAD
-    listCosechas,
-    infoCliSelect,
-    setInfoCliSelect,
-=======
 
     infoCosechas,
     setCosechas,
 
-    listCosechas, setListCosechas,
-    cosechaA, setCosechaA,
+    listCosechas,
+    setListCosechas,
+    cosechaA,
+    setCosechaA,
+    setInfoCliSelect,
 
     isSelectEditDisabled,
-    cosechaSeleccionada, setCosechaSeleccionada,
-
->>>>>>> 510fc436e94e95fab26858c31425fc72bb27f6d8
+    cosechaSeleccionada,
+    setCosechaSeleccionada,
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
     setSelectedAcosDesc(value);
 
     //! INICIO EVOLUCION PRODUCTIVA
-    const selectedCosecha = listCosechas.find((cosecha) => cosecha.acos_desc === value);
+    const selectedCosecha = listCosechas.find(
+      (cosecha) => cosecha.acos_desc === value
+    );
 
     if (selectedCosecha) {
       const selectedCosechaId = selectedCosecha.acos_id;
       setCosechaSeleccionada(selectedCosechaId);
-      console.log('acos_id seleccionado: ', selectedCosechaId);
+      console.log("acos_id seleccionado: ", selectedCosechaId);
       // Realiza las operaciones adicionales con el acos_id seleccionado
     }
 
-
     // Obtener índice del valor seleccionado
-<<<<<<< HEAD
     const selectedIndex = listCosechas.findIndex(
       (cosecha) => cosecha.acos_desc === value
     );
-=======
-    const selectedIndex = listCosechas.findIndex((cosecha) => cosecha.acos_desc === value);
-  
->>>>>>> 510fc436e94e95fab26858c31425fc72bb27f6d8
 
     // Obtener índice del valor seleccionado que le sigue. Es para el año anterior
     if (selectedIndex >= 0) {
@@ -77,7 +70,6 @@ const TabsCliente = () => {
     }
     //! FIN EVOLUCION PRODUCTIVA
   };
-
 
   useEffect(() => {
     handleSelectChange(selectedAcosDesc);
@@ -213,159 +205,162 @@ const TabsCliente = () => {
           <Spin size="large" />
         </div>
       ) : (
-        <div
-          className="divContainer"
-          // style={{marginBottom: '-100px' }}
-        >
-          <div className="divCliente_content">
-            <div className="divCliente_info">
-              <h1
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  fontFamily: "Open Sans, sans-serif",
-                  marginBottom: "10px",
-                  color: "#444",
-                }}
-              >
-                {infoCliSelect[0].cli_nombre}
-              </h1>
-              <EyeOutlined
-                style={{
-                  marginLeft: "11px",
-                  marginTop: "3px",
-                  fontSize: "15px",
-                  color: "#00b33c",
-                }}
-                onClick={() => showDrawer()}
-              />
-              <Drawer
-                title={infoCliSelect[0].cli_nombre}
-                placement={placement}
-                closable={false}
-                onClose={onClose}
-                open={open}
-              >
-                <div
+        <>
+          <div
+            className="divContainer"
+            // style={{marginBottom: '-100px' }}
+          >
+            <div className="divCliente_content">
+              <div className="divCliente_info">
+                <h1
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    height: "100%",
-                    width: "100%",
-                    userSelect: "none",
-                    // border: "1px solid red",
+                    fontSize: "16px",
+                    fontWeight: "700",
+                    fontFamily: "Open Sans, sans-serif",
+                    marginBottom: "10px",
+                    color: "#444",
                   }}
+                >
+                  {/* {infoCliSelect[0].cli_nombre} */}
+                </h1>
+                <EyeOutlined
+                  style={{
+                    marginLeft: "11px",
+                    marginTop: "3px",
+                    fontSize: "15px",
+                    color: "#00b33c",
+                  }}
+                  onClick={() => showDrawer()}
+                />
+                <Drawer
+                  // title={infoCliSelect[0].cli_nombre}
+                  placement={placement}
+                  closable={false}
+                  onClose={onClose}
+                  open={open}
                 >
                   <div
                     style={{
-                      marginRight: "5px",
+                      display: "flex",
+                      flexDirection: "row",
                       height: "100%",
-                      width: "50%",
-                      border: "1px solid #E8E8E8",
-                      borderRadius: "4px",
-                      padding: "5px",
+                      width: "100%",
+                      userSelect: "none",
+                      // border: "1px solid red",
                     }}
                   >
-                    <p style={{ paddingBottom: "5px" }}>1</p>
                     <div
                       style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        paddingBottom: "5px",
+                        marginRight: "5px",
+                        height: "100%",
+                        width: "50%",
+                        border: "1px solid #E8E8E8",
+                        borderRadius: "4px",
+                        padding: "5px",
                       }}
                     >
-                      <PhoneFilled
+                      <p style={{ paddingBottom: "5px" }}>1</p>
+                      <div
                         style={{
-                          marginRight: "4px",
-                          fontSize: "12px",
-                          color: "#444",
-                        }}
-                      />
-                      <p style={{ fontSize: "12px" }}>02364-450909</p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      <MailFilled
-                        style={{
-                          marginRight: "4px",
-                          fontSize: "12px",
-                          color: "#444",
-                        }}
-                      />
-                      <p style={{ color: "#444" }}>contacto@aconcagua.com.ar</p>
-                    </div>
-                    <div style={{ paddingBottom: "5px" }}>
-                      <p
-                        style={{
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                          color: "#444",
+                          display: "flex",
+                          flexDirection: "row",
+                          paddingBottom: "5px",
                         }}
                       >
-                        Segmento:
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      <p
+                        <PhoneFilled
+                          style={{
+                            marginRight: "4px",
+                            fontSize: "12px",
+                            color: "#444",
+                          }}
+                        />
+                        <p style={{ fontSize: "12px" }}>02364-450909</p>
+                      </div>
+                      <div
                         style={{
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                          color: "#444",
+                          display: "flex",
+                          flexDirection: "row",
+                          paddingBottom: "5px",
                         }}
                       >
-                        Sector:
-                      </p>
-                      <p style={{ color: "#444" }}>COMERCIO</p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      <p
+                        <MailFilled
+                          style={{
+                            marginRight: "4px",
+                            fontSize: "12px",
+                            color: "#444",
+                          }}
+                        />
+                        <p style={{ color: "#444" }}>
+                          contacto@aconcagua.com.ar
+                        </p>
+                      </div>
+                      <div style={{ paddingBottom: "5px" }}>
+                        <p
+                          style={{
+                            fontSize: "13px",
+                            fontWeight: "bold",
+                            color: "#444",
+                          }}
+                        >
+                          Segmento:
+                        </p>
+                      </div>
+                      <div
                         style={{
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                          color: "#444",
+                          display: "flex",
+                          flexDirection: "row",
+                          paddingBottom: "5px",
                         }}
                       >
-                        Tamaño:
-                      </p>
-                      <p style={{ color: "#444" }}>PEQUEÑO</p>
+                        <p
+                          style={{
+                            fontSize: "13px",
+                            fontWeight: "bold",
+                            color: "#444",
+                          }}
+                        >
+                          Sector:
+                        </p>
+                        <p style={{ color: "#444" }}>COMERCIO</p>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          paddingBottom: "5px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: "13px",
+                            fontWeight: "bold",
+                            color: "#444",
+                          }}
+                        >
+                          Tamaño:
+                        </p>
+                        <p style={{ color: "#444" }}>PEQUEÑO</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Drawer>
-              <UserOutlined
-                style={{
-                  marginLeft: "10px",
-                  marginTop: "2.9px",
-                  fontSize: "13px",
-                  color: "#00b33c",
-                }}
-                onClick={() => showDrawerC()}
-              />
-              <Drawer
-                title="ACONCAGUA S.R.L."
-                placement={placementC}
-                closable={false}
-                onClose={onCloseC}
-                open={openC}
-              >
-                {/* <div
+                </Drawer>
+                <UserOutlined
+                  style={{
+                    marginLeft: "10px",
+                    marginTop: "2.9px",
+                    fontSize: "13px",
+                    color: "#00b33c",
+                  }}
+                  onClick={() => showDrawerC()}
+                />
+                <Drawer
+                  title="ACONCAGUA S.R.L."
+                  placement={placementC}
+                  closable={false}
+                  onClose={onCloseC}
+                  open={openC}
+                >
+                  {/* <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -386,187 +381,187 @@ const TabsCliente = () => {
                     marginRigth: "5px"
                   }}
                 > */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    // justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    userSelect: "none",
-                  }}
-                >
                   <div
                     style={{
-                      width: "30%",
-                      flexBasis: "30%",
-                      border: "1px solid #E8E8E8",
-                      borderRadius: "4px",
-                      padding: "5px",
-                      marginBottom: "5px",
-                      marginRight: "5px",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      // justifyContent: "space-between",
+                      alignItems: "flex-start",
+                      userSelect: "none",
                     }}
                   >
-                    <div style={{ display: "inline" }}>
-                      <h4>GABRIELA CHIURA</h4>
+                    <div
+                      style={{
+                        width: "30%",
+                        flexBasis: "30%",
+                        border: "1px solid #E8E8E8",
+                        borderRadius: "4px",
+                        padding: "5px",
+                        marginBottom: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <div style={{ display: "inline" }}>
+                        <h4>GABRIELA CHIURA</h4>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Rol:</h4>
+                        <p>NEXO</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Telefono:</h4>
+                        <p> (02364-450909)</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Movil:</h4>
+                        <p>02364-450909</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Email:</h4>
+                        <p>pruebaT@gmail.com</p>
+                      </div>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Rol:</h4>
-                      <p>NEXO</p>
+                    <div
+                      style={{
+                        width: "30%",
+                        flexBasis: "30%",
+                        border: "1px solid #E8E8E8",
+                        borderRadius: "4px",
+                        padding: "5px",
+                        marginBottom: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <div style={{ display: "inline" }}>
+                        <h4>GABRIELA CHIURA</h4>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Rol:</h4>
+                        <p>NEXO</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Telefono:</h4>
+                        <p> (02364-450909)</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Movil:</h4>
+                        <p>02364-450909</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Email:</h4>
+                        <p>pruebaT@gmail.com</p>
+                      </div>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Telefono:</h4>
-                      <p> (02364-450909)</p>
+                    <div
+                      style={{
+                        width: "30%",
+                        flexBasis: "30%",
+                        border: "1px solid #E8E8E8",
+                        borderRadius: "4px",
+                        padding: "5px",
+                        marginBottom: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <div style={{ display: "inline" }}>
+                        <h4>GABRIELA CHIURA</h4>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Rol:</h4>
+                        <p>NEXO</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Telefono:</h4>
+                        <p> (02364-450909)</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Movil:</h4>
+                        <p>02364-450909</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Email:</h4>
+                        <p>pruebaT@gmail.com</p>
+                      </div>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Movil:</h4>
-                      <p>02364-450909</p>
+                    <div
+                      style={{
+                        width: "30%",
+                        flexBasis: "30%",
+                        border: "1px solid #E8E8E8",
+                        borderRadius: "4px",
+                        padding: "5px",
+                        marginBottom: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <div style={{ display: "inline" }}>
+                        <h4>GABRIELA CHIURA</h4>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Rol:</h4>
+                        <p>NEXO</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Telefono:</h4>
+                        <p> (02364-450909)</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Movil:</h4>
+                        <p>02364-450909</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Email:</h4>
+                        <p>pruebaT@gmail.com</p>
+                      </div>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Email:</h4>
-                      <p>pruebaT@gmail.com</p>
+                    <div
+                      style={{
+                        width: "30%",
+                        flexBasis: "30%",
+                        border: "1px solid #E8E8E8",
+                        borderRadius: "4px",
+                        padding: "5px",
+                        marginBottom: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <div style={{ display: "inline" }}>
+                        <h4>GABRIELA CHIURA</h4>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Rol:</h4>
+                        <p>NEXO</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Telefono:</h4>
+                        <p> (02364-450909)</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Movil:</h4>
+                        <p>02364-450909</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <h4>Email:</h4>
+                        <p>pruebaT@gmail.com</p>
+                      </div>
                     </div>
                   </div>
-                  <div
-                    style={{
-                      width: "30%",
-                      flexBasis: "30%",
-                      border: "1px solid #E8E8E8",
-                      borderRadius: "4px",
-                      padding: "5px",
-                      marginBottom: "5px",
-                      marginRight: "5px",
-                    }}
-                  >
-                    <div style={{ display: "inline" }}>
-                      <h4>GABRIELA CHIURA</h4>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Rol:</h4>
-                      <p>NEXO</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Telefono:</h4>
-                      <p> (02364-450909)</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Movil:</h4>
-                      <p>02364-450909</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Email:</h4>
-                      <p>pruebaT@gmail.com</p>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      width: "30%",
-                      flexBasis: "30%",
-                      border: "1px solid #E8E8E8",
-                      borderRadius: "4px",
-                      padding: "5px",
-                      marginBottom: "5px",
-                      marginRight: "5px",
-                    }}
-                  >
-                    <div style={{ display: "inline" }}>
-                      <h4>GABRIELA CHIURA</h4>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Rol:</h4>
-                      <p>NEXO</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Telefono:</h4>
-                      <p> (02364-450909)</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Movil:</h4>
-                      <p>02364-450909</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Email:</h4>
-                      <p>pruebaT@gmail.com</p>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      width: "30%",
-                      flexBasis: "30%",
-                      border: "1px solid #E8E8E8",
-                      borderRadius: "4px",
-                      padding: "5px",
-                      marginBottom: "5px",
-                      marginRight: "5px",
-                    }}
-                  >
-                    <div style={{ display: "inline" }}>
-                      <h4>GABRIELA CHIURA</h4>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Rol:</h4>
-                      <p>NEXO</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Telefono:</h4>
-                      <p> (02364-450909)</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Movil:</h4>
-                      <p>02364-450909</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Email:</h4>
-                      <p>pruebaT@gmail.com</p>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      width: "30%",
-                      flexBasis: "30%",
-                      border: "1px solid #E8E8E8",
-                      borderRadius: "4px",
-                      padding: "5px",
-                      marginBottom: "5px",
-                      marginRight: "5px",
-                    }}
-                  >
-                    <div style={{ display: "inline" }}>
-                      <h4>GABRIELA CHIURA</h4>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Rol:</h4>
-                      <p>NEXO</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Telefono:</h4>
-                      <p> (02364-450909)</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Movil:</h4>
-                      <p>02364-450909</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <h4>Email:</h4>
-                      <p>pruebaT@gmail.com</p>
-                    </div>
-                  </div>
-                </div>
-              </Drawer>
-            </div>
-            <div className="divTags">
-              {/* <a href='#' className='tags'>IMPORTANTE</a>
+                </Drawer>
+              </div>
+              <div className="divTags">
+                {/* <a href='#' className='tags'>IMPORTANTE</a>
                         <a href='#' className='tags'>FEEDLOT</a>
                         <a href='#' className='tags'>NUEVO</a>
                         <a href='#' className='tags'>ZONA NORTE</a> */}
-              <Space size={[0, 8]} wrap>
-                <Tag color="orange">IMPORTANTE</Tag>
-                <Tag color="cyan">FEEDLOT</Tag>
-                <Tag color="green">NUEVO</Tag>
-                <Tag color="blue">ZONA NORTE</Tag>
-              </Space>
+                <Space size={[0, 8]} wrap>
+                  <Tag color="orange">IMPORTANTE</Tag>
+                  <Tag color="cyan">FEEDLOT</Tag>
+                  <Tag color="green">NUEVO</Tag>
+                  <Tag color="blue">ZONA NORTE</Tag>
+                </Space>
+              </div>
             </div>
           </div>
-<<<<<<< HEAD
           <div className="divContainer-Select-Tabs">
             {/* <Space wrap> */}
             <div style={{ paddingRight: "1px" }}>
@@ -577,48 +572,20 @@ const TabsCliente = () => {
                   paddingRight: "5px",
                 }}
                 onChange={handleSelectChange}
+                disabled={isSelectEditDisabled}
               >
-                {listCosechas.length > 0 &&
-                  listCosechas.map((cosecha) => {
-                    return (
-                      <Select.Option
-                        key={cosecha.acos_desc}
-                        value={cosecha.acos_desc}
-                      >
-                        {cosecha.acos_desc}
-                      </Select.Option>
-                    );
-                  })}
+                <Tabs>
+                  {items.map((item) => (
+                    <TabPane key={item.key} tab={item.label}>
+                      {item.component}
+                    </TabPane>
+                  ))}
+                </Tabs>
               </Select>
             </div>
-            <Tabs
-              className="tabs-custom"
-              items={items}
-              onChange={handleTabClick}
-=======
-        </div>
-        <div className="divContainer-Select-Tabs">
-          {/* <Space wrap> */}
-          <div style={{ paddingRight: "1px" }}>
-            <Select
-              defaultValue={selectedAcosDesc && selectedAcosDesc}
-              style={{
-                width: 97,
-                paddingRight: "5px",
-              }}
-              onChange={handleSelectChange}
-              disabled={isSelectEditDisabled}
->>>>>>> 510fc436e94e95fab26858c31425fc72bb27f6d8
-            >
-              {items.map((item) => (
-                <TabPane key={item.key} tab={item.label}>
-                  {item.component}
-                </TabPane>
-              ))}
-            </Tabs>
+            <div style={{ marginTop: "1px" }}>{handleStage()}</div>
           </div>
-          <div style={{ marginTop: "1px" }}>{handleStage()}</div>
-        </div>
+        </>
       )}
     </>
   );
