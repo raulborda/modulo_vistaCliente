@@ -9,7 +9,7 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined, MailFilled, PhoneFilled, UserAddOutlined, UserOutlined } from "@ant-design/icons";
+import { EyeOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
 
 const TabsCliente = () => {
 
@@ -208,7 +208,7 @@ const TabsCliente = () => {
             <EyeOutlined
               style={{
                 marginLeft: "11px",
-                marginTop: "3px",
+                marginTop: "-7px",
                 fontSize: "15px",
                 color: "#00b33c",
               }}
@@ -267,7 +267,7 @@ const TabsCliente = () => {
             <UserOutlined
               style={{
                 marginLeft: "10px",
-                marginTop: "2.9px",
+                marginTop: "-10px",
                 fontSize: "13px",
                 color: "#00b33c",
               }}
