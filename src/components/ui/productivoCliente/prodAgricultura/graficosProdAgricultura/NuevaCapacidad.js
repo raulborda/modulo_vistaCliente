@@ -12,24 +12,28 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
 
   //! UseContext
   const {
-    dataContext,
+    idCliente,
+    // dataContext,
     setDataContext,
-    isCosecha,
-    setIsCosecha,
-    appStage,
-    setAppStage,
-    isButtonDisabled,
+    // isCosecha,
+    // setIsCosecha,
+    // appStage,
+    // setAppStage,
+    // isButtonDisabled,
     setIsButtonDisabled,
     setIsSelectEditDisabled,
     update,
     setUpdate,
-    ca, setCA,
+    ca, 
+    // setCA,
     setRefrescarTable,
+    // selectedCard,
+    setCardSelected
   } = useContext(GlobalContext);
 
   //! UseState
   const [isData, setIsData] = useState({});
-  const [isActiveModal, setIsActiveModal] = useState(false);
+  // const [isActiveModal, setIsActiveModal] = useState(false);
   const [isDataSet, setIsDataSet] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -101,7 +105,7 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
 
 
     if (isData.cosecha !== null) {
-      // console.log('isData: ', isData)
+      console.log('isData: ', isData)
       if (totalPropias <= inputPropias && totalAlquiladas <= inputAlquiladas) {
         if (localStorage.getItem("data")) {
           objData = [...isDataSet, isData];
@@ -110,11 +114,12 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
         }
 
         localStorage.setItem("data", JSON.stringify({ objData }));
-        setAppStage(0);
+        // setAppStage(0);
+        setCardSelected(1);
 
         let cli = localStorage.getItem("cliente");
 
-        newCap(cli, isData);
+        newCap(idCliente, isData);
 
         setUpdate(!update);
         setIsSelectEditDisabled(false);
@@ -127,8 +132,8 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
       }
     } else {
       isData.cosecha = ca;
-      // console.log('cosechaActiva: ', ca);
-      // console.log('isData: ', isData);
+      console.log('cosechaActiva: ', ca);
+      console.log('isData: ', isData);
       // alert("Se debe ingresar la cosecha");
       if (totalPropias <= inputPropias && totalAlquiladas <= inputAlquiladas) {
         if (localStorage.getItem("data")) {
@@ -138,11 +143,12 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
         }
 
         localStorage.setItem("data", JSON.stringify({ objData }));
-        setAppStage(0);
+        // setAppStage(0);
+        setCardSelected(1);
 
-        let cli = localStorage.getItem("cliente");
+        // let cli = localStorage.getItem("cliente");
 
-        newCap(cli, isData);
+        newCap(idCliente, isData);
 
         setUpdate(!update);
         setIsSelectEditDisabled(false);
@@ -199,7 +205,8 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
         const data = resp;
         // console.log(data);
         // const objetoData = JSON.parse(data);
-        // console.log("Nueva capacidad: ", objetoData)
+        console.log("Nueva capacidad - resp: ", resp)
+        console.log("Nueva capacidad - data: ", data)
       });
     });
     setRefrescarTable(true); //! Sirve para refrescar la table en donde se utiliza en un useEffect en Capacidad.
@@ -209,7 +216,8 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     setIsButtonDisabled(false);
     setDataContext(null);
     setUpdate(!update);
-    setAppStage(0);
+    // setAppStage(0);
+    setCardSelected(1);
     setIsSelectEditDisabled(false);
   };
 

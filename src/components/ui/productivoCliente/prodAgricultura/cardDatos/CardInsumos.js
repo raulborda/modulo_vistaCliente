@@ -76,6 +76,8 @@ const CardInsumos = () => {
         //Ver lotes 
         visible, setVisible,
 
+        supEncuestadas,
+
 
 
     } = useContext(GlobalContext);
@@ -214,29 +216,6 @@ const CardInsumos = () => {
     };
 
     const formatter = (value) => <CountUp end={value} separator="." />;
-
-    const data = [
-        {
-            cosecha: '2324',
-            propias: 4000,
-            alquiladas: 2400,
-        },
-        {
-            cosecha: '2223',
-            propias: 3000,
-            alquiladas: 1398,
-        },
-        {
-            cosecha: '2122',
-            propias: 2000,
-            alquiladas: 9800,
-        },
-        {
-            cosecha: '2021',
-            propias: 2780,
-            alquiladas: 3908,
-        }
-    ];
 
 
     //!  /*---------INICIO - EVOLUCION PRODUCTIVA---------*/    
@@ -796,7 +775,7 @@ const CardInsumos = () => {
 
     useEffect(() => {
         calculateTotal();
-    }, [infoEvo, selectedAcosDesc, cosechaAnterior])
+    }, [infoEvo, selectedAcosDesc, cosechaAnterior, isDataInsumoTotal, isDataTotal])
 
 
     //! INICIO - MAPBOX
@@ -907,10 +886,9 @@ const CardInsumos = () => {
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
-                        <Col span={4}>
-                            {/* <Row style={{ width: '100%' }}> */}
+                        <Col span={2}>
                             <Row style={{ width: '100%' }}>
-                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
+                                <div tyle={{ paddingRight: '10px' }}>
                                 <Statistic
                                     title="Propias"
                                     value={valorPropias ? valorPropias : 0}
@@ -918,41 +896,54 @@ const CardInsumos = () => {
                                         fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
-                                        textAlign: 'right'
+                                        textAlign: 'right',
+                                        paddingTop: '5px'
                                     }}
-                                    // style={{
-                                    //     fontSize: '10px !important',  // Tamaño del título
-                                    //     display: 'flex',
-                                    //     flexDirection: 'column',
-                                    //     marginTop: '0px'
-                                    // }}
                                     formatter={formatter}
-                                    className="statistic"
+                                    className="statistic1"
                                     layout="horizontal"
                                 />
-                                {/* </div> */}
+                                </div>
                             </Row>
                         </Col>
-                        <Col span={5}>
-                            {/* <Row style={{ width: '100%' }}> */}
+                        <Col span={2} >
                             <Row style={{ width: '100%' }}>
-                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
-                                <Statistic
-                                    title="Alquiladas"
-                                    value={valorAlquiladas ? valorAlquiladas : 0}
-                                    valueStyle={{
-                                        fontSize: '25px',
-                                        fontWeight: 'bold',
-                                        marginTop: '-20px',
-                                        textAlign: 'right'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic"
-                                />
-                                {/* </div> */}
+                                <div>
+                                    <Statistic
+                                        title="Alquiladas"
+                                        value={valorAlquiladas ? valorAlquiladas : 0}
+                                        valueStyle={{
+                                            fontSize: '25px',
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right',
+                                            paddingTop: '5px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic1"
+                                    />
+                                </div>
                             </Row>
                         </Col>
-                        {/* <Col span={6}> */}
+                        <Col span={5} >
+                            <Row style={{ width: '100%' }}>
+                                <div style={{ paddingLeft: '10px' }}>
+                                    <Statistic
+                                        title="Has. Encuestada"
+                                        value={supEncuestadas ? supEncuestadas : 0}
+                                        valueStyle={{
+                                            fontSize: '25px',
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right',
+                                            paddingTop: '5px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic1"
+                                    />
+                                </div>
+                            </Row>
+                        </Col>
                         <Col span={7}>
                             <Map
                                 style="mapbox://styles/mapbox/satellite-streets-v12"
@@ -1049,42 +1040,6 @@ const CardInsumos = () => {
                                 {/* </div> */}
                             </Row>
                         </Col>
-                        {/* <Col span={6}>
-                            <div style={{ marginTop: '-10px' }}>
-                                <ResponsiveContainer width="100%" height={100}>
-                                    <BarChart
-                                        height={100}
-                                        data={data}
-                                        margin={{
-                                            top: 20,
-                                            right: 0,
-                                            left: 0,
-                                            bottom: 5,
-                                        }}
-                                    >
-                                        <Bar
-                                            dataKey="propias"
-                                            name="Propias"
-                                            stackId="a"
-                                            barSize={25}
-                                            fill="#70DBE2"
-                                            key={"propias"}
-                                            isAnimationActive={true}
-                                        />
-                                        <Bar
-                                            dataKey="alquiladas"
-                                            name="Alquiladas"
-                                            stackId="a"
-                                            barSize={25}
-                                            fill="#3359A3"
-                                            key={"alquiladas"}
-                                            isAnimationActive={true}
-                                        >
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </Col> */}
                     </Row>
                 </Card>
             </div>
@@ -1148,7 +1103,7 @@ const CardInsumos = () => {
                         </Col>
                         {/* <Col span={6}>
                             <div style={{ marginTop: '-10px' }}> */}
-                                {/*0 <ResponsiveContainer width="100%" height={100}>
+                        {/*0 <ResponsiveContainer width="100%" height={100}>
                                     <BarChart
                                         height={100}
                                         data={data}
@@ -1201,7 +1156,7 @@ const CardInsumos = () => {
                                             </Bar>
                                         </BarChart>
                                     </ResponsiveContainer> */}
-                            {/* </div>
+                        {/* </div>
                         </Col> */}
                     </Row>
                 </Card>

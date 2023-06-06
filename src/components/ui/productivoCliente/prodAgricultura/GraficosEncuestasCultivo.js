@@ -63,11 +63,12 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         cosechaSeleccionada,
         setCosechaSeleccionada,
         usu,
+        supEncuestadas,
+        setSupEncuestadas,
     } = useContext(GlobalContext);
 
     const [selectedCultivo, setSelectedCultivo] = useState("");
     const [cultivos, setCultivos] = useState([]);
-    const [supEncuestadas, setSupEncuestadas] = useState();
     const [cultivosSupEncuestadas, setCultivosSupEncuestadas] = useState([]);
     const [cultivosProdEncuestadas, setCultivosProdEncuestadas] = useState([]);
     const [cultivosCostoEncuestadas, setCultivosCostoEncuestadas] = useState([]);
@@ -94,31 +95,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     };
 
 
-
-    const data = [
-        { name: 'TRIGO', value: 400 },
-        { name: 'ALFALFA', value: 300 },
-        { name: 'MAIZ', value: 300 },
-        { name: 'SOJA', value: 200 },
-    ];
-
-    const data1 = [
-        { name: 'TRIGO', value: 430 },
-        { name: 'ALFALFA', value: 3000 },
-        { name: 'MAIZ', value: 542 },
-        { name: 'SOJA', value: 1000 },
-    ];
-
-    const data2 = [
-        { name: 'TRIGO', value: 4960 },
-        { name: 'ALFALFA', value: 3720 },
-        { name: 'MAIZ', value: 3030 },
-        { name: 'SOJA', value: 500 },
-    ];
-
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-    const COLORS1 = ["#116611", "#56b43c", "#55AA55", "#88CC88"];
-    const COLORS2 = ["#112611", "#56F43c", "#552A55", "#17DA78"];
 
     const formatter = (value) => <CountUp end={value} separator="," />;
 
@@ -170,10 +146,10 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                 const data = resp;
                 // console.log("data Traer datos segun filtros: ", data);
                 const objetoData = JSON.parse(data);
-
+                console.log("objetoData Traer datos segun filtros: ", objetoData);
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
-                    return { name: item[0], value: item[1] };
+                    return { name: item[0], value: item[1], colors: item[2] };
                 });
 
                 setCultivosSupEncuestadas(transformedData);
@@ -203,7 +179,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
             dataAdd.append("idCos", cosechaActiva);
         }
 
-        if (selectedCultivo === 'TODOS') {
+        if (selectedCultivo !== 'TODOS') {
             dataAdd.append("idCul", '');
         } else {
             dataAdd.append("idCul", selectedCultivo);
@@ -220,7 +196,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
 
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
-                    return { name: item[0], value: item[1] };
+                    return { name: item[0], value: item[1], colors: item[2] };
                 });
 
                 setCultivosProdEncuestadas(transformedData);
@@ -258,7 +234,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
 
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
-                    return { name: item[0], value: item[1] };
+                    return { name: item[0], value: item[1], colors: item[2] };
                 });
 
                 setCultivosCostoEncuestadas(transformedData);
@@ -269,11 +245,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     }, [selectedCultivo, selectedAcosDesc])
 
 
-
-
-
-
-
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -282,7 +253,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                         {/* <Card> */}
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div>
-                                
+
                             </div>
                             <div>
                                 <h1 className='titulos'>
@@ -308,9 +279,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     ))}
                                 </Select>
                             </div>
-                            <div style={{ marginLeft: '20px' }}>
-                                <Statistic title="SUP. ENCUESTADA" value={supEncuestadas} formatter={formatter} />
-                            </div>
                         </div>
                     </Card>
                     {/* </Card> */}
@@ -332,12 +300,13 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     cy="50%"
                                     innerRadius={60}
                                     outerRadius={80}
-                                    // fill="#8884d8"
                                     dataKey="value"
                                     onMouseEnter={onPieEnterSupEncuestadas}
+                                    // fill={(entry) => entry.payload.colors}
+                                    // fill={cultivosSupEncuestadas.colors}
                                 >
-                                    {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    {cultivosSupEncuestadas.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.colors} />
                                     ))}
                                 </Pie>
                                 <Tooltip />
@@ -364,8 +333,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     dataKey="value"
                                     onMouseEnter={onPieEnterProdEncuestadas}
                                 >
-                                    {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS1[index % COLORS1.length]} />
+                                    {cultivosProdEncuestadas.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.colors} />
                                     ))}
                                 </Pie>
                                 <Tooltip />
@@ -392,11 +361,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                     dataKey="value"
                                     onMouseEnter={onPieEnterCostoEncuestadas}
                                 >
-                                    {data.map((entry, index) => (
-                                        <Cell
-                                            key={`cell-${index}`}
-                                            fill={COLORS2[index % COLORS2.length]}
-                                        />
+                                    {cultivosCostoEncuestadas.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.colors} />
                                     ))}
                                 </Pie>
                                 <Tooltip />

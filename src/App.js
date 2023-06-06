@@ -33,8 +33,8 @@ function App() {
 
   //* Id de cliente que se obtine desde local storage
   // const idC = localStorage.getItem("cliSelect");
-  const idC = 2049;
-  // const idC = 2083;
+  // const idC = 2049;
+  const idC = 2083;
   const [idCliente, setIdCliente] = useState(idC);
 
   const [infoCliSelect, setInfoCliSelect] = useState(null)
@@ -121,6 +121,7 @@ function App() {
   const [isButtonEditDisabled, setIsButtonEditDisabled] = useState(true);
   const [ca, setCA] = useState(0);
   const [isSelectEditDisabled, setIsSelectEditDisabled] = useState(false);
+  const [supEncuestadas, setSupEncuestadas] = useState();
 
   return (
     <GlobalContext.Provider
@@ -249,6 +250,7 @@ function App() {
         isSelectEditDisabled, setIsSelectEditDisabled,
         isButtonDisabled, setIsButtonDisabled,
         cosechaSeleccionada, setCosechaSeleccionada,
+        supEncuestadas, setSupEncuestadas,
       }}
     >
       <ApolloProvider client={client}>

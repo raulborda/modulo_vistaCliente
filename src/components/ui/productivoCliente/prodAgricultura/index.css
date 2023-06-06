@@ -169,3 +169,8 @@
     display: none;
   }
   /* PRUEBON HASTA ACA  */
+
+
+  .recharts-layer .recharts-pie-sector {
+    font-size: 11px;
+  }

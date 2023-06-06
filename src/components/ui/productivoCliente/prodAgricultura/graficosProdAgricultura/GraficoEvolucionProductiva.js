@@ -188,7 +188,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
         <>
             <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
                 <div style={{ width: '70%', marginRight: '10px', height: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    {/* <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <h1 className='titulos'>
                             EVOLUCIÓN PRODUCTIVA
                         </h1>
@@ -203,7 +203,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
                                 Ver Tabla
                             </Button>
                         }
-                    </div>
+                    </div> */}
                     <ResponsiveContainer className="" width="99%" height={250}>
                         <BarChart
                             height={250}

@@ -6,7 +6,7 @@ import { GraficoAcopioTT } from './GraficoAcopioTT';
 import GraficoEvolucionProductiva from './GraficoEvolucionProductiva';
 import { GraficoInsumos } from './GraficoInsumos';
 import './graficos.css';
-import { EditOutlined, InfoCircleOutlined, PieChartOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, InfoCircleOutlined, PieChartOutlined, PlusCircleOutlined, TableOutlined } from '@ant-design/icons';
 import { EditarCapacidad } from './EditarCapacidad';
 import { NuevaCapacidad } from './NuevaCapacidad';
 
@@ -94,7 +94,9 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
     var result = {};
     let capacidad = [];
 
+    console.log('infocap: ', infoCap)
     const generaData = (infoCap) => {
+
 
         setInfoEdit(infoCap);
         // Iterar sobre cada objeto del array
@@ -187,13 +189,12 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
                         />
                     </>
                 ),
-                propias: <strong>{Math.trunc(infoCap[0].ahxs_propias)}</strong>,
-                alquiler: <strong>{Math.trunc(infoCap[0].ahxs_alquiladas)}</strong>,
-                total: <strong>{parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)}</strong>,
-                // porcentaje: <strong>{(parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) !== 0 ? (((parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) / (parseInt(infoCap[0].ahxs_propias) + parseInt(infoCap[0].ahxs_alquiladas)) * 100).toFixed(0)) + '%' : 0 + '%'}</strong>
-                porcentaje: <strong>{(parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) !== 0 ?
-                    (((parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) /
-                        (parseInt(infoCap[0]?.ahxs_propias || 0) + parseInt(infoCap[0]?.ahxs_alquiladas || 0)) * 100).toFixed(0)) :
+                propias: <strong>{Math.trunc(infoCap && infoCap.length > 0 ? infoCap[0].ahxs_propias : 0)}</strong>,
+                alquiler: <strong>{Math.trunc(infoCap && infoCap.length > 0 ? infoCap[0].ahxs_alquiladas : 0)}</strong>,
+                total: <strong>{infoCap && infoCap.length > 0 ? parseInt(infoCap[0].ahxs_propias) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0].ahxs_alquiladas) : 0}</strong>,
+                porcentaje: <strong>{(infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_propias || 0) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_alquiladas || 0) : 0) !== 0 ?
+                    (((infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_propias || 0) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_alquiladas || 0) : 0) /
+                        (infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_propias || 0) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_alquiladas || 0) : 0) * 100).toFixed(0)) :
                     0}% </strong>,
             },
         ];
@@ -252,6 +253,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
     }
 
     var cosechaa = parseInt(selectedAcosDesc);
+    console.log('cosechaa: ',cosechaa)
     //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA CAPACIDAD PRODUCTIVA INICIAL
     useEffect(() => {
         if (idCliente) {
@@ -264,8 +266,9 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
             }).then(function (response) {
                 response.text().then((resp) => {
                     const data = resp;
+                    console.log('resppppppppppppppp: ', resp)
                     const objetoData = JSON.parse(data);
-                    // console.log('objetoData - setInfoCap : ', objetoData)
+                    console.log('objetoData - setInfoCap : ', objetoData)
                     setInfoCap(objetoData);
                 });
             });
@@ -273,6 +276,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
             rubros();
         }
     }, [idCliente, selectedAcosDesc, update]);
+
 
     if (infoCap.length > 0) {
         generaData(infoCap);
@@ -354,9 +358,32 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
     }, [refrescarTable, infoCap])
     //! FIN - PROBANDO
 
+    const verTable = () => {
+        setCardSelected(1)
+        setIconTable(!iconTable);
+    }
+
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '250px' }}>
+                {cardSelected === 0 && (
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <h1 className='titulos'>
+                        EVOLUCIÓN PRODUCTIVA
+                    </h1>
+                    {
+                        !iconTable &&
+                        <Button
+                            icon={<TableOutlined />}
+                            type="primary"
+                            style={{ marginLeft: '10px', marginTop: '-5px', backgroundColor: '#00B33C' }}
+                            onClick={() => { verTable(); }}
+                        >
+                            Ver Tabla
+                        </Button>
+                    }
+                </div>
+                )}
                 {cardSelected === 1 && (
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
