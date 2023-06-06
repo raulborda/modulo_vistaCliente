@@ -279,30 +279,41 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
                     <Card>
-                        <Card>
-                            <h1 className='titulos'>
-                                CULTIVO
-                            </h1>
-                            <Select
-                                style={{ width: '200px', marginLeft: '20px' }}
-                                showSearch
-                                optionFilterProp="children"
-                                filterOption={(input, option) =>
-                                    option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                                onChange={(value) => setSelectedCultivo(value)}
-                                // defaultValue={cultivos.length > 0 && cultivos[0].acult_id}
-                                defaultValue='TODOS'
-                            >
-                                {cultivos.map((cultivo) => (
-                                    <Select.Option key={cultivo.acult_id} value={cultivo.acult_id}>
-                                        {cultivo.acult_desc}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-                            <Statistic title="SUP. ENCUESTADA" value={supEncuestadas} formatter={formatter} />
-                        </Card>
+                        {/* <Card> */}
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <div>
+                                
+                            </div>
+                            <div>
+                                <h1 className='titulos'>
+                                    CULTIVO
+                                </h1>
+                            </div>
+                            <div>
+                                <Select
+                                    style={{ width: '200px', marginLeft: '20px' }}
+                                    showSearch
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => setSelectedCultivo(value)}
+                                    // defaultValue={cultivos.length > 0 && cultivos[0].acult_id}
+                                    defaultValue='TODOS'
+                                >
+                                    {cultivos.map((cultivo) => (
+                                        <Select.Option key={cultivo.acult_id} value={cultivo.acult_id}>
+                                            {cultivo.acult_desc}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </div>
+                            <div style={{ marginLeft: '20px' }}>
+                                <Statistic title="SUP. ENCUESTADA" value={supEncuestadas} formatter={formatter} />
+                            </div>
+                        </div>
                     </Card>
+                    {/* </Card> */}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <div style={{ width: '33%', marginRight: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
