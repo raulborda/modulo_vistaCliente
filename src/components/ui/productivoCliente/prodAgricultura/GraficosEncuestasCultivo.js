@@ -71,6 +71,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const [legendCostoEncuestadas, setLegendCostoEncuestadas] = useState({ activeIndex: 0 });
     const [totalProduccion, setTotalProduccion] = useState(0);
     const [totalCosto, setTotalCosto] = useState(0);
+    const [totalSuperficie, setTotalSuperficie] = useState(0);
 
     const onPieEnterSupEncuestadas = (_, index) => {
         setLegendSupEncuestadas({
@@ -138,7 +139,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     return accumulator + currentValue.value;
                 }, 0);
                 // Hacer algo con el total, como asignarlo a un estado
-                setSupEncuestadas(total.toLocaleString());
+                setSupEncuestadas(total());
+                setTotalSuperficie(total.toLocaleString());
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
@@ -254,7 +256,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
                             <h1 className='titulos'>
-                                SUP. ENCUESTADA: {supEncuestadas} HAS.
+                                SUP. ENCUESTADA: {totalSuperficie} HAS.
                             </h1>
                         </div>
                         {cultivosSupEncuestadas.length === 0 ? (
