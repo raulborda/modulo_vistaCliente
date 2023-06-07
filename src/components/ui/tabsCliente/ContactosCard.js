@@ -5,7 +5,6 @@ import { GlobalContext } from "../../context/GlobalContext";
 const ContactosCard = () => {
   const { contactosCli } = useContext(GlobalContext);
 
-  console.log("desde contactos: ", contactosCli);
   return (
     <>
       <div
@@ -29,7 +28,6 @@ const ContactosCard = () => {
             <Card
               key={index}
               title={(contacto.con_nombre).toUpperCase()}
-              // headStyle={{ textAlign: "center" }}
             >
               <p>
                 <strong>Email:</strong><label style={{ color: "#56b43c" }}> {contacto.con_email1}</label>

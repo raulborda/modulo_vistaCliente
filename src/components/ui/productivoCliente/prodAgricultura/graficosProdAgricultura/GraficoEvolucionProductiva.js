@@ -1,23 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { GlobalContext } from '../../../../context/GlobalContext';
-import { PieChartOutlined, TableOutlined } from '@ant-design/icons';
-import { Button, Empty, Result } from 'antd';
+import { Empty } from 'antd';
 
 const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
     const {
-        cardSelected,
         setCardSelected,
-        idCliente,
-        setIdCliente,
-
-        infoEvo,
-        setInfoEvo,
-        update,
         dataForChart,
-        setDataForChart,
-
         iconTable,
         setIconTable,
     } = useContext(GlobalContext);
@@ -47,35 +37,20 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
     const COLORS = ["#7B241C", "#CB4335", "#F1948A", "#FADBD8"];
 
-    const dataAnillo = [
-        { name: 'Agricultura', value: 400 },
-        { name: 'Ganaderia', value: 300 },
-        { name: 'Tambo', value: 300 },
-        { name: 'Mixto', value: 200 },
-    ];
-
-
-    /*-----------------------------------*/
     const [isValorPropias, setIsValorPropias] = useState(true);
     const [isValorAlquiladas, setIsValorAlquiladas] = useState(true);
-    /*-----------------------------------*/
 
     const handleLegendClick = (x) => {
         console.log(x);
         console.log("click");
         if (x.value === "Propias") {
-            console.log("seleccionaste propias");
             setIsValorPropias(!isValorPropias);
         }
 
         if (x.value === "Alquiladas") {
-            console.log("seleccionaste alquiladas");
             setIsValorAlquiladas(!isValorAlquiladas);
         }
     };
-    /*-----------------------------------*/
-
-
 
     const getIntroOfPage = (valor0, valor1) => {
         if (valor0 === "" || valor0 === "undefined" || valor0 === null || valor0 === 0) {
@@ -160,13 +135,6 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
         },
     ];
 
-
-    /*--------------------------- */
-    const verGrafico = () => {
-        setCardSelected(1)
-        setIconTable(!iconTable);
-    }
-
     const formatter = (value, name, props) => {
         return (
             <div>
@@ -181,8 +149,6 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
             </div>
         );
     };
-
-
 
     return (
         <>

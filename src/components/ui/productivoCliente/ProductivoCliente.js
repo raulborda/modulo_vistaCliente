@@ -1,12 +1,10 @@
-import { Card, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useContext, useState } from 'react'
 import './productivoCliente.css';
 import { ProductivoAgricultura } from './prodAgricultura/ProductivoAgricultura';
-// import { ProductivoAgricultura } from './ProductivoAgricultura';
 import { ProductivoGanaderia } from './ProductivoGanaderia';
 import { GlobalContext } from '../../context/GlobalContext';
-
 
 const ProductivoCliente = () => {
   const {
@@ -22,12 +20,10 @@ const ProductivoCliente = () => {
     {
       key: '0',
       label: 'Agricultura',
-      // component: <ProductivoAgricultura />,
     },
     {
       key: '1',
       label: 'Ganadería',
-      // component: <ProductivoGanaderia />,
     },
   ];
 
@@ -67,15 +63,12 @@ const ProductivoCliente = () => {
 
   return (
     <>
-      <div
-      // style={{marginTop: '-13px'}}
-      >
+      <div>
         <Tabs
           className="tabs-custom"
           items={items}
           onChange={handleTabClick}
           tabBarStyle={{ width: '100%' }}
-        // tabBarGutter={window.innerWidth > 768 ? 40 : 10} // 40px de espacio entre tabs para pantallas mayores a 768px, 10px de espacio para pantallas menores
         >
           {items.map((item) => (
             <TabPane key={item.key} tab={item.label}>
@@ -83,10 +76,7 @@ const ProductivoCliente = () => {
             </TabPane>
           ))}
         </Tabs>
-        {/* <Card> */}
-
         {handleStage()}
-        {/* </Card> */}
       </div>
     </>
   )

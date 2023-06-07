@@ -114,8 +114,6 @@ const AgregarLotes = () => {
     if (valorGeoJSON.length > 0) {
       const hectareasDibujadas = calcularHectareasDibujadas(valorGeoJSON);
       setHasDibujada(hectareasDibujadas);
-      console.log('Se realizo la funcion: ', hasDibujada);
-
       // Reiniciar el campo "has" del formulario
       formRef.current?.resetFields(['has']);
     }
@@ -165,14 +163,12 @@ const AgregarLotes = () => {
     });
   }
 
-
   const onSubmitAdd = async (values) => {
     if (valorGeoJSON.length === 0) {
       setControlGeoJsonMarcado(true);
     } else {
       try {
         setSpinning(true);
-
         const latLon = 0;
         const dataAdd = new FormData();
         dataAdd.append("idC", idCliente);
@@ -194,7 +190,6 @@ const AgregarLotes = () => {
         if (response.ok) {
           const resp = await response.text();
           const data = resp;
-          console.log("data: ", data);
           setShowFormAgregar(false);
           form.resetFields();
           setValorGeoJSON([]);
@@ -236,7 +231,6 @@ const AgregarLotes = () => {
       if (response.ok) {
         const resp = await response.text();
         const data = resp;
-        console.log("data: ", data);
         setShowFormAgregar(false);
         form.resetFields();
         setValorGeoJSON([]);
@@ -272,7 +266,6 @@ const AgregarLotes = () => {
       setLimpiarStates(false);
     }
   }, [limpiarStates])
-
 
   useEffect(() => {
     // Actualizar los valores del formulario cuando los estados cambien

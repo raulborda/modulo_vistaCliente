@@ -11,12 +11,9 @@ const styles = {
 };
 
 const MapaUbicLotes = () => {
-    console.log("ENTRE A MAPA UBICACION")
     const {
-
         setInfoLotes,
         idCliente,
- 
         isTableUpdated,
         setIsTableUpdated,
         setValorGeoJSON,
@@ -60,9 +57,7 @@ const MapaUbicLotes = () => {
                 });
                 map.addControl(draw);
 
-
                 //*
-
                 if (marcarLote !== "" && tipoMapa === 2) {
 
                     const lote = JSON.parse(marcarLote);
@@ -154,8 +149,6 @@ const MapaUbicLotes = () => {
         if (!map) initializeMap({ setMap, mapContainer });
     },[ubicLote]);
 
-
-
     function infoGeoJSON(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
@@ -197,7 +190,6 @@ const MapaUbicLotes = () => {
         } else {
             setGeoJSON(result);
         }
-        //setGeoJSON(result);
     }
 
     useEffect(() => {
@@ -214,7 +206,6 @@ const MapaUbicLotes = () => {
     useEffect(() => {
         if (isTableUpdated) {
             setIsTableUpdated(false);
-
             if (idCliente) {
                 const data = new FormData();
                 data.append("idCli", idCliente);

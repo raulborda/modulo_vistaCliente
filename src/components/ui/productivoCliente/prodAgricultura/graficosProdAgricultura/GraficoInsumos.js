@@ -6,58 +6,17 @@ import TabPane from 'antd/es/tabs/TabPane';
 import "./graficos.css";
 
 export const GraficoInsumos = () => {
-    // const data = [
-    //     {
-    //         cosecha: '2324',
-    //         propias: 4000,
-    //         alquiladas: 2400,
-    //     },
-    //     {
-    //         cosecha: '2223',
-    //         propias: 3000,
-    //         alquiladas: 1398,
-    //     },
-    //     {
-    //         cosecha: '2122',
-    //         propias: 2000,
-    //         alquiladas: 9800,
-    //     },
-    //     {
-    //         cosecha: '2021',
-    //         propias: 2780,
-    //         alquiladas: 3908,
-    //     }
-    // ];
-
-    // const COLORS = ["#116611", "#56b43c", "#55AA55", "#88CC88"];
-
-    // const dataAnillo = [
-    //     { name: 'Agricultura', value: 400 },
-    //     { name: 'Ganaderia', value: 300 },
-    //     { name: 'Tambo', value: 300 },
-    //     { name: 'Mixto', value: 200 },
-    // ];
 
     const {
-        idCliente, //Probando
-        setIdCliente,
-        infoInsumoTotal,
-        setInfoInsumoTotal,
-        infoInsumoAgroquimicos,
-        setInfoInsumoAgroquimicos,
-        infoInsumoSemillas,
-        setInfoInsumoSemillas,
-        infoInsumoFertilizantes,
-        setInfoInsumoFertilizantes,
-        isDataInsumoTotal, setIsDataInsumoTotal,
-        isDataInsumoAgroquimicos, setIsDataInsumoAgroquimicos,
-        isDataInsumoSemillas, setIsDataInsumoSemillas,
-        isDataInsumoFertilizantes, setIsDataInsumoFertilizantes,
+        isDataInsumoTotal,
+        isDataInsumoAgroquimicos,
+        isDataInsumoSemillas,
+        isDataInsumoFertilizantes,
     } = useContext(GlobalContext);
 
     const [isValorCompra, setIsValorCompra] = useState(true);
     const [isValorEstimado, setIsValorEstimado] = useState(true);
-    
+
     const items = [
         {
             key: '1',
@@ -81,8 +40,6 @@ export const GraficoInsumos = () => {
         },
     ];
     const [activeKey, setActiveKey] = useState(items[0].key);
-
-
     const [isLoading, setIsLoading] = useState(1);
 
     const handleChangeTab = (key) => {
@@ -100,8 +57,6 @@ export const GraficoInsumos = () => {
         }
 
     }, [isLoading])
-
-
 
     let data;
     switch (activeKey) {
@@ -123,15 +78,11 @@ export const GraficoInsumos = () => {
     }
 
     const handleLegendClick = (x) => {
-        console.log(x);
-        console.log("click");
         if (x.value === "Compra U$S") {
-            console.log("seleccionaste Compra");
             setIsValorCompra(!isValorCompra);
         }
 
         if (x.value === "Estimado U$S") {
-            console.log("seleccionaste Estimado");
             setIsValorEstimado(!isValorEstimado);
         }
     };
@@ -139,7 +90,7 @@ export const GraficoInsumos = () => {
     return (
         <>
             <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-                <div style={{ width: '100%', marginRight: '10px'}}>
+                <div style={{ width: '100%', marginRight: '10px' }}>
                     <div>
                         <h1 className='titulos'>
                             ANALISIS INSUMOS COMPRADOS
@@ -157,7 +108,6 @@ export const GraficoInsumos = () => {
                                         disabled={true}
                                         key={item.key}
                                         tab={item.label}>
-                                        {/* {item.children} */}
                                     </TabPane>
                                 ))}
                             </Tabs>
@@ -178,13 +128,10 @@ export const GraficoInsumos = () => {
 
                     {
                         isLoading > 0 ? <Spin className='prueba' tip="Loading" size="large" style={{ borderColor: 'red' }} > <div className="SpinLoading" /> </Spin> :
-                            <ResponsiveContainer className="" width="99%" height={/*400*/ 230}>
+                            <ResponsiveContainer className="" width="99%" height={230}>
                                 <ComposedChart
-                                    // width={367}
                                     height={250}
-                                    // data={data}
                                     data={
-                                        // datin
                                         activeKey === '1' ? isDataInsumoTotal :
                                             activeKey === '2' ? isDataInsumoAgroquimicos :
                                                 activeKey === '3' ? isDataInsumoSemillas :

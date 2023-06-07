@@ -1,28 +1,19 @@
-import { CaretDownOutlined, CaretUpFilled, CheckCircleOutlined, DotChartOutlined, EnvironmentOutlined, SmileFilled, SmileOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Row, Spin, Statistic } from 'antd';
+import { CaretDownOutlined, CaretUpFilled} from '@ant-design/icons';
+import { Button, Card, Col, Row, Statistic } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import CountUp from 'react-countup';
-import { Bar, BarChart, ResponsiveContainer } from 'recharts';
 import { GlobalContext } from '../../../../context/GlobalContext';
-import CardGraficoEvolucionProductiva from './CardGraficoEvolucionProductiva';
 import './cardDatos.css';
-
-import ReactMapboxGl, { Marker, LngLatBounds } from 'react-mapbox-gl';
+import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 import * as MapboxGl from 'react-mapbox-gl';
 import mapboxgl from 'mapbox-gl';
-// import MapboxGeocoder from 'mapbox-gl-geocoder';
-import MapboxGeocoder from 'mapbox-gl-geocoder';
-
 import 'mapbox-gl/dist/mapbox-gl.css';
-import MapasLotes from '../MapasLotes';
 
 
 
-// console.log(MapboxGl); // Verifica que LngLatBounds está incluido en las exportaciones
 const CardInsumos = () => {
 
     const URL = process.env.REACT_APP_URL;
-    // console.log('URL: ', URL);
 
     const {
         cardSelected,
@@ -52,9 +43,9 @@ const CardInsumos = () => {
         infoInsumoFertilizantes,
         setInfoInsumoFertilizantes,
         isDataInsumoTotal, setIsDataInsumoTotal,
-        isDataInsumoAgroquimicos, setIsDataInsumoAgroquimicos,
-        isDataInsumoSemillas, setIsDataInsumoSemillas,
-        isDataInsumoFertilizantes, setIsDataInsumoFertilizantes,
+        setIsDataInsumoAgroquimicos,
+        setIsDataInsumoSemillas,
+        setIsDataInsumoFertilizantes,
 
         //ACOPIO
         infoTotal,
@@ -68,41 +59,24 @@ const CardInsumos = () => {
         infoOtrosGranos,
         setInfoOtrosGranos,
         isDataTotal, setIsDataTotal,
-        isDataSoja, setIsDataSoja,
-        isDataTrigo, setIsDataTrigo,
-        isDataMaiz, setIsDataMaiz,
-        isDataOtrosGranos, setIsDataOtrosGranos,
-
+        setIsDataSoja,
+        setIsDataTrigo,
+        setIsDataMaiz,
+        setIsDataOtrosGranos,
         //Ver lotes 
         visible, setVisible,
-
         supEncuestadas,
         refrescarTable,
-
-
     } = useContext(GlobalContext);
 
     const [cardStyle1, setCardStyle1] = useState({
-        // borderLeft: '2px dashed #56D75B',
-        // borderTop: '2px dashed #56D75B',
-        // borderBottom: '2px dashed #56D75B',
-        // borderRight: '0px dashed #FFFF',
-        // borderTopRightRadius: '0%',
-        // borderBottomRightRadius: '0%',
         border: '2px dashed #56D75B',
         height: '100%',
     });
     const [cardStyle2, setCardStyle2] = useState({
-        // borderRight: '2px dashed #56D75B',
-        // borderTopRightRadius: '0%',
-        // border: '2px dashed #56D75B',
         height: '100%'
     });
     const [cardStyle3, setCardStyle3] = useState({
-        // borderRight: '2px dashed #56D75B',
-        // borderTopRightRadius: '0%',
-        // borderBottomRightRadius: '0%',
-        // border: '2px dashed #56D75B',
         height: '100%'
     });
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
@@ -122,68 +96,36 @@ const CardInsumos = () => {
     const [valorAlquiladas, setValorAlquiladas] = useState(0);
     const [insumoEstimado, setInsumoEstimado] = useState(0);
     const [acopioEncuesta, setAcopioEncuesta] = useState(0);
-    // setCardSelected(0);
 
-
-    // const [labelListTotalHas, setLabelListTotalHas] = useState(false);
-    const [labelListInsumos, setLabelListInsumos] = useState(false);
-    const [labelListAcopio, setLabelListAcopio] = useState(false);
-
-
-    // setCardStyle1({ border: '2px dashed #56D75B', height: '100%' });
     const handleClick = (index) => {
         // Actualiza el estilo de la tarjeta actualmente seleccionada
         switch (index) {
             case 0:
                 setCardStyle1({
-                    // borderLeft: '2px dashed #56D75B',
-                    // borderTop: '2px dashed #56D75B',
-                    // borderBottom: '2px dashed #56D75B',
-                    // borderRight: '0px dashed #FFFF',
-                    // borderTopRightRadius: '0%',
-                    // borderBottomRightRadius: '0%',
                     border: '2px dashed #56D75B',
                     height: '100%',
                 });
                 setCardStyle2({})
                 setCardStyle3({})
                 setCardSelected(0);
-                // setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
-                // setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 break;
             case 1:
                 setCardStyle2({
-                    // borderLeft: '2px dashed #56D75B',
-                    // borderTop: '2px dashed #56D75B',
-                    // borderBottom: '2px dashed #56D75B',
-                    // borderRight: '0px dashed #FFFF',
-                    // borderTopRightRadius: '0%',
-                    // borderBottomRightRadius: '0%',
                     border: '2px dashed #56D75B',
                     height: '100%'
                 });
                 setCardStyle1({})
                 setCardStyle3({})
-                // setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
-                // setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardSelected(2);
                 setIconTable(false);
                 break;
             case 2:
                 setCardStyle3({
-                    // borderLeft: '2px dashed #56D75B',
-                    // borderTop: '2px dashed #56D75B',
-                    // borderBottom: '2px dashed #56D75B',
-                    // borderRight: '0px dashed #FFFF',
-                    // borderTopRightRadius: '0%',
-                    // borderBottomRightRadius: '0%',
                     border: '2px dashed #56D75B',
                     height: '100%'
                 });
                 setCardStyle1({})
                 setCardStyle2({})
-                // setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
-                // setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%', height: '100%' });
                 setCardSelected(3);
                 setIconTable(false);
                 break;
@@ -195,15 +137,12 @@ const CardInsumos = () => {
         if (selectedCardIndex !== null && selectedCardIndex !== index) {
             switch (selectedCardIndex) {
                 case 0:
-                    // setCardStyle1({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
                     setCardStyle1({});
                     break;
                 case 1:
-                    // setCardStyle2({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
                     setCardStyle2({});
                     break;
                 case 2:
-                    // setCardStyle3({ borderRight: '2px dashed #56D75B', borderTopRightRadius: '0%', borderBottomRightRadius: '0%' });
                     setCardStyle3({});
                     break;
                 default:
@@ -224,7 +163,6 @@ const CardInsumos = () => {
     function InfoGrafEvol(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch('../com_graEvolucionData.php', {
         fetch(`${URL}com_graEvolucionData.php`, {
             method: "POST",
             body: data,
@@ -232,20 +170,16 @@ const CardInsumos = () => {
             response.text().then((resp) => {
                 const data = resp;
                 var objetoData = JSON.parse(data);
-                // console.log('objetoData: ', objetoData);
                 setInfoEvo(objetoData);
 
             });
-            // console.log('infoEvo1: ', infoEvo);
         });
     }
 
     useEffect(() => {
-        // InfoGrafEvol('2049');
         InfoGrafEvol(idCliente);
     }, [])
     useEffect(() => {
-        // InfoGrafEvol('2049');
         InfoGrafEvol(idCliente);
     }, [refrescarTable])
 
@@ -261,8 +195,6 @@ const CardInsumos = () => {
                     };
                 })
             );
-            // console.log('infoEvo3: ', infoEvo);
-            // console.log('DataForChart: ', dataForChart);
         }
     }, [infoEvo, refrescarTable]);
 
@@ -276,9 +208,7 @@ const CardInsumos = () => {
     function InfoInsumosTotales(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_insumoTotal.php", {
         fetch(`${URL}gra_insumoTotal.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisTotal.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -297,7 +227,6 @@ const CardInsumos = () => {
         InfoInsumosTotales(idCliente);
     }, [idCliente]);
 
-    // const [isDataInsumoTotal, setIsDataInsumoTotal] = useState([]);
     useEffect(() => {
         if (infoInsumoTotal.length > 0) {
             setIsDataInsumoTotal(
@@ -311,8 +240,6 @@ const CardInsumos = () => {
                 })
             );
         }
-        // console.log("infoInsumoTotal2: ", infoInsumoTotal)
-        // console.log("isDataInsumoTotal2: ", isDataInsumoTotal)
     }, [infoInsumoTotal]);
     /*------------------Fin DataTotal----------------------*/
 
@@ -321,9 +248,7 @@ const CardInsumos = () => {
     function InfoInsumosAgroquimicos(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_insumoAgroquimicos.php", {
         fetch(`${URL}gra_insumoAgroquimicos.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisTotal.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -362,9 +287,7 @@ const CardInsumos = () => {
     function InfoInsumosSemillas(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_insumoSemillas.php", {
         fetch(`${URL}gra_insumoSemillas.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisTotal.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -403,9 +326,7 @@ const CardInsumos = () => {
     function InfoInsumosFertilizantes(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_insumoFertilizantes.php", {
         fetch(`${URL}gra_insumoFertilizantes.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisTotal.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -448,9 +369,7 @@ const CardInsumos = () => {
     function InfoDataTotal(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_analisisTotal.php", {
         fetch(`${URL}gra_analisisTotal.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisTotal.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -458,7 +377,6 @@ const CardInsumos = () => {
                 const data = resp.substring(resp.indexOf('['));
                 var objetoData = JSON.parse(data);
                 setInfoTotal(objetoData);
-                // console.log('InfoTotal: ', infoTotal)
             });
         });
     }
@@ -483,7 +401,6 @@ const CardInsumos = () => {
                     };
                 })
             );
-            // console.log('setIsDataTotal: ', isDataTotal)
         }
     }, [infoTotal]);
     /*------------------Fin DataTotal----------------------*/
@@ -492,9 +409,7 @@ const CardInsumos = () => {
     function InfoDataSoja(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_analisisSoja.php", {
         fetch(`${URL}gra_analisisSoja.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisSoja.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -535,9 +450,7 @@ const CardInsumos = () => {
     function InfoDataTrigo(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_analisisTrigo.php", {
         fetch(`${URL}gra_analisisTrigo.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisTrigo.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -561,7 +474,6 @@ const CardInsumos = () => {
                 infoTrigo.map((item) => {
                     const entregadas = item.kil === 0 ? 0 : item.kil;
                     const encuesta = item.tt_est === 0 ? 0 : item.tt_est;
-                    // const porcentaje = encuesta === 0 ? 0 : ((entregadas * 100 / encuesta).toFixed(0));
                     return {
                         cosecha: item.acos_desc,
                         Entregadas: entregadas,
@@ -579,9 +491,7 @@ const CardInsumos = () => {
     function InfoDataMaiz(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_analisisMaiz.php", {
         fetch(`${URL}gra_analisisMaiz.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisMaiz.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -598,14 +508,12 @@ const CardInsumos = () => {
         InfoDataMaiz(idCliente);
     }, [idCliente]);
 
-    // const [isDataMaiz, setIsDataMaiz] = useState([]);
     useEffect(() => {
         if (infoMaiz.length > 0) {
             setIsDataMaiz(
                 infoMaiz.map((item) => {
                     const entregadas = item.kil === 0 ? 0 : item.kil;
                     const encuesta = item.tt_est === 0 ? 0 : item.tt_est;
-                    // const porcentaje = encuesta === 0 ? 0 : ((entregadas * 100 / encuesta).toFixed(0));
                     return {
                         cosecha: item.acos_desc,
                         Entregadas: entregadas,
@@ -622,9 +530,7 @@ const CardInsumos = () => {
     function InfoDataOtrosGranos(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        // fetch("../gra_analisisOtrosGranos.php", {
         fetch(`${URL}gra_analisisOtrosGranos.php`, {
-            // fetch("http://10.0.0.28/tati/modulos/gra_analisisOtrosGranos.php", {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -648,7 +554,6 @@ const CardInsumos = () => {
                 infoOtrosGranos.map((item) => {
                     const entregadas = item.kil === 0 ? 0 : item.kil;
                     const encuesta = item.tt_est === 0 ? 0 : item.tt_est;
-                    // const porcentaje = encuesta === 0 ? 0 : ((entregadas * 100 / encuesta).toFixed(0));
                     return {
                         cosecha: item.acos_desc,
                         Entregadas: entregadas,
@@ -668,12 +573,9 @@ const CardInsumos = () => {
 
         //! INICIO - EVOLUCION PRODUCTIVA
         const filteredInfoEvo = infoEvo.find((item) => item.acos_desc === selectedAcosDesc);
-        // console.log('filteredInfoEvo: ',filteredInfoEvo)
         const vPropias = filteredInfoEvo ? parseInt(filteredInfoEvo.ahxs_propias) : 0;
         const vAlquiladas = filteredInfoEvo ? parseInt(filteredInfoEvo.ahxs_alquiladas) : 0;
         const total = filteredInfoEvo ? (parseInt(filteredInfoEvo.ahxs_propias) + parseInt(filteredInfoEvo.ahxs_alquiladas)) : 0;
-        // console.log('totaltotal: ',total)
-        // setValorAlquiladas(parseInt(filteredInfoEvo.ahxs_alquiladas));
         const selectCosechaAnterior = infoEvo.find((item) => item.acos_desc === cosechaAnterior);
         const totalCosechaAnterior = selectCosechaAnterior ? (parseInt(selectCosechaAnterior.ahxs_propias) + parseInt(selectCosechaAnterior.ahxs_alquiladas)) : 0;
 
@@ -686,7 +588,6 @@ const CardInsumos = () => {
         //! INICIO - INSUMOS
         const filteredInfoInsumoTotal = isDataInsumoTotal.find((item) => item.cosecha === selectedAcosDesc);
         const totalInsumos = filteredInfoInsumoTotal ? parseInt(filteredInfoInsumoTotal.Compra) : 0;
-
         const selectCosechaAnteriorInsumoTotal = isDataInsumoTotal.find((item) => item.cosecha === cosechaAnterior);
         const totalCosechaAnteriorInsumoTotal = selectCosechaAnteriorInsumoTotal ? parseInt(selectCosechaAnteriorInsumoTotal.Compra) : 0;
 
@@ -701,10 +602,8 @@ const CardInsumos = () => {
         //! INICIO - ACOPIO TT
         const filteredInfoAcopioTotal = isDataTotal.find((item) => item.cosecha === selectedAcosDesc);
         const totalAcopio = filteredInfoAcopioTotal ? parseInt(filteredInfoAcopioTotal.Entregadas) : 0;
-
         const selectCosechaAnteriorAcopioTotal = isDataTotal.find((item) => item.cosecha === cosechaAnterior);
         const totalCosechaAnteriorAcopioTotal = selectCosechaAnteriorAcopioTotal ? parseInt(selectCosechaAnteriorAcopioTotal.Entregadas) : 0;
-
         const encuestaAcopio = filteredInfoAcopioTotal ? parseInt(filteredInfoAcopioTotal.Encuesta) : 0;
 
         setAcopioEncuesta(encuestaAcopio);
@@ -793,22 +692,6 @@ const CardInsumos = () => {
     const [lat, setLat] = useState(42.35);
     const [zoom, setZoom] = useState(11);
     const coordinates = [
-        // [-63.09649944, -37.72419139],
-        // [-63.0899334, -37.71892979],
-        // [-63.08439732, -37.72320699],
-        // [-63.09087753, -37.72863799],
-        // [-63.09649944, -37.72419139],
-        // [-63.09649944, -37.72419139],
-        // [-63.09649944, -37.72419139],
-        // [-63.09649944, -37.72419139],
-        // [-63.09649944, -37.72419139],
-        // [-63.09649944, -37.72419139],
-
-        // // Agregar coordenadas cercanas
-        // [-63.092242, -37.723432],
-        // [-63.091149, -37.725251],
-        // [-63.097209, -37.726975]
-
         [-63.11548948287964, -37.75500450168077],
         [-63.11291992664337, -37.7570996754639],
         [-63.117597699165344, -37.76074700242975],
@@ -838,10 +721,7 @@ const CardInsumos = () => {
             setLng(bounds.getCenter().lng);
             setLat(bounds.getCenter().lat);
         }
-        // console.log('coordinates: ', coordinates)
     }, [coordinates]);
-
-
 
     //! FIN - MAPBOX
 
@@ -859,8 +739,6 @@ const CardInsumos = () => {
                                     <Statistic
                                         title="Total Has."
                                         value={totalHas ? totalHas : 0}
-                                        // value={3500000}
-                                        // value={999999}
                                         valueStyle={{
                                             fontSize: '30px',
                                             fontWeight: 'bold',
@@ -872,7 +750,6 @@ const CardInsumos = () => {
                                     />
                                     <Statistic
                                         value={average ? Math.abs(average) : 0}
-                                        // value={100}
                                         precision={2}
                                         valueStyle={{
                                             color: porcentajeColor,
@@ -899,7 +776,6 @@ const CardInsumos = () => {
                                         title="Propias"
                                         value={valorPropias ? valorPropias : 0}
                                         valueStyle={{
-                                            // fontSize: '25px',
                                             fontWeight: 'bold',
                                             marginTop: '-20px',
                                             textAlign: 'right',
@@ -907,7 +783,6 @@ const CardInsumos = () => {
                                         }}
                                         formatter={formatter}
                                         className="statistic1"
-                                        // layout="horizontal"
                                     />
                                 </div>
                             </Row>
@@ -919,7 +794,6 @@ const CardInsumos = () => {
                                         title="Alquiladas"
                                         value={valorAlquiladas ? valorAlquiladas : 0}
                                         valueStyle={{
-                                            // fontSize: '25px',
                                             fontWeight: 'bold',
                                             marginTop: '-20px',
                                             textAlign: 'right',
@@ -938,7 +812,6 @@ const CardInsumos = () => {
                                         title="Encuesta"
                                         value={supEncuestadas ? supEncuestadas : 0}
                                         valueStyle={{
-                                            // fontSize: '25px',
                                             fontWeight: 'bold',
                                             marginTop: '-20px',
                                             textAlign: 'right',
@@ -1029,14 +902,11 @@ const CardInsumos = () => {
                             </div>
                         </Col>
                         <Col span={4}>
-                            {/* <Row style={{ width: '100%' }}> */}
                             <Row style={{ width: '100%' }}>
-                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
                                 <Statistic
                                     title="Encuesta "
                                     value={insumoEstimado ? insumoEstimado : 0}
                                     valueStyle={{
-                                        // fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
                                         textAlign: 'right',
@@ -1046,7 +916,6 @@ const CardInsumos = () => {
                                     className="statistic1"
                                     layout="horizontal"
                                 />
-                                {/* </div> */}
                             </Row>
                         </Col>
                     </Row>
@@ -1093,14 +962,11 @@ const CardInsumos = () => {
                             </div>
                         </Col>
                         <Col span={4}>
-                            {/* <Row style={{ width: '100%' }}> */}
                             <Row style={{ width: '100%' }}>
-                                {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
                                 <Statistic
                                     title="Encuesta"
                                     value={acopioEncuesta ? acopioEncuesta : 0}
                                     valueStyle={{
-                                        // fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
                                         textAlign: 'right',
@@ -1110,7 +976,6 @@ const CardInsumos = () => {
                                     className="statistic1"
                                     layout="horizontal"
                                 />
-                                {/* </div> */}
                             </Row>
                         </Col>
                     </Row>

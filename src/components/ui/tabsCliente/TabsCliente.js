@@ -1,12 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {
-  Button,
-  Card,
   Drawer,
-  Modal,
   Select,
   Space,
-  Spin,
   Tabs,
   Tag,
 } from "antd";
@@ -21,8 +17,6 @@ import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
 import {
   EyeOutlined,
-  MailFilled,
-  PhoneFilled,
   UserOutlined,
 } from "@ant-design/icons";
 import ClienteCard from "./ClienteCard";
@@ -30,32 +24,19 @@ import ContactosCard from "./ContactosCard";
 
 const TabsCliente = () => {
   const URL = process.env.REACT_APP_URL;
-  //console.log(URL);
-
 
   const {
     appStage,
     setAppStage,
     idCliente,
-    setIdCliente,
     selectedAcosDesc,
     setSelectedAcosDesc,
-    cosechaAnterior,
     setCosechaAnterior,
     infoCliSelect,
     setInfoCliSelect,
-    contactosCli,
     setContactosCli,
-    infoCosechas,
-    setCosechas,
-
     listCosechas,
-    setListCosechas,
-    cosechaA,
-    setCosechaA,
-
     isSelectEditDisabled,
-    cosechaSeleccionada,
     setCosechaSeleccionada,
   } = useContext(GlobalContext);
 
@@ -70,7 +51,6 @@ const TabsCliente = () => {
     if (selectedCosecha) {
       const selectedCosechaId = selectedCosecha.acos_id;
       setCosechaSeleccionada(selectedCosechaId);
-      console.log("acos_id seleccionado: ", selectedCosechaId);
       // Realiza las operaciones adicionales con el acos_id seleccionado
     }
 
@@ -100,7 +80,6 @@ const TabsCliente = () => {
     }).then(function (response) {
       response.text().then((resp) => {
         const data = resp;
-        //console.log(resp);
         const objetoData = JSON.parse(data);
         setInfoCliSelect(objetoData);
       });
@@ -116,7 +95,6 @@ const TabsCliente = () => {
     }).then(function (response) {
       response.text().then((resp) => {
         const data = resp;
-        //console.log(resp);
         const objetoData = JSON.parse(data);
         setContactosCli(objetoData);
       });
@@ -129,8 +107,6 @@ const TabsCliente = () => {
       cargarContactosCli();
     }
   }, [idCliente]);
-
-  //console.log(contactosCli);
 
   const items = [
     {
@@ -202,35 +178,28 @@ const TabsCliente = () => {
 
   //! DRAWER INFORMCACION
   const [open, setOpen] = useState(false);
-  const [placement, setPlacement] = useState("top");
   const showDrawer = () => {
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
   };
-  const onChange = (e) => {
-    setPlacement(e);
-  };
+
 
   //! DRAWER CONTACTOS
   const [openC, setOpenC] = useState(false);
-  const [placementC, setPlacementC] = useState("top");
   const showDrawerC = () => {
     setOpenC(true);
   };
   const onCloseC = () => {
     setOpenC(false);
   };
-  const onChangeC = (e) => {
-    setPlacementC(e);
-  };
+
 
   return (
     <>
       <div
         className="divContainer"
-        // style={{marginBottom: '-100px' }}
       >
         <div className="divCliente_content">
           <div className="divCliente_info">
@@ -256,7 +225,6 @@ const TabsCliente = () => {
             />
             <Drawer
               title={infoCliSelect[0]?.cli_nombre}
-              placement={placement}
               closable={false}
               onClose={onClose}
               open={open}
@@ -277,7 +245,6 @@ const TabsCliente = () => {
             />
             <Drawer
               title={infoCliSelect[0]?.cli_nombre}
-              placement={placementC}
               closable={false}
               onClose={onCloseC}
               open={openC}

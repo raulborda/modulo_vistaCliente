@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { Button, Form, Input, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-// import { GlobalContext } from "../../context/GlobalContext";
 import "./graficos.css";
 import { GlobalContext } from "../../../../context/GlobalContext";
 
@@ -13,27 +11,18 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
   //! UseContext
   const {
     idCliente,
-    // dataContext,
     setDataContext,
-    // isCosecha,
-    // setIsCosecha,
-    // appStage,
-    // setAppStage,
-    // isButtonDisabled,
     setIsButtonDisabled,
     setIsSelectEditDisabled,
     update,
     setUpdate,
     ca, 
-    // setCA,
     setRefrescarTable,
-    // selectedCard,
     setCardSelected
   } = useContext(GlobalContext);
 
   //! UseState
   const [isData, setIsData] = useState({});
-  // const [isActiveModal, setIsActiveModal] = useState(false);
   const [isDataSet, setIsDataSet] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -63,8 +52,6 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     let inputMixto = document.getElementById("inputMixto").value;
     //! Fin - Para todas las demas coop
 
-
-
     let totalPropias =
       parseInt(inputAgricultura) +
       parseInt(inputGanaderia) +
@@ -76,13 +63,10 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     parseInt(inputMixto);
     //! Fin - Para todas las demas coop
 
-
     let inputAlquiladas = document.getElementById("inputAlquiladas").value;
     let inputAgriculturaA = document.getElementById("inputAgriculturaA").value;
     let inputGanaderiaA = document.getElementById("inputGanaderiaA").value;
     let inputTamboA = document.getElementById("inputTamboA").value;
-
-
 
     //! Inicio - Coop Camil
     // let inputFeedlotA = document.getElementById("inputFeedlotA").value;
@@ -90,7 +74,6 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     //! Inicio - Para todas las demas coop
     let inputMixtoA = document.getElementById("inputMixtoA").value;
     //! Fin - Para todas las demas coop
-
 
     let totalAlquiladas =
       parseInt(inputAgriculturaA) +
@@ -103,7 +86,6 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     parseInt(inputMixtoA);
     //! Fin - Para todas las demas coop
 
-
     if (isData.cosecha !== null) {
       console.log('isData: ', isData)
       if (totalPropias <= inputPropias && totalAlquiladas <= inputAlquiladas) {
@@ -114,13 +96,8 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
         }
 
         localStorage.setItem("data", JSON.stringify({ objData }));
-        // setAppStage(0);
         setCardSelected(1);
-
-        let cli = localStorage.getItem("cliente");
-
         newCap(idCliente, isData);
-
         setUpdate(!update);
         setIsSelectEditDisabled(false);
 
@@ -132,8 +109,6 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
       }
     } else {
       isData.cosecha = ca;
-      console.log('cosechaActiva: ', ca);
-      console.log('isData: ', isData);
       // alert("Se debe ingresar la cosecha");
       if (totalPropias <= inputPropias && totalAlquiladas <= inputAlquiladas) {
         if (localStorage.getItem("data")) {
@@ -143,13 +118,8 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
         }
 
         localStorage.setItem("data", JSON.stringify({ objData }));
-        // setAppStage(0);
         setCardSelected(1);
-
-        // let cli = localStorage.getItem("cliente");
-
         newCap(idCliente, isData);
-
         setUpdate(!update);
         setIsSelectEditDisabled(false);
 
@@ -173,8 +143,6 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     });
   };
 
-  //console.log(isData);
-
   //* FUNCION QUE CARGA LOS DATOS DE UNA NUEVA COSECHA
   function newCap(cli, isData) {
     const data = new FormData();
@@ -196,17 +164,12 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     //! Fin - Para todas las demas coop
     data.append("totalP", isData["propias"]);
     data.append("totalA", isData["alquiladas"]);
-    // fetch("../com_newCapacidad.php", {
     fetch(`${URL}com_newCapacidad.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
       response.text().then((resp) => {
         const data = resp;
-        // console.log(data);
-        // const objetoData = JSON.parse(data);
-        console.log("Nueva capacidad - resp: ", resp)
-        console.log("Nueva capacidad - data: ", data)
       });
     });
     setRefrescarTable(true); //! Sirve para refrescar la table en donde se utiliza en un useEffect en Capacidad.
@@ -216,7 +179,6 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     setIsButtonDisabled(false);
     setDataContext(null);
     setUpdate(!update);
-    // setAppStage(0);
     setCardSelected(1);
     setIsSelectEditDisabled(false);
   };

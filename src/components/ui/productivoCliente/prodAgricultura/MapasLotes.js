@@ -6,7 +6,6 @@ import * as turf from "@turf/turf";
 import { GlobalContext } from "../../../context/GlobalContext";
 import './index.css';
 
-
 const styles = {
   width: "100%",
   height: "78%",
@@ -369,9 +368,7 @@ const MapasLotes = () => {
     var coordLotes = [];
     for (let i = 0; i < lengthDG; i++) {
       const element = dataGeoJSON[i].lot_geojson;
-      console.log('element: ', element);
       const parsedData = JSON.parse(element);
-      console.log('parsedData: ', parsedData);
       for (let i = 0; i < parsedData.length; i++) {
         const pair = parsedData[i];
         const lon = parseFloat(pair[0]);

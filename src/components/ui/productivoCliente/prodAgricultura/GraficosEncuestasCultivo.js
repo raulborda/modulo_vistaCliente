@@ -1,9 +1,7 @@
-import { Card, Empty, Result, Select, Statistic } from 'antd';
+import { Empty, Select } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
-import CountUp from 'react-countup';
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector, Tooltip } from 'recharts';
+import { Cell, Pie, PieChart, ResponsiveContainer, Sector, Tooltip } from 'recharts';
 import { GlobalContext } from '../../../context/GlobalContext';
-
 
 const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
@@ -51,7 +49,6 @@ const renderActiveShape = (props) => {
     );
 };
 
-
 export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const URL = process.env.REACT_APP_URL;
 
@@ -74,7 +71,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const [legendCostoEncuestadas, setLegendCostoEncuestadas] = useState({ activeIndex: 0 });
     const [totalProduccion, setTotalProduccion] = useState(0);
     const [totalCosto, setTotalCosto] = useState(0);
-
 
     const onPieEnterSupEncuestadas = (_, index) => {
         setLegendSupEncuestadas({
@@ -144,7 +140,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                 }, 0);
                 // Hacer algo con el total, como asignarlo a un estado
                 setSupEncuestadas(total.toLocaleString());
-                // console.log('setSupEncuestadas: ', supEncuestadas);
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
@@ -161,7 +156,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         if (selectedCultivo === 'TODOS') {
             dataAdd.append("idCul", '');
         } else {
-            // console.log('selectedCultivo - Productivo: ', selectedCultivo);
             dataAdd.append("idCul", selectedCultivo);
         }
         fetch(`${URL}clientview_ProdEncuestasCultivo.php`, {
@@ -170,7 +164,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         }).then(function (response) {
             response.text().then((resp) => {
                 const data = resp;
-                // console.log('data - Productivo: ', data);
                 const objetoData = JSON.parse(data);
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
@@ -217,7 +210,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     return accumulator + currentValue.value;
                 }, 0);
                 setTotalCosto(total.toLocaleString());
-
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
@@ -226,7 +218,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         <>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
-                    {/* <Card> */}
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div>
                             <div style={{ paddingBottom: '5px' }}>
@@ -259,7 +250,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                             </div>
                         </div>
                     </div>
-                    {/* </Card> */}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', paddingTop: '5px' }}>
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -358,6 +348,5 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                 </div>
             </div>
         </>
-
     )
 }

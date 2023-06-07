@@ -11,15 +11,12 @@ export const FinanzasCliente = () => {
     idCliente,
   } = useContext(GlobalContext);
 
-  //const idCli = localStorage.getItem("cliente");
-  // const idCli = idCliente;
   return (
     <>
       <iframe
             loading="lazy"
             src={`${URL}/duoc/modulos/finanzas_clientes/?idC=${idCliente}`}
             width={"100%"}
-            // height={"770"}
             height={"500"}
             style={{ border: "none" }}
             title="Tarea Cliente"

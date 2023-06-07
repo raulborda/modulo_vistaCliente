@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Bar, BarChart, CartesianGrid, Cell, ComposedChart, LabelList, Legend, Line, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, CartesianGrid, ComposedChart, LabelList, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import './graficos.css'
 import { GlobalContext } from '../../../../context/GlobalContext';
 import TabPane from 'antd/es/tabs/TabPane';
@@ -7,37 +7,6 @@ import { Spin, Tabs } from 'antd';
 
 export const GraficoAcopioTT = () => {
 
-    // const data = [
-    //     {
-    //         cosecha: '2324',
-    //         propias: 4000,
-    //         alquiladas: 2400,
-    //     },
-    //     {
-    //         cosecha: '2223',
-    //         propias: 3000,
-    //         alquiladas: 1398,
-    //     },
-    //     {
-    //         cosecha: '2122',
-    //         propias: 2000,
-    //         alquiladas: 9800,
-    //     },
-    //     {
-    //         cosecha: '2021',
-    //         propias: 2780,
-    //         alquiladas: 3908,
-    //     }
-    // ];
-
-    // const COLORS = ["#116611", "#56b43c", "#55AA55", "#88CC88"];
-
-    // const dataAnillo = [
-    //     { name: 'Agricultura', value: 400 },
-    //     { name: 'Ganaderia', value: 300 },
-    //     { name: 'Tambo', value: 300 },
-    //     { name: 'Mixto', value: 200 },
-    // ];
     const items = [
         {
             key: '1',
@@ -87,30 +56,16 @@ export const GraficoAcopioTT = () => {
 
 
     const {
-        infoTotal,
-        setInfoTotal,
-        idCliente, //Probando
-        setIdCliente,
-        infoSoja,
-        setInfoSoja,
-        infoTrigo,
-        setInfoTrigo,
-        infoMaiz,
-        setInfoMaiz,
-        infoOtrosGranos,
-        setInfoOtrosGranos,
-        isDataTotal, setIsDataTotal,
-        isDataSoja, setIsDataSoja,
-        isDataTrigo, setIsDataTrigo,
-        isDataMaiz, setIsDataMaiz,
-        isDataOtrosGranos, setIsDataOtrosGranos,
+        isDataTotal,
+        isDataSoja,
+        isDataTrigo,
+        isDataMaiz,
+        isDataOtrosGranos,
     } = useContext(GlobalContext);
 
     const [activeKey, setActiveKey] = useState(items[0].key);
     const [isValorEntregadas, setIsValorEntregadas] = useState(true);
     const [isValorEncuesta, setIsValorEncuesta] = useState(true);
-
-
 
     let data;
     switch (activeKey) {
@@ -138,16 +93,13 @@ export const GraficoAcopioTT = () => {
         console.log(x);
         console.log("click");
         if (x.value === "TT Entregadas") {
-            console.log("seleccionaste Entregadas");
             setIsValorEntregadas(!isValorEntregadas);
         }
 
         if (x.value === "TT Encuesta") {
-            console.log("seleccionaste Encuesta");
             setIsValorEncuesta(!isValorEncuesta);
         }
     };
-
 
     return (
         <>
@@ -170,7 +122,6 @@ export const GraficoAcopioTT = () => {
                                         disabled={true}
                                         key={item.key}
                                         tab={item.label}>
-                                        {/* {item.children} */}
                                     </TabPane>
                                 ))}
                             </Tabs>
@@ -192,9 +143,8 @@ export const GraficoAcopioTT = () => {
 
                     {
                         isLoading > 0 ? <Spin className='prueba' tip="Loading" size="large" style={{ borderColor: 'red' }} > <div className="SpinLoading" /> </Spin> :
-                            <ResponsiveContainer width="100%" height={/*400*/ 230}>
+                            <ResponsiveContainer width="100%" height={230}>
                                 <ComposedChart
-                                    // width={367}
                                     height={250}
                                     data={
                                         activeKey === '1' ? isDataTotal :
@@ -237,42 +187,6 @@ export const GraficoAcopioTT = () => {
                             </ResponsiveContainer>
                     }
                 </div>
-                {/* 
-                <div style={{ width: '30%', marginRight: '10px' }}>
-                    <ResponsiveContainer className="" width="100%" height={ 250}>
-                        <PieChart
-                            height={250}
-                        >
-                            <Legend
-                                className="legendAnillo"
-                                iconType="circle"
-                                layout="horizontal"
-                                align="center"
-                                verticalAlign="bottom"
-                            />
-                            <Pie
-                                className="pie"
-                                data={dataAnillo}
-                                cx={120}
-                                cy={110}
-                                innerRadius={40}
-                                outerRadius={60}
-                                fill="#8884d8"
-                                paddingAngle={5}
-                                dataKey="value"
-                                cursor="pointer"
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell
-                                        key={`cell-${index}`}
-                                        fill={COLORS[index % COLORS.length]}
-                                    />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
-                    </ResponsiveContainer>
-                </div> */}
             </div >
         </>
     )

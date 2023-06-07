@@ -33,7 +33,6 @@ export const ProductivoAgricultura = () => {
   const URL = process.env.REACT_APP_URL;
   
   const {
-
     //Ver lotes
     visible,
     setVisible,
@@ -43,11 +42,7 @@ export const ProductivoAgricultura = () => {
     setSelectedLote,
 
     //usuario
-    c,
-    setC,
-    marcarLote,
     setMarcarLote,
-    showMapaUbicLote,
     setShowMapaUbicLote,
     showTable,
     setShowTable,
@@ -58,39 +53,25 @@ export const ProductivoAgricultura = () => {
     ubicLote,
     setUbicLote,
     importarArchivo, setImportarArchivo,
-    agregarLote, setAgregarLote,
-    coordenadasArchivo, setCoordenadasArchivo,
-    limpiarStates, setLimpiarStates,
-    spinning, setSpinning,
+    setAgregarLote,
+    coordenadasArchivo,
+    setLimpiarStates,
+    spinning,
     selectedLote,
-    showSearch, setShowShearch,
-    verCampo,
     selectedCampoGeojson,
-    setVerCampo,
-
     setCA,
-    setEstadin,
-    estadin,
     update,
     idCliente,
-    setIsButtonDisabled,
-
-
   } = useContext(GlobalContext);
-
 
   const [shouldReloadMap, setShouldReloadMap] = useState(false);
   const [filaSeleccionada, setFilaSeleccionada] = useState(null);
 
-
   const toggleTable = () => {
-    // setFilaSeleccionada(null);
     setShowTable(!showTable);
     setShowFormAgregar(false);
     setShowEdit(!showEdit);
-    // setTipoMapa(0)
   };
-
 
   const abrirFormAgregar = () => {
     setLimpiarStates(true);
@@ -101,14 +82,9 @@ export const ProductivoAgricultura = () => {
     } else {
       setShowFormAgregar(!showFormAgregar);
     }
-    // setShowFormAgregar(!showFormAgregar);
     setShowTable(false);
     setTipoMapa(0);
-
     setAgregarLote(true);
-    console.log('showFormAgregar: ', showFormAgregar);
-    console.log('AgregarLote: ', agregarLote);
-    console.log('ImportarArchivo: ', importarArchivo);
   };
 
   const abrirImportarArchivo = () => {
@@ -123,14 +99,7 @@ export const ProductivoAgricultura = () => {
     setTipoMapa(0);
     setAgregarLote(false);
     setImportarArchivo(true);
-
-    console.log('showFormAgregar: ', showFormAgregar);
-    console.log('AgregarLote: ', agregarLote);
-    console.log('ImportarArchivo: ', importarArchivo);
   };
-
-  // console.log("infoLotes:", infoLotes);
-  //console.log("cliente: ", idCliente);
 
   const columns = [
     {
@@ -207,29 +176,21 @@ export const ProductivoAgricultura = () => {
 
   //Boton Editar Lote
   const handleEdit = (record) => {
-    // setC(true);
     setFilaSeleccionada(null);
     setTipoMapa(1);
-    //form.resetFields();
     setShowTable(false);
     setShowEdit(true);
-    //setDataEdit(record);
     setDataEdit({
       ...record,
       participacion: parseFloat(record.participacion), // Parsea el valor a un número
     });
-    //console.log("click edit: ", record);
-    //console.log("StateEdit: ", record);
 
     for (let i = 0; i < infoLotes.length; i++) {
       if (record.key === infoLotes[i].alote_id) {
-        //  console.log("key: ", infoLotes[i].alote_id)
-        // console.log("lot_geoJson", infoLotes[i].lot_geojson);
         setSelectedLote(infoLotes[i].lot_geojson);
       }
     }
   };
-
 
   const handleUbic = (record) => {
     setShowMapaUbicLote(true);
@@ -245,15 +206,11 @@ export const ProductivoAgricultura = () => {
       setFilaSeleccionada(record.key); // Seleccionar una nueva fila
     }
 
-    // var numMap = 2;
-
     for (let i = 0; i < infoLotes.length; i++) {
       if (record.key === infoLotes[i].alote_id) {
         setMarcarLote(infoLotes[i].lot_geojson);
       }
     }
-
-    console.log('record.key: ', record.key);
 
     // Verificar si la clave actual es igual a la clave seleccionada
     if (record.key === filaSeleccionada) {
@@ -263,24 +220,14 @@ export const ProductivoAgricultura = () => {
     setTipoMapa(numMap);
   };
 
-  useEffect(() => {
-    console.log("marcarLote: ", marcarLote);
-    console.log("showUbic: ", showMapaUbicLote)
-    console.log("ubicLote: ", ubicLote);
-  }, [marcarLote, showMapaUbicLote]);
 
   //Recarga los mapas
   useEffect(() => {
-    // if (showFormAgregar) {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
-    // }
   }, [ubicLote, showFormAgregar, coordenadasArchivo, importarArchivo, selectedLote, selectedCampoGeojson]);
-  // }, [showFormAgregar, tipoMapa, showMapaUbicLote]);
 
   useEffect(() => {
-    // if (shouldReloadMap) {
     setShouldReloadMap(false); // Restablecer la variable de estado
-    // }
   }, [shouldReloadMap]);
 
   const handleStage = () => {
@@ -296,18 +243,12 @@ export const ProductivoAgricultura = () => {
     }
   };
 
-  // console.log('data: ', data);
-  // console.log('columns: ', columns);
-
-
 
   const [listCosechas, setListCosechas] = useState([])
   const [cosechaA, setCosechaA] = useState('')
 
   useEffect(() => {
     const data = new FormData();
-    // data.append("idC", idCliente);
-    // fetch("../com_traerCosechas.php", {
     fetch(`${URL}com_traerCosechas.php`, {
       method: "POST",
       body: data,
@@ -317,18 +258,13 @@ export const ProductivoAgricultura = () => {
           const data = resp;
           const objetoData = JSON.parse(data);
           console.log('objetoData2: ', objetoData)
-          // setCosechas(objetoData);
           setCosechaA(objetoData[0].acos_desc)
           setCA(objetoData[0].acos_desc);
           setListCosechas(objetoData);
-          // setEstadin(!estadin);
         }
       });
     });
-    // localStorage.setItem("idCosechaSelec", cosechaA);
-
   }, [update, idCliente])
-
 
   return (
     <>
@@ -384,7 +320,6 @@ export const ProductivoAgricultura = () => {
                   fontFamily: "Open Sans, sans-serif",
                   marginLeft: '10px',
                   color: '#444'
-                  // marginBottom: "10px",
                 }}
               >
                 LOTES
@@ -408,7 +343,6 @@ export const ProductivoAgricultura = () => {
                   {handleStage()}
                 </div>)
             }
-
             <div
               style={{
                 display: "flex",
@@ -424,7 +358,6 @@ export const ProductivoAgricultura = () => {
 
               <Popover
                 placement="right"
-                // style={{width: '1000px'}}
                 content={
                   <>
                     <div
@@ -505,17 +438,14 @@ export const ProductivoAgricultura = () => {
                   style={{ marginTop: "5px" }}
                 />
               </Popover>
-
             </div>
 
             {showTable && (
-              // <div style={{ width: '100%', bottom: "10px", left: "10px", paddingBottom: "35px" }}>
               <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
                 <Card
                   style={{
                     width: "100%",
                     height: "30%",
-                    // marginTop: "13%",
                     marginLeft: "10px",
                     marginRight: "10px",
                   }}

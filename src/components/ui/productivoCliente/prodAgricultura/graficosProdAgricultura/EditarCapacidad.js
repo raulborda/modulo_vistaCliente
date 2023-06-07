@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import { Button, Form, Input, message } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import "./graficos.css";
 import { GlobalContext } from "../../../../context/GlobalContext";
 
@@ -15,7 +13,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
         idCliente,
         dataContext,
         setDataContext,
-        setAppStage,
         setIsButtonEditDisabled,
         infoEdit,
         update,
@@ -27,28 +24,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
     } = useContext(GlobalContext);
 
     const [messageApi, contextHolder] = message.useMessage();
-    // console.log('infoEdit: ', infoEdit);
-
-    // console.log('dataContext: ', dataContext);
-    // console.log('cosechaActiva: ', ca)
-    // useEffect(() => {
-    //   setDataContext({
-    //     agricultura: Math.trunc(infoEdit[0].has),
-    //     agriculturaA: Math.trunc(infoEdit[1].has),
-    //     ganaderia: Math.trunc(infoEdit[2].has),
-    //     ganaderiaA: Math.trunc(infoEdit[3].has),
-    //     tambo: Math.trunc(infoEdit[4].has),
-    //     tamboA: Math.trunc(infoEdit[5].has),
-    //     mixto: Math.trunc(infoEdit[6].has),
-    //     mixtoA: Math.trunc(infoEdit[7].has),
-    //     propias: Math.trunc(infoEdit[0].ahxs_propias),
-    //     alquiladas: Math.trunc(infoEdit[0].ahxs_alquiladas),
-
-
-    //     // cosecha: localStorage.getItem("idCosechaSelec") ? localStorage.getItem("idCosechaSelec") : null,
-    //     cosecha: cosechaActiva ? cosechaActiva : null,
-    //   });
-    // }, [])
 
     useEffect(() => {
         setDataContext({
@@ -66,17 +41,9 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
             propias: Math.trunc(infoEdit[0].ahxs_propias),
             alquiladas: Math.trunc(infoEdit[0].ahxs_alquiladas),
 
-
-            // cosecha: localStorage.getItem("idCosechaSelec") ? localStorage.getItem("idCosechaSelec") : null,
-            // cosecha: cosechaActiva ? cosechaActiva : null,
             cosecha: ca ? parseInt(ca) : null,
         });
     }, [])
-
-    // console.log(dataContext);
-
-    //! UseState
-    const [isActiveModal, setIsActiveModal] = useState(false); //Es por si utilizo el modal para el mensaje de que se paso de cantidad en los rubros
 
 
     const handEdit = () => {
@@ -104,30 +71,18 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
 
         if ((totalPropias <= inputPropias) & (totalAlquiladas <= inputAlquiladas)) {
             objData = [...objData, dataContext];
-            // console.log("objData: ", objData);
-            // console.log("dataContext: ", dataContext);
             localStorage.setItem("data", JSON.stringify({ objData }));
             setCardSelected(1);
-
-            // let cli = localStorage.getItem("cliente");
             let cli = idCliente;
-
             editCap(cli, dataContext);
-
             setUpdate(!update);
             setIsSelectEditDisabled(false);
-
-            // console.log("entre if de HANDEDIT");
         } else {
-            // alert("El total de Has. de Rubros supera a las Has. Propias en general");
-            // setIsActiveModal(true);
             messageApi.open({
                 type: 'warning',
                 content: 'Por favor revise: Los Has. de Rubros exceden la cantidad total.',
-                // getContainer: () => document.body,
             });
         }
-
     };
 
     const handleInputChangeEdit = (event) => {
@@ -135,24 +90,17 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
             setDataContext({
                 //Crea el objeto de lo que escribo en los campos
                 ...dataContext,
-                // cosecha: localStorage.getItem("idCosechaSelec") ? localStorage.getItem("idCosechaSelec") : null,
-                // cosecha: cosechaActiva ? cosechaActiva : null,
                 cosecha: ca ? parseInt(ca) : null,
                 [event.target.name]: parseInt(event.target.value),
             });
-
         }
     };
 
     //* FUNCION QUE CARGA LOS DATOS DE UNA NUEVA COSECHA
     function editCap(cli, dataContext) {
-        // console.log('dataContext.cosecha: ',dataContext["cosecha"])
         const data = new FormData();
         data.append("idC", cli);
-
         data.append("idCos", parseInt(localStorage.getItem("cosechaActiva")));
-        // data.append("idCos", cosechaActiva);
-
         data.append("cantAP", dataContext["agricultura"]);
         data.append("cantAA", dataContext["agriculturaA"]);
         data.append("cantGP", dataContext["ganaderia"]);
@@ -163,7 +111,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
         data.append("cantMA", dataContext["mixtoA"]);
         data.append("totalP", dataContext["propias"]);
         data.append("totalA", dataContext["alquiladas"]);
-        // fetch("../com_editCapacidad.php", {
         fetch(`${URL}com_editCapacidad.php`, {
             method: "POST",
             body: data,
@@ -171,8 +118,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
             response.text().then((resp) => {
                 const data = resp;
                 console.log('com_editCapacidad: ', data);
-                // const objetoData = JSON.parse(data);
-                // console.log("Nueva capacidad: ", objetoData)
             });
         });
         setRefrescarTable(true);  //! Sirve para refrescar la table en donde se utiliza en un useEffect en Capacidad.
@@ -219,11 +164,8 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="agricultura"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[0].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "AGRICULTURA" && info.condicion === "P").has)}
-                                            // value={Math.trunc(infoEdit[0].has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "AGRICULTURA" && info.condicion === "P").has)}
-
                                             onChange={(value) => handleInputChangeEdit(value)}
                                         />
                                     </Form.Item>
@@ -236,8 +178,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="agriculturaA"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[1].has)}
-                                            // value={Math.trunc(infoEdit[1].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "AGRICULTURA" && info.condicion === "A").has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "AGRICULTURA" && info.condicion === "A").has)}
                                             onChange={(value) => handleInputChangeEdit(value)}
@@ -257,8 +197,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="ganaderia"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[2].has)}
-                                            // value={Math.trunc(infoEdit[2].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "GANADERIA" && info.condicion === "P").has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "GANADERIA" && info.condicion === "P").has)}
                                             onChange={(value) => handleInputChangeEdit(value)}
@@ -273,8 +211,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="ganaderiaA"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[3].has)}
-                                            // value={Math.trunc(infoEdit[3].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "GANADERIA" && info.condicion === "A").has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "GANADERIA" && info.condicion === "A").has)}
                                             onChange={(value) => handleInputChangeEdit(value)}
@@ -294,8 +230,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="tambo"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[4].has)}
-                                            // value={Math.trunc(infoEdit[4].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "TAMBO" && info.condicion === "P").has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "TAMBO" && info.condicion === "P").has)}
                                             onChange={(value) => handleInputChangeEdit(value)}
@@ -310,8 +244,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="tamboA"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[5].has)}
-                                            // value={Math.trunc(infoEdit[5].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "TAMBO" && info.condicion === "A").has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "TAMBO" && info.condicion === "A").has)}
                                             onChange={(value) => handleInputChangeEdit(value)}
@@ -331,8 +263,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="mixto"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[6].has)}
-                                            // value={Math.trunc(infoEdit[6].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "MIXTO" && info.condicion === "P").has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "MIXTO" && info.condicion === "P").has)}
                                             onChange={(value) => handleInputChangeEdit(value)}
@@ -347,8 +277,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                                             placeholder="0"
                                             name="mixtoA"
                                             style={{ textAlign: "right" }}
-                                            // defaultValue={Math.trunc(infoEdit[7].has)}
-                                            // value={Math.trunc(infoEdit[7].has)}
                                             defaultValue={Math.trunc(infoEdit.find(info => info.arubro_desc === "MIXTO" && info.condicion === "A").has)}
                                             value={Math.trunc(infoEdit.find(info => info.arubro_desc === "MIXTO" && info.condicion === "A").has)}
                                             onChange={(value) => handleInputChangeEdit(value)}
@@ -394,7 +322,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
                         </thead>
                     </table>
                 </div>
-                {/* <div className="btn-msgAdvertencia"> */}
                 <div className="contBotones">
                     <div>
                         <Button className="btnAddCosechaData" onClick={() => handEdit()}>
