@@ -61,7 +61,6 @@ const MapaUbicLotes = () => {
                 if (marcarLote !== "" && tipoMapa === 2) {
 
                     const lote = JSON.parse(marcarLote);
-                    console.log('LOTE: ', lote);
                     map.addSource(`loteU`, {
                         type: "geojson",
                         data: {
@@ -78,13 +77,13 @@ const MapaUbicLotes = () => {
                             ],
                         },
                     });
-                    console.log('LOTE - 1: ', lote);
                     map.addLayer({
                         id: `lote-layerU`,
                         type: "line",
                         source: `loteU`,
                         paint: {
-                            "line-color": "#7FFF00",
+                            "line-color": "#007723",
+                            "line-width": 3, // Ancho de línea
                             "line-opacity": 0.8,
                         },
                     });
@@ -94,7 +93,7 @@ const MapaUbicLotes = () => {
                         type: "fill",
                         source: `loteU`,
                         paint: {
-                            "fill-color": "#008000",
+                            "fill-color": "#6aa469",
                         },
                     });
                 }

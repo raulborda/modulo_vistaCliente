@@ -216,8 +216,6 @@ const CardInsumos = () => {
                 const data = resp.substring(resp.indexOf('['));
                 var objetoData = JSON.parse(data);
                 setInfoInsumoTotal(objetoData);
-                console.log('infoInsumoTotal: ', infoInsumoTotal);
-                console.log('objetoData - infoInsumoTotal: ', objetoData);
             });
         });
     }

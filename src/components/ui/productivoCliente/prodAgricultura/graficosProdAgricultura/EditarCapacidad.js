@@ -117,7 +117,6 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
         }).then(function (response) {
             response.text().then((resp) => {
                 const data = resp;
-                console.log('com_editCapacidad: ', data);
             });
         });
         setRefrescarTable(true);  //! Sirve para refrescar la table en donde se utiliza en un useEffect en Capacidad.

@@ -207,7 +207,7 @@ const MapasLotesEditar = () => {
     }
 
     useEffect(() => {
-        if (dataGeoJSON.length > 0) {
+        if (dataGeoJSON?.length > 0) {
             desarmarGeoJSON();
         }
     }, [dataGeoJSON, selectedLote]);

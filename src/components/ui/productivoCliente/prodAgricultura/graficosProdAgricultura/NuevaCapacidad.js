@@ -87,7 +87,6 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     //! Fin - Para todas las demas coop
 
     if (isData.cosecha !== null) {
-      console.log('isData: ', isData)
       if (totalPropias <= inputPropias && totalAlquiladas <= inputAlquiladas) {
         if (localStorage.getItem("data")) {
           objData = [...isDataSet, isData];

@@ -41,8 +41,6 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
     const [isValorAlquiladas, setIsValorAlquiladas] = useState(true);
 
     const handleLegendClick = (x) => {
-        console.log(x);
-        console.log("click");
         if (x.value === "Propias") {
             setIsValorPropias(!isValorPropias);
         }

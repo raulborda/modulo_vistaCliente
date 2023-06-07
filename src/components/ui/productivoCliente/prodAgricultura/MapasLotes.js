@@ -219,7 +219,7 @@ const MapasLotes = () => {
         });
         map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
       } else if (selectedCampoGeojson && selectedCampoGeojson.length > 0) {
-        //* CENTRAR PARA LOTE IMPORTADO
+        //* CENTRAR PARA CUANDO SELECCIONA CAMPO
         const ubiCampo = JSON.parse(selectedCampoGeojson);
 
         if (Array.isArray(ubiCampo) && ubiCampo.length > 0) {

@@ -50,7 +50,7 @@ const EditarLotes = () => {
       dataE.append("lote", values.nombre);
       dataE.append("has", values.has);
       dataE.append("condicion", values.condicion);
-      dataE.append("participacion", values.participacion);
+      dataE.append("participacion", 100);
       dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
 
       const response = await fetch(`${URL}client_editLote.php`, {
@@ -67,7 +67,7 @@ const EditarLotes = () => {
         setShowEdit(false);
         // Actualizar el estado para indicar que la tabla ha sido actualizada
         setIsTableUpdated(true);
-        setSelectedLote(null);
+        // setSelectedLote(null);
         setShowTable(true);
         setC(false);
         setTipoMapa(0);
@@ -79,6 +79,7 @@ const EditarLotes = () => {
       console.log("Error: ", error);
       message.error("Error al editar lote");
     } finally {
+      setSelectedLote(null);
       setLoading(false);
     }
   };
@@ -100,7 +101,7 @@ const EditarLotes = () => {
       {tipoMapa === 1 &&
         <Card
           style={{
-            width: "660px",
+            width: "510px",
             height: "30%",
             marginTop: "15%",
             marginLeft: "10px",
@@ -180,13 +181,13 @@ const EditarLotes = () => {
                   marginLeft: "50px",
                 }}
               >
-                <Form.Item
+                {/* <Form.Item
                   name="participacion"
                   label="Participacion"
                   style={{ fontSize: "13px", fontWeight: "bold" }}
                 >
                   <Input style={{ width: "85px" }} addonAfter="%" />
-                </Form.Item>
+                </Form.Item> */}
               </div>
             </div>
             <Divider style={{ marginBottom: "10px", marginTop: "10px" }} />

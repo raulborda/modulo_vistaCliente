@@ -101,7 +101,7 @@ const AgregarLotes = () => {
   }
 
   function calcularHectareasDibujadas(coordenadas) {
-    console.log('valorGeoJSON: - Cambio', valorGeoJSON);
+    
     const coordenadasObj = JSON.parse(coordenadas);
     const poligono = polygon([coordenadasObj]);
     const area1 = area(poligono);

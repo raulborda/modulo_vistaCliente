@@ -98,7 +98,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                 const data = resp;
                 const objetoData = JSON.parse(data);
                 const cultivosConTodos = [{ acult_id: "TODOS", acult_desc: "TODOS" }, ...objetoData];
-                console.log('cultivosConTodos: ', cultivosConTodos);
                 setCultivos(cultivosConTodos);
             });
         });

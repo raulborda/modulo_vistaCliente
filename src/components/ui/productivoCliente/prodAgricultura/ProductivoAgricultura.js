@@ -195,8 +195,6 @@ export const ProductivoAgricultura = () => {
   const handleUbic = (record) => {
     setShowMapaUbicLote(true);
     setUbicLote(!ubicLote);
-    console.log("click ubic", record);
-    console.log('infoLotes: ', infoLotes);
     var numMap = 2;
     // Verificar si la clave actual es igual a la clave seleccionada actualmente
     if (record.key === filaSeleccionada) {
@@ -257,7 +255,6 @@ export const ProductivoAgricultura = () => {
         if (resp) {
           const data = resp;
           const objetoData = JSON.parse(data);
-          console.log('objetoData2: ', objetoData)
           setCosechaA(objetoData[0].acos_desc)
           setCA(objetoData[0].acos_desc);
           setListCosechas(objetoData);

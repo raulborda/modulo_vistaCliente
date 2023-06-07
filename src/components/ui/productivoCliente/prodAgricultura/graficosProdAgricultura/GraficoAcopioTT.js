@@ -90,8 +90,6 @@ export const GraficoAcopioTT = () => {
     }
 
     const handleLegendClick = (x) => {
-        console.log(x);
-        console.log("click");
         if (x.value === "TT Entregadas") {
             setIsValorEntregadas(!isValorEntregadas);
         }
