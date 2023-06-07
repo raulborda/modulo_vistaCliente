@@ -139,7 +139,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     return accumulator + currentValue.value;
                 }, 0);
                 // Hacer algo con el total, como asignarlo a un estado
-                setSupEncuestadas(total());
+                setSupEncuestadas(total);
                 setTotalSuperficie(total.toLocaleString());
             });
         });
