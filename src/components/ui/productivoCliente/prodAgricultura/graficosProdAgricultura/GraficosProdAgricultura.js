@@ -1,4 +1,4 @@
-import { Button, Result, Table } from 'antd';
+import { Button, Empty, Result, Table } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { GlobalContext } from '../../../../context/GlobalContext';
@@ -209,10 +209,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
             case 0:
                 if (!capacidad || capacidad.length === 0) {
                     return (
-                        <Result
-                            // status="warning"
-                            title="No hay datos."
-                        />
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                     );
                 }
                 return <GraficoEvolucionProductiva porcentajes={capacidad} />;
@@ -226,10 +223,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
                 // );
                 if (!capacidad || capacidad.length === 0) {
                     return (
-                        <Result
-                            // status="warning"
-                            title="No hay datos. Puede cargar la cosecha activa"
-                        />
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No hay datos. Puede cargar la cosecha activa" />
                     );
                 }
                 return (
@@ -250,10 +244,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
             default:
                 if (!capacidad || capacidad.length === 0) {
                     return (
-                        <Result
-                            // status="warning"
-                            title="No hay datos."
-                        />
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                     );
                 }
                 return (

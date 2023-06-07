@@ -894,7 +894,7 @@ const CardInsumos = () => {
                         </Col>
                         <Col span={3}>
                             <Row style={{ width: '100%' }}>
-                                <div style={{}}>
+                                <div>
                                     <Statistic
                                         title="Propias"
                                         value={valorPropias ? valorPropias : 0}
@@ -907,7 +907,7 @@ const CardInsumos = () => {
                                         }}
                                         formatter={formatter}
                                         className="statistic1"
-                                        layout="horizontal"
+                                        // layout="horizontal"
                                     />
                                 </div>
                             </Row>
@@ -933,7 +933,7 @@ const CardInsumos = () => {
                         </Col>
                         <Col span={3} >
                             <Row style={{ width: '100%' }}>
-                                <div style={{}}>
+                                <div>
                                     <Statistic
                                         title="Encuesta"
                                         value={supEncuestadas ? supEncuestadas : 0}

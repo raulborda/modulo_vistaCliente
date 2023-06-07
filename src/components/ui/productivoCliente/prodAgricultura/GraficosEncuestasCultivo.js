@@ -1,4 +1,4 @@
-import { Card, Result, Select, Statistic } from 'antd';
+import { Card, Empty, Result, Select, Statistic } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import CountUp from 'react-countup';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector, Tooltip } from 'recharts';
@@ -43,7 +43,7 @@ const renderActiveShape = (props) => {
             />
             <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
             <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-            <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`Cantidad ${value}`}</text>
+            <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value.toLocaleString()}`}</text>
             <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
                 {`(${(percent * 100).toFixed(2)}%)`}
             </text>
@@ -61,6 +61,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         cosechaSeleccionada,
         usu,
         setSupEncuestadas,
+        supEncuestadas,
     } = useContext(GlobalContext);
 
     const [selectedCultivo, setSelectedCultivo] = useState("");
@@ -71,6 +72,9 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const [legendSupEncuestadas, setLegendSupEncuestadas] = useState({ activeIndex: 0 });
     const [legendProdEncuestadas, setLegendProdEncuestadas] = useState({ activeIndex: 0 });
     const [legendCostoEncuestadas, setLegendCostoEncuestadas] = useState({ activeIndex: 0 });
+    const [totalProduccion, setTotalProduccion] = useState(0);
+    const [totalCosto, setTotalCosto] = useState(0);
+
 
     const onPieEnterSupEncuestadas = (_, index) => {
         setLegendSupEncuestadas({
@@ -139,8 +143,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     return accumulator + currentValue.value;
                 }, 0);
                 // Hacer algo con el total, como asignarlo a un estado
-                setSupEncuestadas(total);
-
+                setSupEncuestadas(total.toLocaleString());
+                // console.log('setSupEncuestadas: ', supEncuestadas);
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
@@ -172,8 +176,12 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                 const transformedData = objetoData.map((item) => {
                     return { name: item[0], value: item[1], colors: item[2] };
                 });
-                console.log('transformedData - Productivo: ', transformedData);
                 setCultivosProdEncuestadas(transformedData);
+                // Calcular el total de los valores
+                const total = transformedData.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue.value;
+                }, 0);
+                setTotalProduccion(total.toLocaleString());
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
@@ -204,6 +212,12 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     return { name: item[0], value: item[1], colors: item[2] };
                 });
                 setCultivosCostoEncuestadas(transformedData);
+                // Calcular el total de los valores
+                const total = transformedData.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue.value;
+                }, 0);
+                setTotalCosto(total.toLocaleString());
+
             });
         });
     }, [selectedCultivo, selectedAcosDesc])
@@ -212,53 +226,50 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         <>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
-                    <Card>
-                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    {/* <Card> */}
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <div>
+                            <div style={{ paddingBottom: '5px' }}>
+                                <h1 className='titulos'>
+                                    ENCUESTA DE SIEMBRA
+                                </h1>
+                            </div>
+                            <div style={{ marginLeft: '5px' }}>
+                                <h1 className='titulos'>
+                                    CULTIVO
+                                </h1>
+                            </div>
                             <div>
-                                <div style={{ paddingBottom: '15px' }}>
-                                    <h1 className='titulos'>
-                                        ENCUESTA POR SIEMBRA
-                                    </h1>
-                                </div>
-                                <div style={{ marginLeft: '5px' }}>
-                                    <h1 className='titulos'>
-                                        CULTIVO
-                                    </h1>
-                                </div>
-                                <div>
-                                    <Select
-                                        style={{ width: '200px' }}
-                                        showSearch
-                                        optionFilterProp="children"
-                                        filterOption={(input, option) =>
-                                            option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                        }
-                                        onChange={(value) => setSelectedCultivo(value)}
-                                        defaultValue='TODOS'
-                                    >
-                                        {cultivos.map((cultivo) => (
-                                            <Select.Option key={cultivo.acult_id} value={cultivo.acult_id}>
-                                                {cultivo.acult_desc}
-                                            </Select.Option>
-                                        ))}
-                                    </Select>
-                                </div>
+                                <Select
+                                    style={{ width: '200px' }}
+                                    showSearch
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => setSelectedCultivo(value)}
+                                    defaultValue='TODOS'
+                                >
+                                    {cultivos.map((cultivo) => (
+                                        <Select.Option key={cultivo.acult_id} value={cultivo.acult_id}>
+                                            {cultivo.acult_desc}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </div>
                         </div>
-                    </Card>
+                    </div>
+                    {/* </Card> */}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', paddingTop: '5px' }}>
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
                             <h1 className='titulos'>
-                                SUPERFICIE
+                                SUP. ENCUESTADA: {supEncuestadas} HAS.
                             </h1>
                         </div>
                         {cultivosSupEncuestadas.length === 0 ? (
-                            <Result
-                                // status="warning"
-                                title="No hay datos."
-                            />
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                         ) : (
                             <ResponsiveContainer className="" width="100%" height={260}>
                                 <PieChart width={800} height={400} >
@@ -285,14 +296,11 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
                             <h1 className='titulos'>
-                                PRODUCTIVO
+                                PRODUCCION ESTIMADA: {totalProduccion} TT
                             </h1>
                         </div>
                         {cultivosProdEncuestadas.length === 0 ? (
-                            <Result
-                                // status="warning"
-                                title="No hay datos."
-                            />
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                         ) : (
                             <ResponsiveContainer className="" width="100%" height={260}>
                                 <PieChart width={800} height={400} >
@@ -319,14 +327,11 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
                             <h1 className='titulos'>
-                                COSTO
+                                COSTO ESTIMADO: U$S {totalCosto}
                             </h1>
                         </div>
                         {cultivosCostoEncuestadas.length === 0 ? (
-                            <Result
-                                // status="warning"
-                                title="No hay datos."
-                            />
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                         ) : (
                             <ResponsiveContainer className="" width="100%" height={260}>
                                 <PieChart width={800} height={400} >

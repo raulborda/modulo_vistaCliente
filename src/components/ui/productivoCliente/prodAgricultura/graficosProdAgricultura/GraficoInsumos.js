@@ -139,7 +139,7 @@ export const GraficoInsumos = () => {
     return (
         <>
             <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-                <div style={{ width: '70%', marginRight: '10px' }}>
+                <div style={{ width: '100%', marginRight: '10px'}}>
                     <div>
                         <h1 className='titulos'>
                             ANALISIS INSUMOS COMPRADOS
@@ -224,42 +224,6 @@ export const GraficoInsumos = () => {
                             </ResponsiveContainer>
                     }
                 </div>
-
-                {/* <div style={{ width: '30%', marginRight: '10px' }}>
-                    <ResponsiveContainer className="" width="100%" height={250}>
-                        <PieChart
-                            height={250}
-                        >
-                            <Legend
-                                className="legendAnillo"
-                                iconType="circle"
-                                layout="horizontal"
-                                align="center"
-                                verticalAlign="bottom"
-                            />
-                            <Pie
-                                className="pie"
-                                data={dataAnillo}
-                                cx={120}
-                                cy={110}
-                                innerRadius={40}
-                                outerRadius={60}
-                                fill="#8884d8"
-                                paddingAngle={5}
-                                dataKey="value"
-                                cursor="pointer"
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell
-                                        key={`cell-${index}`}
-                                        fill={COLORS[index % COLORS.length]}
-                                    />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
-                    </ResponsiveContainer>
-                </div> */}
             </div >
         </>
     )

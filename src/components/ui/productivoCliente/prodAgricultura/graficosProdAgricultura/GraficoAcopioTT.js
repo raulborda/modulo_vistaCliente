@@ -152,7 +152,7 @@ export const GraficoAcopioTT = () => {
     return (
         <>
             <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-                <div style={{ width: '70%', marginRight: '10px' }}>
+                <div style={{ width: '100%', marginRight: '10px' }}>
                     <div>
                         <h1 className='titulos'>
                             ANALISIS CEREAL ENTREGADO
