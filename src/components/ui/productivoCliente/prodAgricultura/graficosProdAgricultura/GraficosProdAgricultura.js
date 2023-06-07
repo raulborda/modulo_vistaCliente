@@ -1,4 +1,4 @@
-import { Button, Table } from 'antd';
+import { Button, Result, Table } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { GlobalContext } from '../../../../context/GlobalContext';
@@ -207,12 +207,35 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
     const handleStage = () => {
         switch (cardSelected) {
             case 0:
+                if (!capacidad || capacidad.length === 0) {
+                    return (
+                        <Result
+                            // status="warning"
+                            title="No hay datos."
+                        />
+                    );
+                }
                 return <GraficoEvolucionProductiva porcentajes={capacidad} />;
             case 1:
+                // return (
+                //     <Table
+                //         columns={columns}
+                //         dataSource={capacidad} //Original
+                //         pagination={false}
+                //     />
+                // );
+                if (!capacidad || capacidad.length === 0) {
+                    return (
+                        <Result
+                            // status="warning"
+                            title="No hay datos. Puede cargar la cosecha activa"
+                        />
+                    );
+                }
                 return (
                     <Table
                         columns={columns}
-                        dataSource={capacidad} //Original
+                        dataSource={capacidad}
                         pagination={false}
                     />
                 );
@@ -225,6 +248,14 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
             case 5:
                 return <NuevaCapacidad />;
             default:
+                if (!capacidad || capacidad.length === 0) {
+                    return (
+                        <Result
+                            // status="warning"
+                            title="No hay datos."
+                        />
+                    );
+                }
                 return (
                     <GraficoEvolucionProductiva porcentajes={capacidad} />
                 );
@@ -253,7 +284,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
     }
 
     var cosechaa = parseInt(selectedAcosDesc);
-    console.log('cosechaa: ',cosechaa)
+    console.log('cosechaa: ', cosechaa)
     //* EJECUTA LAS FUNCIONES QUE TRAE LA INFO y TRAE LOS DATOS PARA LLENAR TABLA CAPACIDAD PRODUCTIVA INICIAL
     useEffect(() => {
         if (idCliente) {
@@ -367,22 +398,22 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
         <>
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '250px' }}>
                 {cardSelected === 0 && (
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <h1 className='titulos'>
-                        EVOLUCIÓN PRODUCTIVA
-                    </h1>
-                    {
-                        !iconTable &&
-                        <Button
-                            icon={<TableOutlined />}
-                            type="primary"
-                            style={{ marginLeft: '10px', marginTop: '-5px', backgroundColor: '#00B33C' }}
-                            onClick={() => { verTable(); }}
-                        >
-                            Ver Tabla
-                        </Button>
-                    }
-                </div>
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <h1 className='titulos'>
+                            EVOLUCIÓN PRODUCTIVA
+                        </h1>
+                        {
+                            !iconTable &&
+                            <Button
+                                icon={<TableOutlined />}
+                                type="primary"
+                                style={{ marginLeft: '10px', marginTop: '-5px', backgroundColor: '#00B33C' }}
+                                onClick={() => { verTable(); }}
+                            >
+                                Ver Tabla
+                            </Button>
+                        }
+                    </div>
                 )}
                 {cardSelected === 1 && (
                     <div style={{ display: 'flex', flexDirection: 'row' }}>

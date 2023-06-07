@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { GlobalContext } from '../../../../context/GlobalContext';
 import { PieChartOutlined, TableOutlined } from '@ant-design/icons';
-import { Button, Empty } from 'antd';
+import { Button, Empty, Result } from 'antd';
 
 const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
