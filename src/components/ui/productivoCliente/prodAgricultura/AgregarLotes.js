@@ -35,6 +35,7 @@ const AgregarLotes = () => {
     geoJSONModificado,
     setSpinning,
     setSelectedCampoGeojson,
+    setIsTableUpdated,
   } = useContext(GlobalContext);
 
   const [nombreArchivo, setNombreArchivo] = useState(false);
@@ -193,6 +194,7 @@ const AgregarLotes = () => {
           setShowFormAgregar(false);
           form.resetFields();
           setValorGeoJSON([]);
+          setIsTableUpdated(true);
           message.success("Lote agregado exitosamente");
         } else {
           throw new Error("Error al agregar el lote");
@@ -235,6 +237,7 @@ const AgregarLotes = () => {
         form.resetFields();
         setValorGeoJSON([]);
         setImportarArchivo(false);
+        setIsTableUpdated(true);
         message.success("Lote importado exitosamente");
       } else {
         throw new Error("Error al importar el archivo");

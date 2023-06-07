@@ -24,6 +24,8 @@ const MapasLotes = () => {
     importarArchivo,
     coordenadasArchivo,
     selectedCampoGeojson,
+    refrescarListLotes, 
+    setRefrescarListLotes,
   } = useContext(GlobalContext);
 
   const URL = process.env.REACT_APP_URL;
@@ -439,8 +441,9 @@ const MapasLotes = () => {
           .catch((error) => {
             console.log("Error fetching data:", error);
           });
+        }
       }
-    }
+    // setRefrescarListLotes(true);
   }, [idCliente, isTableUpdated]);
 
   return (
