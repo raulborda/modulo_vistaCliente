@@ -223,7 +223,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
                 // );
                 if (!capacidad || capacidad.length === 0) {
                     return (
-                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No hay datos. Puede cargar la cosecha activa" />
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No hay datos. Se puede cargar la cosecha activa" />
                     );
                 }
                 return (
