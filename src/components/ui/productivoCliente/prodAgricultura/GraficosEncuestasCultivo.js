@@ -1,4 +1,4 @@
-import { Card, Select, Statistic } from 'antd';
+import { Card, Result, Select, Statistic } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import CountUp from 'react-countup';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector, Tooltip } from 'recharts';
@@ -154,9 +154,10 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         } else {
             dataAdd.append("idCos", cosechaActiva);
         }
-        if (selectedCultivo !== 'TODOS') {
+        if (selectedCultivo === 'TODOS') {
             dataAdd.append("idCul", '');
         } else {
+            // console.log('selectedCultivo - Productivo: ', selectedCultivo);
             dataAdd.append("idCul", selectedCultivo);
         }
         fetch(`${URL}clientview_ProdEncuestasCultivo.php`, {
@@ -165,11 +166,13 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         }).then(function (response) {
             response.text().then((resp) => {
                 const data = resp;
+                // console.log('data - Productivo: ', data);
                 const objetoData = JSON.parse(data);
                 // Transformar los datos antes de asignarlos al estado
                 const transformedData = objetoData.map((item) => {
                     return { name: item[0], value: item[1], colors: item[2] };
                 });
+                console.log('transformedData - Productivo: ', transformedData);
                 setCultivosProdEncuestadas(transformedData);
             });
         });
@@ -207,7 +210,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column'}}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
                     <Card>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -251,26 +254,33 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                 SUPERFICIE
                             </h1>
                         </div>
-                        <ResponsiveContainer className="" width="100%" height={260}>
-                            <PieChart width={800} height={400} >
-                                <Pie
-                                    data={cultivosSupEncuestadas}
-                                    activeIndex={legendSupEncuestadas.activeIndex}
-                                    activeShape={renderActiveShape}
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={60}
-                                    outerRadius={80}
-                                    dataKey="value"
-                                    onMouseEnter={onPieEnterSupEncuestadas}
-                                >
-                                    {cultivosSupEncuestadas.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.colors} />
-                                    ))}
-                                </Pie>
-                                <Tooltip />
-                            </PieChart>
-                        </ResponsiveContainer>
+                        {cultivosSupEncuestadas.length === 0 ? (
+                            <Result
+                                // status="warning"
+                                title="No hay datos."
+                            />
+                        ) : (
+                            <ResponsiveContainer className="" width="100%" height={260}>
+                                <PieChart width={800} height={400} >
+                                    <Pie
+                                        data={cultivosSupEncuestadas}
+                                        activeIndex={legendSupEncuestadas.activeIndex}
+                                        activeShape={renderActiveShape}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={60}
+                                        outerRadius={80}
+                                        dataKey="value"
+                                        onMouseEnter={onPieEnterSupEncuestadas}
+                                    >
+                                        {cultivosSupEncuestadas.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.colors} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        )}
                     </div>
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
@@ -278,26 +288,33 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                 PRODUCTIVO
                             </h1>
                         </div>
-                        <ResponsiveContainer className="" width="100%" height={260}>
-                            <PieChart width={800} height={400} >
-                                <Pie
-                                    data={cultivosProdEncuestadas}
-                                    activeIndex={legendProdEncuestadas.activeIndex}
-                                    activeShape={renderActiveShape}
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={60}
-                                    outerRadius={80}
-                                    dataKey="value"
-                                    onMouseEnter={onPieEnterProdEncuestadas}
-                                >
-                                    {cultivosProdEncuestadas.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.colors} />
-                                    ))}
-                                </Pie>
-                                <Tooltip />
-                            </PieChart>
-                        </ResponsiveContainer>
+                        {cultivosProdEncuestadas.length === 0 ? (
+                            <Result
+                                // status="warning"
+                                title="No hay datos."
+                            />
+                        ) : (
+                            <ResponsiveContainer className="" width="100%" height={260}>
+                                <PieChart width={800} height={400} >
+                                    <Pie
+                                        data={cultivosProdEncuestadas}
+                                        activeIndex={legendProdEncuestadas.activeIndex}
+                                        activeShape={renderActiveShape}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={60}
+                                        outerRadius={80}
+                                        dataKey="value"
+                                        onMouseEnter={onPieEnterProdEncuestadas}
+                                    >
+                                        {cultivosProdEncuestadas.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.colors} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        )}
                     </div>
                     <div style={{ width: '33%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div>
@@ -305,26 +322,33 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                                 COSTO
                             </h1>
                         </div>
-                        <ResponsiveContainer className="" width="100%" height={260}>
-                            <PieChart width={800} height={400} >
-                                <Pie
-                                    data={cultivosCostoEncuestadas}
-                                    activeIndex={legendCostoEncuestadas.activeIndex}
-                                    activeShape={renderActiveShape}
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={60}
-                                    outerRadius={80}
-                                    dataKey="value"
-                                    onMouseEnter={onPieEnterCostoEncuestadas}
-                                >
-                                    {cultivosCostoEncuestadas.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.colors} />
-                                    ))}
-                                </Pie>
-                                <Tooltip />
-                            </PieChart>
-                        </ResponsiveContainer>
+                        {cultivosCostoEncuestadas.length === 0 ? (
+                            <Result
+                                // status="warning"
+                                title="No hay datos."
+                            />
+                        ) : (
+                            <ResponsiveContainer className="" width="100%" height={260}>
+                                <PieChart width={800} height={400} >
+                                    <Pie
+                                        data={cultivosCostoEncuestadas}
+                                        activeIndex={legendCostoEncuestadas.activeIndex}
+                                        activeShape={renderActiveShape}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={60}
+                                        outerRadius={80}
+                                        dataKey="value"
+                                        onMouseEnter={onPieEnterCostoEncuestadas}
+                                    >
+                                        {cultivosCostoEncuestadas.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.colors} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        )}
                     </div>
                 </div>
             </div>

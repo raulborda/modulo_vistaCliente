@@ -853,71 +853,73 @@ const CardInsumos = () => {
                     style={cardStyle1} onClick={() => handleClick(0)}
                 >
                     <Row gutter={16} >
-                        <Col span={8}>
+                        <Col span={10}>
                             <Row style={{ width: '100%' }}>
-                                <Statistic
-                                    title="Total Has."
-                                    value={totalHas ? totalHas : 0}
-                                    // value={3500000}
-                                    // value={999999}
-                                    valueStyle={{
-                                        fontSize: '35px',
-                                        fontWeight: 'bold',
-                                        marginTop: '-20px',
-                                        textAlign: 'right'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic"
-                                />
-                                <Statistic
-                                    value={average ? Math.abs(average) : 0}
-                                    // value={100}
-                                    precision={2}
-                                    valueStyle={{
-                                        color: porcentajeColor,
-                                        marginTop: '30px',
-                                        marginLeft: '5px',
-                                        fontWeight: 'bold',
-                                        width: '100%',
-                                    }}
-                                    prefix="("
-                                    suffix={average >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Statistic
+                                        title="Total Has."
+                                        value={totalHas ? totalHas : 0}
+                                        // value={3500000}
+                                        // value={999999}
+                                        valueStyle={{
+                                            fontSize: '30px',
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic"
+                                    />
+                                    <Statistic
+                                        value={average ? Math.abs(average) : 0}
+                                        // value={100}
+                                        precision={2}
+                                        valueStyle={{
+                                            color: porcentajeColor,
+                                            marginTop: '25px',
+                                            marginLeft: '5px',
+                                            fontWeight: 'bold',
+                                            width: '100%',
+                                        }}
+                                        prefix="("
+                                        suffix={average >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
 
-                                />
+                                    />
+                                </div>
                             </Row>
-                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-10px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-8px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Cosecha anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
                             </div>
                         </Col>
-                        <Col span={2}>
+                        <Col span={3}>
                             <Row style={{ width: '100%' }}>
-                                <div tyle={{ paddingRight: '10px' }}>
-                                <Statistic
-                                    title="Propias"
-                                    value={valorPropias ? valorPropias : 0}
-                                    valueStyle={{
-                                        fontSize: '25px',
-                                        fontWeight: 'bold',
-                                        marginTop: '-20px',
-                                        textAlign: 'right',
-                                        paddingTop: '5px'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic1"
-                                    layout="horizontal"
-                                />
+                                <div style={{}}>
+                                    <Statistic
+                                        title="Propias"
+                                        value={valorPropias ? valorPropias : 0}
+                                        valueStyle={{
+                                            // fontSize: '25px',
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right',
+                                            paddingTop: '5px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic1"
+                                        layout="horizontal"
+                                    />
                                 </div>
                             </Row>
                         </Col>
-                        <Col span={2} >
+                        <Col span={3} >
                             <Row style={{ width: '100%' }}>
                                 <div>
                                     <Statistic
                                         title="Alquiladas"
                                         value={valorAlquiladas ? valorAlquiladas : 0}
                                         valueStyle={{
-                                            fontSize: '25px',
+                                            // fontSize: '25px',
                                             fontWeight: 'bold',
                                             marginTop: '-20px',
                                             textAlign: 'right',
@@ -929,14 +931,14 @@ const CardInsumos = () => {
                                 </div>
                             </Row>
                         </Col>
-                        <Col span={5} >
+                        <Col span={3} >
                             <Row style={{ width: '100%' }}>
-                                <div style={{ paddingLeft: '10px' }}>
+                                <div style={{}}>
                                     <Statistic
                                         title="Encuesta"
                                         value={supEncuestadas ? supEncuestadas : 0}
                                         valueStyle={{
-                                            fontSize: '25px',
+                                            // fontSize: '25px',
                                             fontWeight: 'bold',
                                             marginTop: '-20px',
                                             textAlign: 'right',
@@ -948,7 +950,7 @@ const CardInsumos = () => {
                                 </div>
                             </Row>
                         </Col>
-                        <Col span={7}>
+                        <Col span={5}>
                             <Map
                                 style="mapbox://styles/mapbox/satellite-streets-v12"
                                 containerStyle={{
@@ -993,33 +995,35 @@ const CardInsumos = () => {
                     <Row gutter={16} >
                         <Col span={11}>
                             <Row style={{ width: '100%' }}>
-                                <Statistic
-                                    title="Insumos U$S"
-                                    value={insumoTotal ? insumoTotal : 0}
-                                    valueStyle={{
-                                        fontSize: '35px',
-                                        fontWeight: 'bold',
-                                        marginTop: '-20px',
-                                        textAlign: 'right'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic"
-                                />
-                                <Statistic
-                                    value={averageInsumos ? Math.abs(averageInsumos) : 0}
-                                    precision={2}
-                                    valueStyle={{
-                                        color: porcentajeColorInsumo,
-                                        marginTop: '30px',
-                                        marginLeft: '5px',
-                                        fontWeight: 'bold',
-                                        width: '100%',
-                                    }}
-                                    prefix="("
-                                    suffix={averageInsumos >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
-                                />
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Statistic
+                                        title="Insumos U$S"
+                                        value={insumoTotal ? insumoTotal : 0}
+                                        valueStyle={{
+                                            fontSize: '30px',
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic"
+                                    />
+                                    <Statistic
+                                        value={averageInsumos ? Math.abs(averageInsumos) : 0}
+                                        precision={2}
+                                        valueStyle={{
+                                            color: porcentajeColorInsumo,
+                                            marginTop: '25px',
+                                            marginLeft: '5px',
+                                            fontWeight: 'bold',
+                                            width: '100%',
+                                        }}
+                                        prefix="("
+                                        suffix={averageInsumos >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
+                                    />
+                                </div>
                             </Row>
-                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-8px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Campaña anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
                             </div>
@@ -1032,13 +1036,14 @@ const CardInsumos = () => {
                                     title="Encuesta "
                                     value={insumoEstimado ? insumoEstimado : 0}
                                     valueStyle={{
-                                        fontSize: '25px',
+                                        // fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
-                                        textAlign: 'right'
+                                        textAlign: 'right',
+                                        paddingTop: '5px'
                                     }}
                                     formatter={formatter}
-                                    className="statistic"
+                                    className="statistic1"
                                     layout="horizontal"
                                 />
                                 {/* </div> */}
@@ -1054,33 +1059,35 @@ const CardInsumos = () => {
                     <Row gutter={16} >
                         <Col span={11}>
                             <Row style={{ width: '100%' }}>
-                                <Statistic
-                                    title="Acopio TT"
-                                    value={acopioTotal ? acopioTotal : 0}
-                                    valueStyle={{
-                                        fontSize: '35px',
-                                        fontWeight: 'bold',
-                                        marginTop: '-20px',
-                                        textAlign: 'right'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic"
-                                />
-                                <Statistic
-                                    value={averageAcopio ? Math.abs(averageAcopio) : 0}
-                                    precision={2}
-                                    valueStyle={{
-                                        color: porcentajeColorAcopio,
-                                        marginTop: '30px',
-                                        fontWeight: 'bold',
-                                        marginLeft: '5px',
-                                        width: '100%',
-                                    }}
-                                    prefix="("
-                                    suffix={averageAcopio >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
-                                />
+                                <div style={{display: 'flex', flexDirection: 'row'}}>
+                                    <Statistic
+                                        title="Acopio TT"
+                                        value={acopioTotal ? acopioTotal : 0}
+                                        valueStyle={{
+                                            fontSize: '30px',
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic"
+                                    />
+                                    <Statistic
+                                        value={averageAcopio ? Math.abs(averageAcopio) : 0}
+                                        precision={2}
+                                        valueStyle={{
+                                            color: porcentajeColorAcopio,
+                                            marginTop: '25px',
+                                            fontWeight: 'bold',
+                                            marginLeft: '5px',
+                                            width: '100%',
+                                        }}
+                                        prefix="("
+                                        suffix={averageAcopio >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
+                                    />
+                                </div>
                             </Row>
-                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-8px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Cosecha anterior:</p>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
                             </div>
@@ -1093,75 +1100,19 @@ const CardInsumos = () => {
                                     title="Encuesta"
                                     value={acopioEncuesta ? acopioEncuesta : 0}
                                     valueStyle={{
-                                        fontSize: '25px',
+                                        // fontSize: '25px',
                                         fontWeight: 'bold',
                                         marginTop: '-20px',
-                                        textAlign: 'right'
+                                        textAlign: 'right',
+                                        paddingTop: '5px'
                                     }}
                                     formatter={formatter}
-                                    className="statistic"
+                                    className="statistic1"
                                     layout="horizontal"
                                 />
                                 {/* </div> */}
                             </Row>
                         </Col>
-                        {/* <Col span={6}>
-                            <div style={{ marginTop: '-10px' }}> */}
-                        {/*0 <ResponsiveContainer width="100%" height={100}>
-                                    <BarChart
-                                        height={100}
-                                        data={data}
-                                        margin={{
-                                            top: 20,
-                                            right: 0,
-                                            left: 0,
-                                            bottom: 5,
-                                        }}
-                                        prefix="("
-                                        suffix={averageInsumos >= 0 ? <span>%) <CaretUpFilled /></span> : <span>%) <CaretDownOutlined /> </span>}
-                                    />
-                                </Row>
-                                <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-12px' }}>
-                                    <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Año anterior:</p>
-                                    <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ marginTop: '-10px' }}>
-                                    {/* <ResponsiveContainer width="100%" height={100}>
-                                        <BarChart
-                                            height={100}
-                                            data={data}
-                                            margin={{
-                                                top: 20,
-                                                right: 0,
-                                                left: 0,
-                                                bottom: 5,
-                                            }}
-                                        >
-                                            <Bar
-                                                dataKey="propias"
-                                                name="Propias"
-                                                stackId="a"
-                                                barSize={25}
-                                                fill="#70DBE2"
-                                                key={"propias"}
-                                                isAnimationActive={true}
-                                            />
-                                            <Bar
-                                                dataKey="alquiladas"
-                                                name="Alquiladas"
-                                                stackId="a"
-                                                barSize={25}
-                                                fill="#3359A3"
-                                                key={"alquiladas"}
-                                                isAnimationActive={true}
-                                            >
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer> */}
-                        {/* </div>
-                        </Col> */}
                     </Row>
                 </Card>
             </div>

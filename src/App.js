@@ -30,14 +30,14 @@ function App() {
 
   //* Id de usuario que se obtiene desde local storage
   const idUsu = localStorage.getItem("usuario");
-  const [usu, setUsu] = useState(idUsu);
+  // const [usu, setUsu] = useState(idUsu);
+  const [usu, setUsu] = useState(1);
   //* Id de cliente que se obtine desde local storage
-  const idC = localStorage.getItem("cliSelect");
-  // const idC = 2049;
-  // const idC = 2083;
+  // const idC = localStorage.getItem("cliSelect");
+  // const idC = 2; // .153
+  const idC = 2083; //.28
+  // const idC = 2049; //.28
   const [idCliente, setIdCliente] = useState(idC);
-
-  
 
 
   //Evolucion Productiva:
