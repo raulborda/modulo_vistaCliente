@@ -89,8 +89,7 @@ export const GraficoInsumos = () => {
 
     return (
         <>
-            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-                <div style={{ width: '100%', marginRight: '10px' }}>
+            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', marginRight: '10px' }}>
                     <div>
                         <h1 className='titulos'>
                             ANALISIS INSUMOS COMPRADOS
@@ -170,7 +169,6 @@ export const GraficoInsumos = () => {
                                 </ComposedChart>
                             </ResponsiveContainer>
                     }
-                </div>
             </div >
         </>
     )
