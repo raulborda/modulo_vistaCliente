@@ -15,11 +15,11 @@ const NotasCliente = () => {
     <>
       <iframe
             loading="lazy"
-            src={`${URL}/duoc/modulos/notas_clientes/?idC=${idCliente}`}
+            src={`${URL}/tati/modulos/notas_clientes/?idC=${idCliente}`}
             width={"100%"}
             height={"500"}
             style={{ border: "none" }}
-            title="Tarea Cliente"
+            title="Notas Cliente"
           ></iframe>
     </>
   )
