@@ -255,6 +255,7 @@ const TabsCliente = () => {
               <div
                 style={{
                   display: "flex",
+                  flexWrap: "wrap",
                   alignItems: "flex-start",
                   userSelect: "none",
                 }}
