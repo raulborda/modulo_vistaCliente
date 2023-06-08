@@ -203,7 +203,7 @@ const TabsCliente = () => {
       >
         <div className="divCliente_content">
           <div className="divCliente_info">
-            <h1
+            {/* <h1
               style={{
                 fontSize: "16px",
                 fontWeight: "700",
@@ -213,7 +213,7 @@ const TabsCliente = () => {
               }}
             >
               {infoCliSelect[0]?.cli_nombre}
-            </h1>
+            </h1> */}
             <EyeOutlined
               style={{
                 marginLeft: "11px",
