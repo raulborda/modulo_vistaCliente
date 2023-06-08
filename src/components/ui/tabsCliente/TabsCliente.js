@@ -229,6 +229,7 @@ const TabsCliente = () => {
               onClose={onClose}
               open={open}
               height={330}
+              placement="top"
             >
               <div>
                 <ClienteCard />
@@ -249,6 +250,7 @@ const TabsCliente = () => {
               onClose={onCloseC}
               open={openC}
               height={300}
+              placement="top"
             >
               <div
                 style={{
