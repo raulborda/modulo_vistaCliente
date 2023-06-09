@@ -16,7 +16,7 @@ const NotasCliente = () => {
       <iframe
             loading="lazy"
             src={`${URL}/tati/modulos/notas_clientes/?idC=${idCliente}`}
-            width={"90%"}
+            width={"100%"}
             height={"900"}
             style={{ border: "none" }}
             title="Notas Cliente"
