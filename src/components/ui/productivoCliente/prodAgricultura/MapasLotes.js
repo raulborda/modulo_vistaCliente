@@ -24,7 +24,7 @@ const MapasLotes = () => {
     importarArchivo,
     coordenadasArchivo,
     selectedCampoGeojson,
-    refrescarListLotes, 
+    refrescarListLotes,
     setRefrescarListLotes,
   } = useContext(GlobalContext);
 
@@ -119,6 +119,7 @@ const MapasLotes = () => {
                 item = j + random;
 
                 const lote = geoJSON[i][j];
+                console.log('lote: ', lote);
                 map.addSource(`lote-${item}`, {
                   type: "geojson",
                   data: {
@@ -367,6 +368,7 @@ const MapasLotes = () => {
   var result = [];
   function desarmarGeoJSON() {
     var lengthDG = dataGeoJSON.length;
+    console.log('dataGeoJSON.length: ', dataGeoJSON.length)
     var coordLotes = [];
     for (let i = 0; i < lengthDG; i++) {
       const element = dataGeoJSON[i].lot_geojson;
@@ -381,6 +383,7 @@ const MapasLotes = () => {
       coordLotes = [];
     }
     setGeoJSON(result);
+    console.log('setGeoJSON: ', geoJSON)
   }
 
   var coordSelect = [];
@@ -441,8 +444,8 @@ const MapasLotes = () => {
           .catch((error) => {
             console.log("Error fetching data:", error);
           });
-        }
       }
+    }
     // setRefrescarListLotes(true);
   }, [idCliente, isTableUpdated]);
 
