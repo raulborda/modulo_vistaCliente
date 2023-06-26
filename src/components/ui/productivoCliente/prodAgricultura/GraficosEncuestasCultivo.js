@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Empty, Select } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector, Tooltip } from 'recharts';
@@ -58,7 +59,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         cosechaSeleccionada,
         usu,
         setSupEncuestadas,
-        supEncuestadas,
     } = useContext(GlobalContext);
 
     const [selectedCultivo, setSelectedCultivo] = useState("");
@@ -181,6 +181,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     }, [selectedCultivo, selectedAcosDesc])
 
     useEffect(() => {
+        console.log("cli costo estimado: ", idCliente)
         const dataAdd = new FormData();
         dataAdd.append("idU", usu);
         dataAdd.append("idC", idCliente);
