@@ -99,7 +99,7 @@ html {
    margin-top: 3px;
    margin-bottom: 5px;
    margin-left: 5px;
-   border-bottom: 1px solid #e8e8e8;
+   /*border-bottom: 1px solid #e8e8e8;*/
    display: flex;
    flex-direction: row;
    justify-content: space-between;
