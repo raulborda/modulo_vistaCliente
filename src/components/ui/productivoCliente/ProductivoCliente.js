@@ -24,6 +24,7 @@ const ProductivoCliente = () => {
     {
       key: '1',
       label: 'Ganadería',
+      disabled: true, // Desactiva la pestaña de Ganadería
     },
   ];
 
