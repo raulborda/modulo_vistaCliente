@@ -1,12 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import {
-  Drawer,
-  Select,
-  Space,
-  Tabs,
-  Tag,
-} from "antd";
+import { Drawer, Select, Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -16,10 +9,7 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import {
-  EyeOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { EyeOutlined, UserOutlined } from "@ant-design/icons";
 import ClienteCard from "./ClienteCard";
 import ContactosCard from "./ContactosCard";
 
@@ -39,6 +29,8 @@ const TabsCliente = () => {
     listCosechas,
     isSelectEditDisabled,
     setCosechaSeleccionada,
+    etiquetasCli,
+    setEtiquetasCli,
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -102,12 +94,30 @@ const TabsCliente = () => {
     });
   };
 
+  const cargarEtiquetaxCliente = () => {
+    const data = new FormData();
+    data.append("idCli", idCliente);
+    fetch(`${URL}clientView_etiquetaxcliente.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        const objetoData = JSON.parse(data);
+        setEtiquetasCli(objetoData);
+      });
+    });
+  };
+
   useEffect(() => {
     if (idCliente) {
       cargarInfoCli();
       cargarContactosCli();
+      cargarEtiquetaxCliente();
     }
   }, [idCliente]);
+
+  console.log(etiquetasCli);
 
   const items = [
     {
@@ -186,7 +196,6 @@ const TabsCliente = () => {
     setOpen(false);
   };
 
-
   //! DRAWER CONTACTOS
   const [openC, setOpenC] = useState(false);
   const showDrawerC = () => {
@@ -196,12 +205,9 @@ const TabsCliente = () => {
     setOpenC(false);
   };
 
-
   return (
     <>
-      <div
-        className="divContainer"
-      >
+      <div className="divContainer">
         <div className="divCliente_content">
           <div className="divCliente_info">
             {/* <h1
@@ -261,17 +267,24 @@ const TabsCliente = () => {
                   userSelect: "none",
                 }}
               >
-                  <ContactosCard />
+                <ContactosCard />
               </div>
             </Drawer>
           </div>
-          <div className="divTags">
-            <Space size={[0, 8]} wrap>
-              <Tag color="orange">IMPORTANTE</Tag>
-              <Tag color="cyan">FEEDLOT</Tag>
-              <Tag color="green">NUEVO</Tag>
-              <Tag color="blue">ZONA NORTE</Tag>
-            </Space>
+          <div className="selected_tags">
+            {etiquetasCli?.map((tag) => (
+              <>
+                <div
+                  className="selected_tag"
+                  style={{ background: tag.etq_color, display: "inline-block" }}
+                  key={tag.etq_id}
+                >
+                  <span className="etq_name">
+                    {tag.etq_nombre.toUpperCase()}
+                  </span>
+                </div>
+              </>
+            ))}
           </div>
         </div>
         <div className="divContainer-Select-Tabs">

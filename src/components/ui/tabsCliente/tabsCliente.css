@@ -137,3 +137,23 @@ html {
    border: 1px solid #e8e8e8;
 }
  
+.selected_tags{
+   display: flex;
+   flex-direction: row;
+}
+
+.selected_tag{
+   margin-left: 2px;
+   margin-right: 2px;
+   height: 20px;
+   /*width: 110px;*/
+   border-radius: 3px;
+   text-align: center;    
+   padding-top: 2px;
+}
+
+.etq_name{
+   color:white;
+   font-weight:500;
+   padding: 10px;
+}
