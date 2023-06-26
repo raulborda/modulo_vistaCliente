@@ -10,7 +10,12 @@ const TareasCliente = () => {
 
   const {
     idCliente,
+    setIdCliente
   } = useContext(GlobalContext);
+
+  const idCli = localStorage.getItem("cliSelect");
+  setIdCliente(Number(idCli));
+  //console.log(idCliente);
 
   return (
     <>
