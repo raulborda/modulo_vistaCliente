@@ -15,7 +15,8 @@ const NotasCliente = () => {
     <>
       <iframe
             loading="lazy"
-            src={`${URL}/tati/modulos/notas_clientes/?idC=${idCliente}`}
+            //src={`${URL}/tati/modulos/notas_clientes/?idC=${idCliente}`}//pra probar local en tati
+            src={`${URL}/duoc/modulos/notas_clientes/?idC=${idCliente}`} // para el resto de los crm
             width={"100%"}
             height={"900"}
             style={{ border: "none" }}
