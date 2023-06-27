@@ -117,7 +117,7 @@ const TabsCliente = () => {
     }
   }, [idCliente]);
 
-  console.log(etiquetasCli);
+  //console.log(etiquetasCli);
 
   const items = [
     {
