@@ -24,7 +24,12 @@
    background-color: #00b33c !important;
 }
 
-
+/*INICIO - GRAFICO INSUMOS*/
+.div_grafico_insumos{
+  width: 100%;
+  margin-right: 10px;
+}
+/*FIN - GRAFICO INSUMOS*/
 
 
 

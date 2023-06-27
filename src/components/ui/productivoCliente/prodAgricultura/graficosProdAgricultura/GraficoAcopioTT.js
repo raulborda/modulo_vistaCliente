@@ -155,7 +155,7 @@ export const GraficoAcopioTT = () => {
                                         top: 20,
                                         right: 0,
                                         left: 0,
-                                        bottom: 5,
+                                        bottom: 12,
                                     }}
                                 >
                                     <CartesianGrid vertical={false} horizontal={true} />

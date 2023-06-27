@@ -89,7 +89,8 @@ export const GraficoInsumos = () => {
 
     return (
         <>
-            <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', marginRight: '10px' }}>
+            {/* <div div style={{ display: 'flex', flexDirection: 'row', width: '100%', marginRight: '10px', border:"1px solid red" }}> */}
+            <div className='div_grafico_insumos'>
                     <div>
                         <h1 className='titulos'>
                             ANALISIS INSUMOS COMPRADOS
@@ -140,7 +141,7 @@ export const GraficoInsumos = () => {
                                         top: 20,
                                         right: 0,
                                         left: 0,
-                                        bottom: 5,
+                                        bottom: 12,
                                     }}
                                 >
                                     <CartesianGrid vertical={false} horizontal={true} />

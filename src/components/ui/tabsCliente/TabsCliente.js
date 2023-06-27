@@ -224,7 +224,7 @@ const TabsCliente = () => {
             <EyeOutlined
               style={{
                 marginLeft: "11px",
-                marginTop: "-7px",
+                marginTop: "0px",
                 fontSize: "15px",
                 color: "#00b33c",
               }}
@@ -245,7 +245,7 @@ const TabsCliente = () => {
             <UserOutlined
               style={{
                 marginLeft: "10px",
-                marginTop: "-10px",
+                marginTop: "-3.5px",
                 fontSize: "13px",
                 color: "#00b33c",
               }}
