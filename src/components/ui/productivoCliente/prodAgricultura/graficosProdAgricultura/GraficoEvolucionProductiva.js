@@ -245,6 +245,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
                                 paddingAngle={5}
                                 dataKey="value"
                                 cursor="pointer"
+
                             >
                                 {data.map((entry, index) => (
                                     <Cell

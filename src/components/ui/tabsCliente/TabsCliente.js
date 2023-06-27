@@ -9,9 +9,10 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined, UserOutlined } from "@ant-design/icons";
+import { EyeOutlined, TagOutlined, UserOutlined } from "@ant-design/icons";
 import ClienteCard from "./ClienteCard";
 import ContactosCard from "./ContactosCard";
+import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
 
 const TabsCliente = () => {
   const URL = process.env.REACT_APP_URL;
@@ -205,6 +206,16 @@ const TabsCliente = () => {
     setOpenC(false);
   };
 
+  //! DRAWER Tags
+  const [openTag, setOpenTag] = useState(false);
+
+  const showDrawerTag = () => {
+    setOpenTag(true);
+  };
+  const onCloseTag = () => {
+    setOpenTag(false);
+  };
+
   return (
     <>
       <div className="divContainer">
@@ -224,14 +235,14 @@ const TabsCliente = () => {
             <EyeOutlined
               style={{
                 marginLeft: "11px",
-                marginTop: "0px",
+                marginTop: "-3px",
                 fontSize: "15px",
                 color: "#00b33c",
               }}
               onClick={() => showDrawer()}
             />
             <Drawer
-              title={infoCliSelect[0]?.cli_nombre}
+              // title={"DATOS"}
               closable={false}
               onClose={onClose}
               open={open}
@@ -242,17 +253,18 @@ const TabsCliente = () => {
                 <ClienteCard />
               </div>
             </Drawer>
+
             <UserOutlined
               style={{
                 marginLeft: "10px",
-                marginTop: "-3.5px",
+                marginTop: "-8px",
                 fontSize: "13px",
                 color: "#00b33c",
               }}
               onClick={() => showDrawerC()}
             />
             <Drawer
-              title={infoCliSelect[0]?.cli_nombre}
+              title={"CONTACTOS"}
               closable={false}
               onClose={onCloseC}
               open={openC}
@@ -268,6 +280,36 @@ const TabsCliente = () => {
                 }}
               >
                 <ContactosCard />
+              </div>
+            </Drawer>
+
+            <TagOutlined
+              style={{
+                marginLeft: "10px",
+                marginTop: "-6px",
+                fontSize: "13px",
+                color: "#00b33c",
+              }}
+              onClick={() => showDrawerTag()}
+            />
+            <Drawer
+              title={"ADMINISTRAR ETIQUETAS"}
+              closable={false}
+              onClose={onCloseTag}
+              open={openTag}
+              height={150}
+              placement="top"
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "flex-start",
+                  userSelect: "none",
+                }}
+              >
+                <AdminEtiqueta />
+                
               </div>
             </Drawer>
           </div>
