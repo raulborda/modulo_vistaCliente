@@ -246,7 +246,7 @@ const TabsCliente = () => {
               closable={false}
               onClose={onClose}
               open={open}
-              height={330}
+              height={280}
               placement="top"
             >
               <div>

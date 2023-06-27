@@ -8,6 +8,7 @@ const AdminEtiqueta = () => {
   const { idCliente, etiquetasCli } = useContext(GlobalContext);
 
   const [totalEtqCli, setTotalEtqCli] = useState([]);
+  const [guardarEtiq, setGuardarEtiq] = useState(etiquetasCli);
 
   const { Option } = Select;
 
@@ -27,7 +28,7 @@ const AdminEtiqueta = () => {
   };
 
   console.log("totalEtqCli: ", totalEtqCli);
-  console.log("etiquetasCli: ", etiquetasCli);
+  console.log("etiquetasCli: ", guardarEtiq);
 
   useEffect(() => {
     if (idCliente) {
@@ -35,13 +36,34 @@ const AdminEtiqueta = () => {
     }
   }, [idCliente]);
 
+ 
+
   const handleEtiquetaChange = (selectedEtiquetas) => {
-    // Actualizar el estado de etiquetasCli cuando se seleccione o deseleccione una etiqueta
-    // selectedEtiquetas es un arreglo con los valores seleccionados
-    // Puedes realizar las operaciones necesarias aquí, como enviar los datos al servidor, etc.
+    const etiquetasSeleccionadas = totalEtqCli.filter((etiqueta) =>
+      selectedEtiquetas.includes(etiqueta.etq_id)
+    );
+
+    setGuardarEtiq(etiquetasSeleccionadas);
+
   };
 
-  const etiquetasCliNombres = etiquetasCli.map((etiqueta) => ({
+  console.log(guardarEtiq);
+
+//   const guardarEtiquetasCliente = () => {
+//     const data = new FormData();
+//     data.append("idCli", idCliente);
+//     data.append("etqC", JSON.stringify(guardarEtiq));
+//     fetch(`${URL}guardarEtiquetaxCliente.php`, {
+//       method: "POST",
+//       body: data,
+//     }).then(function (response) {
+//       response.text().then((resp) => {
+//         //console.log(resp);
+//       });
+//     });
+//   };
+
+  const etiquetasCliNombres = guardarEtiq.map((etiqueta) => ({
     value: etiqueta.etq_id,
     label: etiqueta.etq_nombre,
     color: etiqueta.etq_color,
@@ -62,7 +84,9 @@ const AdminEtiqueta = () => {
           marginRight: "8px", // Espacio entre etiquetas
         }}
       >
-        <span style={{paddingTop:"2px", fontWeight:"600"}}>{label.toUpperCase()}</span>
+        <span style={{ paddingTop: "2px", fontWeight: "600" }}>
+          {label.toUpperCase()}
+        </span>
         {closable && (
           <span
             style={{ marginLeft: "4px", cursor: "pointer" }}
