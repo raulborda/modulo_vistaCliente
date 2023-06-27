@@ -1,5 +1,3 @@
-import React, { useContext } from 'react'
-import { GlobalContext } from '../../context/GlobalContext';
 
 const TareasCliente = () => {
 
@@ -8,20 +6,16 @@ const TareasCliente = () => {
   const HOSTNAME = window.location.hostname;
   const URL = `${PROTOCOL}//${HOSTNAME}:${PORT}`;
 
-  const {
-    idCliente,
-    setIdCliente
-  } = useContext(GlobalContext);
-
-  const idCli = localStorage.getItem("cliSelect");
-  setIdCliente(Number(idCli));
+  const idCli = Number(localStorage.getItem("cliSelect"));
+  //setIdCliente(Number(idCli));
   //console.log(idCliente);
 
   return (
     <>
       <iframe
             loading="lazy"
-            src={`${URL}/duoc/server/tareas_dashboard/tareasCliente/?idCliente=${idCliente}`}
+            src={`${URL}/tati/server/tareas_dashboard/tareasCliente/?idCliente=${idCli}`} // para local tati
+            //src={`${URL}/duoc/server/tareas_dashboard/tareasCliente/?idCliente=${idCli}`} // para el resto de los crm
             width={"100%"}
             height={"500"}
             style={{ border: "none" }}

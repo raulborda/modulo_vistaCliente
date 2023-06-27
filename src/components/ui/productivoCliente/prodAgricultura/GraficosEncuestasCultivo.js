@@ -181,7 +181,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     }, [selectedCultivo, selectedAcosDesc])
 
     useEffect(() => {
-        console.log("cli costo estimado: ", idCliente)
+        //console.log("cli costo estimado: ", idCliente)
         const dataAdd = new FormData();
         dataAdd.append("idU", usu);
         dataAdd.append("idC", idCliente);
