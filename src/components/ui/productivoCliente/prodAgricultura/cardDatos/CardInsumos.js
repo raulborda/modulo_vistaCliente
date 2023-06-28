@@ -901,19 +901,24 @@ const CardInsumos = () => {
                         </Col>
                         <Col span={4}>
                             <Row style={{ width: '100%' }}>
-                                <Statistic
-                                    title="Encuesta "
-                                    value={insumoEstimado ? insumoEstimado : 0}
-                                    valueStyle={{
-                                        fontWeight: 'bold',
-                                        marginTop: '-20px',
-                                        textAlign: 'right',
-                                        paddingTop: '5px'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic1"
-                                    layout="horizontal"
-                                />
+                                <div style={{display:"flex", flexDirection:"row"}}>
+                                    <Statistic
+                                        title="Encuesta "
+                                        value={insumoEstimado ? insumoEstimado : 0}
+                                        valueStyle={{
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right',
+                                            paddingTop: '5px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic1"
+                                        layout="horizontal"
+                                    />
+                                    <div style={{marginTop:"17px",}}>
+                                        <span style={{marginLeft:"10px", fontWeight: 'bold', fontSize:"20px"}}>U$S</span>                                        
+                                    </div>
+                                </div>
                             </Row>
                         </Col>
                     </Row>
@@ -961,19 +966,24 @@ const CardInsumos = () => {
                         </Col>
                         <Col span={4}>
                             <Row style={{ width: '100%' }}>
-                                <Statistic
-                                    title="Encuesta"
-                                    value={acopioEncuesta ? acopioEncuesta : 0}
-                                    valueStyle={{
-                                        fontWeight: 'bold',
-                                        marginTop: '-20px',
-                                        textAlign: 'right',
-                                        paddingTop: '5px'
-                                    }}
-                                    formatter={formatter}
-                                    className="statistic1"
-                                    layout="horizontal"
-                                />
+                                <div style={{display:"flex", flexDirection:"row"}}>
+                                    <Statistic
+                                        title="Encuesta"
+                                        value={acopioEncuesta ? acopioEncuesta : 0}
+                                        valueStyle={{
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            textAlign: 'right',
+                                            paddingTop: '5px'
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic1"
+                                        layout="horizontal"
+                                    />
+                                    <div style={{marginTop:"17px",}}>
+                                        <span style={{marginLeft:"10px", fontWeight: 'bold', fontSize:"20px"}}>TT</span>                                        
+                                    </div>
+                                </div>
                             </Row>
                         </Col>
                     </Row>
