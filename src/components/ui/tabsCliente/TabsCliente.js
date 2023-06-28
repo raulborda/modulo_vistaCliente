@@ -24,7 +24,6 @@ const TabsCliente = () => {
     selectedAcosDesc,
     setSelectedAcosDesc,
     setCosechaAnterior,
-    infoCliSelect,
     setInfoCliSelect,
     setContactosCli,
     listCosechas,
@@ -32,6 +31,7 @@ const TabsCliente = () => {
     setCosechaSeleccionada,
     etiquetasCli,
     setEtiquetasCli,
+    actualizarEtiqueta,
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -117,6 +117,12 @@ const TabsCliente = () => {
       cargarEtiquetaxCliente();
     }
   }, [idCliente]);
+
+  useEffect(() => {
+    if (idCliente) {
+      cargarEtiquetaxCliente();
+    }
+  }, [idCliente,actualizarEtiqueta]);
 
   //console.log(etiquetasCli);
 

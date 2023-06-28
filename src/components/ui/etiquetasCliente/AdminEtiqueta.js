@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { Select } from "antd";
@@ -5,7 +6,7 @@ import { Select } from "antd";
 const AdminEtiqueta = () => {
   const URL = process.env.REACT_APP_URL;
 
-  const { idCliente, etiquetasCli } = useContext(GlobalContext);
+  const { idCliente, etiquetasCli, actualizarEtiqueta, setActualizarEtiqueta } =  useContext(GlobalContext);
 
   const [totalEtqCli, setTotalEtqCli] = useState([]);
   const [guardarEtiq, setGuardarEtiq] = useState(etiquetasCli);
@@ -27,16 +28,14 @@ const AdminEtiqueta = () => {
     });
   };
 
-  console.log("totalEtqCli: ", totalEtqCli);
-  console.log("etiquetasCli: ", guardarEtiq);
+  //console.log("totalEtqCli: ", totalEtqCli);
+  //console.log("etiquetasCliOriginales: ", etiquetasCli);
 
   useEffect(() => {
     if (idCliente) {
       buscarEtiqueta();
     }
   }, [idCliente]);
-
- 
 
   const handleEtiquetaChange = (selectedEtiquetas) => {
     const etiquetasSeleccionadas = totalEtqCli.filter((etiqueta) =>
@@ -45,23 +44,31 @@ const AdminEtiqueta = () => {
 
     setGuardarEtiq(etiquetasSeleccionadas);
 
+    guardarEtiquetasCliente(etiquetasSeleccionadas);
   };
 
-  console.log(guardarEtiq);
+  //console.log("etiquetasCliNuevas: ", guardarEtiq);
 
-//   const guardarEtiquetasCliente = () => {
-//     const data = new FormData();
-//     data.append("idCli", idCliente);
-//     data.append("etqC", JSON.stringify(guardarEtiq));
-//     fetch(`${URL}guardarEtiquetaxCliente.php`, {
-//       method: "POST",
-//       body: data,
-//     }).then(function (response) {
-//       response.text().then((resp) => {
-//         //console.log(resp);
-//       });
-//     });
-//   };
+  const guardarEtiquetasCliente = (etiquetas) => {
+    var etq = [];
+    const data = new FormData();
+    data.append("idCli", idCliente);
+    etiquetas.forEach((id) => {
+      etq.push(Number(id.etq_id));
+    });
+
+    data.append("etqC", JSON.stringify(etq));
+    fetch(`${URL}guardarEtiquetaxCliente.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        console.log(resp);
+        etq = [];
+        setActualizarEtiqueta(!actualizarEtiqueta);
+      });
+    });
+  };
 
   const etiquetasCliNombres = guardarEtiq.map((etiqueta) => ({
     value: etiqueta.etq_id,
@@ -106,17 +113,14 @@ const AdminEtiqueta = () => {
     <>
       <Select
         mode="multiple"
+        style={{minWidth:"200px"}}
         placeholder="Selecciona etiquetas"
         value={etiquetasCliNombres}
         onChange={handleEtiquetaChange}
         tagRender={renderEtiquetaTag} // Personaliza la apariencia de las etiquetas seleccionadas
       >
         {totalEtqCli.map((etiqueta) => (
-          <Option
-            key={etiqueta.etq_id}
-            value={etiqueta.etq_id}
-            label={etiqueta.etq_nombre}
-          >
+          <Option key={etiqueta.etq_id} value={etiqueta.etq_id}>
             {etiqueta.etq_nombre.toUpperCase()}
           </Option>
         ))}
