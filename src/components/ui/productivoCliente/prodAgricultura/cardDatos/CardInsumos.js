@@ -915,9 +915,9 @@ const CardInsumos = () => {
                                         className="statistic1"
                                         layout="horizontal"
                                     />
-                                    <div style={{marginTop:"17px",}}>
+                                    {/* <div style={{marginTop:"17px",}}>
                                         <span style={{marginLeft:"10px", fontWeight: 'bold', fontSize:"20px"}}>U$S</span>                                        
-                                    </div>
+                                    </div> */}
                                 </div>
                             </Row>
                         </Col>
@@ -980,9 +980,9 @@ const CardInsumos = () => {
                                         className="statistic1"
                                         layout="horizontal"
                                     />
-                                    <div style={{marginTop:"17px",}}>
+                                    {/* <div style={{marginTop:"17px",}}>
                                         <span style={{marginLeft:"10px", fontWeight: 'bold', fontSize:"20px"}}>TT</span>                                        
-                                    </div>
+                                    </div> */}
                                 </div>
                             </Row>
                         </Col>
