@@ -6,10 +6,7 @@ import { Empty } from 'antd';
 const GraficoEvolucionProductiva = ({ porcentajes }) => {
 
     const {
-        setCardSelected,
         dataForChart,
-        iconTable,
-        setIconTable,
     } = useContext(GlobalContext);
 
     const data = [
