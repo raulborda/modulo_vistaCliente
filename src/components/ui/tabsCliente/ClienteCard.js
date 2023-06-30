@@ -6,6 +6,8 @@ import { HeartFilled } from "@ant-design/icons";
 const ClienteCard = () => {
   const { infoCliSelect } = useContext(GlobalContext);
 
+  console.log("Info Cliente/ CliCard: ", infoCliSelect);
+
   return (
     <Card
      title={
@@ -18,7 +20,7 @@ const ClienteCard = () => {
       headStyle={{ textAlign: "center" }}
     >
       <p>
-        <strong>ID del Sistema:</strong>
+        <strong>Cuenta:</strong>
         <label style={{ color: "#56b43c" }}>
           {" "}
           {infoCliSelect[0]?.cli_idsistema
