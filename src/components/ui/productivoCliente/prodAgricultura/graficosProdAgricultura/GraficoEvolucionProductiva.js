@@ -226,6 +226,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
                     <ResponsiveContainer className="" width="100%" height={250}>
                         <PieChart
                             height={250}
+                            
                         >
                             <Legend
                                 className="legendAnillo"
@@ -237,7 +238,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
                             <Pie
                                 className="pie"
                                 data={dataAnillaco}
-                                cx={120}
+                                cx={98}
                                 cy={110}
                                 innerRadius={40}
                                 outerRadius={60}
@@ -245,7 +246,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
                                 paddingAngle={5}
                                 dataKey="value"
                                 cursor="pointer"
-
+                                
                             >
                                 {data.map((entry, index) => (
                                     <Cell

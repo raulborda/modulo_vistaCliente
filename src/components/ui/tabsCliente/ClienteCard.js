@@ -6,8 +6,6 @@ import { HeartFilled } from "@ant-design/icons";
 const ClienteCard = () => {
   const { infoCliSelect } = useContext(GlobalContext);
 
-  console.log("Info Cliente/ CliCard: ", infoCliSelect);
-
   return (
     <Card
      title={
