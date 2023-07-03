@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { Select } from "antd";
+import "./Styles.css";
 
 const AdminEtiqueta = () => {
   const URL = process.env.REACT_APP_URL;
@@ -113,7 +114,7 @@ const AdminEtiqueta = () => {
     <>
       <Select
         mode="multiple"
-        style={{minWidth:"200px"}}
+        style={{minWidth:"200px", fontSize:"small"}}
         placeholder="Selecciona etiquetas"
         value={etiquetasCliNombres}
         onChange={handleEtiquetaChange}

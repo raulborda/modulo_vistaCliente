@@ -24,6 +24,7 @@ const TabsCliente = () => {
     selectedAcosDesc,
     setSelectedAcosDesc,
     setCosechaAnterior,
+    infoCliSelect,
     setInfoCliSelect,
     setContactosCli,
     listCosechas,
@@ -79,6 +80,8 @@ const TabsCliente = () => {
       });
     });
   };
+
+  console.log(infoCliSelect)
 
   const cargarContactosCli = () => {
     const data = new FormData();
@@ -213,21 +216,21 @@ const TabsCliente = () => {
   };
 
   //! DRAWER Tags
-  const [openTag, setOpenTag] = useState(false);
+  // const [openTag, setOpenTag] = useState(false);
 
-  const showDrawerTag = () => {
-    setOpenTag(true);
-  };
-  const onCloseTag = () => {
-    setOpenTag(false);
-  };
+  // const showDrawerTag = () => {
+  //   setOpenTag(true);
+  // };
+  // const onCloseTag = () => {
+  //   setOpenTag(false);
+  // };
 
   return (
     <>
       <div className="divContainer">
         <div className="divCliente_content">
           <div className="divCliente_info">
-            {/* <h1
+            <h1
               style={{
                 fontSize: "16px",
                 fontWeight: "700",
@@ -237,23 +240,23 @@ const TabsCliente = () => {
               }}
             >
               {infoCliSelect[0]?.cli_nombre}
-            </h1> */}
+            </h1>
             <EyeOutlined
               style={{
                 marginLeft: "11px",
-                marginTop: "-3px",
+                marginTop: "-4px",
                 fontSize: "15px",
                 color: "#00b33c",
               }}
               onClick={() => showDrawer()}
             />
             <Drawer
-              // title={"DATOS"}
+              title={"INFORMACION CLIENTE"}
               closable={false}
               onClose={onClose}
               open={open}
-              height={280}
-              placement="top"
+              width={400}
+              placement="right"
             >
               <div>
                 <ClienteCard />
@@ -263,7 +266,7 @@ const TabsCliente = () => {
             <UserOutlined
               style={{
                 marginLeft: "10px",
-                marginTop: "-8px",
+                marginTop: "-9px",
                 fontSize: "13px",
                 color: "#00b33c",
               }}
@@ -274,8 +277,8 @@ const TabsCliente = () => {
               closable={false}
               onClose={onCloseC}
               open={openC}
-              height={300}
-              placement="top"
+              width={400}
+              placement="right"
             >
               <div
                 style={{
@@ -289,7 +292,7 @@ const TabsCliente = () => {
               </div>
             </Drawer>
 
-            <TagOutlined
+            {/* <TagOutlined
               style={{
                 marginLeft: "10px",
                 marginTop: "-6px",
@@ -304,7 +307,7 @@ const TabsCliente = () => {
               onClose={onCloseTag}
               open={openTag}
               height={150}
-              placement="top"
+              placement="right"
             >
               <div
                 style={{
@@ -317,7 +320,7 @@ const TabsCliente = () => {
                 <AdminEtiqueta />
                 
               </div>
-            </Drawer>
+            </Drawer> */}
           </div>
           <div className="selected_tags">
             {etiquetasCli?.map((tag) => (
