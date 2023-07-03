@@ -921,6 +921,31 @@ const CardInsumos = () => {
                                 </div>
                             </Row>
                         </Col>
+                        <Col span={3}></Col>
+                        <Col span={5}>
+                            <Row style={{ width: '100%' }}>
+                                <div style={{display:"flex", flexDirection:"row"}}>
+                                    <Statistic
+                                        title="Negocios Abiertos"
+                                        value={insumoEstimado ? insumoEstimado : 0}
+                                        valueStyle={{
+                                            fontWeight: 'bold',
+                                            marginTop: '-20px',
+                                            marginLeft: '12px',
+                                            textAlign: 'right',
+                                            paddingTop: '5px',
+                                            width:"15px"
+                                        }}
+                                        formatter={formatter}
+                                        className="statistic1"
+                                        layout="horizontal"
+                                    />
+                                    {/* <div style={{marginTop:"17px",}}>
+                                        <span style={{marginLeft:"10px", fontWeight: 'bold', fontSize:"20px"}}>U$S</span>                                        
+                                    </div> */}
+                                </div>
+                            </Row>
+                        </Col>
                     </Row>
                 </Card>
             </div>
