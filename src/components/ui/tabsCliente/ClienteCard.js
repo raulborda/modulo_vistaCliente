@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, Divider, Form, Input, Select } from "antd";
+import { Button, Divider, Input, Select } from "antd";
+import { Form } from 'antd';
 import { GlobalContext } from "../../context/GlobalContext";
 import { EditOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons";
 import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
@@ -31,22 +32,6 @@ const ClienteCard = () => {
   const [grupoUno, setGrupoUno] = useState(null);
   const [grupoDos, setGrupoDos] = useState(null);
   //---------------------------------------------------------------------------------------------------------------
-
-  // STATE PARA FORM PARA ACTUALIZAR DATOS DEL CLIENTE-------------------------------------------------------------------
-  const [nombre, setNombre] = useState(infoCliSelect[0]?.cli_nombre);
-  const [descripcion, setDescripcion] = useState(infoCliSelect[0]?.cli_descripcion);
-  const [telefono, setTelefono] = useState(infoCliSelect[0]?.cli_telefono1);
-  const [celular, setCelular] = useState(infoCliSelect[0]?.cli_telefono2);
-  const [mail, setMail] = useState(infoCliSelect[0]?.cli_email1);
-  const [cuit, setCuit] = useState(infoCliSelect[0]?.cli_cuit);
-  const [tipoCli, setTipoCli] = useState(infoCliSelect[0]?.tip_id);
-  //const [segmento, setSegmento] = useState(infoCliSelect[0]?.aseg_desc);
-  const [sec, setSec] = useState(infoCliSelect[0]?.sec_id);
-  const [tamano, setTamano] = useState(infoCliSelect[0]?.tam_id);
-  const [zona, setZona] = useState(infoCliSelect[0]?.gruuno_id);
-  const [centro, setCentro] = useState(infoCliSelect[0]?.grudos_id);
-
-  //-------------------------------------------------------------------------------------------------------------
 
   // CONSULTAS A BASE DE DATOS QUE LLENAN LOS SELECTS CON LAS OPCIONES ------------------------------------------
 
@@ -180,7 +165,6 @@ const ClienteCard = () => {
 
     setActualizaCli(!actualizaCli);
     setEditCli(false);
-    setOpen(false);
     form.resetFields();
   };
 
@@ -336,7 +320,7 @@ const ClienteCard = () => {
           </p>
         </div>
       ) : (
-        <Form labelCol={{ span: 10 }} layout="vertical" onFinish={guardarCli}>
+        <Form form={form} labelCol={{ span: 10 }} layout="vertical" onFinish={guardarCli}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
               <Form.Item
@@ -350,8 +334,7 @@ const ClienteCard = () => {
                   },
                 ]}
                 className="hidden-asterisk"
-                initialValue={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                initialValue={infoCliSelect[0]?.cli_nombre}
               >
                 <Input />
               </Form.Item>
@@ -360,8 +343,7 @@ const ClienteCard = () => {
                 label="Descripción"
                 name="descripcion"
                 style={{ marginTop: "10px" }}
-                initialValue={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
+                initialValue={infoCliSelect[0]?.cli_descripcion}
               >
                 <TextArea />
               </Form.Item>
@@ -378,8 +360,7 @@ const ClienteCard = () => {
               <Form.Item
                 label="Teléfono"
                 name="telefono"
-                initialValue={telefono}
-                onChange={(e) => setTelefono(e.target.value)}
+                initialValue={infoCliSelect[0]?.cli_telefono1}
               >
                 <Input style={{ width: "170px" }} />
               </Form.Item>
@@ -387,8 +368,7 @@ const ClienteCard = () => {
                 label="Celular"
                 name="celular"
                 className="hidden-asterisk"
-                initialValue={celular}
-                onChange={(e) => setCelular(e.target.value)}
+                initialValue={infoCliSelect[0]?.cli_telefono2}
               >
                 <Input style={{ width: "170px" }} />
               </Form.Item>
@@ -398,8 +378,7 @@ const ClienteCard = () => {
               label="Email"
               name="email"
               style={{ marginTop: "10px" }}
-              initialValue={mail}
-              onChange={(e) => setMail(e.target.value)}
+              initialValue={infoCliSelect[0]?.cli_email1}
             >
               <Input />
             </Form.Item>
@@ -416,8 +395,7 @@ const ClienteCard = () => {
                 label="CUIT"
                 name="cuit"
                 className="hidden-asterisk"
-                initialValue={cuit}
-                onChange={(e) => setCuit(e.target.value)}
+                initialValue={infoCliSelect[0]?.cli_cuit}
               >
                 <Input style={{ width: "170px" }} />
               </Form.Item>
@@ -426,8 +404,8 @@ const ClienteCard = () => {
                 label="Tamaño"
                 name="tamano"
                 className="hidden-asterisk"
-                initialValue={tamano}
-                onChange={(e) => setTamano(e.target.value)}
+                initialValue={infoCliSelect[0]?.tam_id}
+
               >
                 {tamaño ? (
                   <Select style={{ width: "170px" }}>
@@ -459,8 +437,7 @@ const ClienteCard = () => {
                 wrapperCol={{ span: 20 }}
                 name="tipoClientes"
                 className="hidden-asterisk"
-                initialValue={tipoCli}
-                onChange={(e) => setTipoCli(e.target.value)}
+                initialValue={infoCliSelect[0]?.tip_id}
               >
                 {tiposCliente ? (
                   <Select style={{ width: "170px" }}>
@@ -482,8 +459,7 @@ const ClienteCard = () => {
                 wrapperCol={{ span: 20 }}
                 name="sector"
                 className="hidden-asterisk"
-                initialValue={sec}
-                onChange={(e) => setSec(e.target.value)}
+                initialValue={infoCliSelect[0]?.sec_id}
               >
                 {sector ? (
                   <Select style={{ width: "170px" }}>
@@ -519,8 +495,7 @@ const ClienteCard = () => {
                   },
                 ]}
                 className="hidden-asterisk"
-                initialValue={zona}
-                onChange={(e) => setZona(e.target.value)}
+                initialValue={infoCliSelect[0]?.gruuno_id}
               >
                 {grupoUno ? (
                   <Select style={{ width: "170px" }}>
@@ -546,8 +521,7 @@ const ClienteCard = () => {
                   },
                 ]}
                 className="hidden-asterisk"
-                initialValue={centro}
-                onChange={(e) => setCentro(e.target.value)}
+                initialValue={infoCliSelect[0]?.grudos_id}
               >
                 {grupoDos ? (
                   <Select style={{ width: "170px" }}>
