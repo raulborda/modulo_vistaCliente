@@ -45,6 +45,8 @@ function App() {
 
 //Edicion cliente
   const [open, setOpen] = useState(false);
+  const [editAdminTags, setEditAdminTags] = useState(false);
+  const [editCli, setEditCli] = useState(false);
   const [actualizaCli, setActualizaCli] = useState(false)
 
 
@@ -273,6 +275,8 @@ function App() {
 
         //Actualiza cliente post edicion
         open, setOpen,
+        editAdminTags, setEditAdminTags,
+        editCli, setEditCli,
         actualizaCli, setActualizaCli,
       }}
     >

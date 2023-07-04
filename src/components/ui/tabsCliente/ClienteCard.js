@@ -16,14 +16,15 @@ const ClienteCard = () => {
     usu,
     actualizaCli,
     setActualizaCli,
-    setOpen,
+    editAdminTags, setEditAdminTags,
+    editCli, setEditCli,
   } = useContext(GlobalContext);
 
   //console.log(infoCliSelect)
 
-  const [editAdminTags, setEditAdminTags] = useState(false);
+
   const [cliFav, setCliFav] = useState(true);
-  const [editCli, setEditCli] = useState(false);
+
 
   //STATES QUE GUARDA LO QUE TRAE DE BASE DE DATOS ----------------------------------------------------------------
   const [sector, setSector] = useState(null);

@@ -35,6 +35,8 @@ const TabsCliente = () => {
     actualizarEtiqueta,
     actualizaCli,
     open, setOpen,
+    editAdminTags, setEditAdminTags,
+    editCli, setEditCli,
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -205,6 +207,8 @@ const TabsCliente = () => {
   };
   const onClose = () => {
     setOpen(false);
+    setEditAdminTags(false);
+    setEditCli(false);
   };
 
   //! DRAWER CONTACTOS
