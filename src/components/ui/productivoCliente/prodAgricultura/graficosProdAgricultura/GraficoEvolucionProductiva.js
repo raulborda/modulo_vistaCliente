@@ -32,6 +32,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
         }
     ];
 
+
     const COLORS = ["#7B241C", "#CB4335", "#F1948A", "#FADBD8"];
 
     const [isValorPropias, setIsValorPropias] = useState(true);
@@ -58,15 +59,17 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
         return suma;
     };
 
+    
+
     const CustomTooltip = ({ active, payload, label }) => {
         //PAARA VER AMBAS BARRAS
         if (active && payload && payload.length && isValorPropias === true && isValorAlquiladas === true) {
             return (
                 <div className="custom-tooltip" style={{ border: "3px solid grey", backgroundColor: "#FFFF", padding: "10px", borderRadius: "4px" }}>
                     <p className="label" style={{ color: "grey", fontWeight: "500" }}>{`Cosecha: ${label}`}</p>
-                    <p className="propias" style={{ color: "#B10C5B", fontWeight: "500" }}>{`Propias: ${Math.trunc(payload[0].value)}`}</p>
-                    <p className="alquiladas" style={{ color: "#282828", fontWeight: "500" }}>{`Alquiladas: ${Math.trunc(payload[1].value)}`}</p>
-                    <p className="total" style={{ color: "grey", fontWeight: "500" }}>{"Total: " + getIntroOfPage(payload[0].value, payload[1].value)}</p>
+                    <p className="propias" style={{ color: "#B10C5B", fontWeight: "500" }}>{`Propias: ${Math.trunc(payload[0].value).toLocaleString().replace(/,/g, ".")}`}</p>
+                    <p className="alquiladas" style={{ color: "#282828", fontWeight: "500" }}>{`Alquiladas: ${Math.trunc(payload[1].value).toLocaleString().replace(/,/g, ".")}`}</p>
+                    <p className="total" style={{ color: "grey", fontWeight: "500" }}>{"Total: " + getIntroOfPage(payload[0].value, payload[1].value).toLocaleString().replace(/,/g, ".")}</p>
                 </div>
             );
         }
@@ -75,7 +78,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
             return (
                 <div className="custom-tooltip" style={{ border: "3px solid grey", backgroundColor: "#FFFF", padding: "10px", borderRadius: "4px" }}>
                     <p className="label" style={{ color: "grey", fontWeight: "500" }}>{`Cosecha: ${label}`}</p>
-                    <p className="alquiladas" style={{ color: "#282828", fontWeight: "500" }}>{`Alquiladas: ${Math.trunc(payload[0].value)}`}</p>
+                    <p className="alquiladas" style={{ color: "#282828", fontWeight: "500" }}>{`Alquiladas: ${Math.trunc(payload[0].value).toLocaleString().replace(/,/g, ".")}`}</p>
                 </div>
             );
         }
@@ -84,7 +87,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
             return (
                 <div className="custom-tooltip" style={{ border: "3px solid grey", backgroundColor: "#FFFF", padding: "10px", borderRadius: "4px" }}>
                     <p className="label" style={{ color: "grey", fontWeight: "500" }}>{`Cosecha: ${label}`}</p>
-                    <p className="propias" style={{ color: "#B10C5B", fontWeight: "500" }}>{`Propias: ${Math.trunc(payload[0].value)}`}</p>
+                    <p className="propias" style={{ color: "#B10C5B", fontWeight: "500" }}>{`Propias: ${Math.trunc(payload[0].value).toLocaleString().replace(/,/g, ".")}`}</p>
                 </div>
             );
         }
