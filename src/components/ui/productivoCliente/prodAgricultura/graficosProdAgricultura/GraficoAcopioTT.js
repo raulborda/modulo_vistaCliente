@@ -89,6 +89,7 @@ export const GraficoAcopioTT = () => {
             break;
     }
 
+    
     const handleLegendClick = (x) => {
         if (x.value === "TT Entregadas") {
             setIsValorEntregadas(!isValorEntregadas);
@@ -98,6 +99,7 @@ export const GraficoAcopioTT = () => {
             setIsValorEncuesta(!isValorEncuesta);
         }
     };
+    
 
     return (
         <>
