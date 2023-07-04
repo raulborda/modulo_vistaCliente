@@ -33,6 +33,8 @@ const TabsCliente = () => {
     etiquetasCli,
     setEtiquetasCli,
     actualizarEtiqueta,
+    actualizaCli,
+    open, setOpen,
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -81,7 +83,7 @@ const TabsCliente = () => {
     });
   };
 
-  console.log(infoCliSelect)
+  //console.log(infoCliSelect)
 
   const cargarContactosCli = () => {
     const data = new FormData();
@@ -119,7 +121,7 @@ const TabsCliente = () => {
       cargarContactosCli();
       cargarEtiquetaxCliente();
     }
-  }, [idCliente]);
+  }, [idCliente, actualizaCli]);
 
   useEffect(() => {
     if (idCliente) {
@@ -198,7 +200,6 @@ const TabsCliente = () => {
   };
 
   //! DRAWER INFORMCACION
-  const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -255,7 +256,7 @@ const TabsCliente = () => {
               closable={false}
               onClose={onClose}
               open={open}
-              width={400}
+              width={450}
               placement="right"
             >
               <div>
