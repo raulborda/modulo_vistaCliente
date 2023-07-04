@@ -8,9 +8,15 @@ const ContactosCard = () => {
   return (
     <>
       <div
+        // style={{
+        //   display: "flex",
+        //   flexWrap: "wrap",
+        //   alignItems: "flex-start",
+        //   userSelect: "none",
+        // }}
         style={{
           display: "flex",
-          flexWrap: "wrap",
+          flexDirection:"column",
           alignItems: "flex-start",
           userSelect: "none",
         }}
@@ -18,7 +24,7 @@ const ContactosCard = () => {
         {contactosCli?.map((contacto, index) => (
           <div
             style={{
-              width: "400px",
+              width: "350px",
               flexBasis: "30%",
               padding: "5px",
               marginBottom: "5px",
