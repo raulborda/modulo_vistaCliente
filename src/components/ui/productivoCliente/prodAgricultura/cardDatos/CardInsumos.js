@@ -922,8 +922,8 @@ const CardInsumos = () => {
                                 </div>
                             </Row>
                         </Col>
-                        <Col span={1}></Col>
-                        <Col span={5}>
+                        <Col span={2}></Col>
+                        <Col span={7}>
                             <Row style={{ width: '100%' }}>
                                 <div style={{display:"flex", flexDirection:"row"}}>
                                     <Statistic
