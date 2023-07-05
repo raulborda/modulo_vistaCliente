@@ -260,7 +260,7 @@ const ClienteCard = () => {
           </p>
 
           <p style={{ marginBottom: "10px" }}>
-            <label className="fontWeightLabel">Correo Electrónico:</label>
+            <label className="fontWeightLabel">Email:</label>
             <label>
               {" "}
               {infoCliSelect[0]?.cli_email1

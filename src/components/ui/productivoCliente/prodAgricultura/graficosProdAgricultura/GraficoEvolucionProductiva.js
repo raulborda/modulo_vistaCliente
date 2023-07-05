@@ -238,7 +238,7 @@ const GraficoEvolucionProductiva = ({ porcentajes }) => {
                             <Pie
                                 className="pie"
                                 data={dataAnillaco}
-                                cx={98}
+                                cx={95}
                                 cy={110}
                                 innerRadius={40}
                                 outerRadius={60}

@@ -576,7 +576,7 @@ const CardInsumos = () => {
         const vAlquiladas = filteredInfoEvo ? parseInt(filteredInfoEvo.ahxs_alquiladas) : 0;
         const total = filteredInfoEvo ? (parseInt(filteredInfoEvo.ahxs_propias) + parseInt(filteredInfoEvo.ahxs_alquiladas)) : 0;
         const selectCosechaAnterior = infoEvo.find((item) => item.acos_desc === cosechaAnterior);
-        const totalCosechaAnterior = selectCosechaAnterior ? (parseInt(selectCosechaAnterior.ahxs_propias) + parseInt(selectCosechaAnterior.ahxs_alquiladas)) : 0;
+        const totalCosechaAnterior = selectCosechaAnterior ?(parseInt(selectCosechaAnterior.ahxs_propias) + parseInt(selectCosechaAnterior.ahxs_alquiladas)) : 0;
 
         setValorPropias(vPropias);
         setValorAlquiladas(vAlquiladas);
@@ -765,7 +765,7 @@ const CardInsumos = () => {
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-8px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Cosecha anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString() : 0}</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{totalHasAA ? totalHasAA.toLocaleString("de-DE") : 0}</p>
                             </div>
                         </Col>
                         <Col span={3}>
@@ -897,7 +897,7 @@ const CardInsumos = () => {
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-8px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Campaña anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString() : 0}</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{insumoTotalAA ? insumoTotalAA.toLocaleString("de-DE") : 0}</p>
                             </div>
                         </Col>
                         <Col span={4}>
@@ -987,7 +987,7 @@ const CardInsumos = () => {
                             </Row>
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-8px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', marginRight: '5px' }}>Cosecha anterior:</p>
-                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString() : 0}</p>
+                                <p style={{ fontWeight: 'bold', fontSize: '14px', fontFamily: 'sans-serif', color: '#747373' }}>{acopioTotalAA ? acopioTotalAA.toLocaleString("de-DE") : 0}</p>
                             </div>
                         </Col>
                         <Col span={4}>
