@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/style-prop-object */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { CaretDownOutlined, CaretUpFilled} from '@ant-design/icons';
 import { Button, Card, Col, Row, Statistic } from 'antd';
