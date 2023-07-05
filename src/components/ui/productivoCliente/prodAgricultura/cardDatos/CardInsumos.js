@@ -922,7 +922,7 @@ const CardInsumos = () => {
                                 </div>
                             </Row>
                         </Col>
-                        <Col span={3}></Col>
+                        <Col span={1}></Col>
                         <Col span={5}>
                             <Row style={{ width: '100%' }}>
                                 <div style={{display:"flex", flexDirection:"row"}}>
