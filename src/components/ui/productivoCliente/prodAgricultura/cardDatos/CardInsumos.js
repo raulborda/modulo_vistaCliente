@@ -752,7 +752,7 @@ const CardInsumos = () => {
                                         precision={2}
                                         valueStyle={{
                                             color: porcentajeColor,
-                                            marginTop: '25px',
+                                            marginTop: '18px',
                                             marginLeft: '5px',
                                             fontWeight: 'bold',
                                             width: '100%',
@@ -885,7 +885,7 @@ const CardInsumos = () => {
                                         precision={2}
                                         valueStyle={{
                                             color: porcentajeColorInsumo,
-                                            marginTop: '25px',
+                                            marginTop: '18px',
                                             marginLeft: '5px',
                                             fontWeight: 'bold',
                                             width: '100%',
@@ -975,7 +975,7 @@ const CardInsumos = () => {
                                         precision={2}
                                         valueStyle={{
                                             color: porcentajeColorAcopio,
-                                            marginTop: '25px',
+                                            marginTop: '18px',
                                             fontWeight: 'bold',
                                             marginLeft: '5px',
                                             width: '100%',
