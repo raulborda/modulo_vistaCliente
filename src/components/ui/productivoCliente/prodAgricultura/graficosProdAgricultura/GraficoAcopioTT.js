@@ -4,6 +4,7 @@ import './graficos.css'
 import { GlobalContext } from '../../../../context/GlobalContext';
 import TabPane from 'antd/es/tabs/TabPane';
 import { Spin, Tabs } from 'antd';
+import { format } from 'd3-format';
 
 export const GraficoAcopioTT = () => {
 
@@ -163,7 +164,11 @@ export const GraficoAcopioTT = () => {
                                     <CartesianGrid vertical={false} horizontal={true} />
                                     <XAxis dataKey="cosecha" tick={() => null} />
                                     <YAxis tick={{ fontSize: 11 }} label={{ value: 'TT', angle: -90, position: 'insideLeft', offset: -5, fontSize: "13px" }} />
-                                    <Tooltip />
+                                    <Tooltip formatter={(value, name) =>
+                                        name === 'TT Entregadas' || name === 'TT Encuesta'
+                                            ? format(',')(value).replace(/,/g, ".")
+                                            : value
+                                        } />
                                     <Legend
                                         onClick={(x) => handleLegendClick(x)}
                                     />

@@ -4,6 +4,7 @@ import { GlobalContext } from '../../../../context/GlobalContext';
 import { Spin, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import "./graficos.css";
+import { format } from 'd3-format';
 
 export const GraficoInsumos = () => {
 
@@ -147,7 +148,12 @@ export const GraficoInsumos = () => {
                                     <CartesianGrid vertical={false} horizontal={true} />
                                     <XAxis dataKey="cosecha" tick={() => null} />
                                     <YAxis tick={{ fontSize: 11 }} label={{ value: 'U$S', angle: -90, position: 'insideLeft', offset: -5, fontSize: "13px" }} />
-                                    <Tooltip />
+                                    <Tooltip formatter={(value, name) =>
+                                        name === 'Compra U$S' || name === 'Estimado U$S'
+                                            ? format(',')(value).replace(/,/g, ".")
+                                            : value
+                                        } 
+                                    />
                                     <Legend
                                         onClick={(x) => handleLegendClick(x)}
                                     />
