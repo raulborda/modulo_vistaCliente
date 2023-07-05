@@ -17,19 +17,13 @@ const CardInsumos = () => {
     const URL = process.env.REACT_APP_URL;
 
     const {
-        cardSelected,
         setCardSelected,
         idCliente,
-        setIdCliente,
         selectedAcosDesc,
-        setSelectedAcosDesc,
         cosechaAnterior,
-        setCosechaAnterior,
 
         infoEvo,
         setInfoEvo,
-        update,
-        dataForChart,
         setDataForChart,
 
         setIconTable,
@@ -97,6 +91,9 @@ const CardInsumos = () => {
     const [valorAlquiladas, setValorAlquiladas] = useState(0);
     const [insumoEstimado, setInsumoEstimado] = useState(0);
     const [acopioEncuesta, setAcopioEncuesta] = useState(0);
+
+    const [negociosAbiertos, setNegociosAbiertos]=useState([]);
+    const [totalInUSD, setTotalInUSD] = useState(0);
 
     const handleClick = (index) => {
         // Actualiza el estilo de la tarjeta actualmente seleccionada
@@ -221,10 +218,55 @@ const CardInsumos = () => {
         });
     }
 
+    const InfoNegociosAbiertos = () => {
+        const data = new FormData();
+        data.append("idCli", idCliente);
+        fetch(`${URL}clientView_negociosAbiertos.php`, {
+            method: "POST",
+            body: data,
+        }).then(function (response) {
+            response.text().then((resp) => {
+                const data = resp.substring(resp.indexOf('['));
+                var objetoData = JSON.parse(data);
+                // Filtrar y procesar los valores según el tipo de mon_id
+        const filteredData = objetoData.filter((item) => {
+            const mon_id = parseInt(item.mon_id);
+            return mon_id === 1 || mon_id === 2 || mon_id === 3;
+          });
+  
+          // Calcular la suma total en dólares estadounidenses
+          let totalInUSD = 0;
+          filteredData.forEach((item) => {
+            const mon_id = parseInt(item.mon_id);
+            const neg_valor = parseFloat(item.neg_valor);
+  
+            if (mon_id === 1) {
+              // Peso argentino (ARS)
+              totalInUSD += neg_valor / 500; // ARS_TO_USD es el tipo de cambio de peso argentino a dólar estadounidense
+            } else if (mon_id === 2) {
+              // Dólar estadounidense (USD)
+              totalInUSD += neg_valor;
+            } else if (mon_id === 3) {
+              // Real (BRL)
+              totalInUSD += neg_valor / 4.85; // BRL_TO_USD es el tipo de cambio de real a dólar estadounidense
+            }
+          });
+  
+          setNegociosAbiertos(filteredData);
+          setTotalInUSD(totalInUSD);
+        });
+      });
+    }
+   
+
     useEffect(() => {
         // Llama a la función InfoDataTotal cuando el componente se monta y cuando el ID del cliente cambia.
         InfoInsumosTotales(idCliente);
+        InfoNegociosAbiertos();
     }, [idCliente]);
+
+    //console.log("negociosAbiertos: ", negociosAbiertos)
+    //console.log("totalInUSD: ", totalInUSD);
 
     useEffect(() => {
         if (infoInsumoTotal.length > 0) {
@@ -928,14 +970,13 @@ const CardInsumos = () => {
                                 <div style={{display:"flex", flexDirection:"row"}}>
                                     <Statistic
                                         title="Negocios Abiertos"
-                                        value={insumoEstimado ? insumoEstimado : 0}
+                                        value={totalInUSD ? totalInUSD : 0}
                                         valueStyle={{
                                             fontWeight: 'bold',
                                             marginTop: '-20px',
-                                            marginLeft: '12px',
                                             textAlign: 'right',
                                             paddingTop: '5px',
-                                            width:"15px"
+                                            
                                         }}
                                         formatter={formatter}
                                         className="statistic1"
