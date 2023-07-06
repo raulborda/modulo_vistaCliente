@@ -11,6 +11,7 @@ import {
   Tooltip,
 } from "recharts";
 import { GlobalContext } from "../../../context/GlobalContext";
+import "./index.css";
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
