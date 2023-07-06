@@ -203,7 +203,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
             case 2:
                 return <GraficoInsumos />;
             case 3:
-                return <GraficoAcopioTT />;
+                return <GraficoAcopioTT/>;
             case 4:
                 return <EditarCapacidad />;
             case 5:

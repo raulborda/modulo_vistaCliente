@@ -269,3 +269,12 @@
 
 
  /*! INICIO - TABLA NUEVA CAPACIDAD*/
+
+
+ .GrafAcopio .recharts-wrapper{
+  margin-top: -15px;
+ }
+
+ .GrafInsumo .recharts-wrapper{
+  margin-top: -15px;
+ }
