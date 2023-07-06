@@ -113,13 +113,18 @@ export const GraficoAcopioTT = () => {
   const maxEncuesta = Math.max(...encuestaArray);
 
   // Obtener el valor mínimo y máximo final entre "Entregadas" y "Encuesta"
-  const minTotal = Math.min(minEntregadas, minEncuesta);
+  let minTotal = Math.min(minEntregadas, minEncuesta);
   const maxTotal = Math.max(maxEntregadas, maxEncuesta);
+
+  //Evaluo si el minimo valor es negativo, si es negativo se deja tal cual, sino el minimo es cero
+  if (minTotal >= 0){
+    minTotal = 0;
+  }
 
   // Sumarle el 10% al valor máximo total
     const maxTotalConIncremento = maxTotal * 1.02;
 
-//   console.log(isDataTotal);
+   console.log(isDataSoja);
 //   console.log("Valor mínimo total:", minTotal);
 //   console.log("Valor máximo total:", maxTotal);
 
@@ -214,7 +219,7 @@ export const GraficoAcopioTT = () => {
                 <Tooltip
                   formatter={(value, name) =>
                     name === "TT Entregadas" || name === "TT Encuesta"
-                      ? format(",")(value).replace(/,/g, ".")
+                      ? format(",")(parseFloat(value).toFixed(0)).replace(/,/g, ".")
                       : value
                   }
                 />
