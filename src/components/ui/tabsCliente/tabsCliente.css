@@ -177,5 +177,10 @@ html {
 }
 
 .fontWeightLabel{
+   font-weight:400;
+}
+
+.labelValue{
    font-weight:500;
+   color:#7f7f7f;
 }

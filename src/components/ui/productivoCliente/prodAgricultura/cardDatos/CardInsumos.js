@@ -785,7 +785,7 @@ const CardInsumos = () => {
                                         valueStyle={{
                                             fontSize: '30px',
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-15px',
                                             textAlign: 'right'
                                         }}
                                         formatter={formatter}
@@ -793,12 +793,13 @@ const CardInsumos = () => {
                                     />
                                     <Statistic
                                         value={average ? Math.abs(average) : 0}
-                                        precision={2}
+                                        precision={0}
                                         valueStyle={{
                                             color: porcentajeColor,
-                                            marginTop: '18px',
+                                            marginTop: '22px',
                                             marginLeft: '5px',
-                                            fontWeight: 'bold',
+                                            fontWeight: '500',
+                                            fontSize:"20px",
                                             width: '100%',
                                         }}
                                         prefix="("
@@ -820,7 +821,7 @@ const CardInsumos = () => {
                                         value={valorPropias ? valorPropias : 0}
                                         valueStyle={{
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-14px',
                                             textAlign: 'right',
                                             paddingTop: '5px'
                                         }}
@@ -838,7 +839,7 @@ const CardInsumos = () => {
                                         value={valorAlquiladas ? valorAlquiladas : 0}
                                         valueStyle={{
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-14px',
                                             textAlign: 'right',
                                             paddingTop: '5px'
                                         }}
@@ -856,7 +857,7 @@ const CardInsumos = () => {
                                         value={supEncuestadas ? supEncuestadas : 0}
                                         valueStyle={{
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-14px',
                                             textAlign: 'right',
                                             paddingTop: '5px'
                                         }}
@@ -918,7 +919,7 @@ const CardInsumos = () => {
                                         valueStyle={{
                                             fontSize: '30px',
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-15px',
                                             textAlign: 'right'
                                         }}
                                         formatter={formatter}
@@ -926,12 +927,13 @@ const CardInsumos = () => {
                                     />
                                     <Statistic
                                         value={averageInsumos ? Math.abs(averageInsumos) : 0}
-                                        precision={2}
+                                        precision={0}
                                         valueStyle={{
                                             color: porcentajeColorInsumo,
-                                            marginTop: '18px',
+                                            marginTop: '22px',
                                             marginLeft: '5px',
-                                            fontWeight: 'bold',
+                                            fontWeight: '500',
+                                            fontSize:"20px",
                                             width: '100%',
                                         }}
                                         prefix="("
@@ -952,7 +954,7 @@ const CardInsumos = () => {
                                         value={insumoEstimado ? insumoEstimado : 0}
                                         valueStyle={{
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-14px',
                                             textAlign: 'right',
                                             paddingTop: '5px'
                                         }}
@@ -975,7 +977,7 @@ const CardInsumos = () => {
                                         value={totalInUSD ? totalInUSD : 0}
                                         valueStyle={{
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-14px',
                                             textAlign: 'right',
                                             paddingTop: '5px',
                                             
@@ -1007,7 +1009,7 @@ const CardInsumos = () => {
                                         valueStyle={{
                                             fontSize: '30px',
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-15px',
                                             textAlign: 'right'
                                         }}
                                         formatter={formatter}
@@ -1015,12 +1017,13 @@ const CardInsumos = () => {
                                     />
                                     <Statistic
                                         value={averageAcopio ? Math.abs(averageAcopio) : 0}
-                                        precision={2}
+                                        precision={0}
                                         valueStyle={{
                                             color: porcentajeColorAcopio,
-                                            marginTop: '18px',
-                                            fontWeight: 'bold',
+                                            marginTop: '22px',
+                                            fontWeight: '500',
                                             marginLeft: '5px',
+                                            fontSize:"20px",
                                             width: '100%',
                                         }}
                                         prefix="("
@@ -1041,7 +1044,7 @@ const CardInsumos = () => {
                                         value={acopioEncuesta ? acopioEncuesta : 0}
                                         valueStyle={{
                                             fontWeight: 'bold',
-                                            marginTop: '-20px',
+                                            marginTop: '-14px',
                                             textAlign: 'right',
                                             paddingTop: '5px'
                                         }}

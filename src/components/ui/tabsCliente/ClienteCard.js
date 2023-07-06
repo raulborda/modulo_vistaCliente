@@ -211,7 +211,7 @@ const ClienteCard = () => {
         <div>
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Cuenta:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.cli_idsistema
                 ? infoCliSelect[0]?.cli_idsistema
@@ -221,7 +221,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Descripción:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.cli_descripcion
                 ? infoCliSelect[0]?.cli_descripcion
@@ -231,7 +231,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Tipo Cliente:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.tip_desc
                 ? infoCliSelect[0]?.tip_desc
@@ -241,7 +241,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Teléfono:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.cli_telefono1
                 ? infoCliSelect[0]?.cli_telefono1
@@ -251,7 +251,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Celular:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.cli_telefono2
                 ? infoCliSelect[0]?.cli_telefono2
@@ -261,7 +261,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Email:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.cli_email1
                 ? infoCliSelect[0]?.cli_email1
@@ -271,7 +271,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">CUIT:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.cli_cuit ? infoCliSelect[0]?.cli_cuit : "-"}
             </label>
@@ -279,7 +279,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Segmento:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.aseg_desc ? infoCliSelect[0]?.aseg_desc : "-"}
             </label>
@@ -287,7 +287,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Tamaño:</label>
-            <label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.tam_desc ? infoCliSelect[0]?.tam_desc : "-"}
             </label>
@@ -295,7 +295,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Sector:</label>
-            <lebel>
+            <lebel className="labelValue">
               {" "}
               {infoCliSelect[0]?.sec_desc ? infoCliSelect[0]?.sec_desc : "-"}
             </lebel>
@@ -303,7 +303,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Zona:</label>
-            <lebel>
+            <lebel className="labelValue">
               {" "}
               {infoCliSelect[0]?.gruuno_desc
                 ? infoCliSelect[0]?.gruuno_desc
@@ -313,7 +313,7 @@ const ClienteCard = () => {
 
           <p style={{ marginBottom: "10px" }}>
             <label className="fontWeightLabel">Centro:</label>
-            <lebel>
+            <lebel className="labelValue">
               {" "}
               {infoCliSelect[0]?.grudos_desc
                 ? infoCliSelect[0]?.grudos_desc
