@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Divider, Input, Select } from "antd";
-import { Form } from 'antd';
+import { Form } from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
 import { EditOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons";
 import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
@@ -17,15 +17,15 @@ const ClienteCard = () => {
     usu,
     actualizaCli,
     setActualizaCli,
-    editAdminTags, setEditAdminTags,
-    editCli, setEditCli,
+    editAdminTags,
+    setEditAdminTags,
+    editCli,
+    setEditCli,
   } = useContext(GlobalContext);
 
   //console.log(infoCliSelect)
 
-
   const [cliFav, setCliFav] = useState(true);
-
 
   //STATES QUE GUARDA LO QUE TRAE DE BASE DE DATOS ----------------------------------------------------------------
   const [sector, setSector] = useState(null);
@@ -233,9 +233,7 @@ const ClienteCard = () => {
             <label className="fontWeightLabel">Tipo Cliente:</label>
             <label className="labelValue">
               {" "}
-              {infoCliSelect[0]?.tip_desc
-                ? infoCliSelect[0]?.tip_desc
-                : "-"}
+              {infoCliSelect[0]?.tip_desc ? infoCliSelect[0]?.tip_desc : "-"}
             </label>
           </p>
 
@@ -322,7 +320,12 @@ const ClienteCard = () => {
           </p>
         </div>
       ) : (
-        <Form form={form} labelCol={{ span: 10 }} layout="vertical" onFinish={guardarCli}>
+        <Form
+          form={form}
+          labelCol={{ span: 10 }}
+          layout="vertical"
+          onFinish={guardarCli}
+        >
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
               <Form.Item
@@ -407,7 +410,6 @@ const ClienteCard = () => {
                 name="tamano"
                 className="hidden-asterisk"
                 initialValue={infoCliSelect[0]?.tam_id}
-
               >
                 {tamaño ? (
                   <Select style={{ width: "170px" }}>
@@ -571,61 +573,65 @@ const ClienteCard = () => {
       <Divider />
 
       {/* seccion etiquetas*/}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginBottom: "10px",
-        }}
-      >
-        <span
-          style={{
-            fontWeight: "600",
-          }}
-        >
-          ETIQUETAS
-        </span>
-        <EditOutlined
-          style={{ color: "#56b43c", fontSize: "16px" }}
-          onClick={() => editTags()}
-        />
-      </div>
-
-      <div style={{ marginBottom: "10px" }}>
-        {editAdminTags ? <AdminEtiqueta /> : null}
-      </div>
-
-      <div
-        className="selected_tags"
-        style={{
-          marginTop: "10px",
-          maxWidth: "400px",
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        {etiquetasCli?.map((tag) => (
-          <>
-            <div
-              className="selected_tag"
+      {!editCli ? (
+        <>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <span
               style={{
-                background: tag.etq_color,
-                display: "inline-block",
-                margin: "3px",
-                padding: "1px",
+                fontWeight: "600",
               }}
-              key={tag.etq_id}
             >
-              <div>
-                <span className="etq_nameD">
-                  {tag.etq_nombre.toUpperCase()}
-                </span>
-              </div>
-            </div>
-          </>
-        ))}
-      </div>
+              ETIQUETAS
+            </span>
+            <EditOutlined
+              style={{ color: "#56b43c", fontSize: "16px" }}
+              onClick={() => editTags()}
+            />
+          </div>
+
+          <div style={{ marginBottom: "10px" }}>
+            {editAdminTags ? <AdminEtiqueta /> : null}
+          </div>
+
+          <div
+            className="selected_tags"
+            style={{
+              marginTop: "10px",
+              maxWidth: "400px",
+              display: "flex",
+              flexWrap: "wrap",
+            }}
+          >
+            {etiquetasCli?.map((tag) => (
+              <>
+                <div
+                  className="selected_tag"
+                  style={{
+                    background: tag.etq_color,
+                    display: "inline-block",
+                    margin: "3px",
+                    padding: "1px",
+                  }}
+                  key={tag.etq_id}
+                >
+                  <div>
+                    <span className="etq_nameD">
+                      {tag.etq_nombre.toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+              </>
+            ))}
+          </div>
+        </>
+      ) : null}
     </>
   );
 };
