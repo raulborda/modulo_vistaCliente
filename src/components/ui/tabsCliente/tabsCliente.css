@@ -184,3 +184,11 @@ html {
    font-weight:500;
    color:#7f7f7f;
 }
+
+.ant-select .ant-select-in-form-item{
+   border-radius: 0px !important;
+}
+
+.ant-select-selector{
+   border-radius: 0px !important;
+}

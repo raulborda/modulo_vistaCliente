@@ -37,6 +37,7 @@ const TabsCliente = () => {
     open, setOpen,
     editAdminTags, setEditAdminTags,
     editCli, setEditCli,
+    roles, setRoles
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -117,11 +118,26 @@ const TabsCliente = () => {
     });
   };
 
+  const traerRoles = () => {
+    const data = new FormData();
+    fetch(`${URL}clientView_traerRubros.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        const objetoData = JSON.parse(data);
+        setRoles(objetoData);
+      });
+    });
+  };
+
   useEffect(() => {
     if (idCliente) {
       cargarInfoCli();
       cargarContactosCli();
       cargarEtiquetaxCliente();
+      traerRoles();
     }
   }, [idCliente, actualizaCli]);
 
