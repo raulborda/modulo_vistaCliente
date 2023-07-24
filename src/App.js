@@ -48,7 +48,8 @@ function App() {
   const [open, setOpen] = useState(false);
   const [editAdminTags, setEditAdminTags] = useState(false);
   const [editCli, setEditCli] = useState(false);
-  const [actualizaCli, setActualizaCli] = useState(false)
+  const [actualizaCli, setActualizaCli] = useState(false);
+  const [actualizaContacto, setActualizaContacto]= useState(false);
 
   const [roles, setRoles] = useState([]);
 
@@ -280,6 +281,7 @@ function App() {
         editCli, setEditCli,
         actualizaCli, setActualizaCli,
         roles, setRoles,
+        actualizaContacto, setActualizaContacto
       }}
     >
       <ApolloProvider client={client}>

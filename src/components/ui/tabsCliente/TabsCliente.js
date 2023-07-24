@@ -37,7 +37,8 @@ const TabsCliente = () => {
     open, setOpen,
     editAdminTags, setEditAdminTags,
     editCli, setEditCli,
-    roles, setRoles
+    roles, setRoles,
+    actualizaContacto,
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -140,6 +141,12 @@ const TabsCliente = () => {
       traerRoles();
     }
   }, [idCliente, actualizaCli]);
+
+  useEffect(() => {
+    cargarContactosCli();
+
+  }, [actualizaContacto])
+  
 
   useEffect(() => {
     if (idCliente) {

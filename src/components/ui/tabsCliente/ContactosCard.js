@@ -1,39 +1,75 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Card, Modal, Form, Input, Button, Select, Spin } from "antd";
+import React, { useContext, useState } from "react";
+import { Card, Modal, Form, Input, Button, Select } from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import "./tabsCliente.css";
 
 const ContactosCard = () => {
-  const { contactosCli, roles, setRoles } = useContext(GlobalContext);
+  const URLDOS = process.env.REACT_APP_URL;
+  const [form] = Form.useForm();
+
+  const { contactosCli, roles, actualizaContacto, setActualizaContacto } = useContext(GlobalContext);
 
   const { Option } = Select;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [contactoEditado, setContactoEditado] = useState(null);
+  const [formValues, setFormValues] = useState({});
 
   const handleEditarContacto = (contacto) => {
     setContactoEditado(contacto);
+    setFormValues(contacto);
     setModalVisible(true);
   };
 
-  console.log(roles);
+
+  //console.log("Contacto Data: ", formValues);
+
+  const handleInputChange = (field, value) => {
+    let updatedValue = value;
+
+    //console.log("handleInputChange:", value)
+
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [field]: updatedValue,
+    }));
+  };
 
   const handleQuitarContacto = () => {};
 
-  const onFinish = (values) => {
-    console.log("Formulario enviado:", values);
+  const onFinish = () => {
+    const updatedValues = {
+      ...formValues
+    };
+
+    const data = new FormData();
+    data.append("idCon", Number(updatedValues.con_id));
+    data.append("nombre", updatedValues.con_nombre);
+    data.append("email", updatedValues.con_email1);
+    data.append("tel", updatedValues.con_telefono1);
+    data.append("mov", updatedValues.con_movil1);
+    data.append("rol", Number(updatedValues.rol_id));
+    fetch(`${URLDOS}clientView_guardarEditCliente.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        // const data = resp;
+        // const objetoData = JSON.parse(data);
+        console.log(resp)
+      });
+    });
+    console.log("Formulario enviado:", updatedValues);
+    setFormValues({});
+    setContactoEditado(null);
+    setActualizaContacto(!actualizaContacto);
+    form.resetFields();
   };
 
   return (
     <>
       <div
-        // style={{
-        //   display: "flex",
-        //   flexWrap: "wrap",
-        //   alignItems: "flex-start",
-        //   userSelect: "none",
-        // }}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -108,14 +144,17 @@ const ContactosCard = () => {
         <Modal
           title={<h3 style={{ color: "#605d5f" }}>Editar Contacto</h3>}
           open={modalVisible}
-          onCancel={() => setModalVisible(false)}
+          onCancel={() => (setModalVisible(false),  setFormValues({}), setContactoEditado(null))}
           width={500}
           footer={[
             <Button
               key="guardar"
               type="primary"
               htmlType="submit"
-              onClick={() => (onFinish(), setModalVisible(false))}
+              onClick={() => (
+                document.querySelector('button[type="submit"]').click(),
+                setModalVisible(false)
+              )}
               style={{ borderRadius: "0px" }}
             >
               GUARDAR
@@ -125,58 +164,71 @@ const ContactosCard = () => {
         >
           <div style={{ width: "100%", marginLeft: "0px" }}>
             <Form onFinish={onFinish} labelCol={{ span: 24 }}>
-              <Form.Item label="Nombre" name="nombre">
+              <Form.Item label="Nombre" name="con_nombre">
                 <Input
-                  defaultValue={contactoEditado.con_nombre}
                   style={{
                     marginTop: "-5px",
                     marginBottom: "8px",
                     borderRadius: "0px",
                   }}
+                  defaultValue={formValues.con_nombre}
+                  onChange={(e) =>
+                    handleInputChange("con_nombre", e.target.value)
+                  }
                 />
               </Form.Item>
 
-              <Form.Item label="Email" name="email">
+              <Form.Item label="Email" name="con_email1">
                 <Input
-                  defaultValue={contactoEditado.con_email1}
                   style={{
                     marginTop: "-5px",
                     marginBottom: "8px",
                     borderRadius: "0px",
                   }}
+                  defaultValue={formValues.con_email1}
+                  onChange={(e) =>
+                    handleInputChange("con_email1", e.target.value)
+                  }
                 />
               </Form.Item>
 
-              <Form.Item label="Teléfono" name="telefono">
+              <Form.Item label="Teléfono" name="con_telefono1">
                 <Input
-                  defaultValue={contactoEditado.con_telefono1}
                   style={{
                     marginTop: "-5px",
                     marginBottom: "8px",
                     borderRadius: "0px",
                   }}
+                  defaultValue={formValues.con_telefono1}
+                  onChange={(e) =>
+                    handleInputChange("con_telefono1", e.target.value)
+                  }
                 />
               </Form.Item>
 
-              <Form.Item label="Móvil" name="movil">
+              <Form.Item label="Móvil" name="con_movil1">
                 <Input
-                  defaultValue={contactoEditado.con_movil1}
                   style={{
                     marginTop: "-5px",
                     marginBottom: "8px",
                     borderRadius: "0px",
                   }}
+                  defaultValue={formValues.con_movil1}
+                  onChange={(e) =>
+                    handleInputChange("con_movil1", e.target.value)
+                  }
                 />
               </Form.Item>
 
-              <Form.Item label="Rol" name="rol">
+              <Form.Item label="Rol" name="rol_desc">
                 <Select
                   style={{
                     marginTop: "-5px",
                     marginBottom: "8px",
                     borderRadius: "0px",
                   }}
-                  defaultValue={contactoEditado.rol_desc}
+                  defaultValue={formValues.rol_id}
+                  onChange={(value) => handleInputChange("rol_id", value)}
                 >
                   {roles.map((rol) => (
                     <Option value={rol.rol_id} key={rol.rol_id}>
@@ -185,6 +237,13 @@ const ContactosCard = () => {
                   ))}
                 </Select>
               </Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ display: "none" }}
+              >
+                GUARDAR
+              </Button>
             </Form>
           </div>
         </Modal>
