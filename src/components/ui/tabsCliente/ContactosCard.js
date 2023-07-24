@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Card, Modal, Form, Input, Button, Select } from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import "./tabsCliente.css";
+const { confirm } = Modal;
 
 const ContactosCard = () => {
   const URLDOS = process.env.REACT_APP_URL;
   const [form] = Form.useForm();
+  
 
   const { contactosCli, roles, actualizaContacto, setActualizaContacto } = useContext(GlobalContext);
 
@@ -36,7 +38,34 @@ const ContactosCard = () => {
     }));
   };
 
-  const handleQuitarContacto = () => {};
+  const handleQuitarContacto = (contacto) => {
+    console.log(contacto)
+    confirm({
+      title: '¿Desea desvincular el contacto?',
+      icon: <ExclamationCircleFilled/>,
+      okText: 'Eliminar',
+      okType: 'danger',
+      cancelText: 'Cancelar',
+      onOk() {
+        //clientView_desvincularContacto.php
+        console.log('Eliminar: ', contacto.con_id);
+        const data = new FormData();
+        data.append("idCon", Number(contacto.con_id));
+        fetch(`${URLDOS}clientView_desvincularContacto.php`, {
+          method: "POST",
+          body: data,
+        }).then(function (response) {
+          response.text().then((resp) => {
+            console.log(resp)
+            setActualizaContacto(!actualizaContacto);
+          });
+        });
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
 
   const onFinish = () => {
     const updatedValues = {
@@ -104,7 +133,7 @@ const ContactosCard = () => {
                       style={{ color: "#56b43c" }}
                     />
                     <DeleteOutlined
-                      onClick={() => handleQuitarContacto()}
+                      onClick={() => handleQuitarContacto(contacto)}
                       style={{ color: "red", marginLeft: "10px" }}
                     />
                   </div>
