@@ -44,12 +44,13 @@ function App() {
   const [idCliente, setIdCliente] = useState(idC);
 
 
-//Edicion cliente
+//Edicion cliente y contacto
   const [open, setOpen] = useState(false);
   const [editAdminTags, setEditAdminTags] = useState(false);
   const [editCli, setEditCli] = useState(false);
   const [actualizaCli, setActualizaCli] = useState(false);
   const [actualizaContacto, setActualizaContacto]= useState(false);
+  const [btnCrear, setBtnCrear] = useState(false);
 
   const [roles, setRoles] = useState([]);
 
@@ -281,7 +282,8 @@ function App() {
         editCli, setEditCli,
         actualizaCli, setActualizaCli,
         roles, setRoles,
-        actualizaContacto, setActualizaContacto
+        actualizaContacto, setActualizaContacto,
+        btnCrear, setBtnCrear,
       }}
     >
       <ApolloProvider client={client}>

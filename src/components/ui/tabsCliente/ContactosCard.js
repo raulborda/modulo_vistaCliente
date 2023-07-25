@@ -1,17 +1,39 @@
 import React, { useContext, useState } from "react";
-import { Card, Modal, Form, Input, Button, Select, message } from "antd";
+import {
+  Card,
+  Modal,
+  Form,
+  Input,
+  Button,
+  Select,
+  message,
+  Drawer,
+  Tabs,
+  Divider,
+} from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
-import { DeleteOutlined, EditOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleFilled,
+} from "@ant-design/icons";
 import "./tabsCliente.css";
+import TabPane from "antd/es/tabs/TabPane";
+import TextArea from "antd/es/input/TextArea";
 const { confirm } = Modal;
-
 
 const ContactosCard = () => {
   const URLDOS = process.env.REACT_APP_URL;
   const [form] = Form.useForm();
-  
 
-  const { contactosCli, roles, actualizaContacto, setActualizaContacto } = useContext(GlobalContext);
+  const {
+    contactosCli,
+    roles,
+    actualizaContacto,
+    setActualizaContacto,
+    btnCrear,
+    setBtnCrear,
+  } = useContext(GlobalContext);
 
   const { Option } = Select;
 
@@ -19,12 +41,13 @@ const ContactosCard = () => {
   const [contactoEditado, setContactoEditado] = useState(null);
   const [formValues, setFormValues] = useState({});
 
+  const [selectedTab, setSelectedTab] = useState("1"); // Estado para controlar la pestaña seleccionada
+
   const handleEditarContacto = (contacto) => {
     setContactoEditado(contacto);
     setFormValues(contacto);
     setModalVisible(true);
   };
-
 
   //console.log("Contacto Data: ", formValues);
 
@@ -44,12 +67,12 @@ const ContactosCard = () => {
     const tituloModal = `¿Desea desvincular al contacto: ${contacto.con_nombre}?`;
     confirm({
       title: tituloModal,
-      icon: <ExclamationCircleFilled style={{color:"red"}}/>,
-      okText: 'Eliminar',
-      okType: 'danger',
-      cancelText: 'Cancelar',
-      cancelButtonProps:{
-        className: 'cancel-button',
+      icon: <ExclamationCircleFilled style={{ color: "red" }} />,
+      okText: "Eliminar",
+      okType: "danger",
+      cancelText: "Cancelar",
+      cancelButtonProps: {
+        className: "cancel-button",
       },
       onOk() {
         //clientView_desvincularContacto.php
@@ -61,21 +84,22 @@ const ContactosCard = () => {
           body: data,
         }).then(function (response) {
           response.text().then((resp) => {
-            console.log(resp)
-            message.success('El contacto ha sido desvinculado exitosamente');
+            console.log(resp);
+            message.success("El contacto ha sido desvinculado exitosamente");
             setActualizaContacto(!actualizaContacto);
           });
         });
       },
       onCancel() {
-        console.log('Se Cancelo Desvinculacion');
+        console.log("Se Cancelo Desvinculacion");
       },
     });
   };
 
+  //! seccion editar contacto
   const onFinish = () => {
     const updatedValues = {
-      ...formValues
+      ...formValues,
     };
 
     const data = new FormData();
@@ -85,14 +109,14 @@ const ContactosCard = () => {
     data.append("tel", updatedValues.con_telefono1);
     data.append("mov", updatedValues.con_movil1);
     data.append("rol", Number(updatedValues.rol_id));
-    fetch(`${URLDOS}clientView_guardarEditCliente.php`, {
+    fetch(`${URLDOS}clientView_guardarEditContacto.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
       response.text().then((resp) => {
         // const data = resp;
         // const objetoData = JSON.parse(data);
-        console.log(resp)
+        console.log(resp);
       });
     });
     console.log("Formulario enviado:", updatedValues);
@@ -100,6 +124,22 @@ const ContactosCard = () => {
     setContactoEditado(null);
     setActualizaContacto(!actualizaContacto);
     form.resetFields();
+  };
+
+  //! crear contacto
+
+  const handleTabChange = (key) => {
+    setSelectedTab(key);
+  };
+
+  const handleSearch = (values) => {
+    // Lógica para realizar la búsqueda con los valores ingresados
+    console.log("Valores de búsqueda:", values);
+  };
+
+  const handleFormSubmit = (values) => {
+    // Lógica para manejar el envío del formulario en la segunda pestaña
+    console.log("Valores del formulario:", values);
   };
 
   return (
@@ -175,11 +215,14 @@ const ContactosCard = () => {
           </div>
         ))}
       </div>
+
       {contactoEditado && (
         <Modal
           title={<h3 style={{ color: "#605d5f" }}>Editar Contacto</h3>}
           open={modalVisible}
-          onCancel={() => (setModalVisible(false),  setFormValues({}), setContactoEditado(null))}
+          onCancel={() => (
+            setModalVisible(false), setFormValues({}), setContactoEditado(null)
+          )}
           width={500}
           footer={[
             <Button
@@ -283,6 +326,139 @@ const ContactosCard = () => {
           </div>
         </Modal>
       )}
+
+      {btnCrear ? (
+        <Drawer
+          title={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span>CREAR CONTACTO</span>
+            </div>
+          }
+          closable={false}
+          onClose={() => setBtnCrear(false)}
+          open={btnCrear}
+          width={550}
+          placement="right"
+        >
+          <Tabs
+            className="tabs_contactos"
+            activeKey={selectedTab}
+            onChange={handleTabChange}
+          >
+            <TabPane tab="Existente" key="1">
+              <Form onFinish={handleSearch} layout="vertical">
+                <Form.Item name="buscar" label="Buscar Contacto">
+                  <Input.Search
+                    placeholder="Buscar"
+                    style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="roles" label="Roles" initialValue="8">
+                  <Select
+                    style={{
+                      width: 320,
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {roles.map((rol) => (
+                      <Option value={rol.rol_id} key={rol.rol_id}>
+                        {rol.rol_desc}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+                <Divider />
+                <Form.Item>
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ fontWeight: "500", borderRadius: "0px" }}
+                    >
+                      GUARDAR
+                    </Button>
+                  </div>
+                </Form.Item>
+              </Form>
+            </TabPane>
+            <TabPane tab="Nuevo" key="2">
+              <Form onFinish={handleFormSubmit} layout="vertical">
+                <Form.Item name="nombre" label="Nombre">
+                  <Input
+                    placeholder="Ingrese Nombre"
+                    style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="email" label="Email">
+                  <Input
+                    placeholder="Ingrese Email"
+                    style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="telefono" label="Teléfono">
+                  <Input
+                    placeholder="Ingrese Telefono"
+                    style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="descrip" label="Descripción">
+                  <TextArea
+                    style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="roles" initialValue="8" label="Roles">
+                  <Select style={{ width: 320 }}>
+                    {roles.map((rol) => (
+                      <Option value={rol.rol_id} key={rol.rol_id}>
+                        {rol.rol_desc}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+                <Divider />
+                <Form.Item>
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ fontWeight: "500", borderRadius: "0px" }}
+                    >
+                      GUARDAR
+                    </Button>
+                  </div>
+                </Form.Item>
+              </Form>
+            </TabPane>
+          </Tabs>
+        </Drawer>
+      ) : null}
     </>
   );
 };

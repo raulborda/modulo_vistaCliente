@@ -35,10 +35,11 @@ const TabsCliente = () => {
     actualizarEtiqueta,
     actualizaCli,
     open, setOpen,
-    editAdminTags, setEditAdminTags,
-    editCli, setEditCli,
-    roles, setRoles,
+    setEditAdminTags,
+    setEditCli,
+    setRoles,
     actualizaContacto,
+    setBtnCrear,
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -304,7 +305,7 @@ const TabsCliente = () => {
               title={
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span>CONTACTOS</span>
-                  <Button type="primary" className="btnContacto">Crear Contacto</Button>
+                  <Button type="primary" className="btnContacto" onClick={() => setBtnCrear(true)}>Crear Contacto</Button>
                 </div>
               }
               closable={false}

@@ -244,3 +244,14 @@ html {
    outline: none !important; /* Elimina el borde de enfoque */
    transition: none !important; /* Elimina cualquier transición que se aplique */
  }
+
+.tabs_contactos{
+   margin-top: -20px;
+}
+
+ .tabs_contactos.ant-tabs .ant-tabs-tab-btn{
+   margin-bottom: -10px;
+   margin-right: 5px;
+   margin-left: 5px;
+ }
+ 
