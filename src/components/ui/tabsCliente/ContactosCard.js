@@ -59,7 +59,7 @@ const ContactosCard = () => {
         setContactosBuscados(objetoData);
       });
     });
-  }, []);
+  }, [actualizaContacto]);
 
 
   const handleEditarContacto = (contacto) => {
@@ -152,11 +152,6 @@ const ContactosCard = () => {
   };
 
   const handleSearch = (values) => {
-    console.log("Values:", values);
-    console.log("ID contacto:", Number(values.buscar)); // con_id
-    console.log("ID rol:", Number(values.roles)); // rol_id
-    console.log("ID cliente: ", idCliente)
-
     const data = new FormData();
     data.append("idCli", idCliente);
     data.append("idCon", Number(values.buscar));
@@ -176,8 +171,26 @@ const ContactosCard = () => {
   };
 
   const handleFormSubmit = (values) => {
-    // Lógica para manejar el envío del formulario en la segunda pestaña
-    console.log("Valores del formulario:", values);
+
+    const data = new FormData();
+    data.append("idCli", idCliente);
+    data.append("nombre", values.nombre);
+    data.append("email", values.email);
+    data.append("telefono", values.telefono);
+    data.append("movil", values.movil);
+    data.append("descrip", values.descrip);
+    data.append("idRol", Number(values.roles));
+    fetch(`${URLDOS}clientView_crearContacto.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        console.log(resp);
+        message.success("El contacto se ha creado y vinculado exitosamente");
+        setActualizaContacto(!actualizaContacto);
+        setBtnCrear(false);
+      });
+    });
   };
 
   const filterOptions = (inputValue, option) => {
@@ -469,6 +482,16 @@ const ContactosCard = () => {
                 <Form.Item name="telefono" label="Teléfono">
                   <Input
                     placeholder="Ingrese Telefono"
+                    style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="movil" label="Movil">
+                  <Input
+                    placeholder="Ingrese Movil"
                     style={{
                       marginTop: "-3px",
                       marginBottom: "10px",
