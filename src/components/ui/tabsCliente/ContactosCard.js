@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
   Modal,
@@ -33,6 +33,7 @@ const ContactosCard = () => {
     setActualizaContacto,
     btnCrear,
     setBtnCrear,
+    idCliente,
   } = useContext(GlobalContext);
 
   const { Option } = Select;
@@ -40,8 +41,26 @@ const ContactosCard = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [contactoEditado, setContactoEditado] = useState(null);
   const [formValues, setFormValues] = useState({});
+  const [contactosBuscados, setContactosBuscados] = useState([]);
 
-  const [selectedTab, setSelectedTab] = useState("1"); // Estado para controlar la pestaña seleccionada
+  const [selectedTab, setSelectedTab] = useState("1");
+
+  //! Buscar todos los contactos existentes
+  useEffect(() => {
+    const data = new FormData();
+    data.append("idCli", idCliente);
+    fetch(`${URLDOS}clientView_buscarContactos.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        const objetoData = JSON.parse(data);
+        setContactosBuscados(objetoData);
+      });
+    });
+  }, []);
+
 
   const handleEditarContacto = (contacto) => {
     setContactoEditado(contacto);
@@ -133,13 +152,38 @@ const ContactosCard = () => {
   };
 
   const handleSearch = (values) => {
-    // Lógica para realizar la búsqueda con los valores ingresados
-    console.log("Valores de búsqueda:", values);
+    console.log("Values:", values);
+    console.log("ID contacto:", Number(values.buscar)); // con_id
+    console.log("ID rol:", Number(values.roles)); // rol_id
+    console.log("ID cliente: ", idCliente)
+
+    const data = new FormData();
+    data.append("idCli", idCliente);
+    data.append("idCon", Number(values.buscar));
+    data.append("idRol", Number(values.roles));
+    fetch(`${URLDOS}clientView_vincularContacto.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        //console.log(resp);
+        message.success("El contacto ha sido vinculado exitosamente");
+        setActualizaContacto(!actualizaContacto);
+        setBtnCrear(false);
+
+      });
+    });
   };
 
   const handleFormSubmit = (values) => {
     // Lógica para manejar el envío del formulario en la segunda pestaña
     console.log("Valores del formulario:", values);
+  };
+
+  const filterOptions = (inputValue, option) => {
+
+    // Filtrar las opciones de contactosBuscados que coinciden con el texto ingresado
+    return option.children.toLowerCase().includes(inputValue.toLowerCase());
   };
 
   return (
@@ -354,14 +398,22 @@ const ContactosCard = () => {
             <TabPane tab="Existente" key="1">
               <Form onFinish={handleSearch} layout="vertical">
                 <Form.Item name="buscar" label="Buscar Contacto">
-                  <Input.Search
+                  <Select
+                    showSearch // Habilitar la funcionalidad de búsqueda
                     placeholder="Buscar"
                     style={{
                       marginTop: "-3px",
                       marginBottom: "10px",
                       borderRadius: "0px",
                     }}
-                  />
+                    filterOption={filterOptions} // Aplicar la función de filtrado
+                  >
+                    {contactosBuscados.map((contacto) => (
+                      <Option key={contacto.con_id} value={contacto.con_id} label={contacto.con_nombre}>
+                        {contacto.con_nombre}
+                      </Option>
+                    ))}
+                  </Select>
                 </Form.Item>
                 <Form.Item name="roles" label="Roles" initialValue="8">
                   <Select
