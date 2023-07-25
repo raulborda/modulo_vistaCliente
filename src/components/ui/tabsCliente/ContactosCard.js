@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
-import { Card, Modal, Form, Input, Button, Select } from "antd";
+import { Card, Modal, Form, Input, Button, Select, message } from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
 import { DeleteOutlined, EditOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import "./tabsCliente.css";
 const { confirm } = Modal;
+
 
 const ContactosCard = () => {
   const URLDOS = process.env.REACT_APP_URL;
@@ -39,16 +40,20 @@ const ContactosCard = () => {
   };
 
   const handleQuitarContacto = (contacto) => {
-    console.log(contacto)
+    //console.log(contacto)
+    const tituloModal = `¿Desea desvincular al contacto: ${contacto.con_nombre}?`;
     confirm({
-      title: '¿Desea desvincular el contacto?',
-      icon: <ExclamationCircleFilled/>,
+      title: tituloModal,
+      icon: <ExclamationCircleFilled style={{color:"red"}}/>,
       okText: 'Eliminar',
       okType: 'danger',
       cancelText: 'Cancelar',
+      cancelButtonProps:{
+        className: 'cancel-button',
+      },
       onOk() {
         //clientView_desvincularContacto.php
-        console.log('Eliminar: ', contacto.con_id);
+        //console.log('Eliminar: ', contacto.con_id);
         const data = new FormData();
         data.append("idCon", Number(contacto.con_id));
         fetch(`${URLDOS}clientView_desvincularContacto.php`, {
@@ -57,12 +62,13 @@ const ContactosCard = () => {
         }).then(function (response) {
           response.text().then((resp) => {
             console.log(resp)
+            message.success('El contacto ha sido desvinculado exitosamente');
             setActualizaContacto(!actualizaContacto);
           });
         });
       },
       onCancel() {
-        console.log('Cancel');
+        console.log('Se Cancelo Desvinculacion');
       },
     });
   };

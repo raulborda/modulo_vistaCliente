@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Drawer, Select, Tabs } from "antd";
+import { Button, Drawer, Select, Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -301,7 +301,12 @@ const TabsCliente = () => {
               onClick={() => showDrawerC()}
             />
             <Drawer
-              title={"CONTACTOS"}
+              title={
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span>CONTACTOS</span>
+                  <Button type="primary" className="btnContacto">Crear Contacto</Button>
+                </div>
+              }
               closable={false}
               onClose={onCloseC}
               open={openC}
