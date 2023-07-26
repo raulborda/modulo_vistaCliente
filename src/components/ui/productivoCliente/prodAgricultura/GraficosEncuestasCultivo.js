@@ -114,6 +114,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
   const [totalProduccion, setTotalProduccion] = useState(0);
   const [totalCosto, setTotalCosto] = useState(0);
   const [totalSuperficie, setTotalSuperficie] = useState(0);
+  const [lotesxCliente, setLotesxCliente] = useState([]);
+  const [selectedLoteCli, setSelectedLoteCli] = useState(-1);
 
   const onPieEnterSupEncuestadas = (_, index) => {
     setLegendSupEncuestadas({
@@ -149,11 +151,35 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     });
   }
 
-  useEffect(() => {
-    traeCultivos();
-  }, []);
+  function traerLotesCliente() {
+    const data = new FormData();
+    data.append("idC", idCliente);
+    fetch(`${URL}clientview_listLotes.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        const objetoData = JSON.parse(data);
+        const lotesConTodos = [
+          { alote_id: "TODOS", alote_nombre: "TODOS" },
+          ...objetoData,
+        ];
+        setLotesxCliente(lotesConTodos);
+      });
+    });
+  }
 
   useEffect(() => {
+    traeCultivos();
+    traerLotesCliente();
+  }, []);
+
+  // console.log("cultivosConTodos: ", cultivos);
+  // console.log("lotesxCliente: ", lotesxCliente);
+
+  useEffect(() => {
+    //console.log("selectedLoteCli: ", Number(selectedLoteCli))
     const dataAdd = new FormData();
     dataAdd.append("idU", usu);
     dataAdd.append("idC", idCliente);
@@ -162,11 +188,19 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     } else {
       dataAdd.append("idCos", cosechaActiva);
     }
+
     if (selectedCultivo === "TODOS") {
       dataAdd.append("idCul", "");
     } else {
       dataAdd.append("idCul", selectedCultivo);
     }
+
+    if (selectedLoteCli === "TODOS" || selectedLoteCli === -1) {
+      dataAdd.append("idLote", "");
+    } else {
+      dataAdd.append("idLote", Number(selectedLoteCli));
+    }
+
     fetch(`${URL}clientview_SupEncuestasCultivo.php`, {
       method: "POST",
       body: dataAdd,
@@ -188,9 +222,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         setTotalSuperficie(total.toLocaleString().replace(/,/g, "."));
       });
     });
-  }, [selectedCultivo, selectedAcosDesc]);
-
-
+  }, [selectedCultivo, selectedAcosDesc, selectedLoteCli]);
 
   useEffect(() => {
     const dataAdd = new FormData();
@@ -206,6 +238,13 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     } else {
       dataAdd.append("idCul", selectedCultivo);
     }
+
+    if (selectedLoteCli === "TODOS" || selectedLoteCli === -1) {
+      dataAdd.append("idLote", "");
+    } else {
+      dataAdd.append("idLote", Number(selectedLoteCli));
+    }
+
     fetch(`${URL}clientview_ProdEncuestasCultivo.php`, {
       method: "POST",
       body: dataAdd,
@@ -225,7 +264,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         setTotalProduccion(total.toLocaleString().replace(/,/g, "."));
       });
     });
-  }, [selectedCultivo, selectedAcosDesc]);
+  }, [selectedCultivo, selectedAcosDesc, selectedLoteCli]);
 
   useEffect(() => {
     //console.log("cli costo estimado: ", idCliente)
@@ -242,6 +281,13 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     } else {
       dataAdd.append("idCul", selectedCultivo);
     }
+
+    if (selectedLoteCli === "TODOS" || selectedLoteCli === -1) {
+      dataAdd.append("idLote", "");
+    } else {
+      dataAdd.append("idLote", Number(selectedLoteCli));
+    }
+
     fetch(`${URL}clientview_CostoEncuestasCultivo.php`, {
       method: "POST",
       body: dataAdd,
@@ -261,7 +307,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
         setTotalCosto(total.toLocaleString().replace(/,/g, "."));
       });
     });
-  }, [selectedCultivo, selectedAcosDesc]);
+  }, [selectedCultivo, selectedAcosDesc, selectedLoteCli]);
 
   return (
     <>
@@ -272,32 +318,106 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
               <div style={{ paddingBottom: "5px" }}>
                 <h1 className="titulos">ENCUESTA DE SIEMBRA</h1>
               </div>
-              <div style={{ marginLeft: "5px" }}>
-                <h1 className="titulos">CULTIVO</h1>
-              </div>
-              <div>
-                <Select
-                  style={{ width: "200px" }}
-                  showSearch
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option.children &&
-                    option.children
-                      .toLowerCase()
-                      .indexOf(input.toLowerCase()) >= 0
-                  }
-                  onChange={(value) => setSelectedCultivo(value)}
-                  defaultValue="TODOS"
-                >
-                  {cultivos.map((cultivo) => (
-                    <Select.Option
-                      key={cultivo.acult_id}
-                      value={cultivo.acult_id}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginBottom: "10px",
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div style={{ marginLeft: "5px" }}>
+                    <h1 className="titulos">LOTES</h1>
+                  </div>
+                  <div>
+                    <Select
+                      style={{ width: "200px" }}
+                      showSearch
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        option.children &&
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                      onChange={(value) => setSelectedLoteCli(value)}
+                      defaultValue="TODOS"
                     >
-                      {cultivo.acult_desc}
-                    </Select.Option>
-                  ))}
-                </Select>
+                      {lotesxCliente.map((lotCli) => (
+                        <Select.Option
+                          key={lotCli.alote_id}
+                          value={lotCli.alote_id}
+                        >
+                          {lotCli.alote_nombre}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginLeft: "20px",
+                  }}
+                >
+                  <div style={{ marginLeft: "5px" }}>
+                    <h1 className="titulos">CULTIVO</h1>
+                  </div>
+                  <div>
+                    <Select
+                      style={{ width: "200px" }}
+                      showSearch
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        option.children &&
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                      onChange={(value) => setSelectedCultivo(value)}
+                      defaultValue="TODOS"
+                    >
+                      {cultivos.map((cultivo) => (
+                        <Select.Option
+                          key={cultivo.acult_id}
+                          value={cultivo.acult_id}
+                        >
+                          {cultivo.acult_desc}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </div>
+                </div>
+                {/* <div style={{ display: "flex", flexDirection: "column", marginLeft: "20px" }}>
+                  <div style={{ marginLeft: "5px" }}>
+                    <h1 className="titulos">ESTADO</h1>
+                  </div>
+                  <div>
+                    <Select
+                      style={{ width: "200px" }}
+                      showSearch
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        option.children &&
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                      onChange={(value) => setSelectedCultivo(value)}
+                      defaultValue="TODOS"
+                    >
+                      {cultivos.map((cultivo) => (
+                        <Select.Option
+                          key={cultivo.acult_id}
+                          value={cultivo.acult_id}
+                        >
+                          {cultivo.acult_desc}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -337,10 +457,11 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                     {cultivosSupEncuestadas.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.colors} />
                     ))}
-                    
                   </Pie>
                   <Tooltip
-                    formatter={(value) => value.toLocaleString().replace(/,/g, ".")}
+                    formatter={(value) =>
+                      value.toLocaleString().replace(/,/g, ".")
+                    }
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -379,7 +500,11 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                       <Cell key={`cell-${index}`} fill={entry.colors} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => value.toLocaleString().replace(/,/g, ".")} />
+                  <Tooltip
+                    formatter={(value) =>
+                      value.toLocaleString().replace(/,/g, ".")
+                    }
+                  />
                 </PieChart>
               </ResponsiveContainer>
             )}
@@ -415,7 +540,11 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                       <Cell key={`cell-${index}`} fill={entry.colors} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => value.toLocaleString().replace(/,/g, ".")} />
+                  <Tooltip
+                    formatter={(value) =>
+                      value.toLocaleString().replace(/,/g, ".")
+                    }
+                  />
                 </PieChart>
               </ResponsiveContainer>
             )}
