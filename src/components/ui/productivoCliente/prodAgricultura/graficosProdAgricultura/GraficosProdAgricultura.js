@@ -339,7 +339,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '250px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '295px' }}>
                 {cardSelected === 0 && (
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <h1 className='titulos'>
