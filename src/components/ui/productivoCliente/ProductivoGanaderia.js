@@ -69,9 +69,45 @@ export const ProductivoGanaderia = () => {
     <>
       <div className="card-wrapper">
         <div className="card-contadores">
-          <div className="div-secundario" style={{ cursor: "pointer" }}>
-            <p className="texto">TAMBOS</p>
-            <p className="numeros">12</p>
+          <div className="div-secundario">
+            <p className="totales">12</p>
+            <p className="descripcion">TAMBOS</p>
+          </div>
+          <Divider
+            type="vertical"
+            style={{
+              height: "100%",
+              borderColor: "#f0f0f0",
+              borderWidth: "2px",
+            }}
+          />
+          <div className="div-secundario" >
+            <p className="totales">600</p>
+            <p className="descripcion">VACAS ORDEÑE</p>
+          </div>
+          <Divider
+            type="vertical"
+            style={{
+              height: "100%",
+              borderColor: "#f0f0f0",
+              borderWidth: "2px",
+            }}
+          />
+          <div className="div-secundario" >
+            <p className="totales">10</p>
+            <p className="descripcion">FEEDLOT</p>
+          </div>
+          <Divider
+            type="vertical"
+            style={{
+              height: "100%",
+              borderColor: "#f0f0f0",
+              borderWidth: "2px",
+            }}
+          />
+          <div className="div-secundario">
+            <p className="totales">20</p>
+            <p className="descripcion">INVERNADOR</p>
           </div>
           <Divider
             type="vertical"
@@ -82,44 +118,8 @@ export const ProductivoGanaderia = () => {
             }}
           />
           <div className="div-secundario" style={{ cursor: "pointer" }}>
-            <p className="texto">VACAS ORDEÑE</p>
-            <p className="numeros">600</p>
-          </div>
-          <Divider
-            type="vertical"
-            style={{
-              height: "100%",
-              borderColor: "#f0f0f0",
-              borderWidth: "2px",
-            }}
-          />
-          <div className="div-secundario" style={{ cursor: "pointer" }}>
-            <p className="texto">FEEDLOT</p>
-            <p className="numeros">10</p>
-          </div>
-          <Divider
-            type="vertical"
-            style={{
-              height: "100%",
-              borderColor: "#f0f0f0",
-              borderWidth: "2px",
-            }}
-          />
-          <div className="div-secundario" style={{ cursor: "pointer" }}>
-            <p className="texto">INVERNADOR</p>
-            <p className="numeros">20</p>
-          </div>
-          <Divider
-            type="vertical"
-            style={{
-              height: "100%",
-              borderColor: "#f0f0f0",
-              borderWidth: "2px",
-            }}
-          />
-          <div className="div-secundario" style={{ cursor: "pointer" }}>
-            <p className="texto">CRIA</p>
-            <p className="numeros">10</p>
+            <p className="totales">10</p>
+            <p className="descripcion">CRIA</p>
           </div>
         </div>
         {editarInfo === 0 ? (
