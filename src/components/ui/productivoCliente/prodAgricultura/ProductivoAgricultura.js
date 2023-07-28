@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-sequences */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import {
@@ -322,9 +325,9 @@ export const ProductivoAgricultura = () => {
                 LOTES
               </h1>
               <Button
-                style={{ marginBottom: "5px", marginRight: "5px" }}
+                style={{ marginBottom: "5px", marginRight: "5px", borderRadius:"0px" }}
                 onClick={() => (
-                  setVisible(!visible), setShowTable(false), setShowEdit(false)
+                  setVisible(!visible), setShowTable(true), setShowEdit(false)
                 )}
               >
                 <ArrowLeftOutlined /> Volver

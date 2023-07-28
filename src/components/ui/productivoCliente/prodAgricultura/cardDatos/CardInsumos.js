@@ -873,7 +873,7 @@ const CardInsumos = () => {
                             <Map
                                 style="mapbox://styles/mapbox/satellite-streets-v12"
                                 containerStyle={{
-                                    height: '100%',
+                                    height: '110%',
                                     width: '100%',
                                     borderRadius: '6px',
                                 }}
@@ -901,7 +901,7 @@ const CardInsumos = () => {
                                 {coordinates.map((coordinate, index) => (
                                     <Marker key={index} coordinates={coordinate} anchor="bottom" />
                                 ))}
-                                <Button style={{ padding: "5px", margin: '4px' }} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
+                                <Button style={{ padding: "5px", margin: '4px', borderRadius:"0px" }} onClick={() => setVisible(!visible)}>Ver Lotes</Button>
                             </Map>
                         </Col>
                     </Row>

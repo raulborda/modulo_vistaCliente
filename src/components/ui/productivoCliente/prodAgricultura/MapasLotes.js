@@ -8,7 +8,7 @@ import './index.css';
 
 const styles = {
   width: "100%",
-  height: "78%",
+  height: "75%",
   position: "absolute",
 };
 
