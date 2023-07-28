@@ -135,7 +135,7 @@ export const ProductivoGanaderia = () => {
             <Divider style={{marginTop:"10px", marginBottom:"10px"}}/>
             <div className="div-secundario">
               <p className="totales">{ infoHac.length > 0 ?infoHac[0]?.cabh_litros : "-"}</p>
-              <p className="descripcion">Litros</p>
+              <p className="descripcion">LITROS</p>
             </div>
           </div>
           <Divider
