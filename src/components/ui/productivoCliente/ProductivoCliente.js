@@ -50,7 +50,7 @@ const ProductivoCliente = () => {
         //*Estos estados son para que se muestre el componente Lotes como cuando se inicia
         setShowFormAgregar(false);
         setImportarArchivo(false);
-        setShowTable(false);
+        setShowTable(true);
         setShowEdit(false);
         //* ----------------------
 
