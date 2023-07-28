@@ -142,6 +142,7 @@ function App() {
   const [drawerNewEnc, setDrawerNewEnc] = useState(false);
   const [drawerEditar, setDrawerEditar] = useState(false);
   const [actualizarEncHac,setActualizarEncHac] = useState(false);
+  const [actEncHac, setActEncHac] = useState(false);
 
   return (
     <GlobalContext.Provider
@@ -294,6 +295,7 @@ function App() {
         drawerNewEnc, setDrawerNewEnc, 
         drawerEditar, setDrawerEditar,
         actualizarEncHac,setActualizarEncHac,
+        actEncHac, setActEncHac
       }}
     >
       <ApolloProvider client={client}>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Card, Divider, Drawer, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import "./ProducGanaderia.css";
@@ -9,7 +10,7 @@ import EditarEncHac from "./EditarEncHac";
 export const ProductivoGanaderia = () => {
   const URL = process.env.REACT_APP_URL;
 
-  const { idCliente, drawerNewEnc, setDrawerNewEnc,drawerEditar, setDrawerEditar, actualizarEncHac} = useContext(GlobalContext);
+  const { idCliente, drawerNewEnc, setDrawerNewEnc,drawerEditar, setDrawerEditar, actualizarEncHac, actEncHac, setActEncHac} = useContext(GlobalContext);
 
 
   const [infoHac, setInfoHac] = useState([]);
@@ -30,7 +31,7 @@ export const ProductivoGanaderia = () => {
         }
       });
     });
-  }, [actualizarEncHac]);
+  }, [actualizarEncHac, actEncHac]);
 
   // console.log("Encuesta Hacienda: ", infoHac);
 

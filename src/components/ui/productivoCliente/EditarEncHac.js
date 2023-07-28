@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import FormItem from 'antd/es/form/FormItem';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 
 const EditarEncHac = ({editar}) => {
@@ -8,10 +8,21 @@ const EditarEncHac = ({editar}) => {
 
   const formRef = useRef(null);
 
-  const { setDrawerEditar, actualizarEncHac, setActualizarEncHac } =
-    useContext(GlobalContext);
+  const { setDrawerEditar, actualizarEncHac, setActualizarEncHac, actEncHac, setActEncHac } = useContext(GlobalContext);
 
-    console.log("editar enc: ", editar);
+  useEffect(() => {
+    // Reiniciar los initialValues cuando cambia la propiedad 'editar'
+    formRef.current.setFieldsValue({
+      tambosPro: editar?.cant_tambosprod || '',
+      tambosCab: editar?.cant_tamboscab || '',
+      litros: editar?.cabh_litros || '',
+      feedlot: editar?.cant_feedlot || '',
+      invernador: editar?.cant_invernador || '',
+      cria: editar?.cant_cria || '',
+    });
+  }, [editar]);
+
+  console.log("editar enc: ", editar);
 
   const initialValues = {
     tambosPro: editar.cant_tambosprod,
@@ -48,6 +59,7 @@ const EditarEncHac = ({editar}) => {
 
     setDrawerEditar(false);
     setActualizarEncHac(!actualizarEncHac);
+    setActEncHac(!actEncHac);
   }
 
   return (
