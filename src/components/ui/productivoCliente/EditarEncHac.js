@@ -11,23 +11,21 @@ const EditarEncHac = ({editar}) => {
   const { setDrawerEditar, actualizarEncHac, setActualizarEncHac } =
     useContext(GlobalContext);
 
-
-    const Enc = editar
-    console.log("editar enc: ", Enc);
+    console.log("editar enc: ", editar);
 
   const initialValues = {
-    tambosPro: Enc.cant_tambosprod,
-    tambosCab: Enc.cant_tamboscab,
-    litros: Enc.cabh_litros,
-    feedlot: Enc.cant_feedlot,
-    invernador: Enc.cant_invernador,
-    cria: Enc.cant_cria,
+    tambosPro: editar.cant_tambosprod,
+    tambosCab: editar.cant_tamboscab,
+    litros: editar.cabh_litros,
+    feedlot: editar.cant_feedlot,
+    invernador: editar.cant_invernador,
+    cria: editar.cant_cria,
   };
 
   //* FUNCION QUE CARGA LOS DATOS DE UNA NUEVA ENCUESTA HACIENDA
   function editarEnc(values) {
     const data = new FormData();
-    data.append("idCabh", Number(Enc.cabh_id));
+    data.append("idCabh", Number(editar.cabh_id));
     data.append("tambosPro", values.tambosPro);
     data.append("tambosCab", values.tambosCab);
     data.append("litros", values.litros);

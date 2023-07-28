@@ -127,9 +127,16 @@ export const ProductivoGanaderia = () => {
               borderWidth: "2px",
             }}
           />
-          <div className="div-secundario">
-            <p className="totales">{ infoHac.length > 0 ?infoHac[0]?.cant_tamboscab : "-"}</p>
-            <p className="descripcion">VACAS ORDEÑE</p>
+          <div>
+            <div className="div-secundario">
+              <p className="totales">{ infoHac.length > 0 ?infoHac[0]?.cant_tamboscab : "-"}</p>
+              <p className="descripcion">VACAS ORDEÑE</p>
+            </div>
+            <Divider style={{marginTop:"10px", marginBottom:"10px"}}/>
+            <div className="div-secundario">
+              <p className="totales">{ infoHac.length > 0 ?infoHac[0]?.cabh_litros : "-"}</p>
+              <p className="descripcion">Litros</p>
+            </div>
           </div>
           <Divider
             type="vertical"
