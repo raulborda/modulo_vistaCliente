@@ -441,7 +441,7 @@ export const ProductivoAgricultura = () => {
             </div>
 
             {showTable && (
-              <div style={{ width: '50%', position: "absolute", bottom: "60px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "300px", left: "10px", paddingBottom: "35px" }}>
                 <Card
                   style={{
                     width: "100%",
