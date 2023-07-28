@@ -3,57 +3,53 @@ import FormItem from 'antd/es/form/FormItem';
 import React, { useContext, useRef } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 
-const EditarEncHac = () => {
-    const URLDOS = process.env.REACT_APP_URL;
+const EditarEncHac = ({editar}) => {
+  const URLDOS = process.env.REACT_APP_URL;
 
   const formRef = useRef(null);
 
-  const { idCliente, setDrawerEditar, actualizarEncHac, setActualizarEncHac } =
+  const { setDrawerEditar, actualizarEncHac, setActualizarEncHac } =
     useContext(GlobalContext);
 
+
+    const Enc = editar
+    console.log("editar enc: ", Enc);
+
   const initialValues = {
-    tambosPro: 0,
-    tambosCab: 0,
-    litro: 0,
-    feedlot: 0,
-    invernador: 0,
-    cria: 0,
+    tambosPro: Enc.cant_tambosprod,
+    tambosCab: Enc.cant_tamboscab,
+    litros: Enc.cabh_litros,
+    feedlot: Enc.cant_feedlot,
+    invernador: Enc.cant_invernador,
+    cria: Enc.cant_cria,
   };
 
   //* FUNCION QUE CARGA LOS DATOS DE UNA NUEVA ENCUESTA HACIENDA
   function editarEnc(values) {
-    console.log("idC", idCliente);
-    console.log("tambosPro", Number(values.tambosPro));
-    console.log("tambosCab", Number(values.tambosCab));
-    console.log("litro", Number(values.litro));
-    console.log("feedlot", Number(values.feedlot));
-    console.log("invernador", Number(values.invernador));
-    console.log("cria", Number(values.cria));
+    const data = new FormData();
+    data.append("idCabh", Number(Enc.cabh_id));
+    data.append("tambosPro", values.tambosPro);
+    data.append("tambosCab", values.tambosCab);
+    data.append("litros", values.litros);
+    data.append("feedlot", values.feedlot);
+    data.append("invernador", values.invernador);
+    data.append("cria", values.cria);
 
-    // const data = new FormData();
-    // data.append("idC", idCliente);
-    // data.append("tambosPro", values.tambosPro);
-    // data.append("tambosCab", values.tambosCab);
-    // data.append("litro", values.litro);
-    // data.append("feedlot", values.feedlot);
-    // data.append("invernador", values.invernador);
-    // data.append("cria", values.cria);
-
-    // fetch(`${URLDOS}nuevaEncHac.php`, {
-    //   method: "POST",
-    //   body: data,
-    // }).then(function (response) {
-    //   response.text().then((resp) => {
-    //     const data = resp;
-    //     console.log(data);
-    //   });
-    // });
+    fetch(`${URLDOS}clientView_editarEncHac.php`, {
+      method: "POST",
+      body: data,
+    }).then(function (response) {
+      response.text().then((resp) => {
+        const data = resp;
+        console.log(data);
+      });
+    });
 
     // Limpiar el formulario
     formRef.current.setFieldsValue(initialValues);
 
     setDrawerEditar(false);
-    //setActualizarEncHac(!actualizarEncHac);
+    setActualizarEncHac(!actualizarEncHac);
   }
 
   return (
@@ -92,7 +88,7 @@ const EditarEncHac = () => {
               }}
             />
           </FormItem>
-          <FormItem name="litro" label="Producción Litro/Día">
+          <FormItem name="litros" label="Producción Litro/Día">
             <Input
               style={{
                 marginTop: "-5px",

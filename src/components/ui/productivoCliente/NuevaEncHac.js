@@ -14,7 +14,7 @@ const NuevaEncHac = () => {
   const initialValues = {
     tambosPro: 0,
     tambosCab: 0,
-    litro: 0,
+    litros: 0,
     feedlot: 0,
     invernador: 0,
     cria: 0,

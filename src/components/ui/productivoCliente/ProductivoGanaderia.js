@@ -4,6 +4,7 @@ import "./ProducGanaderia.css";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { GlobalContext } from "../../context/GlobalContext";
 import NuevaEncHac from "./NuevaEncHac";
+import EditarEncHac from "./EditarEncHac";
 
 export const ProductivoGanaderia = () => {
   const URL = process.env.REACT_APP_URL;
@@ -31,7 +32,7 @@ export const ProductivoGanaderia = () => {
     });
   }, [actualizarEncHac]);
 
-  console.log("Encuesta Hacienda: ", infoHac);
+  // console.log("Encuesta Hacienda: ", infoHac);
 
 
   const closeDrawerEditar = () => {
@@ -195,7 +196,7 @@ export const ProductivoGanaderia = () => {
         width={320}
         closeIcon={<CustomCloseIcon />}
       >
-        <NuevaEncHac/>
+        <EditarEncHac editar={infoHac[0]}/>
       </Drawer>
     </>
   );
