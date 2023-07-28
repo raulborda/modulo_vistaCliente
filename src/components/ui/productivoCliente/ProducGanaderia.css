@@ -1,0 +1,37 @@
+.card-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+}
+
+.card-contadores {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  align-content: space-evenly;
+  border: 1px solid #f0f0f0;
+  font-size: medium;
+}
+
+.div-secundario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  font-weight: bold;
+  width: 200px;
+}
+
+.div-editar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50px;
+  border: 1px solid #f0f0f0;
+}

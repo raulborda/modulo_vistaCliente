@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
@@ -24,8 +28,6 @@ const MapasLotes = () => {
     importarArchivo,
     coordenadasArchivo,
     selectedCampoGeojson,
-    refrescarListLotes,
-    setRefrescarListLotes,
   } = useContext(GlobalContext);
 
   const URL = process.env.REACT_APP_URL;
