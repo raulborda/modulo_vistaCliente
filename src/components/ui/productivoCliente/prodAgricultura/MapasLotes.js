@@ -12,7 +12,7 @@ import './index.css';
 
 const styles = {
   width: "100%",
-  height: "75%",
+  height: "55%",
   position: "absolute",
 };
 
