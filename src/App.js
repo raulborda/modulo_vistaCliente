@@ -138,6 +138,11 @@ function App() {
   //ETIQUETA
   const [actualizarEtiqueta, setActualizarEtiqueta] = useState(false);
 
+  //ENCUESTA HACIENDA GANADERIA
+  const [drawerNewEnc, setDrawerNewEnc] = useState(false);
+  const [drawerEditar, setDrawerEditar] = useState(false);
+  const [actualizarEncHac,setActualizarEncHac] = useState(false);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -284,6 +289,11 @@ function App() {
         roles, setRoles,
         actualizaContacto, setActualizaContacto,
         btnCrear, setBtnCrear,
+
+        //ENCUESTA HACIENDA
+        drawerNewEnc, setDrawerNewEnc, 
+        drawerEditar, setDrawerEditar,
+        actualizarEncHac,setActualizarEncHac,
       }}
     >
       <ApolloProvider client={client}>

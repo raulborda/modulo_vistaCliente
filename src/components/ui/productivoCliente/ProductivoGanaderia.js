@@ -1,16 +1,18 @@
-import { Card, Divider, Table } from "antd";
+import { Button, Card, Divider, Drawer, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import "./ProducGanaderia.css";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { GlobalContext } from "../../context/GlobalContext";
+import NuevaEncHac from "./NuevaEncHac";
 
 export const ProductivoGanaderia = () => {
   const URL = process.env.REACT_APP_URL;
 
-  //const [editarInfo, setEditarInfo] = useState(0);
+  const { idCliente, drawerNewEnc, setDrawerNewEnc,drawerEditar, setDrawerEditar, actualizarEncHac} = useContext(GlobalContext);
+
+
   const [infoHac, setInfoHac] = useState([]);
 
-  const { idCliente } = useContext(GlobalContext);
 
   useEffect(() => {
     const data = new FormData();
@@ -27,10 +29,19 @@ export const ProductivoGanaderia = () => {
         }
       });
     });
-  }, []);
+  }, [actualizarEncHac]);
 
   console.log("Encuesta Hacienda: ", infoHac);
 
+
+  const closeDrawerEditar = () => {
+    setDrawerEditar(false);
+  };
+
+  const closeDrawerCrear = () => {
+    setDrawerNewEnc(false);
+  };
+  
   const columns = [
     {
       title: "Fecha",
@@ -80,8 +91,25 @@ export const ProductivoGanaderia = () => {
     cria: Enc.cant_cria,
   }));
 
+  const closeIconStyle = {
+    position: "absolute",
+    top: "20px",
+    right: "20px",
+  };
+
+
+  const CustomCloseIcon = ({ onClick }) => (
+    <div style={closeIconStyle} onClick={onClick}>
+      X
+    </div>
+  );
+
   return (
     <>
+    <div className="divBotones">
+          <Button type="primary" style={{ borderRadius:"0px", fontWeight:"500" }} onClick={() => setDrawerNewEnc(true)}><PlusOutlined/> CREAR </Button>
+          <Button type="primary" style={{ borderRadius:"0px", marginLeft:"10px", fontWeight:"500" }} onClick={() => setDrawerEditar(true)}><EditOutlined/> EDITAR </Button>
+    </div>
       <div className="card-wrapper">
         <div className="card-contadores">
           <div className="div-secundario">
@@ -139,13 +167,6 @@ export const ProductivoGanaderia = () => {
             <p className="descripcion">CRIA</p>
           </div>
         </div>
-
-        <div className="div-editar">
-          <EditOutlined
-            style={{ color: "#56b43c" }}
-            onClick={() => console.log("Editar Hacienda")}
-          />
-        </div>
       </div>
       <Table
         rowKey={"neg_id"}
@@ -156,6 +177,26 @@ export const ProductivoGanaderia = () => {
           position: ["none", "bottomCenter"],
         }}
       />
+
+      <Drawer
+        title="Nueva Encuesta Hacienda"
+        open={drawerNewEnc}
+        onClose={closeDrawerCrear}
+        width={320}
+        closeIcon={<CustomCloseIcon />}
+      >
+        <NuevaEncHac/>
+      </Drawer>
+
+      <Drawer
+        title="Editar Encuesta Hacienda"
+        open={drawerEditar}
+        onClose={closeDrawerEditar}
+        width={320}
+        closeIcon={<CustomCloseIcon />}
+      >
+        <NuevaEncHac/>
+      </Drawer>
     </>
   );
 };
