@@ -460,13 +460,13 @@ export const ProductivoAgricultura = () => {
             )}
 
             {showFormAgregar && (
-              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "300px", left: "10px", paddingBottom: "35px" }}>
                 <AgregarLotes />
               </div>
             )}
 
             {showEdit && (
-              <div style={{ width: '50%', position: "absolute", bottom: "10px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '50%', position: "absolute", bottom: "300px", left: "10px", paddingBottom: "35px" }}>
                 <EditarLotes />
               </div>
             )}

@@ -416,7 +416,7 @@ const AgregarLotes = () => {
                   </div>
                 </div>
                 <Divider style={{ marginBottom: "10px", marginTop: "0px" }} />
-                <div
+                <div                
                   style={{
                     display: "flex",
                     flexDirection: "row",
