@@ -281,7 +281,7 @@ const TabsCliente = () => {
             />
             <Drawer
               title={"INFORMACION CLIENTE"}
-              closable={false}
+              closable={true}
               onClose={onClose}
               open={open}
               width={450}
@@ -308,7 +308,8 @@ const TabsCliente = () => {
                   <Button type="primary" className="btnContacto" onClick={() => setBtnCrear(true)}>Crear Contacto</Button>
                 </div>
               }
-              closable={false}
+              
+              closable={true}
               onClose={onCloseC}
               open={openC}
               width={400}
