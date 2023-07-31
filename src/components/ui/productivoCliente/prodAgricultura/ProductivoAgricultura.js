@@ -441,7 +441,7 @@ export const ProductivoAgricultura = () => {
             </div>
 
             {showTable && (
-              <div style={{ width: '50%', position: "absolute", bottom: "300px", left: "10px", paddingBottom: "35px" }}>
+              <div style={{ width: '60%', position: "absolute", bottom: "350px", left: "10px", paddingBottom: "35px" }}>
                 <Card
                   style={{
                     width: "100%",
@@ -453,7 +453,7 @@ export const ProductivoAgricultura = () => {
                   <Table
                     dataSource={data}
                     columns={columns}
-                    pagination={{ pageSize: 4 }}
+                    pagination={{ pageSize: 5 }}
                   />
                 </Card>
               </div>
