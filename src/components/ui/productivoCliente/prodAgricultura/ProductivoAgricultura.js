@@ -133,13 +133,13 @@ export const ProductivoAgricultura = () => {
       align: "center",
       width: 20,
     },
-    {
-      title: "PARTICIPACIÓN",
-      dataIndex: "participacion",
-      key: "participacion",
-      align: "center",
-      width: 20,
-    },
+    // {
+    //   title: "PARTICIPACIÓN",
+    //   dataIndex: "participacion",
+    //   key: "participacion",
+    //   align: "center",
+    //   width: 20,
+    // },
     {
       title: "...",
       dataIndex: "accion",
