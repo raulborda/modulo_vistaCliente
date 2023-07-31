@@ -6,7 +6,7 @@ import { GlobalContext } from "../../../context/GlobalContext";
 
 const styles = {
     width: "99%",
-    height: "78%",
+    height: "50%",
     position: "absolute",
 };
 
