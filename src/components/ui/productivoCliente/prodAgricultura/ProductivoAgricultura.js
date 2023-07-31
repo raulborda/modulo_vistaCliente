@@ -117,7 +117,7 @@ export const ProductivoAgricultura = () => {
       dataIndex: "nombre",
       key: "nombre",
       align: "center",
-      width: 20,
+      width: 40,
     },
     {
       title: "HAS",
@@ -453,7 +453,7 @@ export const ProductivoAgricultura = () => {
                   <Table
                     dataSource={data}
                     columns={columns}
-                    pagination={{ pageSize: 3 }}
+                    pagination={{ pageSize: 4 }}
                   />
                 </Card>
               </div>

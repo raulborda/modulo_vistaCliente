@@ -35,7 +35,7 @@ function App() {
   const [usu, setUsu] = useState(idUsu);
   //* Id de cliente que se obtine desde local storage
   const idC = localStorage.getItem("cliSelect");
-  // const idC = 2; // .153
+  //const idC = 2; // .153
   //const idC = 2773; //.28
   //const idC = 2054; //.28
   //const idC = 2052; //.28
