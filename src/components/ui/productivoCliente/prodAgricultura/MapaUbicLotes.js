@@ -24,6 +24,10 @@ const MapaUbicLotes = () => {
 
     const URL = process.env.REACT_APP_URL;
 
+    console.log("ubicLote: ", ubicLote);
+    console.log("marcarLote: ", marcarLote);
+
+
     const [geoJSON, setGeoJSON] = useState([]);
     const [dataGeoJSON, setDataGeoJSON] = useState([]);
     const [map, setMap] = useState(null);

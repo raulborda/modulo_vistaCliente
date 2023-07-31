@@ -167,7 +167,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
                 ),
                 propias: <strong>{Math.trunc(infoCap && infoCap.length > 0 ? infoCap[0].ahxs_propias : 0)}</strong>,
                 alquiler: <strong>{Math.trunc(infoCap && infoCap.length > 0 ? infoCap[0].ahxs_alquiladas : 0)}</strong>,
-                total: <strong>{infoCap && infoCap.length > 0 ? parseInt(infoCap[0].ahxs_propias) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0].ahxs_alquiladas) : 0}</strong>,
+                total: <strong>{(infoCap && infoCap.length > 0 ? parseInt(infoCap[0].ahxs_propias) : 0) + (infoCap && infoCap.length > 0 ? parseInt(infoCap[0].ahxs_alquiladas) : 0)}</strong>,
                 porcentaje: <strong>{(infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_propias || 0) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_alquiladas || 0) : 0) !== 0 ?
                     (((infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_propias || 0) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_alquiladas || 0) : 0) /
                         (infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_propias || 0) : 0 + infoCap && infoCap.length > 0 ? parseInt(infoCap[0]?.ahxs_alquiladas || 0) : 0) * 100).toFixed(0)) :
