@@ -48,7 +48,7 @@ const MapasLotes = () => {
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/satellite-streets-v11",
         center: [-63.1617707, -35.004224],
-        zoom: 5,
+        zoom: 11,
       });
 
       map.on("load", () => {
@@ -222,7 +222,7 @@ const MapasLotes = () => {
             },
           ],
         });
-        map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
+        map.fitBounds(geojsonBounds, { padding: 10, zoom: 11.3 });
       } else if (selectedCampoGeojson && selectedCampoGeojson.length > 0) {
         //* CENTRAR PARA CUANDO SELECCIONA CAMPO
         const ubiCampo = JSON.parse(selectedCampoGeojson);
@@ -249,7 +249,7 @@ const MapasLotes = () => {
               },
             ],
           });
-          map.fitBounds(geojsonCampo, { padding: 10, zoom: 12 });
+          map.fitBounds(geojsonCampo, { padding: 10, zoom: 11 });
         }
       }
       else {
@@ -315,7 +315,7 @@ const MapasLotes = () => {
               },
             ],
           });
-          map.fitBounds(geojsonBounds, { padding: 10, zoom: 10.3 });
+          map.fitBounds(geojsonBounds, { padding: 10, zoom: 11.3 });
         }
 
       }
