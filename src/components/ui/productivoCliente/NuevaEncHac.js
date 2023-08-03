@@ -18,6 +18,7 @@ const NuevaEncHac = () => {
     feedlot: 0,
     invernador: 0,
     cria: 0,
+    consumoE: 0,
   };
 
   //* FUNCION QUE CARGA LOS DATOS DE UNA NUEVA ENCUESTA HACIENDA
@@ -30,6 +31,7 @@ const NuevaEncHac = () => {
     data.append("feedlot", values.feedlot);
     data.append("invernador", values.invernador);
     data.append("cria", values.cria);
+    data.append("consumoE", Number(values.consumoE));
 
     fetch(`${URLDOS}clientView_nuevaEncHac.php`, {
       method: "POST",
@@ -111,6 +113,15 @@ const NuevaEncHac = () => {
             />
           </FormItem>
           <FormItem name="cria" label="Produccion Anual Cria">
+            <Input
+              style={{
+                marginTop: "-5px",
+                marginBottom: "10px",
+                width: "250px",
+              }}
+            />
+          </FormItem>
+          <FormItem name="consumoE" label="Consumo Estimado U$D">
             <Input
               style={{
                 marginTop: "-5px",
