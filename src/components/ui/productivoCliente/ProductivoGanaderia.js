@@ -149,7 +149,7 @@ export const ProductivoGanaderia = () => {
   return (
     <>
       <div className="divBotones">
-        <div style={{display:"flex", flexDirection:"row"}}><p className="descripcion" style={{marginRight:"5px", fontWeight:"400"}}>Fecha último encuesta</p><p className="descripcion">{infoHac[0]?.fecha}</p></div>
+        <div style={{display:"flex", flexDirection:"row"}}><p className="descripcion" style={{marginRight:"5px", fontWeight:"400"}}>Fecha última encuesta</p><p className="descripcion">{infoHac[0]?.fecha}</p></div>
         <div>
           <Button
             type="primary"

@@ -19,6 +19,7 @@ const EditarEncHac = ({editar}) => {
       feedlot: editar?.cant_feedlot || '',
       invernador: editar?.cant_invernador || '',
       cria: editar?.cant_cria || '',
+      consumoE: editar?.cabh_consumoestimado || '',
     });
   }, [editar]);
 
@@ -31,6 +32,7 @@ const EditarEncHac = ({editar}) => {
     feedlot: editar.cant_feedlot,
     invernador: editar.cant_invernador,
     cria: editar.cant_cria,
+    consumoE: editar.cabh_consumoestimado,
   };
 
   //* FUNCION QUE CARGA LOS DATOS DE UNA NUEVA ENCUESTA HACIENDA
@@ -43,6 +45,7 @@ const EditarEncHac = ({editar}) => {
     data.append("feedlot", values.feedlot);
     data.append("invernador", values.invernador);
     data.append("cria", values.cria);
+    data.append("consumoE", Number(values.consumoE));
 
     fetch(`${URLDOS}clientView_editarEncHac.php`, {
       method: "POST",
@@ -126,6 +129,15 @@ const EditarEncHac = ({editar}) => {
             />
           </FormItem>
           <FormItem name="cria" label="Produccion Anual Cria">
+            <Input
+              style={{
+                marginTop: "-5px",
+                marginBottom: "10px",
+                width: "250px",
+              }}
+            />
+          </FormItem>
+          <FormItem name="consumoE" label="Consumo Estimado U$D">
             <Input
               style={{
                 marginTop: "-5px",
