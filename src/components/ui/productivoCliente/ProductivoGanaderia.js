@@ -65,7 +65,7 @@ export const ProductivoGanaderia = () => {
   }, [actualizarEncHac, actEncHac]);
 
   // console.log("Info Consumo: ", infoConsumo);
-   console.log("Info Hac: ", infoHac);
+   //console.log("Info Hac: ", infoHac);
   // console.log("Porcentaje: ", porcentaje);
 
   const displayText = ` (${porcentaje}%)`;
