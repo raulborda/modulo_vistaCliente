@@ -65,7 +65,7 @@ export const ProductivoGanaderia = () => {
   }, [actualizarEncHac, actEncHac]);
 
   // console.log("Info Consumo: ", infoConsumo);
-  // console.log("Info Hac: ", infoHac);
+   console.log("Info Hac: ", infoHac);
   // console.log("Porcentaje: ", porcentaje);
 
   const displayText = ` (${porcentaje}%)`;
@@ -95,6 +95,12 @@ export const ProductivoGanaderia = () => {
       title: "Vacas Ordeñe",
       dataIndex: "vacasordeñe",
       key: "vacasordeñe",
+      align: "center",
+    },
+    {
+      title: "Litros",
+      dataIndex: "litros",
+      key: "litros",
       align: "center",
     },
     {
@@ -128,6 +134,7 @@ export const ProductivoGanaderia = () => {
     fecha: Enc.fecha,
     tambos: parseFloat(Enc.cant_tambosprod).toLocaleString("de-DE"),
     vacasordeñe: parseFloat(Enc.cant_tamboscab).toLocaleString("de-DE"),
+    litros:parseFloat(Enc.cabh_litros).toLocaleString("de-DE"),
     feedlot: parseFloat(Enc.cant_feedlot).toLocaleString("de-DE"),
     invernador: parseFloat(Enc.cant_invernador).toLocaleString("de-DE"),
     cria: parseFloat(Enc.cant_cria).toLocaleString("de-DE"),
