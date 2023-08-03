@@ -149,20 +149,23 @@ export const ProductivoGanaderia = () => {
   return (
     <>
       <div className="divBotones">
-        <Button
-          type="primary"
-          style={{ borderRadius: "0px", fontWeight: "500" }}
-          onClick={() => setDrawerNewEnc(true)}
-        >
-          <PlusOutlined /> CREAR{" "}
-        </Button>
-        <Button
-          type="primary"
-          style={{ borderRadius: "0px", marginLeft: "10px", fontWeight: "500" }}
-          onClick={() => setDrawerEditar(true)}
-        >
-          <EditOutlined /> EDITAR{" "}
-        </Button>
+        <div style={{display:"flex", flexDirection:"row"}}><p className="descripcion" style={{marginRight:"5px", fontWeight:"400"}}>Fecha último encuesta</p><p className="descripcion">{infoHac[0]?.fecha}</p></div>
+        <div>
+          <Button
+            type="primary"
+            style={{ borderRadius: "0px", fontWeight: "500" }}
+            onClick={() => setDrawerNewEnc(true)}
+          >
+            <PlusOutlined /> CREAR{" "}
+          </Button>
+          <Button
+            type="primary"
+            style={{ borderRadius: "0px", marginLeft: "10px", fontWeight: "500" }}
+            onClick={() => setDrawerEditar(true)}
+          >
+            <EditOutlined /> EDITAR{" "}
+          </Button>
+        </div>
       </div>
       <div className="card-wrapper">
         <div className="card-contadores">
@@ -260,7 +263,6 @@ export const ProductivoGanaderia = () => {
                 </p>
                 {infoHac.length > 0 &&  infoConsumo > 0 ? (
                   <p className="descripcion" style={{ marginLeft: "10px" }}>
-                    {/* {` (${porcentaje}%)`} */}
                     {` (${parseInt(Math.round((parseFloat(infoConsumo)/parseFloat(infoHac[0]?.cabh_consumoestimado))*100))}%)`}
                   </p>
                 ): ("0%")}
