@@ -163,7 +163,7 @@ export const NuevaCapacidad = ({ cosechaActiva }) => {
     //! Fin - Para todas las demas coop
     data.append("totalP", isData["propias"]);
     data.append("totalA", isData["alquiladas"]);
-    fetch(`${URL}com_newCapacidad.php`, {
+    fetch(`${URL}modulos/com_newCapacidad.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {

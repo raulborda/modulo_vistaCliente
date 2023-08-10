@@ -7,7 +7,8 @@ import "./Styles.css";
 const AdminEtiqueta = () => {
   const URL = process.env.REACT_APP_URL;
 
-  const { idCliente, etiquetasCli, actualizarEtiqueta, setActualizarEtiqueta } =  useContext(GlobalContext);
+  const { idCliente, etiquetasCli, actualizarEtiqueta, setActualizarEtiqueta } =
+    useContext(GlobalContext);
 
   const [totalEtqCli, setTotalEtqCli] = useState([]);
   const [guardarEtiq, setGuardarEtiq] = useState(etiquetasCli);
@@ -17,7 +18,7 @@ const AdminEtiqueta = () => {
   const buscarEtiqueta = () => {
     const data = new FormData();
     data.append("idCli", idCliente);
-    fetch(`${URL}buscarEtiquetasCliente.php`, {
+    fetch(`${URL}modulos/buscarEtiquetasCliente.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -28,9 +29,6 @@ const AdminEtiqueta = () => {
       });
     });
   };
-
-  //console.log("totalEtqCli: ", totalEtqCli);
-  //console.log("etiquetasCliOriginales: ", etiquetasCli);
 
   useEffect(() => {
     if (idCliente) {
@@ -48,8 +46,6 @@ const AdminEtiqueta = () => {
     guardarEtiquetasCliente(etiquetasSeleccionadas);
   };
 
-  //console.log("etiquetasCliNuevas: ", guardarEtiq);
-
   const guardarEtiquetasCliente = (etiquetas) => {
     var etq = [];
     const data = new FormData();
@@ -59,12 +55,11 @@ const AdminEtiqueta = () => {
     });
 
     data.append("etqC", JSON.stringify(etq));
-    fetch(`${URL}guardarEtiquetaxCliente.php`, {
+    fetch(`${URL}modulos/guardarEtiquetaxCliente.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
       response.text().then((resp) => {
-        console.log(resp);
         etq = [];
         setActualizarEtiqueta(!actualizarEtiqueta);
       });
@@ -114,7 +109,7 @@ const AdminEtiqueta = () => {
     <>
       <Select
         mode="multiple"
-        style={{minWidth:"200px", fontSize:"small"}}
+        style={{ minWidth: "200px", fontSize: "small" }}
         placeholder="Selecciona etiquetas"
         value={etiquetasCliNombres}
         onChange={handleEtiquetaChange}

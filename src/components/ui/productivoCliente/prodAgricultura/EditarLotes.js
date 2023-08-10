@@ -53,7 +53,7 @@ const EditarLotes = () => {
       dataE.append("participacion", 100);
       dataE.append("geoJSON", JSON.stringify(geoJSONModificado));
 
-      const response = await fetch(`${URL}client_editLote.php`, {
+      const response = await fetch(`${URL}modulos/client_editLote.php`, {
         method: "POST",
         body: dataE,
       });

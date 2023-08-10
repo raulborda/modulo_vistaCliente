@@ -1,29 +1,33 @@
-import { Button, Form, Input } from 'antd';
-import FormItem from 'antd/es/form/FormItem';
-import React, { useContext, useEffect, useRef } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { Button, Form, Input } from "antd";
+import FormItem from "antd/es/form/FormItem";
+import React, { useContext, useEffect, useRef } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
-const EditarEncHac = ({editar}) => {
+const EditarEncHac = ({ editar }) => {
   const URLDOS = process.env.REACT_APP_URL;
 
   const formRef = useRef(null);
 
-  const { setDrawerEditar, actualizarEncHac, setActualizarEncHac, actEncHac, setActEncHac } = useContext(GlobalContext);
+  const {
+    setDrawerEditar,
+    actualizarEncHac,
+    setActualizarEncHac,
+    actEncHac,
+    setActEncHac,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     // Reiniciar los initialValues cuando cambia la propiedad 'editar'
     formRef.current.setFieldsValue({
-      tambosPro: editar?.cant_tambosprod || '',
-      tambosCab: editar?.cant_tamboscab || '',
-      litros: editar?.cabh_litros || '',
-      feedlot: editar?.cant_feedlot || '',
-      invernador: editar?.cant_invernador || '',
-      cria: editar?.cant_cria || '',
-      consumoE: editar?.cabh_consumoestimado || '',
+      tambosPro: editar?.cant_tambosprod || "",
+      tambosCab: editar?.cant_tamboscab || "",
+      litros: editar?.cabh_litros || "",
+      feedlot: editar?.cant_feedlot || "",
+      invernador: editar?.cant_invernador || "",
+      cria: editar?.cant_cria || "",
+      consumoE: editar?.cabh_consumoestimado || "",
     });
   }, [editar]);
-
-  console.log("editar enc: ", editar);
 
   const initialValues = {
     tambosPro: editar.cant_tambosprod,
@@ -47,13 +51,12 @@ const EditarEncHac = ({editar}) => {
     data.append("cria", values.cria);
     data.append("consumoE", Number(values.consumoE));
 
-    fetch(`${URLDOS}clientView_editarEncHac.php`, {
+    fetch(`${URLDOS}modulos/clientView_editarEncHac.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
       response.text().then((resp) => {
         const data = resp;
-        console.log(data);
       });
     });
 
@@ -80,7 +83,7 @@ const EditarEncHac = ({editar}) => {
             justifyContent: "center",
             bottom: "0",
             width: "100%",
-            marginLeft:"11px"
+            marginLeft: "11px",
           }}
         >
           <FormItem name="tambosPro" label="Cantidad Tambos">
@@ -147,23 +150,23 @@ const EditarEncHac = ({editar}) => {
             />
           </FormItem>
         </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "50px",
-              bottom: "0",
-              width: "100%",
-            }}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "50px",
+            bottom: "0",
+            width: "100%",
+          }}
+        >
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ width: "100%", fontWeight: "500" }}
           >
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{ width: "100%", fontWeight: "500" }}
-            >
-              GUARDAR
-            </Button>
-          </div>
+            GUARDAR
+          </Button>
+        </div>
       </Form>
     </>
   );

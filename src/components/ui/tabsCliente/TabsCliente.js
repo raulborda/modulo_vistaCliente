@@ -13,6 +13,7 @@ import { EyeOutlined, TagOutlined, UserOutlined } from "@ant-design/icons";
 import ClienteCard from "./ClienteCard";
 import ContactosCard from "./ContactosCard";
 import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
+import { Empty } from "antd/es";
 
 const TabsCliente = () => {
   const URL = process.env.REACT_APP_URL;
@@ -34,7 +35,8 @@ const TabsCliente = () => {
     setEtiquetasCli,
     actualizarEtiqueta,
     actualizaCli,
-    open, setOpen,
+    open,
+    setOpen,
     setEditAdminTags,
     setEditCli,
     setRoles,
@@ -76,7 +78,7 @@ const TabsCliente = () => {
   const cargarInfoCli = () => {
     const data = new FormData();
     data.append("idCli", idCliente);
-    fetch(`${URL}infoCliSelect.php`, {
+    fetch(`${URL}modulos/infoCliSelect.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -93,22 +95,25 @@ const TabsCliente = () => {
   const cargarContactosCli = () => {
     const data = new FormData();
     data.append("idCli", idCliente);
-    fetch(`${URL}infoContactosCli.php`, {
+    fetch(`${URL}modulos/infoContactosCli.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
-      response.text().then((resp) => {
-        const data = resp;
-        const objetoData = JSON.parse(data);
-        setContactosCli(objetoData);
-      });
+      const { status } = response;
+      if (status === 200) {
+        response.text().then((resp) => {
+          const data = resp;
+          const objetoData = JSON.parse(data);
+          setContactosCli(objetoData);
+        });
+      }
     });
   };
 
   const cargarEtiquetaxCliente = () => {
     const data = new FormData();
     data.append("idCli", idCliente);
-    fetch(`${URL}clientView_etiquetaxcliente.php`, {
+    fetch(`${URL}modulos/clientView_etiquetaxcliente.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -122,7 +127,7 @@ const TabsCliente = () => {
 
   const traerRoles = () => {
     const data = new FormData();
-    fetch(`${URL}clientView_traerRubros.php`, {
+    fetch(`${URL}modulos/clientView_traerRubros.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -135,6 +140,7 @@ const TabsCliente = () => {
   };
 
   useEffect(() => {
+    console.log(idCliente);
     if (idCliente) {
       cargarInfoCli();
       cargarContactosCli();
@@ -145,15 +151,13 @@ const TabsCliente = () => {
 
   useEffect(() => {
     cargarContactosCli();
-
-  }, [actualizaContacto])
-  
+  }, [actualizaContacto]);
 
   useEffect(() => {
     if (idCliente) {
       cargarEtiquetaxCliente();
     }
-  }, [idCliente,actualizarEtiqueta]);
+  }, [idCliente, actualizarEtiqueta]);
 
   //console.log(etiquetasCli);
 
@@ -257,156 +261,154 @@ const TabsCliente = () => {
   return (
     <>
       <div className="divContainer">
-        <div className="divCliente_content">
-          <div className="divCliente_info">
-            <h1
-              style={{
-                fontSize: "16px",
-                fontWeight: "700",
-                fontFamily: "Open Sans, sans-serif",
-                marginBottom: "10px",
-                color: "#444",
-              }}
-            >
-              {infoCliSelect[0]?.cli_nombre}
-            </h1>
-            <EyeOutlined
-              style={{
-                marginLeft: "11px",
-                marginTop: "-4px",
-                fontSize: "15px",
-                color: "#00b33c",
-              }}
-              onClick={() => showDrawer()}
-            />
-            <Drawer
-              title={"INFORMACION CLIENTE"}
-              closable={true}
-              onClose={onClose}
-              open={open}
-              width={450}
-              placement="right"
-            >
-              <div>
-                <ClienteCard />
-              </div>
-            </Drawer>
-
-            <UserOutlined
-              style={{
-                marginLeft: "10px",
-                marginTop: "-9px",
-                fontSize: "13px",
-                color: "#00b33c",
-              }}
-              onClick={() => showDrawerC()}
-            />
-            <Drawer
-              title={
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span>CONTACTOS</span>
-                  <Button type="primary" className="btnContacto" onClick={() => setBtnCrear(true)}>Crear Contacto</Button>
-                </div>
-              }
-              
-              closable={true}
-              onClose={onCloseC}
-              open={openC}
-              width={400}
-              placement="right"
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "flex-start",
-                  userSelect: "none",
-                }}
-              >
-                <ContactosCard />
-              </div>
-            </Drawer>
-
-            {/* <TagOutlined
-              style={{
-                marginLeft: "10px",
-                marginTop: "-6px",
-                fontSize: "13px",
-                color: "#00b33c",
-              }}
-              onClick={() => showDrawerTag()}
-            />
-            <Drawer
-              title={"ADMINISTRAR ETIQUETAS"}
-              closable={false}
-              onClose={onCloseTag}
-              open={openTag}
-              height={150}
-              placement="right"
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "flex-start",
-                  userSelect: "none",
-                }}
-              >
-                <AdminEtiqueta />
-                
-              </div>
-            </Drawer> */}
-          </div>
-          <div className="selected_tags">
-            {etiquetasCli?.map((tag) => (
-              <>
-                <div
-                  className="selected_tag"
-                  style={{ background: tag.etq_color, display: "inline-block" }}
-                  key={tag.etq_id}
+        {selectedAcosDesc ? (
+          <>
+            <div className="divCliente_info">
+              <div className="divCliente_content">
+                <h1
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "700",
+                    fontFamily: "Open Sans, sans-serif",
+                    marginBottom: "10px",
+                    color: "#444",
+                  }}
                 >
-                  <span className="etq_name">
-                    {tag.etq_nombre.toUpperCase()}
-                  </span>
-                </div>
-              </>
-            ))}
-          </div>
-        </div>
-        <div className="divContainer-Select-Tabs">
-          {/* <Space wrap> */}
-          <div style={{ paddingRight: "1px" }}>
-            <Select
-              defaultValue={selectedAcosDesc && selectedAcosDesc}
-              style={{
-                width: 97,
-                paddingRight: "5px",
-              }}
-              onChange={handleSelectChange}
-              disabled={isSelectEditDisabled}
-            >
-              {listCosechas.length > 0 &&
-                listCosechas.map((cosecha) => {
-                  return (
-                    <Select.Option
-                      key={cosecha.acos_desc}
-                      value={cosecha.acos_desc}
+                  {infoCliSelect[0]?.cli_nombre}
+                </h1>
+                <EyeOutlined
+                  style={{
+                    marginLeft: "11px",
+                    marginTop: "-4px",
+                    fontSize: "15px",
+                    color: "#00b33c",
+                  }}
+                  onClick={() => showDrawer()}
+                />
+                <Drawer
+                  title={"INFORMACION CLIENTE"}
+                  closable={true}
+                  onClose={onClose}
+                  open={open}
+                  width={450}
+                  placement="right"
+                >
+                  <div>
+                    <ClienteCard />
+                  </div>
+                </Drawer>
+
+                <UserOutlined
+                  style={{
+                    marginLeft: "10px",
+                    marginTop: "-9px",
+                    fontSize: "13px",
+                    color: "#00b33c",
+                  }}
+                  onClick={() => showDrawerC()}
+                />
+                <Drawer
+                  title={
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
                     >
-                      {cosecha.acos_desc}
-                    </Select.Option>
-                  );
-                })}
-            </Select>
+                      <span>CONTACTOS</span>
+                      <Button
+                        type="primary"
+                        className="btnContacto"
+                        onClick={() => setBtnCrear(true)}
+                      >
+                        Crear Contacto
+                      </Button>
+                    </div>
+                  }
+                  closable={true}
+                  onClose={onCloseC}
+                  open={openC}
+                  width={400}
+                  placement="right"
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      alignItems: "flex-start",
+                      userSelect: "none",
+                    }}
+                  >
+                    <ContactosCard />
+                  </div>
+                </Drawer>
+              </div>
+
+              <div className="selected_tags">
+                {etiquetasCli?.map((tag) => (
+                  <>
+                    <div
+                      className="selected_tag"
+                      style={{
+                        background: tag.etq_color,
+                        display: "inline-block",
+                      }}
+                      key={tag.etq_id}
+                    >
+                      <span className="etq_name">
+                        {tag.etq_nombre.toUpperCase()}
+                      </span>
+                    </div>
+                  </>
+                ))}
+              </div>
+            </div>
+
+            <div className="divContainer-Select-Tabs">
+              <div style={{ paddingRight: "1px" }}>
+                <Select
+                  defaultValue={selectedAcosDesc && selectedAcosDesc}
+                  style={{
+                    width: 97,
+                    paddingRight: "5px",
+                  }}
+                  onChange={handleSelectChange}
+                  disabled={isSelectEditDisabled}
+                >
+                  {listCosechas.length > 0 &&
+                    listCosechas.map((cosecha) => {
+                      return (
+                        <Select.Option
+                          key={cosecha.acos_desc}
+                          value={cosecha.acos_desc}
+                        >
+                          {cosecha.acos_desc}
+                        </Select.Option>
+                      );
+                    })}
+                </Select>
+              </div>
+              <Tabs
+                className="tabs-custom"
+                items={items}
+                onChange={handleTabClick}
+              >
+                {items.map((item) => (
+                  <TabPane key={item.key} tab={item.label}>
+                    {item.component}
+                  </TabPane>
+                ))}
+              </Tabs>
+            </div>
+
+            <div style={{ marginTop: "1px" }}>{handleStage()}</div>
+          </>
+        ) : (
+          <div style={{ marginTop: "10px" }}>
+            <Empty description="Hay un problema con el origen de la información." />
           </div>
-          <Tabs className="tabs-custom" items={items} onChange={handleTabClick}>
-            {items.map((item) => (
-              <TabPane key={item.key} tab={item.label}>
-                {item.component}
-              </TabPane>
-            ))}
-          </Tabs>
-        </div>
-        <div style={{ marginTop: "1px" }}>{handleStage()}</div>
+        )}
       </div>
     </>
   );

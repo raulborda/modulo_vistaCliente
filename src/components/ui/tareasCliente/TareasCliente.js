@@ -1,28 +1,28 @@
+import { useContext, useEffect } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const TareasCliente = () => {
+  const URL = process.env.REACT_APP_URL;
 
-  const PORT = window.location.port ? window.location.port : 80;
-  const PROTOCOL = window.location.protocol;
-  const HOSTNAME = window.location.hostname;
-  const URL = `${PROTOCOL}//${HOSTNAME}:${PORT}`;
+  const { setIdCliente, idCliente } = useContext(GlobalContext);
 
-  const idCli = Number(localStorage.getItem("cliSelect"));
-  //setIdCliente(Number(idCli));
-  //console.log(idCliente);
+  useEffect(() => {
+    const idCli = Number(localStorage.getItem("cliSelect"));
+    setIdCliente(Number(idCli));
+  }, []);
 
   return (
     <>
       <iframe
-            loading="lazy"
-            //src={`${URL}/tati/server/tareas_dashboard/tareasCliente_new/?idCliente=${idCli}`} // para local tati
-            src={`${URL}/duoc/server/tareas_dashboard/tareasCliente_new/?idCliente=${idCli}`} // para el resto de los crm
-            width={"100%"}
-            height={"700"}
-            style={{ border: "none" }}
-            title="Tarea Cliente"
-          ></iframe>
+        loading="lazy"
+        src={`${URL}server/tareas_dashboard/tareasCliente_new/?idCliente=${idCliente}`} // para el resto de los crm
+        width={"100%"}
+        height={"700"}
+        style={{ border: "none" }}
+        title="Tarea Cliente"
+      ></iframe>
     </>
-  )
-}
+  );
+};
 
 export default TareasCliente;

@@ -8,7 +8,6 @@ import { GlobalContext } from "./components/context/GlobalContext";
 import { ViewGeneral } from "./components/ui/ViewGeneral";
 
 function App() {
-
   const [appStage, setAppStage] = useState(0);
   const [cardSelected, setCardSelected] = useState(0);
   const [selectedAcosDesc, setSelectedAcosDesc] = useState("");
@@ -25,9 +24,9 @@ function App() {
   const [infoCap, setInfoCap] = useState({});
   const [infoEdit, setInfoEdit] = useState({});
 
-  const [infoCliSelect, setInfoCliSelect] = useState([])
-  const [contactosCli, setContactosCli] = useState([])
-  const [etiquetasCli, setEtiquetasCli] = useState([])
+  const [infoCliSelect, setInfoCliSelect] = useState([]);
+  const [contactosCli, setContactosCli] = useState([]);
+  const [etiquetasCli, setEtiquetasCli] = useState([]);
 
   //* Id de usuario que se obtiene desde local storage
   const idUsu = localStorage.getItem("usuario");
@@ -44,13 +43,12 @@ function App() {
   //const idC = 2049; //.28
   const [idCliente, setIdCliente] = useState(idC);
 
-
-//Edicion cliente y contacto
+  //Edicion cliente y contacto
   const [open, setOpen] = useState(false);
   const [editAdminTags, setEditAdminTags] = useState(false);
   const [editCli, setEditCli] = useState(false);
   const [actualizaCli, setActualizaCli] = useState(false);
-  const [actualizaContacto, setActualizaContacto]= useState(false);
+  const [actualizaContacto, setActualizaContacto] = useState(false);
   const [btnCrear, setBtnCrear] = useState(false);
 
   const [roles, setRoles] = useState([]);
@@ -62,14 +60,14 @@ function App() {
 
   const [dataContext, setDataContext] = useState({
     agricultura: "",
-      agriculturaA: "",
-      ganaderia: "",
-      ganaderiaA: "",
-      tambo: "",
-      tamboA: "",
-      mixto: "",
-      mixtoA: "",
-      cosecha: ""
+    agriculturaA: "",
+    ganaderia: "",
+    ganaderiaA: "",
+    tambo: "",
+    tamboA: "",
+    mixto: "",
+    mixtoA: "",
+    cosecha: "",
   });
 
   //GraficoCerealEntregado
@@ -126,7 +124,6 @@ function App() {
   const [verCampo, setVerCampo] = useState(false);
   const [selectedCampoGeojson, setSelectedCampoGeojson] = useState(null);
 
-
   const [refrescarTable, setRefrescarTable] = useState(false);
   const [refrescarListLotes, setRefrescarListLotes] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -135,24 +132,21 @@ function App() {
   const [isSelectEditDisabled, setIsSelectEditDisabled] = useState(false);
   const [supEncuestadas, setSupEncuestadas] = useState();
 
-
   //ETIQUETA
   const [actualizarEtiqueta, setActualizarEtiqueta] = useState(false);
 
   //ENCUESTA HACIENDA GANADERIA
   const [drawerNewEnc, setDrawerNewEnc] = useState(false);
   const [drawerEditar, setDrawerEditar] = useState(false);
-  const [actualizarEncHac,setActualizarEncHac] = useState(false);
+  const [actualizarEncHac, setActualizarEncHac] = useState(false);
   const [actEncHac, setActEncHac] = useState(false);
 
   return (
     <GlobalContext.Provider
       value={{
-
         //usuario
-        usu, 
+        usu,
         setUsu,
-
         appStage,
         setAppStage,
         cardSelected,
@@ -163,13 +157,13 @@ function App() {
         setCosechaAnterior,
         idCliente,
         setIdCliente,
-        infoCliSelect, 
+        infoCliSelect,
         setInfoCliSelect,
-        contactosCli, 
+        contactosCli,
         setContactosCli,
         infoCosechas,
         setCosechas,
-        etiquetasCli, 
+        etiquetasCli,
         setEtiquetasCli,
 
         listCosechas,
@@ -234,69 +228,104 @@ function App() {
         setIsDataInsumoFertilizantes,
 
         //Ver lotes
-        showTable, setShowTable,
-        visible, setVisible,
-        infoLotes, setInfoLotes,
-        showFormAgregar, setShowFormAgregar,
-        campos, setCampos,
-        clientes, setClientes,
-        valorGeoJSON, 
+        showTable,
+        setShowTable,
+        visible,
+        setVisible,
+        infoLotes,
+        setInfoLotes,
+        showFormAgregar,
+        setShowFormAgregar,
+        campos,
+        setCampos,
+        clientes,
+        setClientes,
+        valorGeoJSON,
         setValorGeoJSON,
-        loteId, 
+        loteId,
         setLoteId,
-        isTableUpdated, 
+        isTableUpdated,
         setIsTableUpdated,
-        selectedLote, 
+        selectedLote,
         setSelectedLote,
-        c, 
         setC,
-        geoJSONModificado, 
+        geoJSONModificado,
         setGeoJSONModificado,
         marcarLote,
         setMarcarLote,
-        showMapaUbicLote, 
+        showMapaUbicLote,
         setShowMapaUbicLote,
         tipoMapa,
         setTipoMapa,
-        showEdit, setShowEdit,
-        dataEdit, setDataEdit,
-        ubicLote, setUbicLote,
-        importarArchivo, setImportarArchivo,
-        agregarLote, setAgregarLote,
-        coordenadasArchivo, setCoordenadasArchivo,
-        limpiarStates, setLimpiarStates,
-        spinning, setSpinning,
-        verCampo, setVerCampo,
-        selectedCampoGeojson, setSelectedCampoGeojson,
+        showEdit,
+        setShowEdit,
+        dataEdit,
+        setDataEdit,
+        ubicLote,
+        setUbicLote,
+        importarArchivo,
+        setImportarArchivo,
+        agregarLote,
+        setAgregarLote,
+        coordenadasArchivo,
+        setCoordenadasArchivo,
+        limpiarStates,
+        setLimpiarStates,
+        spinning,
+        setSpinning,
+        verCampo,
+        setVerCampo,
+        selectedCampoGeojson,
+        setSelectedCampoGeojson,
 
-        dataContext, setDataContext,
-        refrescarTable, setRefrescarTable,
-        ca, setCA,
-        isButtonEditDisabled, setIsButtonEditDisabled,
-        isSelectEditDisabled, setIsSelectEditDisabled,
-        isButtonDisabled, setIsButtonDisabled,
-        cosechaSeleccionada, setCosechaSeleccionada,
-        supEncuestadas, setSupEncuestadas,
-        refrescarListLotes, setRefrescarListLotes,
+        dataContext,
+        setDataContext,
+        refrescarTable,
+        setRefrescarTable,
+        ca,
+        setCA,
+        isButtonEditDisabled,
+        setIsButtonEditDisabled,
+        isSelectEditDisabled,
+        setIsSelectEditDisabled,
+        isButtonDisabled,
+        setIsButtonDisabled,
+        cosechaSeleccionada,
+        setCosechaSeleccionada,
+        supEncuestadas,
+        setSupEncuestadas,
+        refrescarListLotes,
+        setRefrescarListLotes,
 
         //etiqueta
         actualizarEtiqueta,
         setActualizarEtiqueta,
 
         //Actualiza cliente post edicion
-        open, setOpen,
-        editAdminTags, setEditAdminTags,
-        editCli, setEditCli,
-        actualizaCli, setActualizaCli,
-        roles, setRoles,
-        actualizaContacto, setActualizaContacto,
-        btnCrear, setBtnCrear,
+        open,
+        setOpen,
+        editAdminTags,
+        setEditAdminTags,
+        editCli,
+        setEditCli,
+        actualizaCli,
+        setActualizaCli,
+        roles,
+        setRoles,
+        actualizaContacto,
+        setActualizaContacto,
+        btnCrear,
+        setBtnCrear,
 
         //ENCUESTA HACIENDA
-        drawerNewEnc, setDrawerNewEnc, 
-        drawerEditar, setDrawerEditar,
-        actualizarEncHac,setActualizarEncHac,
-        actEncHac, setActEncHac
+        drawerNewEnc,
+        setDrawerNewEnc,
+        drawerEditar,
+        setDrawerEditar,
+        actualizarEncHac,
+        setActualizarEncHac,
+        actEncHac,
+        setActEncHac,
       }}
     >
       <ApolloProvider client={client}>

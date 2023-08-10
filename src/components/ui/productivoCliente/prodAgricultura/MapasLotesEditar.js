@@ -169,7 +169,7 @@ const MapasLotesEditar = () => {
     function infoGeoJSON(idCliente) {
         const data = new FormData();
         data.append("idC", idCliente);
-        fetch(`${URL}info_geojson.php`, {
+        fetch(`${URL}modulos/info_geojson.php`, {
             method: "POST",
             body: data,
         }).then(function (response) {
@@ -225,7 +225,7 @@ const MapasLotesEditar = () => {
             if (idCliente) {
                 const data = new FormData();
                 data.append("idCli", idCliente);
-                fetch(`${URL}cliente_lotes.php`, {
+                fetch(`${URL}modulos/cliente_lotes.php`, {
                     method: "POST",
                     body: data,
                 })

@@ -50,7 +50,7 @@ const ContactosCard = () => {
   useEffect(() => {
     const data = new FormData();
     data.append("idCli", idCliente);
-    fetch(`${URLDOS}clientView_buscarContactos.php`, {
+    fetch(`${URLDOS}modulos/clientView_buscarContactos.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -61,7 +61,6 @@ const ContactosCard = () => {
       });
     });
   }, [actualizaContacto]);
-
 
   const handleEditarContacto = (contacto) => {
     setContactoEditado(contacto);
@@ -99,7 +98,7 @@ const ContactosCard = () => {
         //console.log('Eliminar: ', contacto.con_id);
         const data = new FormData();
         data.append("idCon", Number(contacto.con_id));
-        fetch(`${URLDOS}clientView_desvincularContacto.php`, {
+        fetch(`${URLDOS}modulos/clientView_desvincularContacto.php`, {
           method: "POST",
           body: data,
         }).then(function (response) {
@@ -129,7 +128,7 @@ const ContactosCard = () => {
     data.append("tel", updatedValues.con_telefono1);
     data.append("mov", updatedValues.con_movil1);
     data.append("rol", Number(updatedValues.rol_id));
-    fetch(`${URLDOS}clientView_guardarEditContacto.php`, {
+    fetch(`${URLDOS}modulos/clientView_guardarEditContacto.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -157,7 +156,7 @@ const ContactosCard = () => {
     data.append("idCli", idCliente);
     data.append("idCon", Number(values.buscar));
     data.append("idRol", Number(values.roles));
-    fetch(`${URLDOS}clientView_vincularContacto.php`, {
+    fetch(`${URLDOS}modulos/clientView_vincularContacto.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -166,13 +165,11 @@ const ContactosCard = () => {
         message.success("El contacto ha sido vinculado exitosamente");
         setActualizaContacto(!actualizaContacto);
         setBtnCrear(false);
-
       });
     });
   };
 
   const handleFormSubmit = (values) => {
-
     const data = new FormData();
     data.append("idCli", idCliente);
     data.append("nombre", values.nombre);
@@ -181,7 +178,7 @@ const ContactosCard = () => {
     data.append("movil", values.movil);
     data.append("descrip", values.descrip);
     data.append("idRol", Number(values.roles));
-    fetch(`${URLDOS}clientView_crearContacto.php`, {
+    fetch(`${URLDOS}modulos/clientView_crearContacto.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -195,7 +192,6 @@ const ContactosCard = () => {
   };
 
   const filterOptions = (inputValue, option) => {
-
     // Filtrar las opciones de contactosBuscados que coinciden con el texto ingresado
     return option.children.toLowerCase().includes(inputValue.toLowerCase());
   };
@@ -423,7 +419,11 @@ const ContactosCard = () => {
                     filterOption={filterOptions} // Aplicar la función de filtrado
                   >
                     {contactosBuscados.map((contacto) => (
-                      <Option key={contacto.con_id} value={contacto.con_id} label={contacto.con_nombre}>
+                      <Option
+                        key={contacto.con_id}
+                        value={contacto.con_id}
+                        label={contacto.con_nombre}
+                      >
                         {contacto.con_nombre}
                       </Option>
                     ))}

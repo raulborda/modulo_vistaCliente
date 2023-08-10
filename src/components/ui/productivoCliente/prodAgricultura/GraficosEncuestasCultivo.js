@@ -135,7 +135,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
 
   function traeCultivos() {
     const data = new FormData();
-    fetch(`${URL}clientview_listCultivos.php`, {
+    fetch(`${URL}modulos/clientview_listCultivos.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -154,7 +154,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
   function traerLotesCliente() {
     const data = new FormData();
     data.append("idC", idCliente);
-    fetch(`${URL}clientview_listLotes.php`, {
+    fetch(`${URL}modulos/clientview_listLotes.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -183,6 +183,9 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const dataAdd = new FormData();
     dataAdd.append("idU", usu);
     dataAdd.append("idC", idCliente);
+
+    console.log(cosechaSeleccionada, selectedCultivo, selectedLoteCli);
+
     if (cosechaSeleccionada) {
       dataAdd.append("idCos", cosechaSeleccionada);
     } else {
@@ -201,7 +204,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
       dataAdd.append("idLote", Number(selectedLoteCli));
     }
 
-    fetch(`${URL}clientview_SupEncuestasCultivo.php`, {
+    fetch(`${URL}modulos/clientview_SupEncuestasCultivo.php`, {
       method: "POST",
       body: dataAdd,
     }).then(function (response) {
@@ -226,8 +229,14 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
 
   useEffect(() => {
     const dataAdd = new FormData();
+
+    if (cosechaSeleccionada) {
+      dataAdd.append("idCos", "HOLA");
+    }
+
     dataAdd.append("idU", usu);
     dataAdd.append("idC", idCliente);
+
     if (cosechaSeleccionada) {
       dataAdd.append("idCos", cosechaSeleccionada);
     } else {
@@ -245,7 +254,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
       dataAdd.append("idLote", Number(selectedLoteCli));
     }
 
-    fetch(`${URL}clientview_ProdEncuestasCultivo.php`, {
+    fetch(`${URL}modulos/clientview_ProdEncuestasCultivo.php`, {
       method: "POST",
       body: dataAdd,
     }).then(function (response) {
@@ -288,7 +297,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
       dataAdd.append("idLote", Number(selectedLoteCli));
     }
 
-    fetch(`${URL}clientview_CostoEncuestasCultivo.php`, {
+    fetch(`${URL}modulos/clientview_CostoEncuestasCultivo.php`, {
       method: "POST",
       body: dataAdd,
     }).then(function (response) {

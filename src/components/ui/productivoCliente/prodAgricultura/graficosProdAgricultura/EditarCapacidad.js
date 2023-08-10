@@ -111,7 +111,7 @@ export const EditarCapacidad = ({ cosechaActiva }) => {
         data.append("cantMA", dataContext["mixtoA"]);
         data.append("totalP", dataContext["propias"]);
         data.append("totalA", dataContext["alquiladas"]);
-        fetch(`${URL}com_editCapacidad.php`, {
+        fetch(`${URL}modulos/com_editCapacidad.php`, {
             method: "POST",
             body: data,
         }).then(function (response) {

@@ -228,7 +228,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
     //* FUNCION QUE TRAE LOS DATOS DE TABLA RUBROS
     function rubros() {
         // Trae la información  con GET
-        fetch(`${URL}com_traerRubros.php`, {
+        fetch(`${URL}modulos/com_traerRubros.php`, {
             method: "GET",
         }).then(function (response) {
             response.text().then((resp) => {
@@ -246,7 +246,7 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
             const data = new FormData();
             data.append("idC", idCliente);
             data.append("cosecha", cosechaa);
-            fetch(`${URL}com_tabCapacidadData.php`, {
+            fetch(`${URL}modulos/com_tabCapacidadData.php`, {
                 method: "POST",
                 body: data,
             }).then(function (response) {

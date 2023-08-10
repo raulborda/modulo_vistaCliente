@@ -28,7 +28,7 @@ export const ProductivoGanaderia = () => {
   useEffect(() => {
     const data = new FormData();
     data.append("idC", idCliente);
-    fetch(`${URL}clientView_traerEncHacienda.php`, {
+    fetch(`${URL}modulos/clientView_traerEncHacienda.php`, {
       method: "POST",
       body: data,
     }).then(async function (response) {
@@ -45,7 +45,7 @@ export const ProductivoGanaderia = () => {
   useEffect(() => {
     const data = new FormData();
     data.append("idC", idCliente);
-    fetch(`${URL}clientView_traerRealConsumoHacienda.php`, {
+    fetch(`${URL}modulos/clientView_traerRealConsumoHacienda.php`, {
       method: "POST",
       body: data,
     }).then(async function (response) {
@@ -57,16 +57,12 @@ export const ProductivoGanaderia = () => {
           // Calculamos los valores numéricos de CR y CE sin el formateo
           let CR = parseFloat(objetoData[0]?.costo_real);
           let CE = parseFloat(infoHac[0]?.cabh_consumoestimado);
-          let porcent = ((CR / CE) * 100);
+          let porcent = (CR / CE) * 100;
           setPorcentaje(parseInt(Math.round(porcent)));
         }
       });
     });
   }, [actualizarEncHac, actEncHac]);
-
-  // console.log("Info Consumo: ", infoConsumo);
-   //console.log("Info Hac: ", infoHac);
-  // console.log("Porcentaje: ", porcentaje);
 
   const displayText = ` (${porcentaje}%)`;
 
@@ -134,7 +130,7 @@ export const ProductivoGanaderia = () => {
     fecha: Enc.fecha,
     tambos: parseFloat(Enc.cant_tambosprod).toLocaleString("de-DE"),
     vacasordeñe: parseFloat(Enc.cant_tamboscab).toLocaleString("de-DE"),
-    litros:parseFloat(Enc.cabh_litros).toLocaleString("de-DE"),
+    litros: parseFloat(Enc.cabh_litros).toLocaleString("de-DE"),
     feedlot: parseFloat(Enc.cant_feedlot).toLocaleString("de-DE"),
     invernador: parseFloat(Enc.cant_invernador).toLocaleString("de-DE"),
     cria: parseFloat(Enc.cant_cria).toLocaleString("de-DE"),
@@ -156,7 +152,15 @@ export const ProductivoGanaderia = () => {
   return (
     <>
       <div className="divBotones">
-        <div style={{display:"flex", flexDirection:"row"}}><p className="descripcion" style={{marginRight:"5px", fontWeight:"400"}}>Fecha última encuesta</p><p className="descripcion">{infoHac[0]?.fecha}</p></div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <p
+            className="descripcion"
+            style={{ marginRight: "5px", fontWeight: "400" }}
+          >
+            Fecha última encuesta
+          </p>
+          <p className="descripcion">{infoHac[0]?.fecha}</p>
+        </div>
         <div>
           <Button
             type="primary"
@@ -167,7 +171,11 @@ export const ProductivoGanaderia = () => {
           </Button>
           <Button
             type="primary"
-            style={{ borderRadius: "0px", marginLeft: "10px", fontWeight: "500" }}
+            style={{
+              borderRadius: "0px",
+              marginLeft: "10px",
+              fontWeight: "500",
+            }}
             onClick={() => setDrawerEditar(true)}
           >
             <EditOutlined /> EDITAR{" "}
@@ -178,7 +186,11 @@ export const ProductivoGanaderia = () => {
         <div className="card-contadores">
           <div className="div-secundario">
             <p className="totales">
-              {infoHac.length > 0 ? parseFloat(infoHac[0]?.cant_tambosprod).toLocaleString("de-DE") : "-"} 
+              {infoHac.length > 0
+                ? parseFloat(infoHac[0]?.cant_tambosprod).toLocaleString(
+                    "de-DE"
+                  )
+                : "-"}
             </p>
             <p className="descripcion">TAMBOS</p>
           </div>
@@ -193,14 +205,20 @@ export const ProductivoGanaderia = () => {
           <div>
             <div className="div-secundario">
               <p className="totales">
-                {infoHac.length > 0 ? parseFloat(infoHac[0]?.cant_tamboscab).toLocaleString("de-DE") : "-"}
+                {infoHac.length > 0
+                  ? parseFloat(infoHac[0]?.cant_tamboscab).toLocaleString(
+                      "de-DE"
+                    )
+                  : "-"}
               </p>
               <p className="descripcion">VACAS ORDEÑE</p>
             </div>
             <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
             <div className="div-secundario">
               <p className="totales">
-                {infoHac.length > 0 ? parseFloat(infoHac[0]?.cabh_litros).toLocaleString("de-DE") : "-"}
+                {infoHac.length > 0
+                  ? parseFloat(infoHac[0]?.cabh_litros).toLocaleString("de-DE")
+                  : "-"}
               </p>
               <p className="descripcion">LITROS</p>
             </div>
@@ -215,7 +233,9 @@ export const ProductivoGanaderia = () => {
           />
           <div className="div-secundario">
             <p className="totales">
-              {infoHac.length > 0 ? parseFloat(infoHac[0]?.cant_feedlot).toLocaleString("de-DE") : "-"}
+              {infoHac.length > 0
+                ? parseFloat(infoHac[0]?.cant_feedlot).toLocaleString("de-DE")
+                : "-"}
             </p>
             <p className="descripcion">FEEDLOT</p>
           </div>
@@ -229,7 +249,11 @@ export const ProductivoGanaderia = () => {
           />
           <div className="div-secundario">
             <p className="totales">
-              {infoHac.length > 0 ? parseFloat(infoHac[0]?.cant_invernador).toLocaleString("de-DE") : "-"}
+              {infoHac.length > 0
+                ? parseFloat(infoHac[0]?.cant_invernador).toLocaleString(
+                    "de-DE"
+                  )
+                : "-"}
             </p>
             <p className="descripcion">INVERNADOR</p>
           </div>
@@ -242,8 +266,10 @@ export const ProductivoGanaderia = () => {
             }}
           />
           <div className="div-secundario">
-            <p className="totales"> 
-              {infoHac.length > 0 ? parseFloat(infoHac[0]?.cant_cria).toLocaleString("de-DE") : "-"}
+            <p className="totales">
+              {infoHac.length > 0
+                ? parseFloat(infoHac[0]?.cant_cria).toLocaleString("de-DE")
+                : "-"}
             </p>
             <p className="descripcion">CRIA</p>
           </div>
@@ -258,21 +284,41 @@ export const ProductivoGanaderia = () => {
           <div>
             <div className="div-secundario">
               <p className="totales">
-                {infoHac.length > 0 ? parseFloat(infoHac[0]?.cabh_consumoestimado).toLocaleString("de-DE") : "-"}
+                {infoHac.length > 0
+                  ? parseFloat(infoHac[0]?.cabh_consumoestimado).toLocaleString(
+                      "de-DE"
+                    )
+                  : "-"}
               </p>
               <p className="descripcion">CONSUMO ESTIMADO U$S</p>
             </div>
             <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
             <div className="div-secundario">
-              <div style={{display:"flex", flexDirection:"row", marginLeft:"45px"}}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginLeft: "45px",
+                }}
+              >
                 <p className="totales">
-                  {infoConsumo > 0 ? parseFloat(infoConsumo).toLocaleString("de-DE") : "-"}
+                  {infoConsumo > 0
+                    ? parseFloat(infoConsumo).toLocaleString("de-DE")
+                    : "-"}
                 </p>
-                {infoHac.length > 0 &&  infoConsumo > 0 ? (
+                {infoHac.length > 0 && infoConsumo > 0 ? (
                   <p className="descripcion" style={{ marginLeft: "10px" }}>
-                    {` (${parseInt(Math.round((parseFloat(infoConsumo)/parseFloat(infoHac[0]?.cabh_consumoestimado))*100))}%)`}
+                    {` (${parseInt(
+                      Math.round(
+                        (parseFloat(infoConsumo) /
+                          parseFloat(infoHac[0]?.cabh_consumoestimado)) *
+                          100
+                      )
+                    )}%)`}
                   </p>
-                ): ("0%")}
+                ) : (
+                  "0%"
+                )}
               </div>
               <p className="descripcion">CONSUMO REAL U$S</p>
             </div>
@@ -312,4 +358,3 @@ export const ProductivoGanaderia = () => {
   );
 };
 
-//console.log("editar")

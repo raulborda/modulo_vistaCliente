@@ -107,16 +107,12 @@ export const GraficoInsumos = () => {
   const maxTotal = Math.max(maxEntregadas, maxEncuesta);
 
   //Evaluo si el minimo valor es negativo, si es negativo se deja tal cual, sino el minimo es cero
-  if (minTotal >= 0){
+  if (minTotal >= 0) {
     minTotal = 0;
   }
 
   // Sumarle el 10% al valor máximo total
-    const maxTotalConIncremento = maxTotal * 1.02;
-
-  console.log(isDataInsumoTotal);
-  console.log("Valor mínimo total:", minTotal);
-  console.log("Valor máximo total:", maxTotal);
+  const maxTotalConIncremento = maxTotal * 1.02;
 
   const handleLegendClick = (x) => {
     if (x.value === "Compra U$S") {
@@ -207,7 +203,10 @@ export const GraficoInsumos = () => {
               <Tooltip
                 formatter={(value, name) =>
                   name === "Compra U$S" || name === "Estimado U$S"
-                    ? format(",")(parseFloat(value).toFixed(0)).replace(/,/g, ".")
+                    ? format(",")(parseFloat(value).toFixed(0)).replace(
+                        /,/g,
+                        "."
+                      )
                     : value
                 }
               />

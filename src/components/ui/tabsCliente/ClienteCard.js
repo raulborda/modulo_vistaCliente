@@ -40,7 +40,7 @@ const ClienteCard = () => {
   const cargarSector = () => {
     const data = new FormData();
     data.append("idU", usu);
-    fetch(`${URLDOS}sectorCli.php`, {
+    fetch(`${URLDOS}modulos/sectorCli.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -55,7 +55,7 @@ const ClienteCard = () => {
   const cargarTamaño = () => {
     const data = new FormData();
     data.append("idU", usu);
-    fetch(`${URLDOS}tamanoCli.php`, {
+    fetch(`${URLDOS}modulos/tamanoCli.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -70,7 +70,7 @@ const ClienteCard = () => {
   const cargarTipClientes = () => {
     const data = new FormData();
     data.append("idU", usu);
-    fetch(`${URLDOS}tiposCli.php`, {
+    fetch(`${URLDOS}modulos/tiposCli.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -85,7 +85,7 @@ const ClienteCard = () => {
   const cargarGruUno = () => {
     const data = new FormData();
     data.append("idU", usu);
-    fetch(`${URLDOS}gruUnoCli.php`, {
+    fetch(`${URLDOS}modulos/gruUnoCli.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -100,7 +100,7 @@ const ClienteCard = () => {
   const cargarGruDos = () => {
     const data = new FormData();
     data.append("idU", usu);
-    fetch(`${URLDOS}gruDosCli.php`, {
+    fetch(`${URLDOS}modulos/gruDosCli.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {
@@ -155,7 +155,7 @@ const ClienteCard = () => {
     data.append("tamano", Number(values.tamano));
     data.append("zona", Number(values.zona));
     data.append("centro", Number(values.centro));
-    fetch(`${URLDOS}clientView_editarCli.php`, {
+    fetch(`${URLDOS}modulos/clientView_editarCli.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {

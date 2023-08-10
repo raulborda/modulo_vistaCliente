@@ -33,7 +33,7 @@ const NuevaEncHac = () => {
     data.append("cria", values.cria);
     data.append("consumoE", Number(values.consumoE));
 
-    fetch(`${URLDOS}clientView_nuevaEncHac.php`, {
+    fetch(`${URLDOS}modulos/clientView_nuevaEncHac.php`, {
       method: "POST",
       body: data,
     }).then(function (response) {

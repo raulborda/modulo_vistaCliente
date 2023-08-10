@@ -250,7 +250,7 @@ export const ProductivoAgricultura = () => {
 
   useEffect(() => {
     const data = new FormData();
-    fetch(`${URL}com_traerCosechas.php`, {
+    fetch(`${URL}modulos/com_traerCosechas.php`, {
       method: "POST",
       body: data,
     }).then(async function (response) {
