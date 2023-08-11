@@ -123,8 +123,7 @@ export const GraficoAcopioTT = () => {
 
   // Sumarle el 10% al valor máximo total
     const maxTotalConIncremento = maxTotal * 1.02;
-
-   console.log(isDataSoja);
+    
 //   console.log("Valor mínimo total:", minTotal);
 //   console.log("Valor máximo total:", maxTotal);
 

@@ -1,200 +1,186 @@
 * {
-   box-sizing: border-box;
-   margin: 0;
-   padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-   height: 100%;
+  height: 100%;
 }
 
-.ant-tabs-tab .ant-tabs-tab-active{
-   color: #00b33c !important;
+.ant-tabs-tab .ant-tabs-tab-active {
+  color: #00b33c !important;
 }
-
 
 .divContainer {
-   display: flex;
-   flex-direction: column;
-   width: 100%;
-   user-select: none;
-   /* margin-bottom: -3px !important; */
-   /* margin-top: 10px; */
-   /* height: 300px !important;  */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  user-select: none;
+  /* margin-bottom: -3px !important; */
+  /* margin-top: 10px; */
+  /* height: 300px !important;  */
 }
 
 .divContainer-Select-Tabs {
-   display: flex;
-   flex-direction: row;
-   /* width: 100%; */
+  display: flex;
+  flex-direction: row;
+  /* width: 100%; */
 }
 
 /*En general*/
 .tabs-custom .ant-tabs-tab {
-   padding: 4px 10px;
-   font-size: 15px;
-   /* border-top: 1px solid rgba(5,5,5,.06); */
+  padding: 4px 10px;
+  font-size: 15px;
+  /* border-top: 1px solid rgba(5,5,5,.06); */
 }
 
 /*Barrita de abajo*/
 .tabs-custom .ant-tabs-ink-bar {
-   background-color: #00b33c;
+  background-color: #00b33c;
 }
 
 /*Color del fondo seleccionado*/
 /*.tabs-custom .ant-tabs-tab-active {*/
-   /* background-color: #f5f5f5; */
-   /* color: #00b33c; */
+/* background-color: #f5f5f5; */
+/* color: #00b33c; */
 /*}*/
 
 /*Color de letra sleccionado*/
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-   color: #333333;
-   /* color: #00b33c; */
-   text-shadow: 0 0 0.25px currentcolor;
+  color: #333333;
+  /* color: #00b33c; */
+  text-shadow: 0 0 0.25px currentcolor;
 }
 
 /*Separacion entre cada items*/
-.ant-tabs .ant-tabs-tab+.ant-tabs-tab {
-   margin: 0 0 0 1px;
+.ant-tabs .ant-tabs-tab + .ant-tabs-tab {
+  margin: 0 0 0 1px;
 }
 
 /*Color del hover cuando paso el mouse por arriba de otros items*/
 .ant-tabs .ant-tabs-tab:hover {
-   color: #00b33c !important;
+  color: #00b33c !important;
 
-
-   /*Por si quiero sacarlo*/
-   /* color: #333333 !important; */
+  /*Por si quiero sacarlo*/
+  /* color: #333333 !important; */
 }
-
-
-
-
 
 /* Inicio Select */
 .ant-select-open .ant-select-selector {
-   border-color: #00b33c !important;
- }
- .ant-select-focused .ant-select-selector {
-   border-color: #00b33c !important;
- }
- .ant-select-selection-placeholder{
-   border-color: #00b33c !important;
- }
- .ant-select .selectCosecha .ant-select-single .ant-select-show-arrow {
-   border-color: #00b33c !important;
- }
- 
- .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
-   border-color: #00b33c !important;
- }
- .ant-select-focused .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
-   border-color: #00b33c !important;
- }
+  border-color: #00b33c !important;
+}
+.ant-select-focused .ant-select-selector {
+  border-color: #00b33c !important;
+}
+.ant-select-selection-placeholder {
+  border-color: #00b33c !important;
+}
+.ant-select .selectCosecha .ant-select-single .ant-select-show-arrow {
+  border-color: #00b33c !important;
+}
+
+.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(
+    .ant-pagination-size-changer
+  ):hover
+  .ant-select-selector {
+  border-color: #00b33c !important;
+}
+.ant-select-focused
+  .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(
+    .ant-pagination-size-changer
+  )
+  .ant-select-selector {
+  border-color: #00b33c !important;
+}
 
 /* Fin Select */
 
-.divCliente_content{
-   margin-top: 3px;
-   margin-bottom: 5px;
-   margin-left: 5px;
-   /*border-bottom: 1px solid #e8e8e8;*/
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
+.divCliente_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
 }
-.divCliente_info{
-   display: flex;
-   flex-direction: row;
-}
-
-.divTags{
-   margin-top: -3px;
-   display: flex;
-   flex-direction: row;
-   margin-bottom: 5px;
+.divCliente_info {
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  margin-bottom: 4px;
 }
 
-.tags{
-   text-decoration: none;
-   margin-right: 3px;
-   color: #FFFF;
-   background-color: #425F9C;
-   border: 1px solid #425F9C;
-   border-radius: 4px;
-   padding-top: 1px;
-   padding-left: 2px;
-   padding-right: 2px;
-   font-size: 12px;
-   font-weight: bold;
+.divTags {
+  margin-top: -3px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
 }
 
+.tags {
+  text-decoration: none;
+  margin-right: 3px;
+  color: #ffff;
+  background-color: #425f9c;
+  border: 1px solid #425f9c;
+  border-radius: 4px;
+  padding-top: 1px;
+  padding-left: 2px;
+  padding-right: 2px;
+  font-size: 12px;
+  font-weight: bold;
+}
 
 .contact-card {
-   height: auto;
-   width: 100%;
-   border: 1px solid #e8e8e8;
-}
- 
-.selected_tags{
-   display: flex;
-   flex-direction: row;
+  height: auto;
+  width: 100%;
+  border: 1px solid #e8e8e8;
 }
 
-.selected_tag{
-   margin-left: 2px;
-   margin-right: 2px;
-   height: 20px;
-   /*width: 110px;*/
-   border-radius: 3px;
-   text-align: center;    
-   padding-top: 0px;
+.selected_tags {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
 }
 
-.etq_name{
-   color:white;
-   font-size:12px;
-   font-weight:bold;
-   padding: 10px;
-   font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+.selected_tag {
+  border-radius: 3px;
+  padding: 1px 7px;
 }
 
-.etq_nameD{
-   color:white;
-   font-size:12px;
-   font-weight:bold;
-   padding: 5px;
-   font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+.etq_name {
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-
-.wrapper_cliente{
-   display: flex;
-   flex-direction: column !important;
-   width: 100%;
-   justify-content: space-around;
+.wrapper_cliente {
+  display: flex;
+  flex-direction: column !important;
+  width: 100%;
+  justify-content: space-around;
 }
 
-.fontWeightLabel{
-   font-weight:400;
+.fontWeightLabel {
+  font-weight: 400;
 }
 
-.labelValue{
-   font-weight:500;
-   color:#7f7f7f;
+.labelValue {
+  font-weight: 500;
+  color: #7f7f7f;
 }
 
-.ant-select .ant-select-in-form-item{
-   border-radius: 0px !important;
+.ant-select .ant-select-in-form-item {
+  border-radius: 0px !important;
 }
 
-.ant-select-selector{
-   border-radius: 0px !important;
+.ant-select-selector {
+  border-radius: 0px !important;
 }
-
-
-
 
 /* styles.css */
 
@@ -217,41 +203,47 @@ html {
   margin-right: 12.9%;
 }
 
-
 /* Estilos para el botón Cancelar cuando se hace hover */
 .cancel-button:hover {
-   color: #00b33c !important;
-   border-color: #00b33c !important;
- }
-
-
- .btnContacto{
-   font-weight: 500;
-   border-radius: 0px;
-   margin-top: -7px;
-   outline: none !important; /* Elimina el borde de enfoque */
-   transition: none !important; /* Elimina cualquier transición que se aplique */
- }
- .btnContacto:focus {
-   box-shadow: none !important; /* Elimina la sombra de enfoque */
-   outline: none !important; /* Elimina el borde de enfoque */
-   transition: none !important; /* Elimina cualquier transición que se aplique */
- }
-
- .btnContacto:focus > div {
-   display: none !important; /* Oculta el div hijo cuando el botón está activo (haciendo clic) */
-   box-shadow: none !important; /* Elimina la sombra de enfoque */
-   outline: none !important; /* Elimina el borde de enfoque */
-   transition: none !important; /* Elimina cualquier transición que se aplique */
- }
-
-.tabs_contactos{
-   margin-top: -20px;
+  color: #00b33c !important;
+  border-color: #00b33c !important;
 }
 
- .tabs_contactos.ant-tabs .ant-tabs-tab-btn{
-   margin-bottom: -10px;
-   margin-right: 5px;
-   margin-left: 5px;
- }
- 
+.btnContacto {
+  font-weight: 500;
+  border-radius: 0px;
+  margin-top: -7px;
+  outline: none !important; /* Elimina el borde de enfoque */
+  transition: none !important; /* Elimina cualquier transición que se aplique */
+}
+.btnContacto:focus {
+  box-shadow: none !important; /* Elimina la sombra de enfoque */
+  outline: none !important; /* Elimina el borde de enfoque */
+  transition: none !important; /* Elimina cualquier transición que se aplique */
+}
+
+.btnContacto:focus > div {
+  display: none !important; /* Oculta el div hijo cuando el botón está activo (haciendo clic) */
+  box-shadow: none !important; /* Elimina la sombra de enfoque */
+  outline: none !important; /* Elimina el borde de enfoque */
+  transition: none !important; /* Elimina cualquier transición que se aplique */
+}
+
+.tabs_contactos {
+  margin-top: -20px;
+}
+
+.tabs_contactos.ant-tabs .ant-tabs-tab-btn {
+  margin-bottom: -10px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.icons-wrapper {
+  margin-top: 1px;
+  height: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 0px 8px;
+}

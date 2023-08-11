@@ -161,7 +161,6 @@ const ClienteCard = () => {
     }).then(function (response) {
       response.text().then((resp) => {
         const data = resp;
-        console.log(data);
       });
     });
 
@@ -615,17 +614,12 @@ const ClienteCard = () => {
                   className="selected_tag"
                   style={{
                     background: tag.etq_color,
-                    display: "inline-block",
-                    margin: "3px",
-                    padding: "1px",
                   }}
                   key={tag.etq_id}
                 >
-                  <div>
-                    <span className="etq_nameD">
-                      {tag.etq_nombre.toUpperCase()}
-                    </span>
-                  </div>
+                  <span className="etq_name">
+                    {tag.etq_nombre.toUpperCase()}
+                  </span>
                 </div>
               </>
             ))}

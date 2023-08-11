@@ -146,6 +146,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
           { acult_id: "TODOS", acult_desc: "TODOS" },
           ...objetoData,
         ];
+
+        console.log(cultivosConTodos);
         setCultivos(cultivosConTodos);
       });
     });
@@ -183,8 +185,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     const dataAdd = new FormData();
     dataAdd.append("idU", usu);
     dataAdd.append("idC", idCliente);
-
-    console.log(cosechaSeleccionada, selectedCultivo, selectedLoteCli);
 
     if (cosechaSeleccionada) {
       dataAdd.append("idCos", cosechaSeleccionada);
