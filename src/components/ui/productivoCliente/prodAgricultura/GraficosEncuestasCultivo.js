@@ -230,10 +230,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
   useEffect(() => {
     const dataAdd = new FormData();
 
-    if (cosechaSeleccionada) {
-      dataAdd.append("idCos", "HOLA");
-    }
-
     dataAdd.append("idU", usu);
     dataAdd.append("idC", idCliente);
 
