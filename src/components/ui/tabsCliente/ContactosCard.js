@@ -103,7 +103,6 @@ const ContactosCard = () => {
           body: data,
         }).then(function (response) {
           response.text().then((resp) => {
-            console.log(resp);
             message.success("El contacto ha sido desvinculado exitosamente");
             setActualizaContacto(!actualizaContacto);
           });

@@ -140,7 +140,6 @@ const TabsCliente = () => {
   };
 
   useEffect(() => {
-    console.log(idCliente);
     if (idCliente) {
       cargarInfoCli();
       cargarContactosCli();
@@ -158,8 +157,6 @@ const TabsCliente = () => {
       cargarEtiquetaxCliente();
     }
   }, [idCliente, actualizarEtiqueta]);
-
-  //console.log(etiquetasCli);
 
   const items = [
     {
@@ -270,21 +267,28 @@ const TabsCliente = () => {
                     fontSize: "16px",
                     fontWeight: "700",
                     fontFamily: "Open Sans, sans-serif",
-                    marginBottom: "10px",
                     color: "#444",
+                    margin: 0,
                   }}
                 >
                   {infoCliSelect[0]?.cli_nombre}
                 </h1>
-                <EyeOutlined
-                  style={{
-                    marginLeft: "11px",
-                    marginTop: "-4px",
-                    fontSize: "15px",
-                    color: "#00b33c",
-                  }}
-                  onClick={() => showDrawer()}
-                />
+                <span className="icons-wrapper">
+                  <EyeOutlined
+                    style={{
+                      fontSize: "15px",
+                      color: "#00b33c",
+                    }}
+                    onClick={() => showDrawer()}
+                  />
+                  <UserOutlined
+                    style={{
+                      fontSize: "13px",
+                      color: "#00b33c",
+                    }}
+                    onClick={() => showDrawerC()}
+                  />
+                </span>
                 <Drawer
                   title={"INFORMACION CLIENTE"}
                   closable={true}
@@ -297,16 +301,6 @@ const TabsCliente = () => {
                     <ClienteCard />
                   </div>
                 </Drawer>
-
-                <UserOutlined
-                  style={{
-                    marginLeft: "10px",
-                    marginTop: "-9px",
-                    fontSize: "13px",
-                    color: "#00b33c",
-                  }}
-                  onClick={() => showDrawerC()}
-                />
                 <Drawer
                   title={
                     <div
@@ -352,7 +346,7 @@ const TabsCliente = () => {
                       className="selected_tag"
                       style={{
                         background: tag.etq_color,
-                        display: "inline-block",
+                        // display: "inline-block",
                       }}
                       key={tag.etq_id}
                     >

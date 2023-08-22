@@ -1,15 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const NotasCliente = () => {
   const URLDOS = process.env.REACT_APP_URL;
-  const { idCliente } = useContext(GlobalContext);
+  const { idCliente, setIdCliente } = useContext(GlobalContext);
+  
+  useEffect(() => {
+    console.log(idCliente);
+
+    if(!idCliente) {
+      const idCli = Number(localStorage.getItem("cliSelect"));
+      console.log(idCli)
+      setIdCliente(idCli);
+    }
+  }, [idCliente])
 
   return (
     <>
       <iframe
         loading="lazy"
-        //src={`${URL}/tati/modulos/notas_clientes/?idC=${idCliente}`}//pra probar local en tati
+        // src={`${URL}/tati/modulos/notas_clientes/?idC=${idCliente}`}//pra probar local en tati
         src={`${URLDOS}modulos/notas_clientes/?idC=${idCliente}`} // para el resto de los crm
         width={"100%"}
         height={"900"}

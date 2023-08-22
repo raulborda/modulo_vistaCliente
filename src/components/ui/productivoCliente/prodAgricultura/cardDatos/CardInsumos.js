@@ -858,7 +858,10 @@ const CardInsumos = () => {
       >
         <Card
           className="cardAgricultura"
-          style={(cardSelected === 0 || cardSelected === 1) && activeCardStyle}
+          style={
+            (cardSelected === 0 || cardSelected === 1 || cardSelected === 4) &&
+            activeCardStyle
+          }
           onClick={() => handleClick(0)}
         >
           <Row gutter={16}>

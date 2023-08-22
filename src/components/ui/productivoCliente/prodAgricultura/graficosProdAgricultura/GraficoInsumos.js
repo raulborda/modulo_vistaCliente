@@ -161,7 +161,7 @@ export const GraficoInsumos = () => {
           <Spin
             className="prueba"
             tip="Cargando..."
-            size="large"
+            size="medium"
             style={{ borderColor: "red" }}
           >
             {" "}

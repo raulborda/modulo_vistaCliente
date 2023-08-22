@@ -8,6 +8,7 @@ const TareasCliente = () => {
 
   useEffect(() => {
     const idCli = Number(localStorage.getItem("cliSelect"));
+    console.log(idCli)
     setIdCliente(Number(idCli));
   }, []);
 
