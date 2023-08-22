@@ -160,7 +160,7 @@ export const GraficoInsumos = () => {
         {isLoading > 0 ? (
           <Spin
             className="prueba"
-            tip="Loading"
+            tip="Cargando..."
             size="large"
             style={{ borderColor: "red" }}
           >

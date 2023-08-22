@@ -117,16 +117,16 @@ export const GraficoAcopioTT = () => {
   const maxTotal = Math.max(maxEntregadas, maxEncuesta);
 
   //Evaluo si el minimo valor es negativo, si es negativo se deja tal cual, sino el minimo es cero
-  if (minTotal >= 0){
+  if (minTotal >= 0) {
     minTotal = 0;
   }
 
   // Sumarle el 10% al valor máximo total
-    const maxTotalConIncremento = maxTotal * 1.02;
+  const maxTotalConIncremento = maxTotal * 1.02;
 
-   console.log(isDataSoja);
-//   console.log("Valor mínimo total:", minTotal);
-//   console.log("Valor máximo total:", maxTotal);
+  console.log(isDataSoja);
+  //   console.log("Valor mínimo total:", minTotal);
+  //   console.log("Valor máximo total:", maxTotal);
 
   const handleLegendClick = (x) => {
     if (x.value === "TT Entregadas") {
@@ -174,7 +174,7 @@ export const GraficoAcopioTT = () => {
           {isLoading > 0 ? (
             <Spin
               className="prueba"
-              tip="Loading"
+              tip="Cargando..."
               size="large"
               style={{ borderColor: "red" }}
             >
@@ -182,7 +182,12 @@ export const GraficoAcopioTT = () => {
               <div className="SpinLoading" />{" "}
             </Spin>
           ) : (
-            <ResponsiveContainer className="GrafAcopio" width="100%" height={230} style={{marginTop:"-15px !important"}}>
+            <ResponsiveContainer
+              className="GrafAcopio"
+              width="100%"
+              height={230}
+              style={{ marginTop: "-15px !important" }}
+            >
               <ComposedChart
                 height={250}
                 data={
@@ -219,7 +224,10 @@ export const GraficoAcopioTT = () => {
                 <Tooltip
                   formatter={(value, name) =>
                     name === "TT Entregadas" || name === "TT Encuesta"
-                      ? format(",")(parseFloat(value).toFixed(0)).replace(/,/g, ".")
+                      ? format(",")(parseFloat(value).toFixed(0)).replace(
+                          /,/g,
+                          "."
+                        )
                       : value
                   }
                 />

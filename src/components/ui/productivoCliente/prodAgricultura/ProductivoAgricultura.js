@@ -11,16 +11,9 @@ import {
   PushpinOutlined,
   TableOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Card,
-  Divider,
-  Popover,
-  Spin,
-  Table,
-} from "antd";
-import { TbPolygon } from 'react-icons/tb';
-import { BiImport } from 'react-icons/bi';
+import { Button, Card, Divider, Popover, Spin, Table } from "antd";
+import { TbPolygon } from "react-icons/tb";
+import { BiImport } from "react-icons/bi";
 import GraficosProdAgricultura from "./graficosProdAgricultura/GraficosProdAgricultura";
 import "./index.css";
 import CardInsumos from "./cardDatos/CardInsumos.js";
@@ -34,7 +27,7 @@ import { GraficosEncuestasCultivo } from "./GraficosEncuestasCultivo";
 
 export const ProductivoAgricultura = () => {
   const URL = process.env.REACT_APP_URL;
-  
+
   const {
     //Ver lotes
     visible,
@@ -51,11 +44,13 @@ export const ProductivoAgricultura = () => {
     setShowTable,
     tipoMapa,
     setTipoMapa,
-    showEdit, setShowEdit,
+    showEdit,
+    setShowEdit,
     setDataEdit,
     ubicLote,
     setUbicLote,
-    importarArchivo, setImportarArchivo,
+    importarArchivo,
+    setImportarArchivo,
     setAgregarLote,
     coordenadasArchivo,
     setLimpiarStates,
@@ -221,11 +216,17 @@ export const ProductivoAgricultura = () => {
     setTipoMapa(numMap);
   };
 
-
   //Recarga los mapas
   useEffect(() => {
     setShouldReloadMap(true); // Indicar que se debe recargar el componente
-  }, [ubicLote, showFormAgregar, coordenadasArchivo, importarArchivo, selectedLote, selectedCampoGeojson]);
+  }, [
+    ubicLote,
+    showFormAgregar,
+    coordenadasArchivo,
+    importarArchivo,
+    selectedLote,
+    selectedCampoGeojson,
+  ]);
 
   useEffect(() => {
     setShouldReloadMap(false); // Restablecer la variable de estado
@@ -244,9 +245,8 @@ export const ProductivoAgricultura = () => {
     }
   };
 
-
-  const [listCosechas, setListCosechas] = useState([])
-  const [cosechaA, setCosechaA] = useState('')
+  const [listCosechas, setListCosechas] = useState([]);
+  const [cosechaA, setCosechaA] = useState("");
 
   useEffect(() => {
     const data = new FormData();
@@ -258,13 +258,15 @@ export const ProductivoAgricultura = () => {
         if (resp) {
           const data = resp;
           const objetoData = JSON.parse(data);
-          setCosechaA(objetoData[0].acos_desc)
+          setCosechaA(objetoData[0].acos_desc);
           setCA(objetoData[0].acos_desc);
           setListCosechas(objetoData);
         }
       });
     });
-  }, [update, idCliente])
+  }, [update, idCliente]);
+
+  console.log(visible);
 
   return (
     <>
@@ -284,7 +286,12 @@ export const ProductivoAgricultura = () => {
                 }}
               >
                 <div className="divContainerGraficos">
-                  {listCosechas && cosechaA && <GraficosProdAgricultura listadoCosechas={listCosechas} cosechaActiva={cosechaA} />}
+                  {listCosechas && cosechaA && (
+                    <GraficosProdAgricultura
+                      listadoCosechas={listCosechas}
+                      cosechaActiva={cosechaA}
+                    />
+                  )}
                 </div>
               </Card>
             </div>
@@ -318,14 +325,18 @@ export const ProductivoAgricultura = () => {
                   fontSize: "16px",
                   fontWeight: "700",
                   fontFamily: "Open Sans, sans-serif",
-                  marginLeft: '10px',
-                  color: '#444'
+                  marginLeft: "10px",
+                  color: "#444",
                 }}
               >
                 LOTES
               </h1>
               <Button
-                style={{ marginBottom: "5px", marginRight: "5px", borderRadius:"0px" }}
+                style={{
+                  marginBottom: "5px",
+                  marginRight: "5px",
+                  borderRadius: "0px",
+                }}
                 onClick={() => (
                   setVisible(!visible), setShowTable(true), setShowEdit(false)
                 )}
@@ -333,16 +344,19 @@ export const ProductivoAgricultura = () => {
                 <ArrowLeftOutlined /> Volver
               </Button>
             </div>
-            {
-              spinning ?
-                (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Spin tip="Loading..." />
-                </div>)
-                :
-                (<div>
-                  {handleStage()}
-                </div>)
-            }
+            {spinning ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Spin tip="Cargando..." />
+              </div>
+            ) : (
+              <div>{handleStage()}</div>
+            )}
             <div
               style={{
                 display: "flex",
@@ -362,67 +376,73 @@ export const ProductivoAgricultura = () => {
                   <>
                     <div
                       onClick={() => abrirFormAgregar()}
-                      style={{ display: 'inline-block', padding: '5px' }}
+                      style={{ display: "inline-block", padding: "5px" }}
                     >
                       <a
                         type="primary"
                         style={{
-                          color: 'black',
-                          textDecoration: 'none',
-                          marginRight: '5px',
-                          display: 'inline-block',
+                          color: "black",
+                          textDecoration: "none",
+                          marginRight: "5px",
+                          display: "inline-block",
                         }}
                       >
                         <div
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.color = 'green';
-                            e.currentTarget.querySelector('svg').style.fill = 'green';
+                            e.currentTarget.style.color = "green";
+                            e.currentTarget.querySelector("svg").style.fill =
+                              "green";
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.color = 'black';
-                            e.currentTarget.querySelector('svg').style.fill = 'black';
+                            e.currentTarget.style.color = "black";
+                            e.currentTarget.querySelector("svg").style.fill =
+                              "black";
                           }}
                         >
                           <TbPolygon
                             style={{
-                              verticalAlign: 'middle',
-                              marginRight: '5px',
-                              transition: 'fill 0.3s ease',
+                              verticalAlign: "middle",
+                              marginRight: "5px",
+                              transition: "fill 0.3s ease",
                             }}
                           />
                           Dibujar Lote
                         </div>
                       </a>
                     </div>
-                    <Divider style={{ marginTop: '0px', marginBottom: '0px' }} />
+                    <Divider
+                      style={{ marginTop: "0px", marginBottom: "0px" }}
+                    />
                     <div
                       onClick={() => abrirImportarArchivo()}
-                      style={{ display: 'inline-block', padding: '5px' }}
+                      style={{ display: "inline-block", padding: "5px" }}
                     >
                       <a
                         type="primary"
                         style={{
-                          color: 'black',
-                          textDecoration: 'none',
-                          marginRight: '5px',
-                          display: 'inline-block',
+                          color: "black",
+                          textDecoration: "none",
+                          marginRight: "5px",
+                          display: "inline-block",
                         }}
                       >
                         <div
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.color = 'green';
-                            e.currentTarget.querySelector('svg').style.fill = 'green';
+                            e.currentTarget.style.color = "green";
+                            e.currentTarget.querySelector("svg").style.fill =
+                              "green";
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.color = 'black';
-                            e.currentTarget.querySelector('svg').style.fill = 'black';
+                            e.currentTarget.style.color = "black";
+                            e.currentTarget.querySelector("svg").style.fill =
+                              "black";
                           }}
                         >
                           <BiImport
                             style={{
-                              verticalAlign: 'middle',
-                              marginRight: '5px',
-                              transition: 'fill 0.3s ease',
+                              verticalAlign: "middle",
+                              marginRight: "5px",
+                              transition: "fill 0.3s ease",
                             }}
                           />
                           Importar archivo
@@ -433,15 +453,20 @@ export const ProductivoAgricultura = () => {
                 }
                 title="Opciones"
               >
-                <Button
-                  icon={<PlusOutlined />}
-                  style={{ marginTop: "5px" }}
-                />
+                <Button icon={<PlusOutlined />} style={{ marginTop: "5px" }} />
               </Popover>
             </div>
 
             {showTable && (
-              <div style={{ width: '60%', position: "absolute", bottom: "300px", left: "10px", paddingBottom: "35px" }}>
+              <div
+                style={{
+                  width: "60%",
+                  position: "absolute",
+                  bottom: "300px",
+                  left: "10px",
+                  paddingBottom: "35px",
+                }}
+              >
                 <Card
                   style={{
                     width: "100%",
@@ -460,13 +485,29 @@ export const ProductivoAgricultura = () => {
             )}
 
             {showFormAgregar && (
-              <div style={{ width: '50%', position: "absolute", bottom: "300px", left: "10px", paddingBottom: "35px" }}>
+              <div
+                style={{
+                  width: "50%",
+                  position: "absolute",
+                  bottom: "300px",
+                  left: "10px",
+                  paddingBottom: "35px",
+                }}
+              >
                 <AgregarLotes />
               </div>
             )}
 
             {showEdit && (
-              <div style={{ width: '50%', position: "absolute", bottom: "300px", left: "10px", paddingBottom: "35px" }}>
+              <div
+                style={{
+                  width: "50%",
+                  position: "absolute",
+                  bottom: "300px",
+                  left: "10px",
+                  paddingBottom: "35px",
+                }}
+              >
                 <EditarLotes />
               </div>
             )}

@@ -1,34 +1,36 @@
 .titulos {
-   font-family: 'Open Sans', sans-serif;
-   font-size: 13px;
-   color: #605d5f !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #605d5f !important;
 }
 
+
 .cardAgricultura {
-   height: 100% !important;
+  height: 100% !important;
 }
 
 
 .SpinLoading {
-   padding: 50px;
-   background: rgba(255, 255, 255, 0.05);
-   border-radius: 4px;
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 
 .ant-spin-text {
-   color: #00b33c;
-   /* color: #554c4c;  */
+  color: #00b33c;
+  /* color: #554c4c;  */
 }
 
 .ant-spin-dot-item {
-   background-color: #00b33c !important;
+  background-color: #00b33c !important;
 }
 
 /*INICIO - GRAFICO INSUMOS*/
-.div_grafico_insumos{
+.div_grafico_insumos {
   width: 100%;
   margin-right: 10px;
 }
+
 /*FIN - GRAFICO INSUMOS*/
 
 
@@ -36,14 +38,14 @@
 /*INICIO - TABS*/
 /*En general*/
 .tabs-custom .ant-tabs-tab {
-   padding: 4px 10px;
-   font-size: 15px;
-   /* border-top: 1px solid rgba(5,5,5,.06); */
+  padding: 4px 10px;
+  font-size: 15px;
+  /* border-top: 1px solid rgba(5,5,5,.06); */
 }
 
 /*Barrita de abajo*/
 .tabs-custom .ant-tabs-ink-bar {
-   background-color: #00b33c;
+  background-color: #00b33c;
 }
 
 /*Color del fondo seleccionado*/
@@ -54,177 +56,191 @@
 
 /*Color de letra sleccionado*/
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-   color: #333333;
-   /* color: #00b33c; */
-   text-shadow: 0 0 0.25px currentcolor;
+  color: #333333;
+  /* color: #00b33c; */
+  text-shadow: 0 0 0.25px currentcolor;
 }
 
 /*Separacion entre cada items*/
 .ant-tabs .ant-tabs-tab+.ant-tabs-tab {
-   margin: 0 0 0 1px;
+  margin: 0 0 0 1px;
 }
 
 /*Color del hover cuando paso el mouse por arriba de otros items*/
 .ant-tabs .ant-tabs-tab:hover {
-   color: #00b33c !important;
+  color: #00b33c !important;
 
 
-   /*Por si quiero sacarlo*/
-   /* color: #333333 !important; */
+  /*Por si quiero sacarlo*/
+  /* color: #333333 !important; */
 }
 
 /*FIN - TABS*/
 
 .iconTableOutlined {
-   font-size: 20px !important;
-   color: #56D75B;
-   background-color: transparent;
-   margin-left: 8px;
-   margin-top: 2px;
+  font-size: 20px !important;
+  color: #56D75B;
+  background-color: transparent;
+  margin-left: 8px;
+  margin-top: 2px;
 }
 
 /* .ant-table {
    height: 315px !important; 
 } */
 
-.ant-table-cell{
-   padding: 11px !important;
- }
- 
- .ant-form-item {
-   margin-bottom: 0px !important;
- }
+.ant-table-cell {
+  padding: 11px !important;
+}
+
+.ant-form-item {
+  margin-bottom: 0px !important;
+}
 
 
 
 /*------Boton editar--------*/
 .btnEditCosecha {
-   margin-left: 10px;
-   border: none;
-   font-size: 18px !important;
-   color: #00b33c;
-   background-color: transparent;
- }
- .btnEditCosecha:active {
-   background: none !important;
-   border-color: #ffffff !important;
- }
- .btnEditCosecha:disabled {
-   background-color: #ffffff !important;
- }
- .ant-btn-default:not(:disabled).btnEditCosecha:hover {
-   color: #8fd14a;
-   border-color: #8fd14a;
- }
- /*------Fin boton editar--------*/ 
+  margin-left: 10px;
+  border: none;
+  font-size: 18px !important;
+  color: #00b33c;
+  background-color: transparent;
+}
+
+.btnEditCosecha:active {
+  background: none !important;
+  border-color: #ffffff !important;
+}
+
+.btnEditCosecha:disabled {
+  background-color: #ffffff !important;
+}
+
+.ant-btn-default:not(:disabled).btnEditCosecha:hover {
+  color: #8fd14a;
+  border-color: #8fd14a;
+}
+
+/*------Fin boton editar--------*/
 
 
 
 /*------Boton agregar--------*/
 .btnAddCosecha {
-   margin-left: auto;
-   margin-right: -2px;
-   border: none;
-   font-size: 18px !important;
-   color: #00b33c;
-   background-color: transparent; 
- }
- .ant-btn-default.btnAddCosecha{
-   box-shadow: none;
-   margin-top: 2px;
-   transition: none !important;
- }
- .btnAddCosecha:active:hover {
-   background: none !important;
-   border-color: #ffffff !important;
- }
- .btnAddCosecha:disabled {
-   background-color: #ffffff !important;
- }
- .ant-btn .ant-btn-default .btnAddCosecha:focus{
-   border-color: none !important;
-   box-shadow: none !important;
- }
- .ant-btn-default:not(:disabled).btnAddCosecha:hover {
-   /* #8fd14a */
-   color: #8fd14a;
-   border-color: #8fd14a;
-   transition: none;
- }
- .ant-btn-default:not(:disabled).btnAddCosecha:focus {
-   color: #8fd14a;
-   border-color: #8fd14a;
-   transition: none;
-   box-shadow: none !important;
-   border: none !important;
- }
- .ant-btn-default:not(:disabled).btnAddCosecha:active{
-   box-shadow: none !important;
-   border: none !important;
- }
- .btnAddCosecha:focus:not(.focus-visible) {
-   outline: 0;
- }
- /*------Fin boton agregar--------*/
+  margin-left: auto;
+  margin-right: -2px;
+  border: none;
+  font-size: 18px !important;
+  color: #00b33c;
+  background-color: transparent;
+}
+
+.ant-btn-default.btnAddCosecha {
+  box-shadow: none;
+  margin-top: 2px;
+  transition: none !important;
+}
+
+.btnAddCosecha:active:hover {
+  background: none !important;
+  border-color: #ffffff !important;
+}
+
+.btnAddCosecha:disabled {
+  background-color: #ffffff !important;
+}
+
+.ant-btn .ant-btn-default .btnAddCosecha:focus {
+  border-color: none !important;
+  box-shadow: none !important;
+}
+
+.ant-btn-default:not(:disabled).btnAddCosecha:hover {
+  /* #8fd14a */
+  color: #8fd14a;
+  border-color: #8fd14a;
+  transition: none;
+}
+
+.ant-btn-default:not(:disabled).btnAddCosecha:focus {
+  color: #8fd14a;
+  border-color: #8fd14a;
+  transition: none;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.ant-btn-default:not(:disabled).btnAddCosecha:active {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.btnAddCosecha:focus:not(.focus-visible) {
+  outline: 0;
+}
+
+/*------Fin boton agregar--------*/
 
 
 
 
- /*! INICIO - TABLA EDITAR  */
+/*! INICIO - TABLA EDITAR  */
 
- .cont {
-   display: flex;
-   flex-direction: column;
-   width: 100%;
- }
+.cont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
- .celdaRubro{
-   margin: 0px;
-   padding: 0px 2px 0px !important;
-   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-   text-align: start;
-   width: 200px;
-   font-size: 13px !important;
- }
+.celdaRubro {
+  margin: 0px;
+  padding: 0px 2px 0px !important;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  text-align: start;
+  width: 200px;
+  font-size: 13px !important;
+}
 
- .celdaInput {
-   margin: 0px;
-   padding: 0px 2px 8px !important;
-   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-   text-align: start;
- }
+.celdaInput {
+  margin: 0px;
+  padding: 0px 2px 8px !important;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  text-align: start;
+}
 
- .inputTable{
-   border-width: 1px;
-   border-style: solid;
-   border-color: #d9d9d9;
-   border-radius: 6px !important;
-   height: 30px !important;
- } 
+.inputTable {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px !important;
+  height: 30px !important;
+}
 
- .contBotones{
-   display:flex;
-   flex-direction: row;
-   justify-content:flex-end;
-   margin-top: 5px;
- }
+.contBotones {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
 
- .btnAddCosechaData {
-   display: flex;
-   margin-left: auto;
-   background-color: #00b33c;
-   color: #ffffff;
- }
- .ant-btn-default:not(:disabled).btnAddCosechaData:hover {
-   color: #ffffff;
-   border-color: #8fd14a;
- }
+.btnAddCosechaData {
+  display: flex;
+  margin-left: auto;
+  background-color: #00b33c;
+  color: #ffffff;
+}
+
+.ant-btn-default:not(:disabled).btnAddCosechaData:hover {
+  color: #ffffff;
+  border-color: #8fd14a;
+}
 
 
 
- /*! FIN - TABLA EDITAR CAPACIDAD */
+/*! FIN - TABLA EDITAR CAPACIDAD */
 
- .divNuevaCapacidad {
+.divNuevaCapacidad {
   display: flex;
   flex-direction: column;
 }
@@ -235,46 +251,46 @@
   width: 100%;
 } */
 
-.encabezadoVacio{
+.encabezadoVacio {
   font-weight: bold;
   font-family: 'Open Sans', sans-serif;
   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-  background:#fafafa ;
+  background: #fafafa;
   padding: 4px !important;
   width: 200px;
 }
 
-.encabezados{
+.encabezados {
   color: #00b33c;
   font-weight: bold;
   font-family: 'Open Sans', sans-serif;
   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-  background:#fafafa ;
+  background: #fafafa;
   padding: 4px !important;
 }
 
-.celdaInputAlquiladas{
+.celdaInputAlquiladas {
   margin: 0px;
   padding: 0px 2px 0px 10px !important;
   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
   text-align: start;
 }
 
-.contBotonesNuevaCapacidad{
-  display:flex;
+.contBotonesNuevaCapacidad {
+  display: flex;
   flex-direction: row;
-  justify-content:flex-end;
+  justify-content: flex-end;
   margin-top: 5px;
 }
 
 
- /*! INICIO - TABLA NUEVA CAPACIDAD*/
+/*! INICIO - TABLA NUEVA CAPACIDAD*/
 
 
- .GrafAcopio .recharts-wrapper{
+.GrafAcopio .recharts-wrapper {
   margin-top: -15px;
- }
+}
 
- .GrafInsumo .recharts-wrapper{
+.GrafInsumo .recharts-wrapper {
   margin-top: -15px;
- }
+}

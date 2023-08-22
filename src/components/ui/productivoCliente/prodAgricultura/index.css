@@ -1,60 +1,60 @@
 .divContainerAgricultura {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    /* border: 1px solid green; */
-    /* margin-top: 10px; */
-    /* height: 300px !important;  */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* border: 1px solid green; */
+  /* margin-top: 10px; */
+  /* height: 300px !important;  */
 }
 
 
 
 .divProdAgricultura {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 
-    /* border: 1px solid blue; */
-    padding: 5px;
-    /* background-color: #e8e8e8; */
-    background-color: #FFFF;
+  /* border: 1px solid blue; */
+  padding: 5px;
+  /* background-color: #e8e8e8; */
+  background-color: #FFFF;
 }
 
 .divProdAgriculturaDatos {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    /* height: 100%; */
-    /* border: 1px solid red; */
-    /* padding-right: 5px; */
-    /* background-color: #e8e8e8; */
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  /* height: 100%; */
+  /* border: 1px solid red; */
+  /* padding-right: 5px; */
+  /* background-color: #e8e8e8; */
 }
 
 .divContainerGraficos {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 5px;
-    justify-content:end;
-    /* align-items: center; */
-    
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+  justify-content: end;
+  /* align-items: center; */
 
-    /* border-top: '2px dashed #56D75B';
+
+  /* border-top: '2px dashed #56D75B';
     border-bottom: '2px dashed #56D75B';
     border-right: '2px dashed #56D75B'; */
-    /* height: 500px; */
+  /* height: 500px; */
 }
 
 .btnVerLotes {
-    font-size: 18px !important;
-    color: #00b33c;
-    margin-left: 15px
+  font-size: 18px !important;
+  color: #00b33c;
+  margin-left: 15px
 }
 
 .btnVerGraficos {
-    font-size: 18px !important;
-    color: #00b33c;
-    margin-left: 15px
+  font-size: 18px !important;
+  color: #00b33c;
+  margin-left: 15px
 }
 
 /* .legendAnillo {
@@ -65,15 +65,18 @@
 .ant-tabs .ant-tabs-tab-remove:focus:not(:focus-visible),
 .ant-tabs .ant-tabs-tab-btn:active,
 .ant-tabs .ant-tabs-tab-remove:active {
-    color: #00b33c;
+  color: #00b33c;
 }
 
 
 .titulos {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    color: #605d5f !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  color: #605d5f !important;
 }
+
+
+
 .subtitulos {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
@@ -81,105 +84,107 @@
 }
 
 .cardAgricultura {
-    height: 100% !important;
-    width: 100% !important;
-    /* margin: -10px !important; */
-    padding: 0px !important;
+  height: 100% !important;
+  width: 100% !important;
+  /* margin: -10px !important; */
+  padding: 0px !important;
 }
 
 .ant-card-body {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 .ant-statistic-title {
-    font-size: 20px !important;
+  font-size: 20px !important;
 }
 
 
 
 
 .btnEnvironmentOutlined {
-    font-size: 25px !important;
-    color: #56D75B;
-    background-color: transparent;
-    /* margin-top: 35px; */
-    /* border-radius: 15px; */
+  font-size: 25px !important;
+  color: #56D75B;
+  background-color: transparent;
+  /* margin-top: 35px; */
+  /* border-radius: 15px; */
 
 }
 
 .ant-form-item-explain {
-    font-size: 10px !important; /* Ajusta el tamaño de las letras según tus preferencias */
-  }
+  font-size: 10px !important;
+  /* Ajusta el tamaño de las letras según tus preferencias */
+}
 
-  .cardContainer {
-    width: 100%;
-    /* height: 100%; */
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    padding-left: 5px;
-    padding-bottom: 5px;
-  }
-  
+.cardContainer {
+  width: 100%;
+  /* height: 100%; */
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+
 /* 
   .mapboxgl-canvas{
     height: 100% !important;
   } */
 
-  /** Probando para poner el mapa completa hasta abajo de todo */
+/** Probando para poner el mapa completa hasta abajo de todo */
 /* .mapboxgl-map {
     height: 81% !important;
 } */
 
 .hidden-asterisk .ant-form-item-required:before {
-    content: "" !important;
-  }
+  content: "" !important;
+}
 
 /* .ant-form-item .ant-form-item-label >label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
 
 } */
 
-.ant-popover-content{
-    /* width: 150px !important; */
-    user-select: none;
+.ant-popover-content {
+  /* width: 150px !important; */
+  user-select: none;
 }
 
 /* PRUEBOOON */
 .dropzone {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 280px;
-    height: 120px;
-    border: 1px dashed #ccc;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.02);
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  .dropzone.drag-active {
-    border-color: #1890ff;
-    background-color: #e6f7ff;
-  }
-  
-  .dropzone p {
-    margin: 0;
-    font-size: 14px;
-    color: #888;
-  }
-  
-  .hidden-asterisk .ant-form-item-required::before {
-    display: none;
-  }
-  /* PRUEBON HASTA ACA  */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  height: 120px;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  padding: 10px;
+}
+
+.dropzone.drag-active {
+  border-color: #1890ff;
+  background-color: #e6f7ff;
+}
+
+.dropzone p {
+  margin: 0;
+  font-size: 14px;
+  color: #888;
+}
+
+.hidden-asterisk .ant-form-item-required::before {
+  display: none;
+}
+
+/* PRUEBON HASTA ACA  */
 
 
-  .recharts-layer .recharts-pie-sector {
-    font-size: 11px;
-  }
+.recharts-layer .recharts-pie-sector {
+  font-size: 11px;
+}
 
-  :focus {
-    outline: none;
+:focus {
+  outline: none;
 }

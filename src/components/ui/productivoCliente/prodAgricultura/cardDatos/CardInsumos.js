@@ -17,6 +17,7 @@ const CardInsumos = () => {
 
   const {
     setCardSelected,
+    cardSelected,
     idCliente,
     selectedAcosDesc,
     cosechaAnterior,
@@ -97,62 +98,38 @@ const CardInsumos = () => {
   const [negociosAbiertos, setNegociosAbiertos] = useState([]);
   const [totalInUSD, setTotalInUSD] = useState(0);
 
+  const [activeCardStyle, setActiveCardStyle] = useState();
+
   const handleClick = (index) => {
-    // Actualiza el estilo de la tarjeta actualmente seleccionada
     switch (index) {
       case 0:
-        setCardStyle1({
-          border: "2px dashed #56D75B",
-          height: "100%",
-        });
-        setCardStyle2({});
-        setCardStyle3({});
         setCardSelected(0);
         break;
+
       case 1:
-        setCardStyle2({
-          border: "2px dashed #56D75B",
-          height: "100%",
-        });
-        setCardStyle1({});
-        setCardStyle3({});
         setCardSelected(2);
-        setIconTable(false);
         break;
+
       case 2:
-        setCardStyle3({
-          border: "2px dashed #56D75B",
-          height: "100%",
-        });
-        setCardStyle1({});
-        setCardStyle2({});
         setCardSelected(3);
-        setIconTable(false);
         break;
+
       default:
         break;
     }
 
-    // Deselecciona la tarjeta anteriormente seleccionada
-    if (selectedCardIndex !== null && selectedCardIndex !== index) {
-      switch (selectedCardIndex) {
-        case 0:
-          setCardStyle1({});
-          break;
-        case 1:
-          setCardStyle2({});
-          break;
-        case 2:
-          setCardStyle3({});
-          break;
-        default:
-          break;
-      }
-    }
-
-    // Actualiza el índice de la tarjeta actualmente seleccionada
-    setSelectedCardIndex(index);
+    setActiveCardStyle({
+      border: "2px dashed #56D75B",
+      height: "100%",
+    });
   };
+
+  useEffect(() => {
+    setActiveCardStyle({
+      border: "2px dashed #56D75B",
+      height: "100%",
+    });
+  }, []);
 
   const formatter = (value) => <CountUp end={value} separator="." />;
 
@@ -854,6 +831,8 @@ const CardInsumos = () => {
     ],
   };
 
+  console.log(JSON.stringify(geojson));
+
   useEffect(() => {
     if (coordinates.length > 0) {
       const bounds = coordinates.reduce(
@@ -879,7 +858,7 @@ const CardInsumos = () => {
       >
         <Card
           className="cardAgricultura"
-          style={cardStyle1}
+          style={(cardSelected === 0 || cardSelected === 1) && activeCardStyle}
           onClick={() => handleClick(0)}
         >
           <Row gutter={16}>
@@ -1064,7 +1043,7 @@ const CardInsumos = () => {
       >
         <Card
           className="cardAgricultura"
-          style={cardStyle2}
+          style={cardSelected === 2 && activeCardStyle}
           onClick={() => handleClick(1)}
         >
           <Row gutter={16}>
@@ -1189,7 +1168,7 @@ const CardInsumos = () => {
       <div style={{ height: "100%", width: "100%" }}>
         <Card
           className="cardAgricultura"
-          style={cardStyle3}
+          style={cardSelected === 3 && activeCardStyle}
           onClick={() => handleClick(2)}
         >
           <Row gutter={16}>
