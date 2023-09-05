@@ -256,7 +256,6 @@ const TabsCliente = () => {
   // };
 
   return (
-    <>
       <div className="divContainer">
         {selectedAcosDesc ? (
           <>
@@ -404,7 +403,6 @@ const TabsCliente = () => {
           </div>
         )}
       </div>
-    </>
   );
 };
 
