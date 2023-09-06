@@ -5,8 +5,8 @@ import * as turf from "@turf/turf";
 import { GlobalContext } from "../../../context/GlobalContext";
 
 const styles = {
-  width: "99%",
-  height: "50%",
+  width: "100%",
+  height: "calc(100% - 175px)",
   position: "absolute",
 };
 
@@ -145,7 +145,7 @@ const MapaUbicLotes = () => {
     };
 
     if (!map) initializeMap({ setMap, mapContainer });
-  }, [ubicLote]);
+  }, [ubicLote, mapContainer, marcarLote, tipoMapa]);
 
   function infoGeoJSON(idCliente) {
     const data = new FormData();

@@ -359,7 +359,7 @@ const MapasLotes = () => {
     coordenadasArchivo,
     geoJSON,
     selectedCampoGeojson,
-    mapContainer
+    mapContainer,
   ]);
 
   function infoGeoJSON(idCliente) {
