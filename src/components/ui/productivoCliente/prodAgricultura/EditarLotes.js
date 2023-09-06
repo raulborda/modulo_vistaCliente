@@ -98,16 +98,8 @@ const EditarLotes = () => {
     <>
       {/* Renderizar el componente de mensaje */}
       {contextHolder}
-      {tipoMapa === 1 &&
-        <Card
-          style={{
-            width: "510px",
-            height: "30%",
-            marginTop: "15%",
-            marginLeft: "10px",
-            marginRight: "10px",
-          }}
-        >
+      {tipoMapa === 1 && (
+        <Card>
           <Form
             form={form}
             onFinish={onSubmit}
@@ -174,21 +166,6 @@ const EditarLotes = () => {
                   </Select>
                 </Form.Item>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "50px",
-                }}
-              >
-                {/* <Form.Item
-                  name="participacion"
-                  label="Participacion"
-                  style={{ fontSize: "13px", fontWeight: "bold" }}
-                >
-                  <Input style={{ width: "85px" }} addonAfter="%" />
-                </Form.Item> */}
-              </div>
             </div>
             <Divider style={{ marginBottom: "10px", marginTop: "10px" }} />
             <div
@@ -219,7 +196,7 @@ const EditarLotes = () => {
             </div>
           </Form>
         </Card>
-      }
+      )}
     </>
   );
 };

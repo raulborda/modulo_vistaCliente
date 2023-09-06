@@ -831,8 +831,6 @@ const CardInsumos = () => {
     ],
   };
 
-  console.log(JSON.stringify(geojson));
-
   useEffect(() => {
     if (coordinates.length > 0) {
       const bounds = coordinates.reduce(

@@ -54,9 +54,5 @@ export const ViewGeneral = () => {
   }, [idCliente]);
   //! /*-------- FIN - CONSULTAS PARA TRAER LOS DATOS EVOLUCION PRODUCTIVA---------*/
 
-  return (
-    <>
-      <TabsCliente />
-    </>
-  );
+  return <TabsCliente />;
 };

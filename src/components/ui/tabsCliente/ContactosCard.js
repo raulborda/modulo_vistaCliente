@@ -109,7 +109,6 @@ const ContactosCard = () => {
         });
       },
       onCancel() {
-        console.log("Se Cancelo Desvinculacion");
       },
     });
   };
@@ -134,10 +133,8 @@ const ContactosCard = () => {
       response.text().then((resp) => {
         // const data = resp;
         // const objetoData = JSON.parse(data);
-        console.log(resp);
       });
     });
-    console.log("Formulario enviado:", updatedValues);
     setFormValues({});
     setContactoEditado(null);
     setActualizaContacto(!actualizaContacto);
@@ -182,7 +179,6 @@ const ContactosCard = () => {
       body: data,
     }).then(function (response) {
       response.text().then((resp) => {
-        console.log(resp);
         message.success("El contacto se ha creado y vinculado exitosamente");
         setActualizaContacto(!actualizaContacto);
         setBtnCrear(false);
