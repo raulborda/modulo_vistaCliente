@@ -225,11 +225,7 @@ const MapaUbicLotes = () => {
     }
   }, [idCliente, isTableUpdated]);
 
-  return (
-    <>
-      <div ref={(el) => (mapContainer.current = el)} style={styles} />
-    </>
-  );
+  return <div ref={(el) => (mapContainer.current = el)} style={styles} />;
 };
 
 export default MapaUbicLotes;
