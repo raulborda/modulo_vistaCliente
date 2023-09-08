@@ -11,6 +11,7 @@ import {
   Drawer,
   Tabs,
   Divider,
+  DatePicker
 } from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
 import {
@@ -19,6 +20,7 @@ import {
   ExclamationCircleFilled,
 } from "@ant-design/icons";
 import "./tabsCliente.css";
+import moment from 'moment';
 import TabPane from "antd/es/tabs/TabPane";
 import TextArea from "antd/es/input/TextArea";
 const { confirm } = Modal;
@@ -26,6 +28,7 @@ const { confirm } = Modal;
 const ContactosCard = () => {
   const URLDOS = process.env.REACT_APP_URL;
   const [form] = Form.useForm();
+  const [fecha, setFecha] = useState();
 
   const {
     contactosCli,
@@ -66,6 +69,9 @@ const ContactosCard = () => {
     setContactoEditado(contacto);
     setFormValues(contacto);
     setModalVisible(true);
+
+    setFecha(contacto?.con_fechanac);
+    setFormValues(prev => ({ ...prev, con_fechanac: contacto.con_fechanac && moment(contacto.con_fechanac, "DD/MM/YYYY") }));
   };
 
   //console.log("Contacto Data: ", formValues);
@@ -73,11 +79,9 @@ const ContactosCard = () => {
   const handleInputChange = (field, value) => {
     let updatedValue = value;
 
-    //console.log("handleInputChange:", value)
-
     setFormValues((prevValues) => ({
       ...prevValues,
-      [field]: updatedValue,
+      [field]: updatedValue
     }));
   };
 
@@ -126,6 +130,8 @@ const ContactosCard = () => {
     data.append("tel", updatedValues.con_telefono1);
     data.append("mov", updatedValues.con_movil1);
     data.append("rol", Number(updatedValues.rol_id));
+    fecha && data.append("fechanac", fecha);
+
     fetch(`${URLDOS}modulos/clientView_guardarEditContacto.php`, {
       method: "POST",
       body: data,
@@ -138,6 +144,7 @@ const ContactosCard = () => {
     setFormValues({});
     setContactoEditado(null);
     setActualizaContacto(!actualizaContacto);
+    setFecha(undefined);
     form.resetFields();
   };
 
@@ -174,6 +181,8 @@ const ContactosCard = () => {
     data.append("movil", values.movil);
     data.append("descrip", values.descrip);
     data.append("idRol", Number(values.roles));
+    fecha && data.append("fechanac", fecha);
+
     fetch(`${URLDOS}modulos/clientView_crearContacto.php`, {
       method: "POST",
       body: data,
@@ -182,14 +191,21 @@ const ContactosCard = () => {
         message.success("El contacto se ha creado y vinculado exitosamente");
         setActualizaContacto(!actualizaContacto);
         setBtnCrear(false);
+        setFecha(undefined);
       });
     });
+  };
+
+  //Manejo de datepicker
+  const handleFecha = (e, fechaNac) => {
+    fechaNac ? setFecha(fechaNac) : setFecha(undefined);
   };
 
   const filterOptions = (inputValue, option) => {
     // Filtrar las opciones de contactosBuscados que coinciden con el texto ingresado
     return option.children.toLowerCase().includes(inputValue.toLowerCase());
   };
+
 
   return (
     <>
@@ -257,6 +273,14 @@ const ContactosCard = () => {
                 </label>
               </p>
               <p>
+                <strong>Edad:</strong>
+                <label style={{ color: "#56b43c"}}>
+                  {" "}
+                  { contacto.con_fechanac ? <>{moment().diff(moment(contacto.con_fechanac, "DD/MM/YYYY"), 'years')}  ({contacto.con_fechanac})</> : '' }
+                  
+                </label>
+              </p>
+              <p>
                 <strong>Rol:</strong>
                 <label style={{ color: "#56b43c" }}> {contacto.rol_desc}</label>
               </p>
@@ -270,8 +294,9 @@ const ContactosCard = () => {
           title={<h3 style={{ color: "#605d5f" }}>Editar Contacto</h3>}
           open={modalVisible}
           onCancel={() => (
-            setModalVisible(false), setFormValues({}), setContactoEditado(null)
+            setModalVisible(false), setFormValues({}), setContactoEditado(null), setFecha(undefined)
           )}
+          destroyOnClose
           width={500}
           footer={[
             <Button
@@ -290,7 +315,7 @@ const ContactosCard = () => {
           style={{ marginTop: "-50px" }}
         >
           <div style={{ width: "100%", marginLeft: "0px" }}>
-            <Form onFinish={onFinish} labelCol={{ span: 24 }}>
+            <Form onFinish={onFinish} labelCol={{ span: 24 }} initialValues={formValues} >
               <Form.Item label="Nombre" name="con_nombre">
                 <Input
                   style={{
@@ -347,6 +372,16 @@ const ContactosCard = () => {
                 />
               </Form.Item>
 
+              <Form.Item name="con_fechanac" className="formItem-style" label="Fecha de nacimiento">
+                        <DatePicker format={'DD/MM/YYYY'}  style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                      width: "100%"
+                    }} onChange={handleFecha} 
+                    />
+                </Form.Item>
+
               <Form.Item label="Rol" name="rol_desc">
                 <Select
                   style={{
@@ -401,7 +436,7 @@ const ContactosCard = () => {
             onChange={handleTabChange}
           >
             <TabPane tab="Existente" key="1">
-              <Form onFinish={handleSearch} layout="vertical">
+              <Form onFinish={handleSearch} layout="vertical" destroyOnClose={true} >
                 <Form.Item name="buscar" label="Buscar Contacto">
                   <Select
                     showSearch // Habilitar la funcionalidad de búsqueda
@@ -453,7 +488,8 @@ const ContactosCard = () => {
                 </Form.Item>
               </Form>
             </TabPane>
-            <TabPane tab="Nuevo" key="2">
+
+            <TabPane tab="Nuevo" key="2" >
               <Form onFinish={handleFormSubmit} layout="vertical">
                 <Form.Item name="nombre" label="Nombre">
                   <Input
@@ -495,6 +531,16 @@ const ContactosCard = () => {
                     }}
                   />
                 </Form.Item>
+
+                <Form.Item name="fechaNac" className="formItem-style" label="Fecha de nacimiento">
+                        <DatePicker format={'DD/MM/YYYY'}  style={{
+                      marginTop: "-3px",
+                      marginBottom: "10px",
+                      borderRadius: "0px",
+                      width: "100%"
+                    }} onChange={handleFecha} />
+                </Form.Item>
+
                 <Form.Item name="descrip" label="Descripción">
                   <TextArea
                     style={{
