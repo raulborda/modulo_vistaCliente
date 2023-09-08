@@ -105,7 +105,6 @@ const TabsCliente = () => {
           const data = resp;
           const objetoData = JSON.parse(data);
           setContactosCli(objetoData);
-          console.log(objetoData)
         });
       }
     });

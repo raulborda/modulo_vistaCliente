@@ -11,7 +11,8 @@ import {
   Drawer,
   Tabs,
   Divider,
-  DatePicker
+  DatePicker,
+  App
 } from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
 import {
@@ -20,7 +21,7 @@ import {
   ExclamationCircleFilled,
 } from "@ant-design/icons";
 import "./tabsCliente.css";
-import moment from 'moment';
+import dayjs from "dayjs";
 import TabPane from "antd/es/tabs/TabPane";
 import TextArea from "antd/es/input/TextArea";
 const { confirm } = Modal;
@@ -48,6 +49,7 @@ const ContactosCard = () => {
   const [contactosBuscados, setContactosBuscados] = useState([]);
 
   const [selectedTab, setSelectedTab] = useState("1");
+  const dateFormat = "DD/MM/YYYY";
 
   //! Buscar todos los contactos existentes
   useEffect(() => {
@@ -71,10 +73,9 @@ const ContactosCard = () => {
     setModalVisible(true);
 
     setFecha(contacto?.con_fechanac);
-    setFormValues(prev => ({ ...prev, con_fechanac: contacto.con_fechanac && moment(contacto.con_fechanac, "DD/MM/YYYY") }));
+    setFormValues(prev => ({ ...prev, con_fechanac: contacto.con_fechanac && dayjs(contacto.con_fechanac, dateFormat) }));
   };
 
-  //console.log("Contacto Data: ", formValues);
 
   const handleInputChange = (field, value) => {
     let updatedValue = value;
@@ -219,6 +220,7 @@ const ContactosCard = () => {
       >
         {contactosCli?.map((contacto, index) => (
           <div
+            key={index}
             style={{
               width: "350px",
               flexBasis: "30%",
@@ -228,7 +230,6 @@ const ContactosCard = () => {
             }}
           >
             <Card
-              key={index}
               title={
                 <div
                   style={{
@@ -276,8 +277,7 @@ const ContactosCard = () => {
                 <strong>Edad:</strong>
                 <label style={{ color: "#56b43c"}}>
                   {" "}
-                  { contacto.con_fechanac ? <>{moment().diff(moment(contacto.con_fechanac, "DD/MM/YYYY"), 'years')}  ({contacto.con_fechanac})</> : '' }
-                  
+                  {contacto.con_fechanac ? <>{dayjs().diff((dayjs(contacto.con_fechanac, dateFormat)), 'year')}  ({contacto.con_fechanac})</> : '' }           
                 </label>
               </p>
               <p>
@@ -373,14 +373,15 @@ const ContactosCard = () => {
               </Form.Item>
 
               <Form.Item name="con_fechanac" className="formItem-style" label="Fecha de nacimiento">
-                        <DatePicker format={'DD/MM/YYYY'}  style={{
+                      <DatePicker format={dateFormat}  
+                        style={{
                       marginTop: "-3px",
                       marginBottom: "10px",
                       borderRadius: "0px",
                       width: "100%"
                     }} onChange={handleFecha} 
                     />
-                </Form.Item>
+              </Form.Item>          
 
               <Form.Item label="Rol" name="rol_desc">
                 <Select
@@ -533,7 +534,7 @@ const ContactosCard = () => {
                 </Form.Item>
 
                 <Form.Item name="fechaNac" className="formItem-style" label="Fecha de nacimiento">
-                        <DatePicker format={'DD/MM/YYYY'}  style={{
+                        <DatePicker format={dateFormat}  style={{
                       marginTop: "-3px",
                       marginBottom: "10px",
                       borderRadius: "0px",
@@ -580,4 +581,8 @@ const ContactosCard = () => {
   );
 };
 
-export default ContactosCard;
+export default () => (
+  <App>
+    <ContactosCard />
+  </App>
+);
