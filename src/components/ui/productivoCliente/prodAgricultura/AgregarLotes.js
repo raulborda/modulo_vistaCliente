@@ -301,13 +301,7 @@ const AgregarLotes = () => {
       {contextHolder}
 
       {agregarLote && (
-        <Card
-          style={{
-            width: "800px",
-            height: "40%",
-            marginLeft: "10px",
-          }}
-        >
+        <Card>
           <Form form={form} onFinish={onSubmitAdd}>
             <div>
               <h1 className="titulos">NUEVO LOTE</h1>
@@ -480,13 +474,7 @@ const AgregarLotes = () => {
         </Card>
       )}
       {importarArchivo && (
-        <Card
-          style={{
-            width: "900px",
-            height: "40%",
-            marginLeft: "10px",
-          }}
-        >
+        <Card>
           <Form form={form} onFinish={onSubmitImportarArchivo}>
             <div>
               <h1 className="titulos">IMPORTAR ARCHIVO</h1>

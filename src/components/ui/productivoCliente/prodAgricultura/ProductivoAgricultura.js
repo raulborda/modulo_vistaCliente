@@ -460,9 +460,9 @@ export const ProductivoAgricultura = () => {
                 style={{
                   width: "60%",
                   position: "absolute",
-                  bottom: "300px",
-                  left: "10px",
-                  paddingBottom: "35px",
+                  bottom: "24px",
+                  right: "24px",
+                  // paddingBottom: "35px",
                 }}
               >
                 <Card
@@ -485,11 +485,9 @@ export const ProductivoAgricultura = () => {
             {showFormAgregar && (
               <div
                 style={{
-                  width: "50%",
                   position: "absolute",
-                  bottom: "300px",
-                  left: "10px",
-                  paddingBottom: "35px",
+                  top: "250px",
+                  left: "40px",
                 }}
               >
                 <AgregarLotes />
@@ -499,11 +497,9 @@ export const ProductivoAgricultura = () => {
             {showEdit && (
               <div
                 style={{
-                  width: "50%",
                   position: "absolute",
-                  bottom: "300px",
-                  left: "10px",
-                  paddingBottom: "35px",
+                  top: "250px",
+                  left: "40px",
                 }}
               >
                 <EditarLotes />

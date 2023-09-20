@@ -9,10 +9,10 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined, TagOutlined, UserOutlined } from "@ant-design/icons";
+import { EyeOutlined, UserOutlined } from "@ant-design/icons";
 import ClienteCard from "./ClienteCard";
 import ContactosCard from "./ContactosCard";
-import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
+// import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
 import { Empty } from "antd/es";
 
 const TabsCliente = () => {
@@ -256,156 +256,151 @@ const TabsCliente = () => {
   // };
 
   return (
-    <>
-      <div className="divContainer">
-        {selectedAcosDesc ? (
-          <>
-            <div className="divCliente_info">
-              <div className="divCliente_content">
-                <h1
+    <div className="divContainer">
+      {selectedAcosDesc ? (
+        <>
+          <div className="divCliente_info">
+            <div className="divCliente_content">
+              <h1
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  fontFamily: "Open Sans, sans-serif",
+                  color: "#444",
+                  margin: 0,
+                }}
+              >
+                {infoCliSelect[0]?.cli_nombre}
+              </h1>
+              <span className="icons-wrapper">
+                <EyeOutlined
                   style={{
-                    fontSize: "16px",
-                    fontWeight: "700",
-                    fontFamily: "Open Sans, sans-serif",
-                    color: "#444",
-                    margin: 0,
+                    fontSize: "15px",
+                    color: "#00b33c",
                   }}
-                >
-                  {infoCliSelect[0]?.cli_nombre}
-                </h1>
-                <span className="icons-wrapper">
-                  <EyeOutlined
-                    style={{
-                      fontSize: "15px",
-                      color: "#00b33c",
-                    }}
-                    onClick={() => showDrawer()}
-                  />
-                  <UserOutlined
-                    style={{
-                      fontSize: "13px",
-                      color: "#00b33c",
-                    }}
-                    onClick={() => showDrawerC()}
-                  />
-                </span>
-                <Drawer
-                  title={"INFORMACION CLIENTE"}
-                  closable={true}
-                  onClose={onClose}
-                  open={open}
-                  width={450}
-                  placement="right"
-                >
-                  <div>
-                    <ClienteCard />
-                  </div>
-                </Drawer>
-                <Drawer
-                  title={
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span>CONTACTOS</span>
-                      <Button
-                        type="primary"
-                        className="btnContacto"
-                        onClick={() => setBtnCrear(true)}
-                      >
-                        Crear Contacto
-                      </Button>
-                    </div>
-                  }
-                  closable={true}
-                  onClose={onCloseC}
-                  open={openC}
-                  width={400}
-                  placement="right"
-                >
+                  onClick={() => showDrawer()}
+                />
+                <UserOutlined
+                  style={{
+                    fontSize: "13px",
+                    color: "#00b33c",
+                  }}
+                  onClick={() => showDrawerC()}
+                />
+              </span>
+              <Drawer
+                title={"INFORMACION CLIENTE"}
+                closable={true}
+                onClose={onClose}
+                open={open}
+                width={450}
+                placement="right"
+              >
+                <div>
+                  <ClienteCard />
+                </div>
+              </Drawer>
+              <Drawer
+                title={
                   <div
                     style={{
                       display: "flex",
-                      flexWrap: "wrap",
-                      alignItems: "flex-start",
-                      userSelect: "none",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    <ContactosCard />
-                  </div>
-                </Drawer>
-              </div>
-
-              <div className="selected_tags">
-                {etiquetasCli?.map((tag) => (
-                  <>
-                    <div
-                      className="selected_tag"
-                      style={{
-                        background: tag.etq_color,
-                        // display: "inline-block",
-                      }}
-                      key={tag.etq_id}
+                    <span>CONTACTOS</span>
+                    <Button
+                      type="primary"
+                      className="btnContacto"
+                      onClick={() => setBtnCrear(true)}
                     >
-                      <span className="etq_name">
-                        {tag.etq_nombre.toUpperCase()}
-                      </span>
-                    </div>
-                  </>
-                ))}
-              </div>
-            </div>
-
-            <div className="divContainer-Select-Tabs">
-              <div style={{ paddingRight: "1px" }}>
-                <Select
-                  defaultValue={selectedAcosDesc && selectedAcosDesc}
-                  style={{
-                    width: 97,
-                    paddingRight: "5px",
-                  }}
-                  onChange={handleSelectChange}
-                  disabled={isSelectEditDisabled}
-                >
-                  {listCosechas.length > 0 &&
-                    listCosechas.map((cosecha) => {
-                      return (
-                        <Select.Option
-                          key={cosecha.acos_desc}
-                          value={cosecha.acos_desc}
-                        >
-                          {cosecha.acos_desc}
-                        </Select.Option>
-                      );
-                    })}
-                </Select>
-              </div>
-              <Tabs
-                className="tabs-custom"
-                items={items}
-                onChange={handleTabClick}
+                      Crear Contacto
+                    </Button>
+                  </div>
+                }
+                closable={true}
+                onClose={onCloseC}
+                open={openC}
+                width={400}
+                placement="right"
               >
-                {items.map((item) => (
-                  <TabPane key={item.key} tab={item.label}>
-                    {item.component}
-                  </TabPane>
-                ))}
-              </Tabs>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "flex-start",
+                    userSelect: "none",
+                  }}
+                >
+                  <ContactosCard />
+                </div>
+              </Drawer>
             </div>
 
-            <div style={{ marginTop: "1px" }}>{handleStage()}</div>
-          </>
-        ) : (
-          <div style={{ marginTop: "10px" }}>
-            {/* <Empty description="Hay un problema con el origen de la información." /> */}
-            <Spin tip="Cargando..." size="medium" />
+            <div className="selected_tags">
+              {etiquetasCli?.map((tag) => (
+                <div
+                  className="selected_tag"
+                  style={{
+                    background: tag.etq_color,
+                    // display: "inline-block",
+                  }}
+                  key={tag.etq_id}
+                >
+                  <span className="etq_name">
+                    {tag.etq_nombre.toUpperCase()}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        )}
-      </div>
-    </>
+
+          <div className="divContainer-Select-Tabs">
+            <div style={{ paddingRight: "1px" }}>
+              <Select
+                defaultValue={selectedAcosDesc && selectedAcosDesc}
+                style={{
+                  width: 97,
+                  paddingRight: "5px",
+                }}
+                onChange={handleSelectChange}
+                disabled={isSelectEditDisabled}
+              >
+                {listCosechas.length > 0 &&
+                  listCosechas.map((cosecha) => {
+                    return (
+                      <Select.Option
+                        key={cosecha.acos_desc}
+                        value={cosecha.acos_desc}
+                      >
+                        {cosecha.acos_desc}
+                      </Select.Option>
+                    );
+                  })}
+              </Select>
+            </div>
+            <Tabs
+              className="tabs-custom"
+              items={items}
+              onChange={handleTabClick}
+            >
+              {items.map((item) => (
+                <TabPane key={item.key} tab={item.label}>
+                  {item.component}
+                </TabPane>
+              ))}
+            </Tabs>
+          </div>
+
+          <div style={{ marginTop: "1px" }}>{handleStage()}</div>
+        </>
+      ) : (
+        <div style={{ marginTop: "10px" }}>
+          <Empty description="Hay un problema con el origen de la información." />
+        </div>
+      )}
+    </div>
   );
 };
 

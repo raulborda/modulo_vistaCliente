@@ -176,11 +176,8 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
     traerLotesCliente();
   }, []);
 
-  // console.log("cultivosConTodos: ", cultivos);
-  // console.log("lotesxCliente: ", lotesxCliente);
 
   useEffect(() => {
-    //console.log("selectedLoteCli: ", Number(selectedLoteCli))
     const dataAdd = new FormData();
     dataAdd.append("idU", usu);
     dataAdd.append("idC", idCliente);

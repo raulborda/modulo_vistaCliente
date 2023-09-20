@@ -8,11 +8,11 @@ import * as MapboxDraw from "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw";
 import "mapbox-gl/dist/mapbox-gl.css";
 import * as turf from "@turf/turf";
 import { GlobalContext } from "../../../context/GlobalContext";
-import './index.css';
+import "./index.css";
 
 const styles = {
   width: "100%",
-  height: "50%",
+  height: "calc(100% - 175px)",
   position: "absolute",
 };
 
@@ -53,7 +53,7 @@ const MapasLotes = () => {
 
       map.on("load", () => {
         setMap(map);
-        map.resize();
+
         //* instancia herramientas35.004224
         if (showFormAgregar && !importarArchivo) {
           const draw = new MapboxDraw({
@@ -67,7 +67,7 @@ const MapasLotes = () => {
           });
           map.addControl(draw);
         }
-        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+        map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
 
         //!
         if (importarArchivo) {
@@ -182,7 +182,7 @@ const MapasLotes = () => {
               });
 
               map.addLayer({
-                id: 'campo-bro',
+                id: "campo-bro",
                 type: "line",
                 source: "campo",
                 paint: {
@@ -194,6 +194,8 @@ const MapasLotes = () => {
             }
           }
         }
+
+        map.resize();
       });
       //!
 
@@ -251,8 +253,7 @@ const MapasLotes = () => {
           });
           map.fitBounds(geojsonCampo, { padding: 10, zoom: 11 });
         }
-      }
-      else {
+      } else {
         //* CENTRAR PARA TODOS LOS LOTES
         var random = 0;
         var loteL = [];
@@ -317,7 +318,6 @@ const MapasLotes = () => {
           });
           map.fitBounds(geojsonBounds, { padding: 10, zoom: 11.3 });
         }
-
       }
       //! FIN - CENTRAR MAPBOX
 
@@ -340,17 +340,27 @@ const MapasLotes = () => {
         const features = e.features;
         const coordinates = features[0].geometry.coordinates[0];
 
-        const formattedCoordinates = JSON.stringify(coordinates, (key, value) => {
-          if (typeof value === "number") {
-            return value.toFixed(6);
+        const formattedCoordinates = JSON.stringify(
+          coordinates,
+          (key, value) => {
+            if (typeof value === "number") {
+              return value.toFixed(6);
+            }
+            return value;
           }
-          return value;
-        }).replace(/"/g, "");
+        ).replace(/"/g, "");
         setValorGeoJSON(formattedCoordinates);
       });
     };
     if (!map) initializeMap({ setMap, mapContainer });
-  });
+  }, [
+    showFormAgregar,
+    importarArchivo,
+    coordenadasArchivo,
+    geoJSON,
+    selectedCampoGeojson,
+    mapContainer,
+  ]);
 
   function infoGeoJSON(idCliente) {
     const data = new FormData();
@@ -419,7 +429,6 @@ const MapasLotes = () => {
     }
   }, [dataGeoJSON, selectedLote]);
 
-
   useEffect(() => {
     infoGeoJSON(idCliente);
   }, []);
@@ -451,11 +460,7 @@ const MapasLotes = () => {
     // setRefrescarListLotes(true);
   }, [idCliente, isTableUpdated]);
 
-  return (
-    <>
-      <div ref={(el) => (mapContainer.current = el)} style={styles} />
-    </>
-  );
+  return <div ref={(el) => (mapContainer.current = el)} style={styles} />;
 };
 
 export default MapasLotes;
