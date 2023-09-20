@@ -1,11 +1,11 @@
-/modulos/vista_cliente
+# /modulos/vista_cliente
 
-storage key necesarias
+# node v14.17.0
 
-usuario
-cliSelect
+## .env
+### REACT_APP_URL = '../../'
 
-
-Para desplegar el server:
-
-`./deploy.sh 10.0.0.153 modulos/vista_cliente`
+## App.js
+### storage keys necesarias
+### idUsu
+### idC

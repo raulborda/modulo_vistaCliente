@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Drawer, Select, Tabs } from "antd";
+import { Button, Drawer, Select, Spin, Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -89,8 +89,6 @@ const TabsCliente = () => {
       });
     });
   };
-
-  //console.log(infoCliSelect)
 
   const cargarContactosCli = () => {
     const data = new FormData();

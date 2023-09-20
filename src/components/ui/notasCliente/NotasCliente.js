@@ -4,13 +4,13 @@ import { GlobalContext } from "../../context/GlobalContext";
 const NotasCliente = () => {
   const URLDOS = process.env.REACT_APP_URL;
   const { idCliente, setIdCliente } = useContext(GlobalContext);
-  
+
   useEffect(() => {
-    if(!idCliente) {
+    if (!idCliente) {
       const idCli = Number(localStorage.getItem("cliSelect"));
       setIdCliente(idCli);
     }
-  }, [idCliente])
+  }, [idCliente]);
 
   return (
     <>

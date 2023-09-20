@@ -149,8 +149,6 @@ const ContactosCard = () => {
     form.resetFields();
   };
 
-  //! crear contacto
-
   const handleTabChange = (key) => {
     setSelectedTab(key);
   };

@@ -2,7 +2,7 @@
 /* eslint-disable react/style-prop-object */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { CaretDownOutlined, CaretUpFilled } from "@ant-design/icons";
-import { Button, Card, Col, Row, Statistic } from "antd";
+import { Button, Card, Col, Row, Spin, Statistic } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { GlobalContext } from "../../../../context/GlobalContext";
@@ -1024,7 +1024,11 @@ const CardInsumos = () => {
                   />
                 ))}
                 <Button
-                  style={{ padding: "5px", margin: "4px", borderRadius: "0px" }}
+                  style={{
+                    padding: "5px",
+                    margin: "4px",
+                    borderRadius: "0px",
+                  }}
                   onClick={() => setVisible(!visible)}
                 >
                   Ver Lotes
