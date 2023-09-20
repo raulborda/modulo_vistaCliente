@@ -32,13 +32,13 @@ function App() {
   const [etiquetasCli, setEtiquetasCli] = useState([]);
 
   //* Id de usuario que se obtiene desde local storage
-  const idUsu = 1; //.28
-  // const idUsu = localStorage.getItem("usuario");
+  // const idUsu = 1; //.28
+  const idUsu = localStorage.getItem("usuario");
   const [usu, setUsu] = useState(idUsu);
   //* Id de cliente que se obtine desde local storage
-  const idC = 2; // .153
+  // const idC = 2; // .153
   //const idC = 2773; //.28
-  // const idC = localStorage.getItem("cliSelect");
+  const idC = localStorage.getItem("cliSelect");
   const [idCliente, setIdCliente] = useState(idC);
 
   //Edicion cliente y contacto
