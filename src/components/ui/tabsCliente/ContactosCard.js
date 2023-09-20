@@ -184,17 +184,20 @@ const ContactosCard = () => {
     data.append("idRol", Number(values.roles));
     fecha && data.append("fechanac", fecha);
 
-    fetch(`${URLDOS}modulos/clientView_crearContacto.php`, {
-      method: "POST",
-      body: data,
-    }).then(function (response) {
-      response.text().then((resp) => {
-        message.success("El contacto se ha creado y vinculado exitosamente");
-        setActualizaContacto(!actualizaContacto);
-        setBtnCrear(false);
-        setFecha(undefined);
-      });
-    });
+    console.log(idCliente)
+    console.log(values)
+    console.log(fecha)
+    // fetch(`${URLDOS}modulos/clientView_crearContacto.php`, {
+    //   method: "POST",
+    //   body: data,
+    // }).then(function (response) {
+    //   response.text().then((resp) => {
+    //     message.success("El contacto se ha creado y vinculado exitosamente");
+    //     setActualizaContacto(!actualizaContacto);
+    //     setBtnCrear(false);
+    //     setFecha(undefined);
+    //   });
+    // });
   };
 
   //Manejo de datepicker
