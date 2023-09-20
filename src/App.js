@@ -1,11 +1,14 @@
 import { ApolloProvider } from "@apollo/client";
 import { ConfigProvider } from "antd";
 import { client } from "./apollo/ApolloClient";
-import esES from "antd/lib/locale/es_ES";
 import "./App.css";
 import { useState } from "react";
 import { GlobalContext } from "./components/context/GlobalContext";
 import { ViewGeneral } from "./components/ui/ViewGeneral";
+import "dayjs/locale/es";
+import dayjs from "dayjs";
+import esES from "antd/lib/locale/es_ES";
+dayjs.locale("es")
 
 function App() {
   const [appStage, setAppStage] = useState(0);
