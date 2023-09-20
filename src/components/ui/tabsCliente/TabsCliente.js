@@ -90,8 +90,6 @@ const TabsCliente = () => {
     });
   };
 
-  //console.log(infoCliSelect)
-
   const cargarContactosCli = () => {
     const data = new FormData();
     data.append("idCli", idCliente);

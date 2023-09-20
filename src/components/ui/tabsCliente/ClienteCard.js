@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Divider, Input, Select } from "antd";
 import { Form } from "antd";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -22,8 +22,6 @@ const ClienteCard = () => {
     editCli,
     setEditCli,
   } = useContext(GlobalContext);
-
-  //console.log(infoCliSelect)
 
   const [cliFav, setCliFav] = useState(true);
 
@@ -139,8 +137,6 @@ const ClienteCard = () => {
   };
 
   const guardarCli = (values) => {
-    // console.log(values);
-
     const data = new FormData();
     data.append("idUsu", usu);
     data.append("idCli", Number(infoCliSelect[0]?.cli_id));
@@ -153,8 +149,8 @@ const ClienteCard = () => {
     data.append("sector", Number(values.sector));
     data.append("tipoClientes", Number(values.tipoClientes));
     data.append("tamano", Number(values.tamano));
-    data.append("zona", Number(values.zona));
-    data.append("centro", Number(values.centro));
+    data.append("zona", values.zona);
+    data.append("centro", values.centro);
     fetch(`${URLDOS}modulos/clientView_editarCli.php`, {
       method: "POST",
       body: data,
@@ -168,6 +164,26 @@ const ClienteCard = () => {
     setEditCli(false);
     form.resetFields();
   };
+
+  useEffect(() => {
+    if (infoCliSelect?.length > 0) {
+      let data = infoCliSelect[0];
+
+      form.setFieldsValue({
+        razonSocial: data.cli_nombre,
+        descripcion: data.cli_descripcion,
+        telefono: data.cli_telefono1,
+        celular: data.cli_telefono2,
+        cuit: data.cli_cuit,
+        email: data.cli_email1,
+        sector: data.sec_id,
+        tipoClientes: data.tip_id,
+        tamano: data.tam_id,
+        zona: data.gruuno_id,
+        centro: data.grudos_id,
+      });
+    }
+  }, [infoCliSelect]);
 
   return (
     <>
@@ -338,7 +354,6 @@ const ClienteCard = () => {
                   },
                 ]}
                 className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.cli_nombre}
               >
                 <Input />
               </Form.Item>
@@ -347,7 +362,6 @@ const ClienteCard = () => {
                 label="Descripción"
                 name="descripcion"
                 style={{ marginTop: "10px" }}
-                initialValue={infoCliSelect[0]?.cli_descripcion}
               >
                 <TextArea />
               </Form.Item>
@@ -361,29 +375,19 @@ const ClienteCard = () => {
                 marginTop: "10px",
               }}
             >
-              <Form.Item
-                label="Teléfono"
-                name="telefono"
-                initialValue={infoCliSelect[0]?.cli_telefono1}
-              >
+              <Form.Item label="Teléfono" name="telefono">
                 <Input style={{ width: "170px" }} />
               </Form.Item>
               <Form.Item
                 label="Celular"
                 name="celular"
                 className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.cli_telefono2}
               >
                 <Input style={{ width: "170px" }} />
               </Form.Item>
             </div>
 
-            <Form.Item
-              label="Email"
-              name="email"
-              style={{ marginTop: "10px" }}
-              initialValue={infoCliSelect[0]?.cli_email1}
-            >
+            <Form.Item label="Email" name="email" style={{ marginTop: "10px" }}>
               <Input />
             </Form.Item>
 
@@ -395,12 +399,7 @@ const ClienteCard = () => {
                 marginTop: "10px",
               }}
             >
-              <Form.Item
-                label="CUIT"
-                name="cuit"
-                className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.cli_cuit}
-              >
+              <Form.Item label="CUIT" name="cuit" className="hidden-asterisk">
                 <Input style={{ width: "170px" }} />
               </Form.Item>
 
@@ -408,7 +407,6 @@ const ClienteCard = () => {
                 label="Tamaño"
                 name="tamano"
                 className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.tam_id}
               >
                 {tamaño ? (
                   <Select style={{ width: "170px" }}>
@@ -440,7 +438,6 @@ const ClienteCard = () => {
                 wrapperCol={{ span: 20 }}
                 name="tipoClientes"
                 className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.tip_id}
               >
                 {tiposCliente ? (
                   <Select style={{ width: "170px" }}>
@@ -462,7 +459,6 @@ const ClienteCard = () => {
                 wrapperCol={{ span: 20 }}
                 name="sector"
                 className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.sec_id}
               >
                 {sector ? (
                   <Select style={{ width: "170px" }}>
@@ -498,7 +494,6 @@ const ClienteCard = () => {
                   },
                 ]}
                 className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.gruuno_id}
               >
                 {grupoUno ? (
                   <Select style={{ width: "170px" }}>
@@ -524,7 +519,6 @@ const ClienteCard = () => {
                   },
                 ]}
                 className="hidden-asterisk"
-                initialValue={infoCliSelect[0]?.grudos_id}
               >
                 {grupoDos ? (
                   <Select style={{ width: "170px" }}>

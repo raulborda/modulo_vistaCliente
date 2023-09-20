@@ -1,6 +1,11 @@
-/modulos/vista_cliente
+# /modulos/vista_cliente
 
-storage key necesarias
+# node v14.17.0
 
-usuario
-cliSelect
+## .env
+### REACT_APP_URL = '../../'
+
+## App.js
+### storage keys necesarias
+### idUsu
+### idC
