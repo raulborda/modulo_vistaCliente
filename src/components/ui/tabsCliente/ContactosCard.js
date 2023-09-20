@@ -134,17 +134,13 @@ const ContactosCard = () => {
       response.text().then((resp) => {
         // const data = resp;
         // const objetoData = JSON.parse(data);
-        console.log(resp);
       });
     });
-    console.log("Formulario enviado:", updatedValues);
     setFormValues({});
     setContactoEditado(null);
     setActualizaContacto(!actualizaContacto);
     form.resetFields();
   };
-
-  //! crear contacto
 
   const handleTabChange = (key) => {
     setSelectedTab(key);

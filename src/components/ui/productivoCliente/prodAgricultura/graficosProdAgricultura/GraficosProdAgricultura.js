@@ -406,13 +406,11 @@ const GraficosProdAgricultura = ({ cosechaActiva }) => {
   //! FIN - PROBANDO
 
   const verTable = () => {
-    console.log(1);
     setCardSelected(1);
     setIconTable(!iconTable);
   };
 
   const verGrafico = () => {
-    console.log(0);
     setCardSelected(0);
     setIconTable(!iconTable);
   };

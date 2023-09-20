@@ -266,8 +266,6 @@ export const ProductivoAgricultura = () => {
     });
   }, [update, idCliente]);
 
-  console.log(visible);
-
   return (
     <>
       {visible === false ? (

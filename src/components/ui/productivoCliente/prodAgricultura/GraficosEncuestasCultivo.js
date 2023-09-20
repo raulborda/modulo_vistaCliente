@@ -147,7 +147,6 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
           ...objetoData,
         ];
 
-        console.log(cultivosConTodos);
         setCultivos(cultivosConTodos);
       });
     });
