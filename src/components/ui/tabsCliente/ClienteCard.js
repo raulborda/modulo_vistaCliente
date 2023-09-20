@@ -31,6 +31,7 @@ const ClienteCard = () => {
   const [tiposCliente, setTiposClientes] = useState(null);
   const [grupoUno, setGrupoUno] = useState(null);
   const [grupoDos, setGrupoDos] = useState(null);
+  const [conf, setConf] = useState();
   //---------------------------------------------------------------------------------------------------------------
 
   // CONSULTAS A BASE DE DATOS QUE LLENAN LOS SELECTS CON LAS OPCIONES ------------------------------------------
@@ -185,6 +186,20 @@ const ClienteCard = () => {
     }
   }, [infoCliSelect]);
 
+  useEffect(() => {
+    const url = `${URLDOS}modulos/getConf.php`;
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error en la solicitud: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setConf(data);
+      });
+  }, []);
+
   return (
     <>
       {!editCli ? (
@@ -307,31 +322,39 @@ const ClienteCard = () => {
           </p>
 
           <p style={{ marginBottom: "10px" }}>
-            <label className="fontWeightLabel">Sector:</label>
-            <lebel className="labelValue">
+            <label className="fontWeightLabel">
+              Sector:
+              {/* {conf ? conf[0].grupo2 : "-"}: */}
+            </label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.sec_desc ? infoCliSelect[0]?.sec_desc : "-"}
-            </lebel>
+            </label>
           </p>
 
           <p style={{ marginBottom: "10px" }}>
-            <label className="fontWeightLabel">Zona:</label>
-            <lebel className="labelValue">
+            <label className="fontWeightLabel">
+              {" "}
+              {conf ? conf[0].grupo1 : "-"}:
+            </label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.gruuno_desc
                 ? infoCliSelect[0]?.gruuno_desc
                 : "-"}
-            </lebel>
+            </label>
           </p>
 
           <p style={{ marginBottom: "10px" }}>
-            <label className="fontWeightLabel">Centro:</label>
-            <lebel className="labelValue">
+            <label className="fontWeightLabel">
+              {conf ? conf[0].grupo2 : "-"}:
+            </label>
+            <label className="labelValue">
               {" "}
               {infoCliSelect[0]?.grudos_desc
                 ? infoCliSelect[0]?.grudos_desc
                 : "-"}
-            </lebel>
+            </label>
           </p>
         </div>
       ) : (
@@ -485,7 +508,7 @@ const ClienteCard = () => {
               }}
             >
               <Form.Item
-                label="Zona"
+                label={conf ? conf[0].grupo1 : "-"}
                 name="zona"
                 rules={[
                   {
@@ -510,7 +533,7 @@ const ClienteCard = () => {
                 )}
               </Form.Item>
               <Form.Item
-                label="Centro"
+                label={conf ? conf[0].grupo2 : "-"}
                 name="centro"
                 rules={[
                   {
