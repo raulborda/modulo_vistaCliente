@@ -395,7 +395,7 @@ const TabsCliente = () => {
 
           <div style={{ marginTop: "1px" }}>{handleStage()}</div>
         </>
-      ) : (
+      ) : ( 
         <div style={{ marginTop: "10px" }}>
           <Empty description="Hay un problema con el origen de la información." />
         </div>
