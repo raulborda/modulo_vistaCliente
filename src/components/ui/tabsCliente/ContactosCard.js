@@ -195,6 +195,7 @@ const ContactosCard = () => {
         setFecha(undefined);
       });
     });
+    
   };
 
   //Manejo de datepicker
