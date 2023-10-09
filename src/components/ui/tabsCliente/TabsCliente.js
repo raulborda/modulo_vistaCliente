@@ -254,7 +254,7 @@ const TabsCliente = () => {
   // };
 
   return (
-    <div className="divContainer">
+    <div className="divContainer" >
       {selectedAcosDesc ? (
         <>
           <div className="divCliente_info">
@@ -391,7 +391,7 @@ const TabsCliente = () => {
             </Tabs>
           </div>
 
-          <div style={{ marginTop: "1px" }}>{handleStage()}</div>
+          <div style={{flex: 1}}>{handleStage()}</div>
         </>
       ) : ( 
         <div style={{ marginTop: "10px" }}>

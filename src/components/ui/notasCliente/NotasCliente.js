@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const NotasCliente = () => {
@@ -18,8 +18,8 @@ const NotasCliente = () => {
         loading="lazy"
         // src={`${URL}/tati/modulos/notas_clientes/?idC=${idCliente}`}//pra probar local en tati
         src={`${URLDOS}modulos/notas_clientes/?idC=${idCliente}`} // para el resto de los crm
-        width={"100%"}
-        height={"900"}
+        width="100%"
+        height="100%"
         style={{ border: "none" }}
         title="Notas Cliente"
       ></iframe>

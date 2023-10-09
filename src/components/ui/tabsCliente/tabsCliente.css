@@ -17,9 +17,7 @@ html {
   flex-direction: column;
   width: 100%;
   user-select: none;
-  /* margin-bottom: -3px !important; */
-  /* margin-top: 10px; */
-  /* height: 300px !important;  */
+  height: 99%;
 }
 
 .divContainer-Select-Tabs {

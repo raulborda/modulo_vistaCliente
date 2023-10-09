@@ -1,6 +1,4 @@
-import { ApolloProvider } from "@apollo/client";
 import { ConfigProvider } from "antd";
-import { client } from "./apollo/ApolloClient";
 import "./App.css";
 import { useState } from "react";
 import { GlobalContext } from "./components/context/GlobalContext";
@@ -8,7 +6,7 @@ import { ViewGeneral } from "./components/ui/ViewGeneral";
 import "dayjs/locale/es";
 import dayjs from "dayjs";
 import esES from "antd/lib/locale/es_ES";
-dayjs.locale("es")
+dayjs.locale("es");
 
 function App() {
   const [appStage, setAppStage] = useState(0);
@@ -35,7 +33,7 @@ function App() {
   // const idUsu = 1; //.28
   const idUsu = localStorage.getItem("usuario");
   const [usu, setUsu] = useState(idUsu);
-  //* Id de cliente que se obtine desde local storage
+  // * Id de cliente que se obtine desde local storage
   // const idC = 2; // .153
   //const idC = 2773; //.28
   const idC = localStorage.getItem("cliSelect");
@@ -326,18 +324,16 @@ function App() {
         setActEncHac,
       }}
     >
-      <ApolloProvider client={client}>
-        <ConfigProvider
-          locale={esES}
-          theme={{
-            token: {
-              colorPrimary: "#56b43c",
-            },
-          }}
-        >
-          <ViewGeneral />
-        </ConfigProvider>
-      </ApolloProvider>
+      <ConfigProvider
+        locale={esES}
+        theme={{
+          token: {
+            colorPrimary: "#56b43c",
+          },
+        }}
+      >
+        <ViewGeneral />
+      </ConfigProvider>
     </GlobalContext.Provider>
   );
 }
