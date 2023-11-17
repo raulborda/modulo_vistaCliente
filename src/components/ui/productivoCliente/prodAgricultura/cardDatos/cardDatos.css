@@ -25,3 +25,8 @@
     font-size: 16px !important;
     text-align: right;
 }
+
+/*Boton volver*/
+.drawerCamLot .ant-drawer-header-title{
+    justify-content: flex-end;
+}

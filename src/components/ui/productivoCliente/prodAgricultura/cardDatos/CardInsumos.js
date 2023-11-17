@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/style-prop-object */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { CaretDownOutlined, CaretUpFilled } from "@ant-design/icons";
-import { Button, Card, Col, Row, Spin, Statistic } from "antd";
+import { CaretDownOutlined, CaretUpFilled, CloseOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Row, Spin, Statistic, Drawer } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { GlobalContext } from "../../../../context/GlobalContext";
@@ -99,6 +99,9 @@ const CardInsumos = () => {
   const [totalInUSD, setTotalInUSD] = useState(0);
 
   const [activeCardStyle, setActiveCardStyle] = useState();
+
+  //Ver campos y lotes
+  const [showcamlot, setShowcamlot] = useState(false);
 
   const handleClick = (index) => {
     switch (index) {
@@ -257,9 +260,9 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.cos_est) !== 0
                 ? (
-                    (parseInt(item.imp2) * 100) /
-                    parseInt(item.cos_est)
-                  ).toFixed(0)
+                  (parseInt(item.imp2) * 100) /
+                  parseInt(item.cos_est)
+                ).toFixed(0)
                 : 0) +
               "%)",
           };
@@ -304,9 +307,9 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.cos_est) !== 0
                 ? (
-                    (parseInt(item.imp2) * 100) /
-                    parseInt(item.cos_est)
-                  ).toFixed(0)
+                  (parseInt(item.imp2) * 100) /
+                  parseInt(item.cos_est)
+                ).toFixed(0)
                 : 0) +
               "%)",
           };
@@ -351,9 +354,9 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.cos_est) !== 0
                 ? (
-                    (parseInt(item.imp2) * 100) /
-                    parseInt(item.cos_est)
-                  ).toFixed(0)
+                  (parseInt(item.imp2) * 100) /
+                  parseInt(item.cos_est)
+                ).toFixed(0)
                 : 0) +
               "%)",
           };
@@ -398,9 +401,9 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.cos_est) !== 0
                 ? (
-                    (parseInt(item.imp2) * 100) /
-                    parseInt(item.cos_est)
-                  ).toFixed(0)
+                  (parseInt(item.imp2) * 100) /
+                  parseInt(item.cos_est)
+                ).toFixed(0)
                 : 0) +
               "%)",
           };
@@ -451,8 +454,8 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.tt_est) !== 0
                 ? ((parseInt(item.kil) * 100) / parseInt(item.tt_est)).toFixed(
-                    0
-                  )
+                  0
+                )
                 : 0) +
               "%)",
           };
@@ -499,8 +502,8 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.tt_est) !== 0
                 ? ((parseInt(item.kil) * 100) / parseInt(item.tt_est)).toFixed(
-                    0
-                  )
+                  0
+                )
                 : 0) +
               "%)",
           };
@@ -546,8 +549,8 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.tt_est) !== 0
                 ? ((parseInt(item.kil) * 100) / parseInt(item.tt_est)).toFixed(
-                    0
-                  )
+                  0
+                )
                 : 0) +
               "%)",
           };
@@ -592,8 +595,8 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.tt_est) !== 0
                 ? ((parseInt(item.kil) * 100) / parseInt(item.tt_est)).toFixed(
-                    0
-                  )
+                  0
+                )
                 : 0) +
               "%)",
           };
@@ -639,8 +642,8 @@ const CardInsumos = () => {
               "(" +
               (parseInt(item.tt_est) !== 0
                 ? ((parseInt(item.kil) * 100) / parseInt(item.tt_est)).toFixed(
-                    0
-                  )
+                  0
+                )
                 : 0) +
               "%)",
           };
@@ -664,14 +667,14 @@ const CardInsumos = () => {
       : 0;
     const total = filteredInfoEvo
       ? parseInt(filteredInfoEvo.ahxs_propias) +
-        parseInt(filteredInfoEvo.ahxs_alquiladas)
+      parseInt(filteredInfoEvo.ahxs_alquiladas)
       : 0;
     const selectCosechaAnterior = infoEvo.find(
       (item) => item.acos_desc === cosechaAnterior
     );
     const totalCosechaAnterior = selectCosechaAnterior
       ? parseInt(selectCosechaAnterior.ahxs_propias) +
-        parseInt(selectCosechaAnterior.ahxs_alquiladas)
+      parseInt(selectCosechaAnterior.ahxs_alquiladas)
       : 0;
 
     setValorPropias(vPropias);
@@ -846,6 +849,50 @@ const CardInsumos = () => {
 
   return (
     <>
+      {/* <div style={{ textAlign: "center" }}>
+        <Button type="primary" style={{ marginBottom: "5px", width: "50%" }} onClick={() => setShowcamlot(true)} >Ver Campos y Lotes</Button>
+      </div> */}
+      {showcamlot && (
+        <Drawer
+          className="drawerCamLot"
+          open={showcamlot}
+          onClose={() => setShowcamlot(false)}
+          placement="bottom"
+          height={"100%"}
+          style={{ whiteSpace: "nowrap" }}
+          bodyStyle={{ padding: "0px" }}
+          headerStyle={{ padding: "0px", borderBottom: "none" }}
+          closeIcon={
+            <Button
+                style={{
+                  borderRadius: "2px", paddingRight: "12px"
+                }}
+              >
+                <ArrowLeftOutlined /> Volver
+              </Button>
+          }
+          >
+          {/* <Button
+            onClick={() => setShowcamlot(false)}
+            style={{
+              borderRadius: "2px", position: "absolute", top: "8px", right: "8px"
+            }}
+          >
+            <ArrowLeftOutlined /> Volver
+          </Button> */}
+          <iframe
+            loading="lazy"
+            src={`${URL}/modulos/modulo_CamposLotes`}
+            width={"100%"}
+            style={{ border: "none", height: "calc(100% - 3px)"}}
+            title="drawer"
+          ></iframe>
+        </Drawer>
+      )}
+
+
+
+
       <div
         style={{
           height: "100%",
@@ -1029,7 +1076,8 @@ const CardInsumos = () => {
                     margin: "4px",
                     borderRadius: "0px",
                   }}
-                  onClick={() => setVisible(!visible)}
+                  // onClick={() => setVisible(!visible)}
+                  onClick={() => setShowcamlot(true)}
                 >
                   Ver Lotes
                 </Button>
