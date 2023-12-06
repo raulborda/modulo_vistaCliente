@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { Select } from "antd";
 import "./Styles.css";
+import { Tag } from "../../utils/CardBrightness";
 
 const AdminEtiqueta = () => {
   const URL = process.env.REACT_APP_URL;
@@ -77,31 +78,32 @@ const AdminEtiqueta = () => {
     const etiqueta = totalEtqCli.find((etiqueta) => etiqueta.etq_id === value);
     const backgroundColor = etiqueta ? etiqueta.etq_color : "";
     return (
-      <div
-        style={{
-          backgroundColor,
-          color: "#fff",
-          borderRadius: "4px",
-          padding: "2px 8px",
-          display: "inline-block",
-          marginRight: "8px", // Espacio entre etiquetas
-        }}
-      >
-        <span style={{ paddingTop: "2px", fontWeight: "600" }}>
-          {label.toUpperCase()}
-        </span>
-        {closable && (
-          <span
-            style={{ marginLeft: "4px", cursor: "pointer" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onClose();
-            }}
-          >
-            x
-          </span>
-        )}
-      </div>
+      // <div
+      //   style={{
+      //     backgroundColor,
+      //     color: "#fff",
+      //     borderRadius: "4px",
+      //     padding: "2px 8px",
+      //     display: "inline-block",
+      //     marginRight: "8px", // Espacio entre etiquetas
+      //   }}
+      // >
+      //   <span style={{ paddingTop: "2px", fontWeight: "600" }}>
+      //     {label.toUpperCase()}
+      //   </span>
+      //   {closable && (
+      //     <span
+      //       style={{ marginLeft: "4px", cursor: "pointer" }}
+      //       onClick={(e) => {
+      //         e.stopPropagation();
+      //         onClose();
+      //       }}
+      //     >
+      //       x
+      //     </span>
+      //   )}
+      // </div>
+      <Tag hex={backgroundColor} nombre={label?.toUpperCase()} />
     );
   };
 

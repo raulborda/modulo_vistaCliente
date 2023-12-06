@@ -6,6 +6,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { EditOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons";
 import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
 import TextArea from "antd/es/input/TextArea";
+import { Tag } from "../../utils/CardBrightness"
 
 const ClienteCard = () => {
   const URLDOS = process.env.REACT_APP_URL;
@@ -626,19 +627,20 @@ const ClienteCard = () => {
             }}
           >
             {etiquetasCli?.map((tag) => (
-              <>
-                <div
-                  className="selected_tag"
-                  style={{
-                    background: tag.etq_color,
-                  }}
-                  key={tag.etq_id}
-                >
-                  <span className="etq_name">
-                    {tag.etq_nombre.toUpperCase()}
-                  </span>
-                </div>
-              </>
+              // <>
+              //   <div
+              //     className="selected_tag"
+              //     style={{
+              //       background: tag.etq_color,
+              //     }}
+              //     key={tag.etq_id}
+              //   >
+              //     <span className="etq_name">
+              //       {tag.etq_nombre.toUpperCase()}
+              //     </span>
+              //   </div>
+              // </>
+              <Tag key={tag.etq_id} hex={tag.etq_color} nombre={tag.etq_nombre.toUpperCase()} />
             ))}
           </div>
         </>

@@ -14,6 +14,7 @@ import ClienteCard from "./ClienteCard";
 import ContactosCard from "./ContactosCard";
 // import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
 import { Empty } from "antd/es";
+import { Tag } from "../../utils/CardBrightness";
 
 const TabsCliente = () => {
   const URL = process.env.REACT_APP_URL;
@@ -338,18 +339,8 @@ const TabsCliente = () => {
 
             <div className="selected_tags">
               {etiquetasCli?.map((tag) => (
-                <div
-                  className="selected_tag"
-                  style={{
-                    background: tag.etq_color,
-                    // display: "inline-block",
-                  }}
-                  key={tag.etq_id}
-                >
-                  <span className="etq_name">
-                    {tag.etq_nombre.toUpperCase()}
-                  </span>
-                </div>
+                
+                <Tag key={tag.etq_id} hex={tag.etq_color} nombre={tag.etq_nombre.toUpperCase()} />
               ))}
             </div>
           </div>
