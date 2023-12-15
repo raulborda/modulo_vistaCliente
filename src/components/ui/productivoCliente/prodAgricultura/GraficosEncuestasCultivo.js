@@ -317,7 +317,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div>
               <div style={{ paddingBottom: "5px" }}>
-                <h1 className="titulos">ENCUESTA DE SIEMBRA</h1>
+                <h1 className="titulos">ENCUESTA DE PRODUCCIÓN</h1>
               </div>
               <div
                 style={{
@@ -326,7 +326,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                   marginBottom: "10px",
                 }}
               >
-                <div style={{ display: "flex", flexDirection: "column" }}>
+                {/* <div style={{ display: "flex", flexDirection: "column" }}>
                   <div style={{ marginLeft: "5px" }}>
                     <h1 className="titulos">LOTES</h1>
                   </div>
@@ -354,7 +354,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                       ))}
                     </Select>
                   </div>
-                </div>
+                </div> */}
                 <div
                   style={{
                     display: "flex",
@@ -363,7 +363,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                   }}
                 >
                   <div style={{ marginLeft: "5px" }}>
-                    <h1 className="titulos">CULTIVO</h1>
+                    <h1 className="titulos">DESTINO</h1>
                   </div>
                   <div>
                     <Select
@@ -424,7 +424,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
           </div>
         </div>
         <div
-          style={{ display: "flex", flexDirection: "row", paddingTop: "5px" }}
+          style={{ display: "flex", flexDirection: "row", paddingTop: "5px", justifyContent: "space-around" }}
         >
           <div
             style={{
@@ -436,7 +436,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
           >
             <div>
               <h1 className="titulos">
-                SUP. ENCUESTADA: {totalSuperficie} HAS.
+                LITROS: {totalSuperficie}
               </h1>
             </div>
             {cultivosSupEncuestadas.length === 0 ? (
@@ -468,7 +468,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
               </ResponsiveContainer>
             )}
           </div>
-          <div
+          {/* <div
             style={{
               width: "33%",
               display: "flex",
@@ -509,7 +509,7 @@ export const GraficosEncuestasCultivo = ({ cosechaActiva }) => {
                 </PieChart>
               </ResponsiveContainer>
             )}
-          </div>
+          </div> */}
           <div
             style={{
               width: "33%",
