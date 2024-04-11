@@ -39,6 +39,7 @@ const ContactosCard = () => {
     btnCrear,
     setBtnCrear,
     idCliente,
+    usu
   } = useContext(GlobalContext);
 
   const { Option } = Select;
@@ -181,6 +182,7 @@ const ContactosCard = () => {
     data.append("descrip", values.descrip);
     data.append("idRol", Number(values.roles));
     fecha && data.append("fechanac", fecha);
+    data.append("usu_id", usu)
 
     fetch(`${URLDOS}modulos/clientView_crearContacto.php`, {
       method: "POST",
