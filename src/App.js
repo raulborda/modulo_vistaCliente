@@ -137,6 +137,8 @@ function App() {
   const [actualizarEncHac, setActualizarEncHac] = useState(false);
   const [actEncHac, setActEncHac] = useState(false);
 
+  console.log('version modulo_vistaCliente: 12.04.24');
+
   return (
     <GlobalContext.Provider
       value={{
