@@ -455,7 +455,7 @@ const TabsCliente = () => {
         >
           <iframe
             loading="lazy"
-            src={`${URLDrawer}/duod/file_dos/?drawer=${drawerUpload}&modori_id=${modori}&filter_id=${filter}&usu_id=${usu}&generico_id=${generico}&cli_id=${idCliente}`}
+            src={`${URLDrawer}/duoc/file_dos/?drawer=${drawerUpload}&modori_id=${modori}&filter_id=${filter}&usu_id=${usu}&generico_id=${generico}&cli_id=${idCliente}`}
             width={"100%"}
             height={"100%"}
             style={{ border: "none" }}
