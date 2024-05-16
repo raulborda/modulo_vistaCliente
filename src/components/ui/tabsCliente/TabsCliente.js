@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Drawer, Select, Spin, Tabs } from "antd";
+import { Button, Drawer, Select, Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -9,7 +9,7 @@ import NegociosCliente from "../negociosCliente/NegociosCliente";
 import TareasCliente from "../tareasCliente/TareasCliente";
 import NotasCliente from "../notasCliente/NotasCliente";
 import FinanzasCliente from "../finanzasCliente/FinanzasCliente";
-import { EyeOutlined, UserOutlined } from "@ant-design/icons";
+import { EyeOutlined, UserOutlined, PaperClipOutlined } from "@ant-design/icons";
 import ClienteCard from "./ClienteCard";
 import ContactosCard from "./ContactosCard";
 // import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
@@ -18,6 +18,16 @@ import { Tag } from "../../utils/CardBrightness";
 
 const TabsCliente = () => {
   const URL = process.env.REACT_APP_URL;
+  const PORT = window.location.port ? window.location.port : 80;
+  const PROTOCOL = window.location.protocol;
+  const HOSTNAME = window.location.hostname;
+  const URLDrawer = `${PROTOCOL}//${HOSTNAME}:${PORT}`;
+
+  const [drawerUpload, setDrawerUpload] = useState(false);
+  const [modori, setModori] = useState(0);
+  const [filter, setFilter] = useState(0);
+  const [generico, setGenerico] = useState(0);
+  // const [cliEnc, setCliEnc] = useState(0);
 
   const {
     appStage,
@@ -43,6 +53,7 @@ const TabsCliente = () => {
     setRoles,
     actualizaContacto,
     setBtnCrear,
+    usu
   } = useContext(GlobalContext);
 
   const handleSelectChange = (value) => {
@@ -254,6 +265,36 @@ const TabsCliente = () => {
   //   setOpenTag(false);
   // };
 
+  const handleUploadClick = (record) => {
+    setDrawerUpload(true);
+    setModori(2); // al estar vistaCliente dentro de modulo clientes, usamos modori de moduloClientes.
+    setFilter(2); // al estar vistaCliente dentro de modulo clientes, usamos modori de moduloClientes.
+    setGenerico(Number(record.cli_id)); // idCliente
+  };
+
+  const handleCloseDrawer = () => {
+    setDrawerUpload(false);
+  };
+
+  const handleMessageFromIframe = (event) => {
+    if (event.data === "closeDrawer") {
+      handleCloseDrawer();
+    }
+  };
+
+  // Agrega el event listener para recibir mensajes del iframe
+  useEffect(() => {
+    window.addEventListener("message", handleMessageFromIframe);
+
+    // Remueve el event listener al desmontar el componente
+    return () => {
+      window.removeEventListener("message", handleMessageFromIframe);
+    };
+  }, []);
+
+  // console.log('infoCliSelect[0]?.cli_nombre', infoCliSelect[0])
+
+
   return (
     <div className="divContainer" >
       {selectedAcosDesc ? (
@@ -277,6 +318,7 @@ const TabsCliente = () => {
                     fontSize: "15px",
                     color: "#00b33c",
                   }}
+                  title="Información"
                   onClick={() => showDrawer()}
                 />
                 <UserOutlined
@@ -284,7 +326,16 @@ const TabsCliente = () => {
                     fontSize: "13px",
                     color: "#00b33c",
                   }}
+                  title="Contactos"
                   onClick={() => showDrawerC()}
+                />
+                <PaperClipOutlined
+                  style={{
+                    fontSize: "13px",
+                    color: "#00b33c",
+                  }}
+                  title="Archivos"
+                  onClick={() => handleUploadClick(infoCliSelect[0])}
                 />
               </span>
               <Drawer
@@ -339,7 +390,7 @@ const TabsCliente = () => {
 
             <div className="selected_tags">
               {etiquetasCli?.map((tag) => (
-                
+
                 <Tag key={tag.etq_id} hex={tag.etq_color} nombre={tag.etq_nombre.toUpperCase()} />
               ))}
             </div>
@@ -382,13 +433,36 @@ const TabsCliente = () => {
             </Tabs>
           </div>
 
-          <div style={{flex: 1}}>{handleStage()}</div>
+          <div style={{ flex: 1 }}>{handleStage()}</div>
         </>
-      ) : ( 
+      ) : (
         <div style={{ marginTop: "10px" }}>
           <Empty description="Hay un problema con el origen de la información." />
         </div>
       )}
+
+      {drawerUpload ? (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 999,
+            height: "100%",
+          }}
+        >
+          <iframe
+            loading="lazy"
+            src={`${URLDrawer}/duoc/file_dos/?drawer=${drawerUpload}&modori_id=${modori}&filter_id=${filter}&usu_id=${usu}&generico_id=${generico}&cli_id=${idCliente}`}
+            width={"100%"}
+            height={"100%"}
+            style={{ border: "none" }}
+            title="drawer"
+          ></iframe>
+        </div>
+      ) : null}
     </div>
   );
 };
