@@ -15,6 +15,9 @@ import ContactosCard from "./ContactosCard";
 // import AdminEtiqueta from "../etiquetasCliente/AdminEtiqueta";
 import { Empty } from "antd/es";
 import { Tag } from "../../utils/CardBrightness";
+import ScoringCliente from "../scoringCliente/ScoringCliente";
+import axios from 'axios';
+
 
 const TabsCliente = () => {
   const URL = process.env.REACT_APP_URL;
@@ -28,6 +31,8 @@ const TabsCliente = () => {
   const [filter, setFilter] = useState(0);
   const [generico, setGenerico] = useState(0);
   // const [cliEnc, setCliEnc] = useState(0);
+
+  const [configPDF, setConfigPDF] = useState(null);
 
   const {
     appStage,
@@ -149,6 +154,41 @@ const TabsCliente = () => {
     });
   };
 
+  const getConfPDF = async () => {
+    try {
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${URL}modulos/getConfPDF.php`,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+
+      const res = axios.request(config);
+
+      return await res;
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
+  useEffect(() => {
+    const fetchPDFconfig = async () => {
+      try {
+        const res = await getConfPDF();
+
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setConfigPDF(res.data);
+        };
+
+      } catch (error) {
+        console.error("Error al obtener el config pdf:", error);
+      };
+    };
+    fetchPDFconfig();
+  }, []);
+
   useEffect(() => {
     if (idCliente) {
       cargarInfoCli();
@@ -194,7 +234,15 @@ const TabsCliente = () => {
       label: "Finanzas",
       component: <FinanzasCliente />,
     },
+    ...(Array.isArray(configPDF) && configPDF[0]?.name === 'ASCENCION'
+      ? [{
+        key: "5",
+        label: "Scoring",
+        component: <ScoringCliente />,
+      }]
+      : []),
   ];
+
 
   const handleStage = () => {
     switch (appStage) {
@@ -208,6 +256,8 @@ const TabsCliente = () => {
         return <NotasCliente />;
       case 4:
         return <FinanzasCliente />;
+      case 5:
+        return <ScoringCliente />;
       default:
         return <ProductivoCliente />;
     }
@@ -229,6 +279,9 @@ const TabsCliente = () => {
         break;
       case "4":
         setAppStage(4);
+        break;
+      case "5":
+        setAppStage(5);
         break;
       default:
         setAppStage(0);

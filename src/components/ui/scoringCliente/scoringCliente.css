@@ -1,0 +1,14 @@
+.card-nosis-actual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    text-align: center;
+    border-radius: 0;
+    width: 300px;
+}
+
+.card-nosis-actual-value {
+    font-size: 45px;
+    font-weight: 700;
+}
