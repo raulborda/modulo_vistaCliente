@@ -116,6 +116,8 @@ const AdminEtiqueta = () => {
         value={etiquetasCliNombres}
         onChange={handleEtiquetaChange}
         tagRender={renderEtiquetaTag} // Personaliza la apariencia de las etiquetas seleccionadas
+        showSearch
+        optionFilterProp="children"
       >
         {totalEtqCli.map((etiqueta) => (
           <Option key={etiqueta.etq_id} value={etiqueta.etq_id}>
