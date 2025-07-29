@@ -137,7 +137,7 @@ function App() {
   const [actualizarEncHac, setActualizarEncHac] = useState(false);
   const [actEncHac, setActEncHac] = useState(false);
 
-  console.log('version modulo_vistaCliente: 14.05.24 FISA');
+  console.log('version modulo_vistaCliente: 28.07.25 FISA');
 
   return (
     <GlobalContext.Provider
